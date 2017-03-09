@@ -1,0 +1,10 @@
+{
+  "files.exclude": {
+    "node_modules": true,
+    "docs": true,
+    "*.bat": true,
+    "LICENSE.txt": true,
+    ".editorconfig": true,
+  },
+  "vsicons.presets.angular": false
+}

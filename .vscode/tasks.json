@@ -1,0 +1,6 @@
+{
+  "version": "0.1.0",
+  "command": "$build.bat",
+  "isShellCommand": true,
+  "args": ["default", "-noget"]
+}
