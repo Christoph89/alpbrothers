@@ -1,6 +1,25 @@
 {
   "version": "0.1.0",
-  "command": "$build.bat",
-  "isShellCommand": true,
-  "args": ["default", "-noget"]
+  "command": "gulp",
+  "isShellCommand": false,
+  "args": [],
+  "showOutput": "always",
+  "tasks": [
+    {
+      "taskName": "build",
+      "showOutput": "always",
+      "isBuildCommand": true
+    },
+    {
+      "taskName": "clean",
+      "showOutput": "always",
+      "isBuildCommand": true
+    },
+    {
+      "taskName": "watch",
+      "showOutput": "always",
+      "isBuildCommand": false,
+      "isBackground": true
+    }
+  ]
 }

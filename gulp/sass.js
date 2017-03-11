@@ -2,8 +2,8 @@ var gulp=require("gulp");
 var sass=require("gulp-sass");
 
 // get process environment vars
-var src=process.env.src;
-var dbg=process.env.dbg;
+var src=process.env.SRC;
+var dbg=process.env.DBG;
 
 // compiles the application's sass/scss files
 gulp.task("sass", function () {

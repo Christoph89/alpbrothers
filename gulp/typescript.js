@@ -2,8 +2,8 @@ var gulp=require("gulp");
 var ts=require("gulp-typescript");
 
 // get process environment vars
-var src=process.env.src;
-var dbg=process.env.dbg;
+var src=process.env.SRC;
+var dbg=process.env.DBG;
 
 // compiles the application's typescript files
 gulp.task("typescript", function () {

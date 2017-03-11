@@ -2,8 +2,8 @@ var gulp=require("gulp");
 var changed=require("gulp-changed");
 
 // get process environment vars
-var src=process.env.src;
-var dbg=process.env.dbg;
+var src=process.env.SRC;
+var dbg=process.env.DBG;
 
 // copies all css files to htd/css
 gulp.task('styles', ["fonts"], function () {

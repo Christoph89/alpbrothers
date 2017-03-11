@@ -4,11 +4,11 @@ var uglify=require("gulp-uglify");
 var uglifycss=require("gulp-uglifycss");
 
 // get process environment vars
-var dbg=process.env.dbg;
-var release=process.env.release;
+var dbg=process.env.DBG;
+var release=process.env.RLS;
 
 // minify htd folder / create ht folder
-gulp.task("release", ["default"], function () {
+gulp.task("release", ["build"], function () {
   // minify js
   gulp.src(dbg+"js/*.js")
     .pipe(changed(release+"js"))

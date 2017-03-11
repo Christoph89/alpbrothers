@@ -12,4 +12,4 @@ if "%task%"=="" (
   set task="release"
 )
 SET NODE_PATH=%~dp0node_modules
-call node %~dp0node_modules\gulp\bin\gulp.js %task% --gulpfile %~dp0gulp\default.js --cwd %~dp0 || exit /b 1
+call node %~dp0node_modules\gulp\bin\gulp.js %task% --gulpfile %~dp0gulpfile.js --cwd %~dp0 || exit /b 1
