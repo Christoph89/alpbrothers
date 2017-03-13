@@ -856,6 +856,10 @@
 			border-radius: 0;
 			opacity: _misc(overlay-opacity);
 
+      &.opacity-low {
+        opacity: _misc(overlay-opacity-low);
+      }
+
 			img {
 				@include vendor('object-fit', 'cover');
 				@include vendor('object-position', 'center');

@@ -153,12 +153,10 @@
 	}
 
 // Base.
-
 	@import 'base/page';
 	@import 'base/typography';
 
 // Component.
-
 	@import 'components/box';
 	@import 'components/button';
 	@import 'components/form';
@@ -175,5 +173,8 @@
 	@import 'components/index';
 
 // Layout.
-
 	@import 'layout/wrapper';
+  @import 'layout/common';
+  @import 'layout/welcome';
+  @import 'layout/courses';
+  @import 'layout/contact';

@@ -103,13 +103,13 @@
 	sub {
 		font-size: 0.8rem;
 		position: relative;
-		top: 0.5rem;
+		top: 0.2rem;
 	}
 
 	sup {
 		font-size: 0.8rem;
 		position: relative;
-		top: -0.5rem;
+		top: -0.2rem;
 	}
 
 	blockquote {
@@ -206,9 +206,13 @@
 			}
 		}
 
-		strong, b {
+		strong {
 			color: _palette($p, fg-bold);
 		}
+
+    b {
+			color: _palette($p, accent);
+    }
 
 		h1, h2, h3, h4, h5, h6 {
 			color: _palette($p, fg-bold);
