@@ -5918,7 +5918,7 @@ body.is-loading .items.onload-fade-in > * > .inner {
   display: block; }
 
 #map .content {
-  padding: 1rem;
+  padding: 2rem 0;
   max-width: initial; }
 
 #map .map {
