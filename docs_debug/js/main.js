@@ -351,41 +351,6 @@
 								}, 275);
 
 							});
-
-    
-    // menu
-    var mbtn=$("#menu-btn");
-    var menu=$("#menu");
-
-    // opens the menu
-    function openMenu() {
-      mbtn.addClass("fa-close").removeClass("fa-bars");
-      $wrapper.addClass("menu-opened");
-      menu.addClass("opened");
-    }
-
-    // closes the menu
-    function closeMenu() {
-      mbtn.addClass("fa-bars").removeClass("fa-close");
-      $wrapper.removeClass("menu-opened");
-      menu.removeClass("opened");
-    }
-
-    // toggle menu on menu button click
-    mbtn.click(function () {
-      if ($wrapper.hasClass("menu-opened"))
-        closeMenu();
-      else
-        openMenu();
-    });
-
-    // close menu when clicking outside of the inner container
-    menu.click(function (e) {
-      var target=$(e.target);
-      if (target.attr("id")=="menu" || target.hasClass("icon"))
-        closeMenu();
-    });
-
 	});
 
 })(jQuery);
