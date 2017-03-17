@@ -8,10 +8,10 @@ var dbg=process.env.DBG;
 // compiles the application's typescript files
 gulp.task("typescript", function () {
   // compile app.ts
-  //return gulp.src(src+"ts/app.ts")
-  //  .pipe(ts({
-  //      noImplicitAny: true,
-  //      out: "app.js"
-  //  }))
-  //  .pipe(gulp.dest(dbg+"js"));
+  return gulp.src(src+"ts/app.ts")
+   .pipe(ts({
+       noImplicitAny: false,
+       out: "app.js"
+   }))
+   .pipe(gulp.dest(dbg+"js"));
 });

@@ -11,6 +11,7 @@ gulp.task("scripts", function () {
   return gulp.src([
     src+"vendor/jquery/*.js",
     src+"vendor/skel/skel.js",
+    src+"vendor/linq/linq.js",
     src+"js/main.js",
     src+"js/util.js",
   ])

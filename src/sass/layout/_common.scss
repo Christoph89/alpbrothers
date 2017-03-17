@@ -20,3 +20,7 @@
 .vh100 {
   min-height: 100vh;
 }
+
+.no-pointer-events {
+  pointer-events: none;
+}
