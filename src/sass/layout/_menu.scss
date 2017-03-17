@@ -1,0 +1,49 @@
+#menu-btn {
+  position: fixed;
+  top: 1rem;
+  right: 1rem;
+  z-index: 3;
+
+  &:before {
+    background-color: _palette(menu-btn);
+  }
+
+  #wrapper.menu-opened &:before {
+    background-color: _palette(menu-btn-opened);
+  }
+}
+
+#menu {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: _palette(menu-bg) !important;
+  z-index: 2;
+  opacity: 0;
+  pointer-events: none;
+  @include vendor('transition', (
+    'opacity #{_duration(menu)} ease-in-out'
+  ));
+
+  &.opened {
+    opacity: 1;
+    pointer-events: auto;
+  }
+
+  .content {
+    background-color: _palette(menu-inner-bg) !important;
+    border: 1px solid #fff;
+  }
+
+  ul.actions {
+    li {
+      padding: 0.3rem 0 0 0;
+    }
+
+    li.media a {
+      margin: 0 5px;
+    }
+  }
+}

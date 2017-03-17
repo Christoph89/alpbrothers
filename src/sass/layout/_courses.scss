@@ -1,0 +1,14 @@
+#courses {
+  .no-course-info {
+    display: none;
+  }
+
+  &.no-courses {
+    .table-wrapper {
+      display: none;
+    }
+    .no-course-info {
+      display: block;
+    }
+  }
+}

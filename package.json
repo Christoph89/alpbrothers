@@ -1,0 +1,17 @@
+{
+  "name": "alpbrothers",
+  "version": "1.0.0",
+  "description": "www.alpbrothers.at",
+  "dependencies": {
+    "typescript": "^2.2.1",
+    "require-dir": "^0.3.1",
+    "del": "^2.2.2",
+    "gulp": "^3.9.1",
+    "gulp-sass": "^3.1.0",
+    "gulp-typescript": "^3.1.5",
+    "gulp-uglify": "^2.0.1",
+    "gulp-uglifycss": "^1.0.6",
+    "gulp-changed": "^2.0.0"
+  },
+  "author": "Christoph Schaunig"
+}
