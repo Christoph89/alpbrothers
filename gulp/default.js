@@ -14,7 +14,7 @@ gulp.task("watch", ["build"], function () {
   gulp.watch(src+"**/*.js", ["scripts"]);
   gulp.watch(src+"**/*.css", ["styles"]);
   gulp.watch(src+"html/*.html", ["html"]);
-  gulp.watch(src+"img/*", ["images"]);
+  gulp.watch(src+"img/**/*", ["images"]);
   gulp.watch(src+"ts/**/*.ts", ["typescript"]);
   gulp.watch(src+"sass/**/*.scss", ["sass"]);
 });

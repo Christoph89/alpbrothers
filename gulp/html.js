@@ -9,8 +9,7 @@ var dbg=process.env.DBG;
 gulp.task("html", function () {
   // copy js files
   return gulp.src([
-    src+"html/index.html",
-    src+"html/404.html",
+    src+"html/*.html",
     src+"tpl/CNAME",
     src+"tpl/browserconfig.xml",
     src+"tpl/humans.txt",

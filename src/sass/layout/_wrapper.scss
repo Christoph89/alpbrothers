@@ -13,9 +13,10 @@
 	}
 
 	#wrapper {
-		background-color: inherit;
+		//background-color: inherit;
 		width: 100%;
 		overflow-x: hidden;
+    position: relative;
 
 		> .invert {
 			@include color(invert);
