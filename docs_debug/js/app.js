@@ -249,8 +249,8 @@ var $alpbros;
             // get main elements
             $alpbros.$wrapper = $("#wrapper");
             // init parts
-            $alpbros.$menu.init();
-            $alpbros.$maps.init();
+            $alpbros.$menu.init(); // menu
+            $alpbros.$maps.init(); // google maps
         }
         $app.init = init;
     })($app = $alpbros.$app || ($alpbros.$app = {}));

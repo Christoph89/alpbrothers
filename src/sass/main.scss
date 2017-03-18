@@ -2,6 +2,7 @@
 @import 'libs/functions';
 @import 'libs/mixins';
 @import 'libs/skel';
+@import 'font.css';
 @import url('https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,300i,400,400i');
 
 /*
@@ -178,5 +179,4 @@
   @import 'layout/common';
   @import 'layout/home';
   @import 'layout/courses';
-  @import 'layout/map';
-  @import 'layout/contact';
+  @import 'layout/footer';

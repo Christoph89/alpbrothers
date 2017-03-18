@@ -17,8 +17,8 @@ module $alpbros
       $wrapper=$("#wrapper");
 
       // init parts
-      $menu.init();
-      $maps.init();
+      $menu.init(); // menu
+      $maps.init(); // google maps
     }
   }
 
