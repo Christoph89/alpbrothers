@@ -7,6 +7,8 @@
 
 module $alpbros
 {
+  export var $window: JQuery;
+  export var $body: JQuery;
   export var $wrapper: JQuery;
 
   export module $app
@@ -14,14 +16,24 @@ module $alpbros
     export function init()
     {
       // get main elements
+      $window=$(window);
+      $body=$(document.body);
       $wrapper=$("#wrapper");
 
-      // init ui
-      $menu.init(); // menu
-      $maps.init(); // google maps
-      $util.checkSvgCompatibility(); // use png if svg is not supported
+      // initialize ui
+      $ui.init();
     }
   }
+
+  // set skel breakpoints
+  skel.breakpoints({
+		xlarge: '(max-width: 1680px)',
+		large: '(max-width: 1280px)',
+		medium: '(max-width: 980px)',
+		small: '(max-width: 736px)',
+		xsmall: '(max-width: 480px)',
+		xxsmall: '(max-width: 360px)'
+	});
 
   // init app on document ready
   $(document).ready(() =>

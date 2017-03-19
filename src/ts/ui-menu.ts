@@ -1,11 +1,11 @@
-/*! Alpbrothers - menu.ts
+/*! Alpbrothers - ui-menu.ts
 * Copyright Christoph Schaunig 2017
 */
 
 /// <reference path="ref.d.ts" />
 "use strict";
 
-module $alpbros.$menu
+module $alpbros.$ui.menu
 {
   var mbtn: JQuery;
   var menu: JQuery;

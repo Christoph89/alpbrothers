@@ -243,7 +243,7 @@
 			@include vendor('flex-grow', '1');
 			@include vendor('flex-shrink', '1');
 			width: 65%;
-			max-width: _size(inner);
+			//max-width: _size(inner); @@todo check if necessary, fix for ie -> center quotes
 			margin: 0 auto;
 		}
 

@@ -1,11 +1,11 @@
-/*! Alpbrothers - app.ts
+/*! Alpbrothers - ui-map-style.ts
 * Copyright Christoph Schaunig 2017
 */
 
 /// <reference path="ref.d.ts" />
 "use strict";
 
-module $alpbros
+module $alpbros.$ui
 {
   export var mapStyle=[
     {

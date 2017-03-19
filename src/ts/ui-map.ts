@@ -1,4 +1,4 @@
-/*! Alpbrothers - maps.ts
+/*! Alpbrothers - ui-map.ts
 * Copyright Christoph Schaunig 2017
 */
 
@@ -7,40 +7,41 @@
 
 declare var google: any;
 
-interface MapPosition
+interface GMapPosition
 {
   lat?: number;
   lng?: number;
 }
 
-interface MapMarker
+interface GMapMarker
 {
-  position?: MapPosition;
+  position?: GMapPosition;
   title?: string;
 }
 
-interface Map
+interface GMap
 {
   element: JQuery;
-  start?: MapPosition;
+  start?: GMapPosition;
   zoom?: number;
-  marker?: MapMarker[];
+  marker?: GMapMarker[];
 }
 
-module $alpbros.$maps
+module $alpbros.$ui.maps
 {
   var apikey="AIzaSyBdO_cpM267sMdq2GO-ujjfch3dMjUHMjY";
   var currentIdx=0;
-  var maps: Map[]=[];
+  var maps: GMap[]=[];
 
+  /** Initializes all maps. */
   export function init()
   {
     $(".map").q().ForEach(x => maps.push(createMap(x)));
   }
 
-  function createMap(cnt: JQuery): Map
+  function createMap(cnt: JQuery): GMap
   {
-    var map: Map={ element: cnt };
+    var map: GMap={ element: cnt };
     var lat=parseFloat(cnt.attr("lat"));
     var lng=parseFloat(cnt.attr("lng"));
     var zoom=parseFloat(cnt.attr("zoom"));
@@ -50,7 +51,7 @@ module $alpbros.$maps
     // read markers
     map.marker=$q($(".marker", cnt)).Select(x => 
     {
-      var marker: MapMarker={
+      var marker: GMapMarker={
         position: 
         {
           lat: parseFloat(x.attr("lat")),
@@ -68,7 +69,7 @@ module $alpbros.$maps
     return map;
   }
 
-  function initMap(map: Map)
+  function initMap(map: GMap)
   {
     // initialize the map and set the start location
     var gmap=new google.maps.Map(map.element[0], 

@@ -13,8 +13,6 @@ gulp.task("scripts", function () {
     src+"vendor/modernizr/modernizr.js",
     src+"vendor/skel/skel.js",
     src+"vendor/linq/linq.js",
-    src+"js/main.js",
-    src+"js/util.js",
   ])
   .pipe(changed(dbg+"js"))
   .pipe(gulp.dest(dbg+"js"));
