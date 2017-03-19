@@ -5910,13 +5910,13 @@ body.is-loading .items.onload-fade-in > * > .inner {
 #home .actions {
   margin-top: 1em; }
 
-#courses .no-course-info {
+#events .no-event-info {
   display: none; }
 
-#courses.no-courses .table-wrapper {
+#events.no-events .table-wrapper {
   display: none; }
 
-#courses.no-courses .no-course-info {
+#events.no-events .no-course-info {
   display: block; }
 
 #footer {

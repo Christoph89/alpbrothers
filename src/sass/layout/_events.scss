@@ -1,9 +1,9 @@
-#courses {
-  .no-course-info {
+#events {
+  .no-event-info {
     display: none;
   }
 
-  &.no-courses {
+  &.no-events {
     .table-wrapper {
       display: none;
     }
