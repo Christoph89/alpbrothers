@@ -10,6 +10,7 @@ gulp.task("scripts", function () {
   // copy js files
   return gulp.src([
     src+"vendor/jquery/*.js",
+    src+"vendor/modernizr/modernizr.js",
     src+"vendor/skel/skel.js",
     src+"vendor/linq/linq.js",
     src+"js/main.js",

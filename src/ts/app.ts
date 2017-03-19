@@ -16,9 +16,10 @@ module $alpbros
       // get main elements
       $wrapper=$("#wrapper");
 
-      // init parts
+      // init ui
       $menu.init(); // menu
       $maps.init(); // google maps
+      $util.checkSvgCompatibility(); // use png if svg is not supported
     }
   }
 

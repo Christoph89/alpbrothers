@@ -236,6 +236,32 @@ var $alpbros;
         $menu.close = close;
     })($menu = $alpbros.$menu || ($alpbros.$menu = {}));
 })($alpbros || ($alpbros = {}));
+/*! Alpbrothers - util.ts
+* Copyright Christoph Schaunig 2017
+*/
+/// <reference path="ref.d.ts" />
+"use strict";
+var $alpbros;
+(function ($alpbros) {
+    var $util;
+    (function ($util) {
+        /** Checks for SVG compatibility and changes images to use .png if .svg is not supported. */
+        function checkSvgCompatibility() {
+            if (Modernizr.svgasimg)
+                return;
+            $("img.svg").each(function (i, el) {
+                convertSvgToPng($(el));
+            });
+        }
+        $util.checkSvgCompatibility = checkSvgCompatibility;
+        /** Replaces .svg by .png of the specified image source. */
+        function convertSvgToPng(img) {
+            var src = img.attr("src");
+            img.attr("src", src.replace(".svg", ".png"));
+        }
+        $util.convertSvgToPng = convertSvgToPng;
+    })($util = $alpbros.$util || ($alpbros.$util = {}));
+})($alpbros || ($alpbros = {}));
 /*! Alpbrothers - app.ts
 * Copyright Christoph Schaunig 2017
 */
@@ -248,9 +274,10 @@ var $alpbros;
         function init() {
             // get main elements
             $alpbros.$wrapper = $("#wrapper");
-            // init parts
+            // init ui
             $alpbros.$menu.init(); // menu
             $alpbros.$maps.init(); // google maps
+            $alpbros.$util.checkSvgCompatibility(); // use png if svg is not supported
         }
         $app.init = init;
     })($app = $alpbros.$app || ($alpbros.$app = {}));
