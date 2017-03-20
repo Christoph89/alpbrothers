@@ -1,15 +1,46 @@
-#menu-btn {
+#menu-btns {
   position: fixed;
   top: 1rem;
   right: 1rem;
   z-index: 3;
 
-  &:before {
-    background-color: _palette(menu-btn);
+  li {
+    padding: 0.3rem 0 0 0;
+    &:first-child {
+      padding-top: 0;
+    }
   }
 
+  .icon:before {
+    background-color: _palette(menu-btn);
+  }
+}
+
+#menu-btn {
   #wrapper.menu-opened &:before {
     background-color: _palette(menu-btn-opened);
+  }
+}
+
+#lang-btn {
+  &:before {
+    font-family: _font(family);
+    @include vendor('transition', (
+      'opacity #{_duration(transition)} ease-in-out',
+      'transform #{_duration(transition)} ease-in-out'
+    ));
+  }
+
+  &.hidden:before {
+    opacity: 0;
+    @include vendor('transform', 'translateY(-1rem)');
+  }
+
+  &.de:before {
+    content: "DE";
+  }
+  &.en:before {
+    content: "EN";
   }
 }
 

@@ -16,6 +16,7 @@ var $alpbros;
             $ui.checkSvgCompatibility(); // use png if svg is not supported
             // init ui parts
             $ui.initSmoothScroll(); // init smooth scrolling buttons
+            $ui.initLangButton(); // hide language button on scroll
             $ui.initWrapper(); // init wrapper element
             $ui.initItems(); // init item lists
             $ui.gallery.init(); // init gallery
@@ -29,6 +30,19 @@ var $alpbros;
             $('.smooth-scroll-middle').scrolly({ anchor: 'middle' });
         }
         $ui.initSmoothScroll = initSmoothScroll;
+        /** Initializes the language button. */
+        function initLangButton() {
+            var langBtn = $("#lang-btn");
+            var check = function () {
+                var winHeight = $alpbros.$window.height();
+                var scrollHeight = $alpbros.$window.scrollTop();
+                langBtn.toggleClass("hidden", scrollHeight > (winHeight / 2));
+            };
+            $alpbros.$window.scroll(check);
+            $alpbros.$window.resize(check);
+            check();
+        }
+        $ui.initLangButton = initLangButton;
         /** Disables animations until the page has loaded. */
         function disableAnimationsOnLoad() {
             $alpbros.$body.addClass('is-loading');

@@ -18,6 +18,7 @@ module $alpbros.$ui
 
     // init ui parts
     $ui.initSmoothScroll(); // init smooth scrolling buttons
+    $ui.initLangButton(); // hide language button on scroll
     $ui.initWrapper(); // init wrapper element
     $ui.initItems(); // init item lists
     $ui.gallery.init(); // init gallery
@@ -30,6 +31,21 @@ module $alpbros.$ui
   {
     $('.smooth-scroll').scrolly();
     $('.smooth-scroll-middle').scrolly({ anchor: 'middle' });
+  }
+
+  /** Initializes the language button. */
+  export function initLangButton()
+  {
+    var langBtn=$("#lang-btn");
+    var check=() =>
+    {
+      var winHeight=$window.height();
+      var scrollHeight=$window.scrollTop();
+      langBtn.toggleClass("hidden", scrollHeight>(winHeight/2));
+    };
+    $window.scroll(check);
+    $window.resize(check);
+    check();
   }
 
   /** Disables animations until the page has loaded. */
