@@ -1,0 +1,33 @@
+@mixin _partner($partner) {
+  &.#{$partner} .inner a {
+    background-image: url(../img/partner/#{$partner}.png);
+    background-image: url(../img/partner/#{$partner}.svg);
+  }
+}
+
+#partner {
+  >.inner { 
+    padding: 0.2rem 0;
+  }
+
+  .items section {
+    height: 10rem;
+    @include breakpoint(xsmall) { height: 6rem; }
+
+    @include _partner(grossegger);
+    @include _partner(anderwald);
+
+    .inner {
+      width: 100%;
+      height: 100%;
+    }
+
+    .inner a {
+      display: block;
+      width: 100%;
+      height: 100%;
+      background-size: 100% 100%;
+      background-repeat: no-repeat;
+    }
+  }
+}

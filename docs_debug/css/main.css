@@ -5936,14 +5936,38 @@ body.is-loading .items.onload-fade-in > * > .inner {
 #home .actions {
   margin-top: 1em; }
 
-#events .no-event-info {
-  display: none; }
+#events {
+  border-top: 1px solid #ccc; }
+  #events .no-event-info {
+    display: none; }
+  #events.no-events .table-wrapper {
+    display: none; }
+  #events.no-events .no-course-info {
+    display: block; }
 
-#events.no-events .table-wrapper {
-  display: none; }
+#partner > .inner {
+  padding: 0.2rem 0; }
 
-#events.no-events .no-course-info {
-  display: block; }
+#partner .items section {
+  height: 10rem; }
+  @media screen and (max-width: 480px) {
+    #partner .items section {
+      height: 6rem; } }
+  #partner .items section.grossegger .inner a {
+    background-image: url(../img/partner/grossegger.png);
+    background-image: url(../img/partner/grossegger.svg); }
+  #partner .items section.anderwald .inner a {
+    background-image: url(../img/partner/anderwald.png);
+    background-image: url(../img/partner/anderwald.svg); }
+  #partner .items section .inner {
+    width: 100%;
+    height: 100%; }
+  #partner .items section .inner a {
+    display: block;
+    width: 100%;
+    height: 100%;
+    background-size: 100% 100%;
+    background-repeat: no-repeat; }
 
 #footer {
   background-position: center top; }

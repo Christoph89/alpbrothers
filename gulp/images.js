@@ -6,7 +6,7 @@ var src=process.env.SRC;
 var dbg=process.env.DBG;
 
 // copies all js files to htd/js
-gulp.task("images", ["gallery", "favicon"], function () {
+gulp.task("images", ["gallery", "partner", "favicon"], function () {
   // copy js files
   return gulp.src([
     src+"img/*.png",
@@ -18,7 +18,7 @@ gulp.task("images", ["gallery", "favicon"], function () {
   .pipe(gulp.dest(dbg+"img"));
 });
 
-// copies all js files to htd/js
+// copies all gallery image files to htd/img/gallery
 gulp.task("gallery", function () {
   // copy js files
   return gulp.src([
@@ -26,6 +26,16 @@ gulp.task("gallery", function () {
   ])
   .pipe(changed(dbg+"img/gallery"))
   .pipe(gulp.dest(dbg+"img/gallery"));
+});
+
+// copies all partner image files to htd/img/partner
+gulp.task("partner", function () {
+  // copy js files
+  return gulp.src([
+    src+"img/partner/*",
+  ])
+  .pipe(changed(dbg+"img/partner"))
+  .pipe(gulp.dest(dbg+"img/partner"));
 });
 
 // copies the favicon icons
