@@ -11,7 +11,6 @@ gulp.task("html", function () {
   return gulp.src([
     src+"html/index.html",
     src+"html/en.html",
-    src+"html/404.html",
     src+"tpl/CNAME",
     src+"tpl/browserconfig.xml",
     src+"tpl/humans.txt",
