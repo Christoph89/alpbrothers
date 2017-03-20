@@ -5944,7 +5944,7 @@ body.is-loading .items.onload-fade-in > * > .inner {
     display: none; }
   #events.no-events .table-wrapper {
     display: none; }
-  #events.no-events .no-course-info {
+  #events.no-events .no-event-info {
     display: block; }
 
 #partner > .inner {
