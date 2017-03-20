@@ -31,9 +31,13 @@
     ));
   }
 
-  &.hidden:before {
-    opacity: 0;
-    @include vendor('transform', 'translateY(-1rem)');
+  &.hidden {
+    pointer-events: none;
+    
+    &:before {
+      opacity: 0;
+      @include vendor('transform', 'translateY(-1rem)');
+    }
   }
 
   &.de:before {

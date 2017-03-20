@@ -5872,12 +5872,14 @@ body.is-loading .items.onload-fade-in > * > .inner {
   -ms-transition: opacity 0.2s ease-in-out, -ms-transform 0.2s ease-in-out;
   transition: opacity 0.2s ease-in-out, transform 0.2s ease-in-out; }
 
-#lang-btn.hidden:before {
-  opacity: 0;
-  -moz-transform: translateY(-1rem);
-  -webkit-transform: translateY(-1rem);
-  -ms-transform: translateY(-1rem);
-  transform: translateY(-1rem); }
+#lang-btn.hidden {
+  pointer-events: none; }
+  #lang-btn.hidden:before {
+    opacity: 0;
+    -moz-transform: translateY(-1rem);
+    -webkit-transform: translateY(-1rem);
+    -ms-transform: translateY(-1rem);
+    transform: translateY(-1rem); }
 
 #lang-btn.de:before {
   content: "DE"; }
