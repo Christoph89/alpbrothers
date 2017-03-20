@@ -14,8 +14,8 @@
     height: 10rem;
     @include breakpoint(xsmall) { height: 6rem; }
 
-    @include _partner(grossegger);
     @include _partner(anderwald);
+    @include _partner(grossegger);
 
     .inner {
       width: 100%;

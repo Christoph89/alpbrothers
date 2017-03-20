@@ -5955,12 +5955,12 @@ body.is-loading .items.onload-fade-in > * > .inner {
   @media screen and (max-width: 480px) {
     #partner .items section {
       height: 6rem; } }
-  #partner .items section.grossegger .inner a {
-    background-image: url(../img/partner/grossegger.png);
-    background-image: url(../img/partner/grossegger.svg); }
   #partner .items section.anderwald .inner a {
     background-image: url(../img/partner/anderwald.png);
     background-image: url(../img/partner/anderwald.svg); }
+  #partner .items section.grossegger .inner a {
+    background-image: url(../img/partner/grossegger.png);
+    background-image: url(../img/partner/grossegger.svg); }
   #partner .items section .inner {
     width: 100%;
     height: 100%; }
