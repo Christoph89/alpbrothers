@@ -17,6 +17,7 @@ var $alpbros;
             // init ui parts
             $ui.initSmoothScroll(); // init smooth scrolling buttons
             $ui.initWrapper(); // init wrapper element
+            $ui.initItems(); // init item lists
             $ui.gallery.init(); // init gallery
             $ui.menu.init(); // menu
             $ui.maps.init(); // google maps
