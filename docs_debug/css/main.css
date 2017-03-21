@@ -5961,6 +5961,9 @@ body.is-loading .items.onload-fade-in > * > .inner {
   #partner .items section.grossegger .inner a {
     background-image: url(../img/partner/grossegger.png);
     background-image: url(../img/partner/grossegger.svg); }
+  #partner .items section.r2bike .inner a {
+    background-image: url(../img/partner/r2bike.png);
+    background-image: url(../img/partner/r2bike.svg); }
   #partner .items section .inner {
     width: 100%;
     height: 100%; }
@@ -5968,8 +5971,9 @@ body.is-loading .items.onload-fade-in > * > .inner {
     display: block;
     width: 100%;
     height: 100%;
-    background-size: 100% 100%;
-    background-repeat: no-repeat; }
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center center; }
 
 #footer {
   background-position: center top; }
