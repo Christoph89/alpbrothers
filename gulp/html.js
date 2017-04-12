@@ -13,6 +13,7 @@ gulp.task("html", function () {
     src+"html/en.html",
     src+"tpl/CNAME",
     src+"tpl/browserconfig.xml",
+    src+"tpl/sitemap.xml",
     src+"tpl/humans.txt",
     src+"tpl/robots.txt",
     src+"tpl/google5e333bbe565a5f1b.html",
