@@ -15,6 +15,7 @@ gulp.task("html", function () {
     src+"tpl/browserconfig.xml",
     src+"tpl/humans.txt",
     src+"tpl/robots.txt",
+    src+"tpl/google5e333bbe565a5f1b.html",
   ])
   .pipe(changed(dbg))
   .pipe(gulp.dest(dbg));
