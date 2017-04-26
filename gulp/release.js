@@ -35,4 +35,9 @@ gulp.task("release", ["build"], function () {
   gulp.src(dbg+"img/**/*")
     .pipe(changed(release+"img"))
     .pipe(gulp.dest(release+"img"));
+
+ // copy forms
+  gulp.src(dbg+"forms/**/*")
+    .pipe(changed(release+"forms"))
+    .pipe(gulp.dest(release+"forms"));
 });
