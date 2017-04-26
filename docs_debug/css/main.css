@@ -5942,6 +5942,8 @@ body.is-loading .items.onload-fade-in > * > .inner {
   border-top: 1px solid #ccc; }
   #events .no-event-info {
     display: none; }
+  #events .table-wrapper {
+    margin-bottom: 0px; }
   #events.no-events .table-wrapper {
     display: none; }
   #events.no-events .no-event-info {
