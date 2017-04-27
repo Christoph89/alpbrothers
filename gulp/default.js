@@ -5,7 +5,7 @@ var del=require("del");
 var src=process.env.SRC;
 
 // build task
-gulp.task("build", ["scripts", "styles", "html", "images", "typescript", "sass", "forms"], function () {
+gulp.task("build", ["scripts", "styles", "html", "tpl", "images", "typescript", "sass", "forms"], function () {
   // just runs other tasks
 });
 
@@ -13,7 +13,8 @@ gulp.task("build", ["scripts", "styles", "html", "images", "typescript", "sass",
 gulp.task("watch", ["build"], function () {
   gulp.watch(src+"**/*.js", ["scripts"]);
   gulp.watch(src+"**/*.css", ["styles"]);
-  gulp.watch(src+"html/*.html", ["html"]);
+  gulp.watch(src+"html/**/*.html", ["html"]);
+  gulp.watch(src+"tpl/*", ["tpl"]);
   gulp.watch(src+"img/**/*", ["images"]);
   gulp.watch(src+"ts/**/*.ts", ["typescript"]);
   gulp.watch(src+"sass/**/*.scss", ["sass"]);

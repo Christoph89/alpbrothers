@@ -26,7 +26,7 @@ gulp.task("release", ["build"], function () {
     .pipe(changed(release+"fonts"))
     .pipe(gulp.dest(release+"fonts"));
 
-  // copy html and favicon from root folder
+  // copy html, favicon and tpl files from root folder
   gulp.src(dbg+"*")
     .pipe(changed(release))
     .pipe(gulp.dest(release));
