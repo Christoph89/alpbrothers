@@ -9,7 +9,7 @@ var dbg=process.env.DBG;
 gulp.task("html", function () {
   // copy js files
   return gulp.src([
-    src+"html/*.html",
+    src+"html/**/*.html",
   ])
   .pipe(changed(dbg))
   .pipe(gulp.dest(dbg));
