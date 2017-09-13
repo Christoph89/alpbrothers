@@ -30,10 +30,16 @@ gulp.task("release", ["build"], function () {
   gulp.src(dbg+"*")
     .pipe(changed(release))
     .pipe(gulp.dest(release));
+
   // copy english html
   gulp.src(dbg+"en/*")
     .pipe(changed(release+"en"))
     .pipe(gulp.dest(release+"en"));
+    
+  // copy blog html
+  gulp.src(dbg+"blog/*")
+    .pipe(changed(release+"blog"))
+    .pipe(gulp.dest(release+"blog"));
 
   // copy images
   gulp.src(dbg+"img/**/*")
