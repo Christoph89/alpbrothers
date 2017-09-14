@@ -78,6 +78,7 @@ function createStory(lang, story, dir)
       .pipe(tpldata(function(){ 
         return { 
           root: lang==deflng?"../../":"../../../", 
+          lang: lang,
           res: res
         };
       }))

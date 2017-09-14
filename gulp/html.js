@@ -41,6 +41,7 @@ function buildMain(lang, res, dest)
     .pipe(tpldata(function(){ 
       return { 
         root: lang==deflng?"":"../", 
+        lang: lang,
         res: res
       };
     }))
