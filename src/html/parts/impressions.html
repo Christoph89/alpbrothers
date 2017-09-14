@@ -1,0 +1,13 @@
+<!-- impressions -->
+<section id="impressions" class="wrapper style1 color5 align-center">
+  <div class="gallery style1 medium lightbox onload-content-fade-in">
+    {% set c=1 %}
+    {% for keyword in res.impressions.keywords %}
+      <article>
+        <a href="{{ root }}img/gallery/fulls/{{ c }}.jpg" class="image"><img src="{{ root }}img/gallery/thumbs/{{ c }}.jpg" alt="{{ keyword }}" /></a>
+        <div class="caption"><h3>{{ keyword }}</h3></div>
+      </article>
+      {% set c=c+1 %}
+    {% endfor %}
+  </div>
+</section>

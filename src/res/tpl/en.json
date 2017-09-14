@@ -1,0 +1,30 @@
+{
+  "title": "Alpbrothers Mountainbike Guiding",
+  "description": "Alpbrothers Mountainbike Guiding - Your mountainbike guiding provider at Carinthia/Villach/Faaker See",
+  "menu": 
+  [
+    { "url": "#home", "text": "Home", "icon": "fa-home" }
+  ],
+  "media": 
+  [
+    { "url": "https://www.facebook.com/alpbrothers", "text": "Facebook", "icon": "fa-facebook" },
+    { "url": "https://www.instagram.com/alpbrothers", "text": "Instagram", "icon": "fa-instagram" },
+    { "url": "mailto:office@alpbrothers.at", "text": "Email", "icon": "fa-envelope" }
+  ],
+  "lng":
+  {
+    "other": "Deutsch",
+    "chg": "Deutsche Version laden",
+    "chgurl": "../"
+  },
+  "social":
+  {
+    "fb": "Facebook",
+    "ig": "Instagram",
+    "email": "Email"
+  },
+  "copyright": "Copyright &copy; Christoph Schaunig 2017",
+  "alpbrosGuiding": "Alpbrothers Mountainbike Guiding",
+  "dateFormat": "dd.mm.yyyy '-' hh:MM TT",
+  "fromToFormat":"dd.mm - dd.mm.yyyy"
+}

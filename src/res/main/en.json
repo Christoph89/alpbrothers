@@ -1,0 +1,98 @@
+{
+  "menu": 
+  [
+    { "url": "#home", "text": "Home", "icon": "fa-home" },
+    { "url": "#about", "text": "About", "icon": "fa-id-card" },
+    { "url": "#einstein-quote", "text": "Offer", "icon": "fa-bicycle" },
+    { "url": "#events", "text": "Events", "icon": "fa-calendar" },
+    { "url": "#alpbros-quote", "text": "Impressions", "icon": "fa-camera-retro" },
+    { "url": "#alpbros-quote2", "text": "Contact", "icon": "fa-phone" },
+    { "url": "../", "text": "Deutsch", "icon": "fa-language" }
+  ],
+  
+  "home":
+  {
+    "go": "Let's rock"
+  },
+  
+  "about":
+  {
+    "text": "Interested in a <b>maximum dirt after-work-ride</b>, a <b>no-pain-no-gain enduro</b> tour or a <b>relaxed day trip</b> in the tri-state area of <b>Austria, Italy and Slovenia</b> with an officially-certified mountain bike guide? We offer individual tours for beginners and the more advanced near <b>Villach / Faaker See</b>. Reach out to us and join us discovering <b>K&auml;rnten (Carinthia)</b> and the broader Faaker See area.",
+    "more": "Learn more",
+    "img": "Mountainbiker on the top of Schwarzkogel."
+  },
+  
+  "certification":
+  {
+    "text": "Officially-certified and licensed mountain bike instructors",
+    "guides": "Christoph & Thomas"
+  },
+  
+  "about2":
+  {
+    "title": "Experience Faaker See",
+    "text": "For us, mountain biking is more than just exercise, it is an <b>attitude to life</b>! This <b>unique lifestyle</b> combines endurance, focus, friendship, emotions, culture, and even regional cuisine with the urge to explore nature and to enjoy a breathtaking countryside. Sounds interesting? <b>Join us</b> and discover a <b>lifestyle of flow and heartbeat</b> in the astonishing region of <b>Faaker See</b>!",
+    "goUrl": "#einstein-quote",
+    "go": "Our tours",
+    "img": "Mountainbiker sitting on a wonderful alp."
+  },
+    
+  "einstein":
+  {
+    "text": "\"Life is like riding a bicycle. To keep your balance, you must keep moving.\"",
+    "author": "Albert Einstein"
+  },
+  
+  "events":
+  {
+    "title": "Events",
+    "empty": "We're sorry, there are currently no upcoming events.",
+    "showYouthDiscountInfo": false,
+    "youthDiscountInfo": "(*) Young people unter the age of 18.",
+    "showErlebnisCardInfo": true,
+    "erlebnisCardInfo": "(*) Only free with <i>Erlebnis Card</i>. Tickets without <i>Erlebnis Card</i> are only available at our tourist offices and cost 15 EUR. For more information about the <i> Erlebnis Card</i> visit: <a href=\"https://www.region-villach.at/en/offers/region-villach-card-2505115.html\" target=\"_blank\">https://www.region-villach.at/en/offers/region-villach-card-2505115.html</a> ",
+    "furtherInfo": "For more information or <b>individual tours</b> please send us your <b>inquiry</b>.",
+    "inquireUrl": "mailto:office@alpbrothers.at",
+    "inquire": "Inquire now",
+    "goUrl": "#alpbros-quote",
+    "go": "Impressions",
+    "list": []
+  },
+  
+  "alpbrosQuote":
+  {
+    "text": "\"For us, mountain biking is more than just exercise, it is an attitude to life!\"",
+    "author": "Alpbrothers"
+  },
+  
+  "impressions":
+  {
+    "keywords":
+    [
+      "Nature",
+      "Passion",
+      "View",
+      "Teamspirit",
+      "Freedom",
+      "Friendship",
+      "Unison",
+      "Focus",
+      "Exploration",
+      "Ambition",
+      "Limit",
+      "Challenge"
+    ]
+  },
+  
+  "alpbrosQuote2":
+  {
+    "text": "\"Mountain biking in Carinthia is unique.<br />Discover a lifestyle of flow and heartbeat in the astonishing region of Faaker See!\"",
+    "author": "Alpbrothers"
+  },
+  
+    "contact":
+    {
+      "title": "Contact",
+      "text": "Christoph Schaunig & Thomas Raspotnik<br /> 9582 Latschach ob. dem Faaker See, &Ouml;sterreich<br /><a href=\"mailto:office@alpbrothers.at\">office@alpbrothers.at</a><br /> +43 677 61716070<br /><br />"
+    }
+}

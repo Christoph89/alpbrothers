@@ -1,0 +1,30 @@
+{
+  "title": "Alpbrothers Mountainbike Guiding",
+  "description": "Alpbrothers Mountainbike Guiding - Dein Mountainbike Guiding Anbieter in der Region Kärnten/Villach/Faaker See",
+  "menu": 
+  [
+    { "url": "#home", "text": "Home", "icon": "fa-home" }
+  ],
+  "media": 
+  [
+    { "url": "https://www.facebook.com/alpbrothers", "text": "Facebook", "icon": "fa-facebook" },
+    { "url": "https://www.instagram.com/alpbrothers", "text": "Instagram", "icon": "fa-instagram" },
+    { "url": "mailto:office@alpbrothers.at", "text": "Email", "icon": "fa-envelope" }
+  ],
+  "lng": 
+  {
+    "other": "English",
+    "chg": "Use English version",
+    "chgurl": "en/"
+  },
+  "social": 
+  {
+    "fb": "Facebook",
+    "ig": "Instagram",
+    "email": "Email"
+  },
+  "copyright": "Copyright &copy; Christoph Schaunig 2017",
+  "alpbrosGuiding": "Alpbrothers Mountainbike Guiding",
+  "dateFormat": "dd.mm.yyyy '-' HH:MM 'Uhr'",
+  "fromToFormat":"dd.mm - dd.mm.yyyy"
+}

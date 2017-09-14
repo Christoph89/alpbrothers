@@ -1,0 +1,36 @@
+{
+
+  "date": "2017-01-01",
+  "res":
+  {
+    "de":
+    {
+      "title": "Story template",
+      "disable": true,
+      "menu":
+      [
+        { "url": "/", "text": "Home", "icon": "fa-home" }
+      ],
+      "story":
+      {
+        "url": "story-template",
+        "title": "Story template (Deutsch)"
+      }
+    },
+
+    "en":
+    {
+      "title": "Story template",
+      "disable": true,
+      "menu":
+      [
+        { "url": "/", "text": "Home", "icon": "fa-home" }
+      ],
+      "story":
+      {
+        "url": "story template",
+        "title": "Story template (English)"
+      }
+    } 
+  }
+}

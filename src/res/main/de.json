@@ -1,0 +1,98 @@
+{
+  "menu": 
+  [
+    { "url": "#home", "text": "Home", "icon": "fa-home" },
+    { "url": "#about", "text": "About", "icon": "fa-id-card" },
+    { "url": "#einstein-quote", "text": "Angebot", "icon": "fa-bicycle" },
+    { "url": "#events", "text": "Termine", "icon": "fa-calendar" },
+    { "url": "#alpbros-quote", "text": "Impressionen", "icon": "fa-camera-retro" },
+    { "url": "#alpbros-quote2", "text": "Kontakt", "icon": "fa-phone" },
+    { "url": "en/", "text": "English", "icon": "fa-language" }
+  ],
+
+  "home":
+  {
+    "go": "Let's rock"
+  },
+
+  "about":
+  {
+    "text": "ist dein Anbieter für <b>individuelle Mountainbike Touren in K&auml;rnten</b>. Egal ob Techniktraining, kurz-knackiger Feierabend Trail, fetziger Enduro Ausflug oder ausgiebige Dreiländer-Tagestour, wir sind deine Begleiter auf dem Weg zum <b>Rundum-Sorglos-Bike-Paket</b> und führen dich durch deine individuelle Traumtour im Raum <b>Villach / Faaker See / Dreiländereck</b>.",
+    "more": "Mehr erfahren",
+    "img": "Mountainbiker am Gipfel des Schwarzkogel."
+  },
+
+  "certification":
+  {
+    "text": "Staatlich geprüfte Mountainbike Instruktoren",
+    "guides": "Christoph & Thomas"
+  },
+
+  "about2":
+  {
+    "title": "Erlebe den Faaker See",
+    "text": "Mountainbiken ist f&uuml;r uns eine <b>Lebenseinstellung</b>. Sportliche Herausforderung, Freundschaft, Kultur, Kulinarik, Entdeckungsdrang, die Konzentration und der Fahrspaß am Trail, der <b>Einklang mit Bike und Natur</b>, und vor allem die atemberaubende Kulisse <b>K&auml;rntens</b> und der <b>Faaker See</b> bilden das Rezept für <b>unvergessliche Erlebnisse</b>. Wer mit uns den Tag verbringt soll vor allem eines, mit einem breiten Lächeln nach Hause gehen!",
+    "goUrl": "#einstein-quote",
+    "go": "Unser Angebot",
+    "img": "Mountainbiker auf der Alm."
+  },
+
+  "einstein":
+  {
+    "text": "\"Life is like riding a bicycle. To keep your balance, you must keep moving.\"",
+    "author": "Albert Einstein"
+  },
+
+  "events":
+  {
+    "title": "Termine",
+    "empty": "Zur Zeit sind leider keine Termine vorhanden.",
+    "showYouthDiscountInfo": false,
+    "youthDiscountInfo": "(*) Jugendliche unter 18 Jahren.",
+    "showErlebnisCardInfo": true,
+    "erlebnisCardInfo": "(**) Nur kostenlos mit <i>Erlebnis Card</i>. Der Regul&auml;rpreis beträgt 15 EUR. Tickets ohne <i>Erlebnis Card</i> können nur in den Tourismusinformationen der Region erworben werden. Weitere Informationen zur <i>Erlebnis Card</i> finden Sie hier: <a href=\"https://www.region-villach.at/de/angebote/erlebnis-card-urlaubserlebnisse-im-herzen-3074815.html\" target=\"_blank\">https://www.region-villach.at/de/angebote/erlebnis-card-urlaubserlebnisse-im-herzen-3074815.html</a>",
+    "furtherInfo": "Für weitere Informationen oder <b>individuelle Touren und Kurse</b> senden Sie uns bitte eine <b>Anfrage</b>.",
+    "inquireUrl": "mailto:office@alpbrothers.at",
+    "inquire": "Jetzt anfragen",
+    "goUrl": "#alpbros-quote",
+    "go": "Impressionen",
+    "list": []
+  },
+
+  "alpbrosQuote":
+  {
+    "text": "\"Mountainbiken ist für uns eine Lebenseinstellung.\"",
+    "author": "Alpbrothers"
+  },
+
+  "impressions":
+  {
+    "keywords":
+    [
+      "Natur",
+      "Leidenschaft",
+      "Aussicht",
+      "Teamgeist",
+      "Freiheit",
+      "Freundschaft",
+      "Einklang",
+      "Fokus",
+      "Entdeckungsdrang",
+      "Ehrgeiz",
+      "Limit",
+      "Herausforderung"
+    ]
+  },
+  
+  "alpbrosQuote2":
+  {
+    "text": "\"Mountainbiken in Kärnten ist einzigartig.<br />Wer mit uns den Tag verbringt soll daher vor allem eines, mit einem breiten Lächeln nach Hause gehen.\"",
+    "author": "Alpbrothers"
+  },
+
+  "contact":
+  {
+    "title": "Kontakt",
+    "text": "Christoph Schaunig & Thomas Raspotnik<br /> 9582 Latschach ob. dem Faaker See, &Ouml;sterreich<br /><a href=\"mailto:office@alpbrothers.at\">office@alpbrothers.at</a><br /> +43 677 61716070<br /><br />"
+  }
+}
