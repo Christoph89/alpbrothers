@@ -6,7 +6,7 @@ var src=process.env.SRC;
 var dbg=process.env.DBG;
 
 // copies all js files to htd/js
-gulp.task("images", ["gallery", "partner", "favicon", "4islands2017"], function () {
+gulp.task("images", ["gallery", "partner", "favicon"], function () {
   // copy js files
   return gulp.src([
     src+"img/*.png",
@@ -46,14 +46,4 @@ gulp.task("favicon", function () {
   ])
   .pipe(changed(dbg))
   .pipe(gulp.dest(dbg));
-});
-
-// copies the 4islands2017 images
-gulp.task("4islands2017", function () {
-  // copy js files
-  return gulp.src([
-    src+"img/4islands2017/**/*"
-  ])
-  .pipe(changed(dbg+"img/4islands2017"))
-  .pipe(gulp.dest(dbg+"img/4islands2017"));
 });

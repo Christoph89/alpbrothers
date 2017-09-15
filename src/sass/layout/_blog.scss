@@ -1,0 +1,23 @@
+#blog {
+  img.logo {
+    width: 25rem;
+  }
+
+  .story {
+    cursor: pointer;
+    @include vendor('transition', 'transform #{_duration(transition)} ease-in-out');
+
+    img {
+      width: 100%;
+      border-radius: 10px;
+    }
+
+    .name {
+      margin-bottom: 0px;
+    }
+
+    &:hover {
+      @include vendor('transform', 'scale(1.1)');
+    }
+  }
+}

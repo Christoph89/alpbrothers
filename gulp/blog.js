@@ -1,8 +1,6 @@
 var gulp=require("gulp");
 var each=require("gulp-each");
 var changed=require("gulp-changed");
-var merge=require("gulp-merge-json");
-var tpl=require("gulp-template");
 var tpldata=require("gulp-data");
 var rename=require("gulp-rename");
 var njucks=require("gulp-nunjucks");
@@ -15,24 +13,30 @@ var src=process.env.SRC;
 var dbg=process.env.DBG;
 var deflng=process.env.DEFLNG;
 
-var storyIndex={};
+var stories=[];
 
 // copies all html files to htd
 gulp.task("blog", ["blog-stories"], function () {
-  // write story index file
-  for (var lang in storyIndex)
-  {
-    var lngPath=dbg+(lang!=deflng?(lang+"/"):"");
-    if (!fs.existsSync(lngPath)) fs.mkdirSync(lngPath);
-    if (!fs.existsSync(lngPath+"blog")) fs.mkdirSync(lngPath+"blog");
-    fs.writeFileSync(lngPath+"blog/index.json", JSON.stringify(storyIndex[lang], null, "  ")); 
-  }
+
+  // create blog page
+  createIndex("de", stories);
+  createIndex("en", stories);
+
+  // // write story index file
+  // for (var lang in stories)
+  // {
+  //   createIndex(lang, stories);
+  //   //var lngPath=dbg+(lang!=deflng?(lang+"/"):"");
+  //   //if (!fs.existsSync(lngPath)) fs.mkdirSync(lngPath);
+  //   //if (!fs.existsSync(lngPath+"blog")) fs.mkdirSync(lngPath+"blog");
+  //   //fs.writeFileSync(lngPath+"blog/index.json", JSON.stringify(storyIndex[lang], null, "  ")); 
+  // }
 });
 
 // creates all stories
 gulp.task("blog-stories", function () {
   return gulp.src([
-    src+"blog/**/story.json"
+    src+"html/blog/**/story.json"
   ])
   .pipe(each(function (content, file, clb)
   {
@@ -52,16 +56,16 @@ function createStory(lang, story, dir)
 {
   try
   {
+    if (story) stories.push(story); // add story to list
     var res=story&&story.res?story.res[lang]:null;
     if (!lang || !res || res.disable)
       return;
 
-    // get content
+    // check html file
     var htmlFile=dir+"story.html";
-    var content="";
     if (!fs.existsSync(htmlFile))
       return;
-      
+
     // extend resource
     var defaultRes=JSON.parse(fs.readFileSync(src+"res/tpl/"+lang+".json"));
     res=deepAssign(defaultRes, res);
@@ -85,20 +89,37 @@ function createStory(lang, story, dir)
       .pipe(render({ path: [src] }))
       .pipe(rename("index.html"))
       .pipe(gulp.dest(dest));
-
-    // add index entry
-    var idx=storyIndex[lang];
-    if (!idx)
-      idx=storyIndex[lang]=[];
-    idx.push({
-      date: story.date,
-      url: storyUrl,
-      title: res.title
-    });
   }
   catch (ex)
   {
     console.log("Could not create story ("+lang+") for '"+dir+"'! "+JSON.stringify(story));
     throw ex;
   }
+}
+
+function createIndex(lang, stories)
+{
+  if (!lang || !stories || !stories.length)
+    return;
+
+  // get resource
+  var defaultRes=JSON.parse(fs.readFileSync(src+"res/tpl/"+lang+".json"));
+  var res=deepAssign(defaultRes, JSON.parse(fs.readFileSync(src+"res/blog/"+lang+".json")));
+
+  // get destination
+  var lng=lang!=deflng?(lang+"/"):"";
+  var dest=dbg+lng+"blog"; 
+
+  // create html
+  gulp.src(src+"html/blog/blog.html")
+  .pipe(tpldata(function(){ 
+    return { 
+      root: lang==deflng?"../":"../../", 
+      lang: lang,
+      res: res
+    };
+  }))
+  .pipe(render({ path: [src] }))
+  .pipe(rename("index.html"))
+  .pipe(gulp.dest(dest));
 }

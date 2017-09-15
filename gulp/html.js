@@ -37,7 +37,7 @@ function buildMain(lang, res, dest)
   if (lang!=deflng)
     dest+="/"+lang;
 
-  return gulp.src(src+"html/index.tpl.html")
+  return gulp.src(src+"html/index.html")
     .pipe(tpldata(function(){ 
       return { 
         root: lang==deflng?"":"../", 
@@ -46,7 +46,6 @@ function buildMain(lang, res, dest)
       };
     }))
     .pipe(render({ path: [src] }))
-    .pipe(rename("index.html"))
     .pipe(gulp.dest(dest));
 }
 

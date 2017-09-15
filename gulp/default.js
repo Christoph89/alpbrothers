@@ -13,13 +13,14 @@ gulp.task("build", ["scripts", "styles", "html", "blog", "tpl", "images", "types
 gulp.task("watch", ["build"], function () {
   gulp.watch(src+"**/*.js", ["scripts"]);
   gulp.watch(src+"**/*.css", ["styles"]);
-  gulp.watch(src+"html/**/*.html", ["html"]);
-  gulp.watch(src+"blog/**/*", ["blog"]);
+  gulp.watch(src+"html/**/*", ["html", "blog"]);
+  gulp.watch(src+"res/**/*", ["html", "blog"]);
   gulp.watch(src+"tpl/*", ["tpl"]);
   gulp.watch(src+"img/**/*", ["images"]);
   gulp.watch(src+"ts/**/*.ts", ["typescript"]);
   gulp.watch(src+"sass/**/*.scss", ["sass"]);
   gulp.watch(src+"forms/**/*", ["forms"]);
+  gulp.watch(src+"../gulp/*", ["build"]);
 });
 
 // cleans the project
@@ -28,4 +29,4 @@ gulp.task("clean", function () {
     "docs",
     "docs_debug"
   ]);
-})
+});

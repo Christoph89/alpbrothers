@@ -6,7 +6,7 @@
     "de":
     {
       "title": "Story template",
-      "disable": true,
+      "disable": false,
       "menu":
       [
         { "url": "/", "text": "Home", "icon": "fa-home" }
@@ -21,7 +21,7 @@
     "en":
     {
       "title": "Story template",
-      "disable": true,
+      "disable": false,
       "menu":
       [
         { "url": "/", "text": "Home", "icon": "fa-home" }

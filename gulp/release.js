@@ -37,7 +37,7 @@ gulp.task("release", ["build"], function () {
     .pipe(gulp.dest(release+"en"));
     
   // copy blog html
-  gulp.src(dbg+"blog/*")
+  gulp.src(dbg+"blog/**/*")
     .pipe(changed(release+"blog"))
     .pipe(gulp.dest(release+"blog"));
 
