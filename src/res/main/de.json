@@ -43,6 +43,17 @@
     "author": "Albert Einstein"
   },
 
+  "offer":
+  {
+    "title": "Unser Angebot",
+    "training": "Techniktraining",
+    "trainingText": "In unserem Training arbeiten wir zuerst gemeinsam an deiner <b>Fahrtechnik</b>. Grundlegende <b>Tipps und Tricks</b> zu Haltung, Brems- und Kurventechnik sollen dir helfen auf jedem Trail zu bestehen. Nachdem wir deine Technik verbessert haben rocken wir dann gemeinsam die Trails <b>rund um den Faaker See</b>.",
+    "tour": "Guided Tour",
+    "tourText": "Egal ob kurz-knackiger <b>Feierabend Trail</b>, fetziger <b>Enduro Ausflug</b> oder ausgiebige <b>Dreiländer-Tagestour</b>, wir sind deine Begleiter auf dem Weg zum <b>Rundum-Sorglos-Bike-Paket</b> und führen dich durch deine individuelle Traumtour im Raum <b>Villach / Faaker See / Dreiländereck</b>.",
+    "goUrl": "#events",
+    "go": "Termine"
+  },
+
   "events":
   {
     "title": "Termine",

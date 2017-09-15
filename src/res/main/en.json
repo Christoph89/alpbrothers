@@ -43,6 +43,17 @@
     "author": "Albert Einstein"
   },
   
+  "offer":
+  {
+    "title": "Tours",
+    "training": "Bike Technique Training",
+    "trainingText": "In our technique training sessions we mainly work on <b>your biking skills</b>. Basic hints on your <b>riding position, braking technique and cornering</b>  will help you to <b>keep the flow</b> on every trail, and achieve your ideal setup for off-road riding. Afterwards you can demonstrate your abilities on one of the various <b>exciting trails</b> the beautiful <b>Faaker See</b> area offers.",
+    "tour": "Guided Tour",
+    "tourText": "Whether you are interested in a <b>maximum dirt after-work-ride</b>, a <b>no-pain-no-gain enduro</b> tour or a <b>relaxed day trip</b>. We offer all kinds of individual tours in the tri-state area of <b>Austria, Italy and Slovenia</b>. Just <b>send us your inquiry</b> and enjoy your unique experience in the epic scenery of <b>Faaker See</b>.",
+    "goUrl": "#events",
+    "go": "Events"
+  },
+  
   "events":
   {
     "title": "Events",

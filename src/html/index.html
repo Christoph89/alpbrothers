@@ -11,7 +11,7 @@
 {% endblock %}
 
 {% block content %}
-  {% set sections=["welcome", "about", "certification", "about2", "einstein-quote", "events", "alpbros-quote", "impressions", "alpbros-quote2", "contact", "partner"] %}
+  {% set sections=["welcome", "about", "certification", "about2", "einstein-quote", "offer", "events", "alpbros-quote", "impressions", "alpbros-quote2", "contact", "partner"] %}
   {% for section in sections %}
     {% include "html/parts/"+section+".html" %}
   {% endfor %}

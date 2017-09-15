@@ -1,30 +1,21 @@
 <!-- offer -->
 <section id="offer" class="wrapper style1 color2 align-center">
   <div class="inner">
-    <h2>Unser Angebot</h2>
+    <h2>{{ res.offer.title }}</h2>
     <div class="items style1 big onscroll-fade-in">
       <section>
         <span class="icon style2 major fa-wrench"></span>
-        <h3>Techniktraining</h3>
-        <p>
-          In unserem Training arbeiten wir zuerst gemeinsam an deiner <b>Fahrtechnik</b>. Grundlegende
-          <b>Tipps und Tricks</b> zu Haltung, Brems- und Kurventechnik sollen dir helfen auf jedem Trail zu bestehen. Nachdem wir deine Technik verbessert
-          haben rocken wir dann gemeinsam die Trails
-          <b>rund um den Faaker See</b>.
-        </p>
+        <h3>{{ res.offer.training }}</h3>
+        <p>{{ res.offer.trainingText | safe }}</p>
       </section>
       <section>
         <span class="icon style2 major fa-bicycle"></span>
-        <h3>Guided Tour</h3>
-        <p>
-          Egal ob kurz-knackiger <b>Feierabend Trail</b>, fetziger <b>Enduro Ausflug</b> oder ausgiebige
-          <b>Dreiländer-Tagestour</b>, wir sind deine Begleiter auf dem Weg zum <b>Rundum-Sorglos-Bike-Paket</b> und führen dich durch deine individuelle
-          Traumtour im Raum <b>Villach / Faaker See / Dreiländereck</b>.
-        </p>
+        <h3>{{ res.offer.tour }}</h3>
+        <p>{{ res.offer.tourText | safe }}</p>
       </section>
     </div>
     <ul class="actions">
-      <li><a href="#events" class="button smooth-scroll icon fa-angle-down">Termine</a></li>
+      <li><a href="{{ res.offer.goUrl }}" class="button smooth-scroll icon fa-angle-down">{{ res.offer.go }}</a></li>
     </ul>
   </div>
 </section>
