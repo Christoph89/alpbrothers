@@ -25,7 +25,11 @@ function buildMain($)
   res.lng.chgurl=$.cfg.lngurl;
 
   // add events
-  res.events.list=$.getEventList(res);
+  res.events.list=$.getEventList(res)||[];
+  if (!linq.from(res.events.list).any(function (e) { return e.price.indexOf("(*)")>-1; }))
+    res.events.youthDiscountInfo=null;
+  if (!linq.from(res.events.list).any(function (e) { return e.price.indexOf("(**)")>-1; }))
+    res.events.erlebnisCardInfo=null;
 
   // parse resource
   res=$.parseResource(res);

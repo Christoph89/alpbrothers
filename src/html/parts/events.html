@@ -19,13 +19,17 @@
       </table>
     </div>
 
-    {% if res.events.showErlebnisCardInfo %}
-      <sub>{{ res.events.erlebnisCardInfo | safe }}</sub>
-    {% endif %}
-    {% if res.events.showYouthDiscountInfo %}
+    <span class="infos">
+    {% if res.events.youthDiscountInfo %}
       <sub>{{ res.events.youthDiscountInfo | safe }}</sub>
+      <br />
     {% endif %}
-    <br /><br />
+    {% if res.events.erlebnisCardInfo %}
+      <sub>{{ res.events.erlebnisCardInfo | safe }}</sub>
+      <br />
+    {% endif %}
+      <br />
+    </span>
 
     <p>{{ res.events.furtherInfo | safe }}</p>
     <ul class="actions">
