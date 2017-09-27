@@ -1,17 +1,23 @@
-var gulp=require("gulp");
 var ts=require("gulp-typescript");
-
-// get process environment vars
-var src=process.env.SRC;
-var dbg=process.env.DBG;
+var uglify=require("gulp-uglify");
 
 // compiles the application's typescript files
-gulp.task("typescript", function () {
-  // compile app.ts
-  return gulp.src(src+"ts/app.ts")
-   .pipe(ts({
-       noImplicitAny: false,
-       out: "app.js"
-   }))
-   .pipe(gulp.dest(dbg+"js"));
-});
+function run($) {
+  // compile ts
+  var stream=$.src("%srcts/app.ts")
+    .pipe(ts({
+      noImplicitAny: false,
+      out: "app.js"
+    }));
+
+  // minify 
+  if ($.cfg.min)
+    stream=$.pipe(stream.js, uglify({}));  
+
+  // set dest
+  return stream.dest("%dstjs");
+}
+
+module.exports={
+  run: run
+};

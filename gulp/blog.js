@@ -7,6 +7,7 @@ var njucks=require("gulp-nunjucks");
 var render=require("gulp-nunjucks-render");
 var fs=require("fs");
 var deepAssign=require("deep-assign");
+var linq=require("linq");
 
 // get process environment vars
 var src=process.env.SRC;
@@ -15,12 +16,15 @@ var deflng=process.env.DEFLNG;
 
 var stories=[];
 
+function run() {
+
+}
+
 // copies all html files to htd
 gulp.task("blog", ["blog-stories"], function () {
-
   // create blog page
-  createIndex("de", stories);
-  createIndex("en", stories);
+  //createIndex("de", stories);
+  //createIndex("en", stories);
 
   // // write story index file
   // for (var lang in stories)
@@ -58,7 +62,7 @@ function createStory(lang, story, dir)
   {
     if (story) stories.push(story); // add story to list
     var res=story&&story.res?story.res[lang]:null;
-    if (!lang || !res || res.disable)
+    if (!lang || !res || res.disabled)
       return;
 
     // check html file
@@ -110,6 +114,9 @@ function createIndex(lang, stories)
   var lng=lang!=deflng?(lang+"/"):"";
   var dest=dbg+lng+"blog"; 
 
+  // get relevant stories
+  Enumerable.from(stories).where(function (x) { return x && x.res && x.res[lang] && !x.res[lang].disabled; }).toArray();
+
   // create html
   gulp.src(src+"html/blog/blog.html")
   .pipe(tpldata(function(){ 
@@ -123,3 +130,7 @@ function createIndex(lang, stories)
   .pipe(rename("index.html"))
   .pipe(gulp.dest(dest));
 }
+
+module.exports={
+  run: run
+};

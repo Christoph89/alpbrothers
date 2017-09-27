@@ -1,6 +1,7 @@
 {% extends "html/tpl.html" %}
 
 {% block content %}
+<!-- facebook sdk -->
 <div id="fb-root"></div>
 <script>(function(d, s, id) {
   var js, fjs = d.getElementsByTagName(s)[0];
@@ -10,6 +11,7 @@
   fjs.parentNode.insertBefore(js, fjs);
 }(document, 'script', 'facebook-jssdk'));</script>
 
+<!-- stories -->
 <section id="blog" class="wrapper style1 color4 align-center">
   <div class="inner">
     <img class="svg logo" src="{{ root }}img/alpbrothers-full-multiline.svg">
@@ -25,6 +27,7 @@
     </div>
   </div>
 
+  <!-- facebook comment -->
   <div class="fb-comments" data-href="https://www.facebook.com/alpbrothers/blog" data-numposts="5"></div>
 </section>
 {% endblock %}

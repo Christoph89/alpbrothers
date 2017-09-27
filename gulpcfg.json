@@ -1,0 +1,56 @@
+{
+  "common":
+  {
+    "src": "./src/",
+    "events": "./src/res/events.json",
+    "verbose": false
+  },
+  
+  "dbg":
+  {
+    "build":
+    [
+      { 
+        "lang": "de", 
+        "dest": "./docs_debug/", 
+        "root": "", 
+        "lngurl": "en/index.html", 
+        "cname": "www.alpbrothers.at", 
+        "min": false 
+      },
+      { 
+        "lang": "en", 
+        "dest": "./docs_debug/en/", 
+        "root": "../", 
+        "lngurl": "../index.html", 
+        "cname": "www.alpbrothers.com", 
+        "min": false, 
+        "parts": ["html"] 
+      }
+    ]
+  },
+
+  "release":
+  {
+    "build":
+    [
+      { 
+        "lang": "de", 
+        "dest": "./docs/", 
+        "root": "", 
+        "lngurl": "https://www.alpbrothers.com", 
+        "cname": "www.alpbrothers.at", 
+        "min": true 
+      },
+      { 
+        "lang": "en", 
+        "dest": "../alpbrothers-com/docs/", 
+        "root": "https://www.alpbrothers.at/", 
+        "lngurl": "https://www.alpbrothers.at",
+        "cname": "www.alpbrothers.com", 
+        "min": true, 
+        "parts": ["html", "tpl"] 
+      }
+    ]
+  }
+}

@@ -3,11 +3,11 @@
 
 # TEAM
 
-    <name> -- <role> -- <twitter>
+    Christoph Schaunig
 
 # THANKS
 
-    <name>
+    Thomas Raspotnik, Camping Anderwald, Tischlerei Grossegger, R2 Bike
 
 # TECHNOLOGY COLOPHON
 

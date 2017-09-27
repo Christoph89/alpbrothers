@@ -8,7 +8,7 @@
     {
       "taskName": "build",
       "showOutput": "always",
-      "isBuildCommand": false
+      "isBuildCommand": true
     },
     {
       "taskName": "clean",
@@ -18,7 +18,7 @@
     {
       "taskName": "watch",
       "showOutput": "always",
-      "isBuildCommand": true,
+      "isBuildCommand": false,
       "isBackground": true
     }
   ]

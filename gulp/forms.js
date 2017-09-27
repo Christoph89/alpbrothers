@@ -1,17 +1,11 @@
-var gulp=require("gulp");
-var changed=require("gulp-changed");
+// copies all forms
+function run($) {
+  return $.copy([
+    "%srcforms/*.pdf",
+    "%srcforms/2017/*.pdf",
+  ], "%dstforms");
+}
 
-// get process environment vars
-var src=process.env.SRC;
-var dbg=process.env.DBG;
-
-// copies all js files to htd/js
-gulp.task("forms", function () {
-  // copy js files
-  return gulp.src([
-    src+"forms/*.pdf",
-    src+"forms/2017/*.pdf",
-  ])
-  .pipe(changed(dbg+"forms"))
-  .pipe(gulp.dest(dbg+"forms"));
-});
+module.exports={
+  run: run
+};

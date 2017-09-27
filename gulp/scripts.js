@@ -1,19 +1,14 @@
-var gulp=require("gulp");
-var changed=require("gulp-changed");
+// copies all js files
+function run($) 
+{
+  return $.copy([
+    "%srcvendor/jquery/*.js",
+    "%srcvendor/modernizr/modernizr.js",
+    "%srcvendor/skel/skel.js",
+    "%srcvendor/linq/linq.js",
+  ], "%dstjs");
+}
 
-// get process environment vars
-var src=process.env.SRC;
-var dbg=process.env.DBG;
-
-// copies all js files to htd/js
-gulp.task("scripts", function () {
-  // copy js files
-  return gulp.src([
-    src+"vendor/jquery/*.js",
-    src+"vendor/modernizr/modernizr.js",
-    src+"vendor/skel/skel.js",
-    src+"vendor/linq/linq.js",
-  ])
-  .pipe(changed(dbg+"js"))
-  .pipe(gulp.dest(dbg+"js"));
-});
+module.exports={
+  run: run
+};

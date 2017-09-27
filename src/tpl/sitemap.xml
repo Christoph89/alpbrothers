@@ -7,20 +7,20 @@
     xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <url>
     <loc>https://www.alpbrothers.at/</loc>
-    <lastmod>2017-04-12T05:30:56+00:00</lastmod>
+    <lastmod>2017-09-27T14:30:56+00:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>1.00</priority>
     <xhtml:link rel="alternate" hreflang="de" href="https://www.alpbrothers.at/" />
-    <xhtml:link rel="alternate" hreflang="en" href="https://www.alpbrothers.at/en" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.alpbrothers.com/" />
     <xhtml:link rel="alternate" hreflang="x-default" href="https://www.alpbrothers.at/" />
   </url>
   <url>
-    <loc>https://www.alpbrothers.at/en</loc>
-    <lastmod>2017-04-12T05:30:56+00:00</lastmod>
+    <loc>https://www.alpbrothers.com/</loc>
+    <lastmod>2017-09-27T14:30:56+00:00</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.80</priority>
     <xhtml:link rel="alternate" hreflang="de" href="https://www.alpbrothers.at/" />
-    <xhtml:link rel="alternate" hreflang="en" href="https://www.alpbrothers.at/en" />
+    <xhtml:link rel="alternate" hreflang="en" href="https://www.alpbrothers.com/" />
     <xhtml:link rel="alternate" hreflang="x-default" href="https://www.alpbrothers.at/" />
   </url>
 </urlset>

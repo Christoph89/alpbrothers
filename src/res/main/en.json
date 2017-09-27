@@ -7,7 +7,7 @@
     { "url": "#events", "text": "Events", "icon": "fa-calendar" },
     { "url": "#alpbros-quote", "text": "Impressions", "icon": "fa-camera-retro" },
     { "url": "#alpbros-quote2", "text": "Contact", "icon": "fa-phone" },
-    { "url": "../", "text": "Deutsch", "icon": "fa-language" }
+    { "url": "%lngurl", "text": "Deutsch", "icon": "fa-language" }
   ],
   
   "home":
