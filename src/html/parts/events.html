@@ -10,7 +10,7 @@
         <tbody>
           {% for event in res.events.list %}
             <tr>
-              <td>{{ event.date }}</td>
+              <td>{{ event.date.txt }}</td>
               <td><a href="{{ root }}{{ event.url }}" target="_blank">{{ event.name }}</a></td>
               <td>{{ event.price }}</td>
             </tr>

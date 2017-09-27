@@ -105,30 +105,44 @@ function run(cfg) {
     return new mergeStream(src(source).dest(destination));
   }
 
-  function getEventList(res, file)
+  function getEventList(res, includeExpired, file)
   {
     if (!file) file=cfg.events;
     var events=JSON.parse(fs.readFileSync(file)) || [];
 
-    return linq.from(events).select(function(ev) { 
+    var all=linq.from(events).select(function(ev) { 
       return {
         date: parseEventDate(ev, res),
         name: ev.name,
         price: ev.price,
         url: ev.url    
       };
-    }).toArray();
+    });
+    
+    if (!includeExpired)
+    {
+      var now=new Date();
+      all=all.where(function (ev) { return (ev.date.to||ev.date.from)>now; });
+    }
+
+    return all.toArray();
   }
 
   // parses the specified date
   function parseEventDate(ev, res)
   {
-    var from=new Date(Date.parse(ev.from));
-    var to=ev.to?new Date(Date.parse(ev.to)):null;
-    if (!to)
-      return dateFormat(from, res.dateFormat);
-    var parts=res.fromToFormat.split(" - ");
-    return dateFormat(from, parts[0])+" - "+dateFormat(to, parts[1]);
+    var date={
+      from: new Date(Date.parse(ev.from)),
+      to: ev.to?new Date(Date.parse(ev.to)):null
+    };
+    if (!date.to)
+      date.txt=dateFormat(date.from, res.dateFormat);
+    else
+    {
+      var parts=res.fromToFormat.split(" - ");
+      date.txt=dateFormat(date.from, parts[0])+" - "+dateFormat(date.to, parts[1]);
+    }
+    return date;
   }
 
   // builds the specified template
