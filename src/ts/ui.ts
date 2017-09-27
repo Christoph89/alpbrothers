@@ -21,6 +21,7 @@ module $alpbros.$ui
     $ui.initLangButton(); // hide language button on scroll
     $ui.initWrapper(); // init wrapper element
     $ui.initItems(); // init item lists
+    $ui.events.init(); // init events
     $ui.gallery.init(); // init gallery
     $ui.menu.init(); // menu
     $ui.maps.init(); // google maps

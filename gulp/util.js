@@ -142,6 +142,7 @@ function run(cfg) {
       var parts=res.fromToFormat.split(" - ");
       date.txt=dateFormat(date.from, parts[0])+" - "+dateFormat(date.to, parts[1]);
     }
+    date.iso=(date.to||date.from).toISOString();
     return date;
   }
 

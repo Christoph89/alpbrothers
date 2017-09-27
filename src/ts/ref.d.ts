@@ -13,6 +13,7 @@
 // app
 /// <reference path="app.ts" />
 /// <reference path="ui.ts" />
+/// <reference path="ui-events.ts" />
 /// <reference path="ui-gallery.ts" />
 /// <reference path="ui-map.ts" />
 /// <reference path="ui-map-style.ts" />
