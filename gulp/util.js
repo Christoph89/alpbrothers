@@ -1,9 +1,11 @@
 var gulp=require("gulp");
-var mergeStream=require("merge-stream");
+var mstream=require("merge-stream");
 var multiDest=require("gulp-multi-dest");
 var dateFormat=require("dateformat");
 var deepAssign=require("deep-assign");
 var rename=require("gulp-rename");
+var tpldata=require("gulp-data");
+var render=require("gulp-nunjucks-render");
 var pathutil=require("path");
 var linq=require("linq");
 var fs=require("fs");
@@ -102,7 +104,7 @@ function run(cfg) {
   function copy(source, destination)
   {
     if (cfg.verbose) console.log("copy "+JSON.stringify(source)+" -> "+JSON.stringify(destination));
-    return new mergeStream(src(source).dest(destination));
+    return new mstream(src(source).dest(destination));
   }
 
   function getEventList(res, includeExpired, file)
@@ -146,25 +148,6 @@ function run(cfg) {
     return date;
   }
 
-  // builds the specified template
-  function buildTpl(tpl, lang, data, destination)
-  {
-    // get default resource
-    var res=JSON.parse(fs.readFileSync(src+"res/tpl/"+lang+".json"));
-
-    // get default data and extend it
-    data=deepAssign({
-      root: "",
-      lang: lang,
-      res: res
-    }, data);
-
-    var stream=src(tpl)
-      .pipe(tpldata(function(){ return data; }))
-      .pipe(render({ path: [src] }))
-      .pipe(dest(destination));
-  }
-
   // merge the specified json and/or files
   function merge()
   {
@@ -197,6 +180,27 @@ function run(cfg) {
       return val;
     }
     return res;
+  }
+
+  // builds the specified template
+  function buildTpl(tpl, destination, extendRes)
+  {
+    // get resource
+    var res=cfg.res=merge("%srcres/tpl/"+cfg.lang+".json", "%srcres/main/"+cfg.lang+".json");
+  
+    // extend resource
+    if (extendRes)
+      extendRes(res);
+  
+    // parse resource
+    res=parseResource(res);
+  
+    return new mstream(src(tpl)
+      .pipe(tpldata(function() { 
+        return cfg;
+      }))
+      .pipe(render({ path: [cfg.src] }))
+      .dest(destination));
   }
 
   return {
