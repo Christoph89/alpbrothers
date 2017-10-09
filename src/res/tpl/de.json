@@ -24,7 +24,7 @@
     "email": "Email"
   },
   "copyright": "Copyright &copy; Christoph Schaunig 2017",
-  "alpbrosGuiding": "Alpbrothers Mountainbike Guiding - Dein MTB Guide am Faaker See",
+  "alpbrosGuiding": "Alpbrothers Mountainbike Guiding",
   "dateFormat": "dd.mm.yyyy '-' HH:MM 'Uhr'",
   "fromToFormat":"dd.mm - dd.mm.yyyy"
 }
