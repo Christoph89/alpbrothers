@@ -1,6 +1,6 @@
 {
-  "title": "Alpbrothers Mountainbike Guiding",
-  "description": "Alpbrothers Mountainbike Guiding - Your mountainbike guiding provider at Carinthia/Villach/Faaker See",
+  "title": "Alpbrothers Mountainbike Guiding - Your MTB guide at Faaker See",
+  "description": "Alpbrothers Mountainbike Guiding - Your certified mountainbike guides at Carinthia, Villach, Faaker See (Lake Faak)",
   "menu": 
   [
     { "url": "#home", "text": "Home", "icon": "fa-home" }
@@ -24,7 +24,7 @@
     "email": "Email"
   },
   "copyright": "Copyright &copy; Christoph Schaunig 2017",
-  "alpbrosGuiding": "Alpbrothers Mountainbike Guiding",
+  "alpbrosGuiding": "Alpbrothers Mountainbike Guiding - Your MTB guide at Faaker See",
   "dateFormat": "dd.mm.yyyy '-' hh:MM TT",
   "fromToFormat":"dd.mm - dd.mm.yyyy"
 }

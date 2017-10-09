@@ -1,6 +1,6 @@
 {
-  "title": "Alpbrothers Mountainbike Guiding",
-  "description": "Alpbrothers Mountainbike Guiding - Dein Mountainbike Guiding Anbieter in der Region Kärnten/Villach/Faaker See",
+  "title": "Alpbrothers Mountainbike Guiding - Dein MTB Guide am Faaker See",
+  "description": "Alpbrothers Mountainbike Guiding - Deine zertifizierten MTB Guides in der Region Kärnten, Villach, Faaker See",
   "menu": 
   [
     { "url": "#home", "text": "Home", "icon": "fa-home" }
@@ -24,7 +24,7 @@
     "email": "Email"
   },
   "copyright": "Copyright &copy; Christoph Schaunig 2017",
-  "alpbrosGuiding": "Alpbrothers Mountainbike Guiding",
+  "alpbrosGuiding": "Alpbrothers Mountainbike Guiding - Dein MTB Guide am Faaker See",
   "dateFormat": "dd.mm.yyyy '-' HH:MM 'Uhr'",
   "fromToFormat":"dd.mm - dd.mm.yyyy"
 }
