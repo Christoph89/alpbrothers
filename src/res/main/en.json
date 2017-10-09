@@ -17,21 +17,21 @@
   
   "about":
   {
-    "text": "Interested in a <b>maximum dirt after-work-ride</b>, a <b>no-pain-no-gain enduro</b> tour or a <b>relaxed day trip</b> in the tri-state area of <b>Austria, Italy and Slovenia</b> with an officially-certified mountain bike guide? We offer individual tours for beginners and the more advanced near <b>Villach / Faaker See</b>. Reach out to us and join us discovering <b>K&auml;rnten (Carinthia)</b> and the broader Faaker See area.",
+    "text": "Interested in a <b>maximum dirt after-work-ride</b>, a <b>no-pain-no-gain enduro</b> tour or a <b>relaxed day trip</b> in the tri-state area of <b>Austria, Italy and Slovenia</b> with an officially-certified mountain bike guide? We offer individual tours for beginners and the more advanced near <b>Lake Faak / Villach</b>. Reach out to us and join us discovering <b>K&auml;rnten (Carinthia)</b> and the broader area of Lake Faak (Faaker See).",
     "more": "Learn more",
-    "img": "Mountainbiker on the top of Schwarzkogel."
+    "img": "Mountainbiker on the top of Schwarzkogel nearby to Lake Faak."
   },
   
   "certification":
   {
-    "text": "Officially-certified and licensed mountain bike instructors",
+    "text": "Officially-certified and licensed mountain bike guides from Carinthia",
     "guides": "Christoph & Thomas"
   },
   
   "about2":
   {
-    "title": "Experience Faaker See",
-    "text": "For us, mountain biking is more than just exercise, it is an <b>attitude to life</b>! This <b>unique lifestyle</b> combines endurance, focus, friendship, emotions, culture, and even regional cuisine with the urge to explore nature and to enjoy a breathtaking countryside. Sounds interesting? <b>Join us</b> and discover a <b>lifestyle of flow and heartbeat</b> in the astonishing region of <b>Faaker See</b>!",
+    "title": "Experience Carinthia, enjoy Lake Faak",
+    "text": "For us, mountain biking is more than just exercise, it is an <b>attitude to life</b>! This <b>unique lifestyle</b> combines endurance, focus, friendship, emotions, culture, and even regional cuisine with the urge to explore nature and to enjoy a breathtaking countryside. Sounds interesting? <b>Join us</b> and discover a <b>lifestyle of flow and heartbeat</b> in the astonishing region of <b>Lake Faak</b>!",
     "goUrl": "#einstein-quote",
     "go": "Our tours",
     "img": "Mountainbiker sitting on a wonderful alp."
@@ -47,9 +47,9 @@
   {
     "title": "Tours",
     "training": "Bike Technique Training",
-    "trainingText": "In our technique training sessions we mainly work on <b>your biking skills</b>. Basic hints on your <b>riding position, braking technique and cornering</b>  will help you to <b>keep the flow</b> on every trail, and achieve your ideal setup for off-road riding. Afterwards you can demonstrate your abilities on one of the various <b>exciting trails</b> the beautiful <b>Faaker See</b> area offers.",
+    "trainingText": "In our technique training sessions we mainly work on <b>your biking skills</b>. Basic hints on your <b>riding position, braking technique and cornering</b>  will help you to <b>keep the flow</b> on every trail, and achieve your ideal setup for off-road riding. Afterwards you can demonstrate your abilities on one of the various <b>exciting trails</b> the beautiful <b>Lake Faak</b> area offers.",
     "tour": "Guided Tour",
-    "tourText": "Whether you are interested in a <b>maximum dirt after-work-ride</b>, a <b>no-pain-no-gain enduro</b> tour or a <b>relaxed day trip</b>. We offer all kinds of individual tours in the tri-state area of <b>Austria, Italy and Slovenia</b>. Just <b>send us your inquiry</b> and enjoy your unique experience in the epic scenery of <b>Faaker See</b>.",
+    "tourText": "Whether you are interested in a <b>maximum dirt after-work-ride</b>, a <b>no-pain-no-gain enduro</b> tour or a <b>relaxed day trip</b>. We offer all kinds of individual tours in the tri-state area of <b>Austria, Italy and Slovenia</b>. Just <b>send us your inquiry</b> and enjoy your unique experience in the epic scenery of <b>Lake Faak</b>.",
     "goUrl": "#events",
     "go": "Events"
   },
@@ -95,7 +95,7 @@
   
   "alpbrosQuote2":
   {
-    "text": "\"Mountain biking in Carinthia is unique.<br />Discover a lifestyle of flow and heartbeat in the astonishing region of Faaker See!\"",
+    "text": "\"Mountain biking in Carinthia is unique.<br />Discover a lifestyle of flow and heartbeat in the astonishing region of Lake Faak!\"",
     "author": "Alpbrothers"
   },
   
