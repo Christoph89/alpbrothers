@@ -70,6 +70,15 @@
   .content {
     background-color: _palette(menu-inner-bg) !important;
     border: 1px solid #fff;
+    @include breakpoint(medium) {
+      max-width: 65%;
+    }
+    @include breakpoint(small) {
+      max-width: 80%;
+    }
+    @include breakpoint(xsmall) {
+      max-width: 100%;
+    }
   }
 
   ul.actions {
