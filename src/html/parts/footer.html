@@ -2,9 +2,14 @@
   <div class="inner">
     <img class="logo svg" src="{{ root }}img/alpbrothers-full-multiline.svg" alt="{{ res.description }}" />
     <ul class="icons">
-      <li><a href="https://www.facebook.com/alpbrothers" target="_blank" class="icon style2 fa-facebook" title="{{ res.social.fb }}"><span class="label">{{ res.social.fb }}</span></a></li>
+      {% for item in res.media %}
+      <li><a href="{{ item.url }}" target="{{ item.target }}" class="icon style2 {{ item.icon }}" title="{{ item.text }}"><span class="label">{{ item.text }}</span></a></li>  
+      {% endfor %}
+      <!-- <li><a href="https://www.facebook.com/alpbrothers" target="_blank" class="icon style2 fa-facebook" title="{{ res.social.fb }}"><span class="label">{{ res.social.fb }}</span></a></li>
       <li><a href="https://www.instagram.com/alpbrothers" target="_blank" class="icon style2 fa-instagram" title="{{ res.social.ig }}"><span class="label">{{ res.social.ig }}</span></a></li>
       <li><a href="mailto:office@alpbrothers.at" class="icon style2 fa-envelope" title="{{ res.social.email }}"><span class="label">{{ res.social.email }}</span></a></li>
+      <li><a href="tel:+4367761706070" class="icon style2 fa-phone" title="{{ res.social.phone }}"><span class="label">{{ res.social.phone }}</span></a></li>
+      <li><a href="https://api.whatsapp.com/send?phone=4367761716070" target="_blank" class="icon style2 fa-whatsapp" title="{{ res.social.whatsapp }}"><span class="label">{{ res.social.whatsapp }}</span></a></li> -->
     </ul>
     <p>{{ res.copyright | safe }}</p>
   </div>
