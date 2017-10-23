@@ -1,13 +1,13 @@
 {
   "menu": 
   [
-    { "url": "#home", "text": "Home", "icon": "fa-home" },
-    { "url": "#about", "text": "About", "icon": "fa-id-card" },
-    { "url": "#einstein-quote", "text": "Angebot", "icon": "fa-bicycle" },
-    { "url": "#events", "text": "Termine", "icon": "fa-calendar" },
-    { "url": "#alpbros-quote", "text": "Impressionen", "icon": "fa-camera-retro" },
-    { "url": "#alpbros-quote2", "text": "Kontakt", "icon": "fa-phone" },
-    { "url": "%lngurl", "text": "English", "icon": "fa-language" }
+    { "url": "#home", "text": "Home", "icon": "special fa-home" },
+    { "url": "#about", "text": "About", "icon": "special fa-id-card" },
+    { "url": "#einstein-quote", "text": "Angebot", "icon": "special fa-bicycle" },
+    { "url": "#events", "text": "Termine", "icon": "special fa-calendar" },
+    { "url": "#alpbros-quote", "text": "Impressionen", "icon": "special fa-camera-retro" },
+    { "url": "#alpbros-quote2", "text": "Kontakt", "icon": "special fa-phone" },
+    { "url": "%lngurl", "text": "English", "icon": "fa-language" }  
   ],
 
   "home":

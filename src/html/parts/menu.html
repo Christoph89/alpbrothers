@@ -6,7 +6,7 @@
   <div class="content">
     <ul class="actions vertical">
       {% for item in res.menu %}
-        <li><a href="{{ item.url }}" class="button special medium wide smooth-scroll icon {{ item.icon }}" title="{{ item.text }}">{{ item.text }}</a></li>
+        <li><a href="{{ item.url }}" class="button medium wide smooth-scroll icon {{ item.icon }}" title="{{ item.text }}">{{ item.text }}</a></li>
       {% endfor %}
       <li class="media">
        {% for item in res.media %}
