@@ -84,6 +84,10 @@
   ul.actions {
     li {
       padding: 0.3rem 0 0 0;
+
+      .button.wide {
+        min-width: 15em;
+      }
     }
 
     li.media a {

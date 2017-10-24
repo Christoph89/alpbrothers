@@ -1,9 +1,9 @@
 {
   "menu": 
   [
-    { "url": "#home", "text": "Home", "icon": "special fa-home" },
+    { "url": "#home", "text": "Home", "icon": "fa-home" },
     { "url": "#about", "text": "About", "icon": "special fa-id-card" },
-    { "url": "#einstein-quote", "text": "Angebot", "icon": "special fa-bicycle" },
+    { "url": "#offer", "text": "Angebot", "icon": "special fa-bicycle" },
     { "url": "#events", "text": "Termine", "icon": "special fa-calendar" },
     { "url": "#alpbros-quote", "text": "Impressionen", "icon": "special fa-camera-retro" },
     { "url": "#alpbros-quote2", "text": "Kontakt", "icon": "special fa-phone" },
