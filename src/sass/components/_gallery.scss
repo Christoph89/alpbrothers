@@ -599,7 +599,15 @@
 				}
 			}
 		}
-	}
+  }
+  
+  // prev/next button
+  .gallery.lightbox .inner { margin: 1%; }
+  .gallery.lightbox a.icon.prev:before,
+  .gallery.lightbox a.icon.next:before
+  {
+    background-color: rgba(255,255,255,0.3);
+  }
 
 // Mixin
 

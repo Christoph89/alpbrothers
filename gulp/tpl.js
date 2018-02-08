@@ -8,6 +8,7 @@ function run($) {
     "%srctpl/humans.txt",
     "%srctpl/robots.txt",
     "%srctpl/google5e333bbe565a5f1b.html",
+    "%srctpl/google822ef9d665cb404e.html",
   ], "%dst");
 }
 
