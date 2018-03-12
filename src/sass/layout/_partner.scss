@@ -9,8 +9,10 @@
   >.inner { 
     padding: 0.2rem 0;
   }
+}
 
-  .items section {
+.items.partner {
+  section {
     height: 10rem;
     @include breakpoint(xsmall) { height: 6rem; }
 

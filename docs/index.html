@@ -34,35 +34,37 @@
   
 </head>
 
-<body>
+<body class="is-loading">
 
   <div id="bg"></div>
 
-  <!-- wrapper -->
-  <div id="wrapper">
+  <div id="loader">
+    <img class="svg" src="img/loader.svg" />
+  </div>
 
-    <!-- menu -->
+  <!-- menu -->
+  <div class="page menu">
     <ul id="menu-btns" class="content actions vertical">
-  <li><a id="menu-btn" class="icon special style2 fa-bars" title=""><span class="label"></span></a></li>
+  <li><a id="menu-btn" class="icon special style2 fa-bars" title="Menü"><span class="label">Menü</span></a></li>
   <li><a id="lang-btn" href="https://www.alpbrothers.com" class="de icon special style2" title="Use English version"><span class="label">Use English version</span></a></li>
 </ul>
-<nav id="menu" class="spotlight style5 align-center invert">
+<nav id="menu" class="spotlight style5 align-center">
   <div class="content">
     <ul class="actions vertical">
       
-        <li><a href="#home" class="button medium wide smooth-scroll icon fa-home" title="Home">Home</a></li>
+        <li><a href="#/home" class="button medium wide icon fa-home" title="Home">Home</a></li>
       
-        <li><a href="#about" class="button medium wide smooth-scroll icon special fa-id-card" title="About">About</a></li>
+        <li><a href="#/about" class="button medium wide icon fa-id-card" title="About">About</a></li>
       
-        <li><a href="#offer" class="button medium wide smooth-scroll icon special fa-bicycle" title="Angebot">Angebot</a></li>
+        <li><a href="#/offer" class="button medium wide icon fa-bicycle" title="Angebot">Angebot</a></li>
       
-        <li><a href="#events" class="button medium wide smooth-scroll icon special fa-calendar" title="Termine">Termine</a></li>
+        <li><a href="#/upcoming" class="button medium wide icon fa-calendar" title="Termine">Termine</a></li>
       
-        <li><a href="#alpbros-quote" class="button medium wide smooth-scroll icon special fa-camera-retro" title="Impressionen">Impressionen</a></li>
+        <li><a href="#/impressions" class="button medium wide icon fa-camera-retro" title="Impressionen">Impressionen</a></li>
       
-        <li><a href="#alpbros-quote2" class="button medium wide smooth-scroll icon special fa-phone" title="Kontakt">Kontakt</a></li>
+        <li><a href="#/contact" class="button medium wide icon fa-phone" title="Kontakt">Kontakt</a></li>
       
-        <li><a href="https://www.alpbrothers.com" class="button medium wide smooth-scroll icon fa-language" title="English">English</a></li>
+        <li><a href="https://www.alpbrothers.com" class="button medium wide icon special fa-language" title="English">English</a></li>
       
       <li class="media">
        
@@ -79,29 +81,34 @@
       </li>
     </ul>
   </div>
-</nav> 
+</nav>
+<a id="back-btn" class="icon special style2 fa-angle-left hidden" speed="immediate" title="Zurück"><span class="label">Zurück</span></a> 
+  </div>
+
+  <!-- page wrapper -->
+  <div id="main" class="page current">
     
     <!-- content -->
     
   
   
     <!-- welcome -->
-<section id="home" class="banner style5 color4 orient-left content-align-center fullscreen onload-content-fade-in">
+<section id="home" href="#/" class="banner style5 color4 orient-left content-align-center fullscreen onload-content-fade-in">
   <div class="content">
     <img class="logo svg" src="img/alpbrothers-full-multiline.svg" alt="Alpbrothers Mountainbike Guiding - Deine zertifizierten Mountainbike Guides in der Region Kärnten, Villach, Faaker See" />
     <ul class="actions">
-      <li><a href="#about" class="button big wide smooth-scroll icon fa-angle-down">Let&#39;s rock</a></li>
+      <li><a href="#/about" class="button big wide icon fa-angle-down">Let&#39;s rock</a></li>
     </ul>
   </div>
 </section>
   
     <!-- about -->
-<section id="about" class="spotlight style1 color2 orient-left content-align-left image-position-center onscroll-content-fade-right onscroll-image-fade-in">
+<section id="about" href="#/about" class="spotlight style1 color2 orient-left content-align-left image-position-center onscroll-content-fade-right onscroll-image-fade-in">
   <div class="content">
     <h1>Alpbrothers Mountainbike Guiding</h1>
     <p>ist dein Anbieter für <b>individuelle Mountainbike Touren in K&auml;rnten</b>. Egal ob Techniktraining, kurz-knackiger Feierabend Trail, fetziger Enduro Ausflug oder ausgiebige Dreiländer-Tagestour, wir sind deine Begleiter auf dem Weg zum <b>Rundum-Sorglos-Bike-Paket</b> und führen dich durch deine individuelle Traumtour im Raum <b>Villach / Faaker See / Dreiländereck</b>.</p>
     <ul class="actions vertical">
-      <li><a href="#certification" class="button smooth-scroll icon fa-angle-down">Mehr erfahren</a></li>
+      <li><a href="#/region" class="button icon fa-angle-down" anchor="middle">Mehr erfahren</a></li>
     </ul>
   </div>
   <div class="image">
@@ -116,18 +123,18 @@
     <h4>Christoph &amp; Thomas</h4>
   </div>
 </section>
-  
-    <!-- about2 -->
-<section class="spotlight style1 color2 orient-right content-align-left image-position-center onscroll-content-fade-left onscroll-image-fade-in">
+
+<!-- region -->
+<section id="region" href="#/region" class="spotlight style1 color2 orient-right content-align-left image-position-center onscroll-content-fade-left onscroll-image-fade-in">
   <div class="content">
     <h2>Erlebe Kärnten, genieße den Faaker See</h2>
     <p>Mountainbiken ist f&uuml;r uns eine <b>Lebenseinstellung</b>. Sportliche Herausforderung, Freundschaft, Kultur, Kulinarik, Entdeckungsdrang, die Konzentration und der Fahrspaß am Trail, der <b>Einklang mit Bike und Natur</b>, und vor allem die atemberaubende Kulisse <b>K&auml;rntens</b> und der <b>Faaker See</b> bilden das Rezept für ein <b>unvergessliches Berg & Seen Erlebnis</b>. Wer mit uns den Tag verbringt soll vor allem eines, mit einem breiten Lächeln nach Hause gehen!</p>
     <ul class="actions vertical">
-      <li><a href="#einstein-quote" class="button smooth-scroll icon fa-angle-down">Unser Angebot</a></li>
+      <li><a href="#/offer" class="button icon fa-angle-down">Unser Angebot</a></li>
     </ul>
   </div>
   <div class="image">
-    <img src="img/banner-about2.jpg" alt="Mountainbiker am Gipfel des Schwarzkogels nähe dem Faaker See." />
+    <img src="img/banner-region.jpg" alt="Mountainbiker am Gipfel des Schwarzkogels nähe dem Faaker See." />
   </div>
 </section>
   
@@ -138,68 +145,124 @@
     <h4>Albert Einstein</h4>
   </div>
 </section>
-  
-    <!-- offer -->
-<section id="offer" class="wrapper style1 color2 align-center">
+
+<!-- offer -->
+<section id="offer" href="#/offer" class="wrapper style1 color2 align-center">
   <div class="inner">
     <h2>Unser Angebot</h2>
     <div class="items style1 big onscroll-fade-in">
+      
+      
       <section>
-        <span class="icon style2 major fa-wrench"></span>
-        <h3>Techniktraining</h3>
+        <span class="icon style2 major fa-cogs"></span>
+        <h3>Technik Training</h3>
         <p>In unserem Training arbeiten wir zuerst gemeinsam an deiner <b>Fahrtechnik</b>. Grundlegende <b>Tipps und Tricks</b> zu Haltung, Brems- und Kurventechnik sollen dir helfen auf jedem Trail zu bestehen. Nachdem wir deine Technik verbessert haben rocken wir dann gemeinsam die Trails <b>rund um den Faaker See</b>.</p>
+      </section>
+      
+      
+      
+      <section>
+        <span class="icon style2 major fa-bicycle"></span>
+        <h3>Geführte Touren</h3>
+        <p>Egal ob kurz-knackiger <b>Feierabend Trail</b>, fetziger <b>Enduro Ausflug</b> oder ausgiebige <b>Dreiländer-Tagestour</b>, wir sind deine Begleiter auf dem Weg zum <b>Rundum-Sorglos-Bike-Paket</b> und führen dich durch deine individuelle Traumtour im Raum <b>Villach / Faaker See / Dreiländereck</b>.</p>
+      </section>
+      
+      
+      
+      
+      
+      
+      <!-- <section>
+        <span class="icon style2 major fa-wrench"></span>
+        <h3></h3>
+        <p></p>
       </section>
       <section>
         <span class="icon style2 major fa-bicycle"></span>
-        <h3>Guided Tour</h3>
-        <p>Egal ob kurz-knackiger <b>Feierabend Trail</b>, fetziger <b>Enduro Ausflug</b> oder ausgiebige <b>Dreiländer-Tagestour</b>, wir sind deine Begleiter auf dem Weg zum <b>Rundum-Sorglos-Bike-Paket</b> und führen dich durch deine individuelle Traumtour im Raum <b>Villach / Faaker See / Dreiländereck</b>.</p>
-      </section>
+        <h3></h3>
+        <p></p>
+      </section> -->
     </div>
     <ul class="actions">
-      <li><a href="#events" class="button smooth-scroll icon fa-angle-down">Termine</a></li>
+      <li><a href="#/upcoming" class="button icon fa-angle-down">Termine</a></li>
     </ul>
   </div>
 </section>
   
-    <!-- events -->
-<section id="events" class="wrapper style1 color2 align-center no-events-off">
+    <!-- upcoming -->
+<section id="upcoming" href="#/upcoming" class="wrapper no-events style1 color2 align-center no-events-off">
   <div class="inner">
     <h2>Termine</h2>
     <p class="no-event-info">
       <strong>Zur Zeit sind leider keine Termine vorhanden.</strong>
     </p>
-    <div class="table-wrapper">
+    <div class="table-wrapper event-table">
       <table class="alt">
-        <tbody>
-          
-        </tbody>
+        
+        <tr class="dummy">
+          <td>&nbsp;</td>
+          <td>&nbsp;</td>
+          <td>&nbsp;</td>
+        </tr>
+        
+        <tr class="dummy">
+          <td>&nbsp;</td>
+          <td>&nbsp;</td>
+          <td>&nbsp;</td>
+        </tr>
+        
+        <tr class="dummy">
+          <td>&nbsp;</td>
+          <td>&nbsp;</td>
+          <td>&nbsp;</td>
+        </tr>
+        
+        <tr class="dummy">
+          <td>&nbsp;</td>
+          <td>&nbsp;</td>
+          <td>&nbsp;</td>
+        </tr>
+        
+        <tr class="dummy">
+          <td>&nbsp;</td>
+          <td>&nbsp;</td>
+          <td>&nbsp;</td>
+        </tr>
+        
+        <tr class="show-all">
+          <td colspan="3">
+            <a href="#/events" back="#/events" class="button small icon fa-calendar animated bounce x2 slow" speed="immediate">Alle Termine anzeigen</a>
+          </td>
+        </tr>
       </table>
     </div>
 
     <span class="infos">
-    
-    
+      <sub>(*) Jugendliche unter 18 Jahren.</sub>
+      <br />
+      <sub>(**) Nur kostenlos mit <i>Erlebnis Card</i>. Der Regul&auml;rpreis beträgt 15 EUR. Tickets ohne <i>Erlebnis Card</i> können nur in den Tourismusinformationen der Region erworben werden. Weitere Informationen zur <i>Erlebnis Card</i> finden Sie hier: <a href="https://www.region-villach.at/de/angebote/erlebnis-card-urlaubserlebnisse-im-herzen-3074815.html" target="_blank">https://www.region-villach.at/de/angebote/erlebnis-card-urlaubserlebnisse-im-herzen-3074815.html</a></sub>
+      <br />
       <br />
     </span>
 
     <p>Für weitere Informationen oder <b>individuelle Touren und Kurse</b> senden Sie uns bitte eine <b>Anfrage</b>.</p>
     <ul class="actions">
       <li><a href="mailto:office@alpbrothers.at" class="button special icon fa-envelope">Jetzt anfragen</a></li>
-      <li><a href="#alpbros-quote" class="button smooth-scroll icon fa-angle-down">Impressionen</a></li>
+      <li><a href="#/impressions" class="button icon fa-angle-down">Impressionen</a></li>
     </ul>
   </div>
 </section>
   
-    <!-- alpbros-quote -->
-<section id="alpbros-quote" class="spotlight quote style1 color5 invert content-align-center image-position-center onscroll-content-fade-right">
-  <div class="content">
-    <h3><i>"Mountainbiken ist für uns eine Lebenseinstellung."</i></h3>
-    <h4>Alpbrothers</h4>
-  </div>
-</section>
-  
     <!-- impressions -->
-<section id="impressions" class="wrapper style1 color5 align-center">
+<section id="impressions" href="#/impressions" class="wrapper style1 color5 align-center">
+  <!-- alpbros-quote -->
+  <section class="spotlight quote style1 color1 invert content-align-center image-position-center onscroll-content-fade-right">
+    <div class="content">
+      <h3><i>"Mountainbiken ist für uns eine Lebenseinstellung."</i></h3>
+      <h4>Alpbrothers</h4>
+    </div>
+  </section>
+
   <div class="gallery style1 medium lightbox onload-content-fade-in">
     
       <article>
@@ -272,9 +335,9 @@
     <h4>Alpbrothers</h4>
   </div>
 </section>
-  
-    <!-- contact -->
-<section id="contact" class="spotlight style1 color2 orient-left content-align-center image-position-center onscroll-content-fade-left onscroll-image-fade-in">
+
+<!-- contact -->
+<section id="contact" href="#/contact" anchor="middle" class="spotlight style1 color2 orient-left content-align-center image-position-center onscroll-content-fade-left onscroll-image-fade-in">
   <div class="content">
     <h2>Kontakt</h2>
     <p>Christoph Schaunig & Thomas Raspotnik<br /> 9582 Latschach ob. dem Faaker See, &Ouml;sterreich<br /><a href="mailto:office@alpbrothers.at"><span class="icon style1 fa-envelope"></span> office@alpbrothers.at</a><br /> <a href="tel:+4367761716070"><span class="icon style1 fa-phone"></span> +43 677 61716070</a><br /> <a href="https://api.whatsapp.com/send?phone=4367761716070" target="_blank"><span class="icon style1 fa-whatsapp"></span> WhatsApp</a><br /><br /></p>
@@ -287,7 +350,7 @@
     <!-- partner -->
 <section id="partner" class="wrapper style1 color5 align-center">
   <div class="inner">
-    <div class="items style3 small onscroll-fade-in">
+    <div class="items partner style3 small onscroll-fade-in">
       <section class="anderwald">
         <a href="http://www.campinganderwald.at/" class="inner" target="_blank"></a>
       </section>
@@ -326,17 +389,31 @@
       <li><a href="tel:+4367761706070" class="icon style2 fa-phone" title="Telefon"><span class="label">Telefon</span></a></li>
       <li><a href="https://api.whatsapp.com/send?phone=4367761716070" target="_blank" class="icon style2 fa-whatsapp" title="WhatsApp"><span class="label">WhatsApp</span></a></li> -->
     </ul>
-    <p>Copyright &copy; Christoph Schaunig 2017</p>
+    <p>
+      <a href="#/impressum" speed="immediate">Impressum &amp; Datenschutz</a><br />
+      Copyright &copy; Christoph Schaunig 2017
+    </p>
   </div>
 </footer> 
     
 
   </div>
 
+  <!-- outer content -->
+  
+
+
   <!-- Scripts -->
   
   <script src="js/external.js"></script>
   <script src="js/app.js"></script>
+  <script type="text/javascript">
+    // init app on document ready
+    $(document).ready(() =>
+    {
+      $alpbros.$app.init({"root":"","lang":"de","shownEvents":5,"preloadPages":["events","event"],"ctx":{"apikey":"bd990ffc684f77f510084d1f7bf1d44bd0011ea33ea4215ac8f4e2d9a59d640f","baseurl":"https://ft-christoph-schaunig.oraclecloud2.dreamfactory.com/api/v2","db":"db_alpbros"},"res":{"level":{"None":"Jedermann","All":"Jedermann","Beginner":"Einsteiger","Advanced":"Fortgeschritten"},"eventTypes":{"TechniqueTraining":{"name":"Technik Training","icon":"fa-cogs","offer":true},"GuidedTour":{"name":"Geführte Touren","icon":"fa-bicycle","offer":true},"Camp":{"name":"Camps","icon":"fa-home","offer":false},"MechanicalTraining":{"name":"Schrauberkurs","icon":"fa-wrench","offer":false}},"months":["Januar","Februar","März","April","Mai","Juni","Juli","August","September","Oktober","November","Dezember"],"weekdays":["Sonntag","Montag","Dienstag","Mittwoch","Donnerstag","Freitag","Samstag"],"main":{"title":"Alpbrothers - Dein Mountainbike Guide in Kärnten am Faaker See"},"upcoming":{"dateFormat":"dd DD.MM.YYYY HH:mm [Uhr]"},"events":{"title":"Alpbrothers - Events","level":"Level","dateFormat":"dddd D. MMMM YYYY<br />HH:mm - HH:mm [Uhr]","multiDayFormat":"dd D. - dd D. MMMM YYYY","fromFormat":"dddd D. MMMM","erlebniscardPrice":"kostenlos (**)","imgPath":"img/events/"}},"pages":["main","event-workshop","event","events","impressum","legalnotice"]});
+    });
+  </script>
   
 </body>
 

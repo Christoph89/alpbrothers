@@ -1,7 +1,23 @@
 #event.page
 {
-  section.hidden {
+  section {
+    &.partner {
+      padding-top: 1px;
+    }
+
+    &.hidden {
+      display: none;
+    }
+  }
+
+  // erlebniscard
+  .erlebniscard-only {
     display: none;
+  }
+  &.erlebniscard {
+    .erlebniscard-only {
+      display: inherit;
+    }
   }
 
   .event-price {

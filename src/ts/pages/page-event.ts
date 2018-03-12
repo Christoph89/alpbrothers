@@ -49,10 +49,13 @@ module $alpbros.$pages
         return;
       }
 
-      // get/show tpl, hide others
+      // show command and tpl, hide other sections
       var tplName=args.tpl||event.tpl||"default";
-      var tpl=$("section[tpl='"+(tplName)+"']").removeClass("hidden");
-      $("section[tpl!='"+tplName+"']").addClass("hidden");
+      var tpl=$(">section.common, >section."+tplName, this.pageCnt).removeClass("hidden");
+      $(">section:not(.common, ."+tplName+")", this.pageCnt).addClass("hidden");
+
+      // toggle erlebniscard fields
+      this.pageCnt.toggleClass("erlebniscard", event.price=="Erlebniscard");
 
       // set event name, price
       $(".event-name", tpl).text(event.name);

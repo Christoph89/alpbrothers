@@ -1,5 +1,5 @@
 <div id="event" class="page hidden divided" back="#/events">
-  <section tpl="default" class="wrapper style2 color7">
+  <section class="default wrapper style2 color7">
     <div class="inner">
       <h2>
         <span class="event-name"></span>
@@ -27,4 +27,28 @@
   {% for tpl in tpls %}
     {% include "html/pages/event-"+tpl+".html" %}
   {% endfor %}
+
+  
+  <section class="common wrapper style2 color5">
+    <div class="inner">
+      <h2>Anmeldung</h2>
+      
+    </div>
+  </section>
+    
+  <section class="common partner wrapper style1 color5 align-center">
+    <div class="inner">
+      <div class="items partner style3 small">
+        <section class="anderwald">
+          <a href="http://www.campinganderwald.at/" class="inner" target="_blank"></a>
+        </section>
+        <section class="grossegger">
+          <a href="http://www.grossegger.com/" class="inner" target="_blank"></a>
+        </section>
+        <section class="r2bike">
+          <a href="https://r2-bike.com/" class="inner" target="_blank"></a>
+        </section>
+      </div>
+    </div>
+  </section>  
 </div>

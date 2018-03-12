@@ -26,8 +26,8 @@
     "phone": "Phone",
     "whatsapp": "WhatsApp"
   },
-  "impressum": "Imprint & Privacy",
-  "impressumUrl": "#/impressum",
+  "impressum": "Legal notice & Data Privacy Policy",
+  "impressumUrl": "#/legalnotice",
   "copyright": "Copyright &copy; Christoph Schaunig 2017",
   "alpbrosGuiding": "Alpbrothers Mountainbike Guiding"
 }
