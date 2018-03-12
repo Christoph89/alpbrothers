@@ -1,0 +1,15 @@
+#event.page
+{
+  section.hidden {
+    display: none;
+  }
+
+  .event-price {
+    white-space: nowrap;
+  }
+  @include breakpoint(minmedium) {
+    .event-price {
+      float: right;
+    }
+  }
+}

@@ -1,0 +1,34 @@
+<div id="events" class="page hidden" back="#/upcoming">
+  <section class="wrapper style1 color6 align-center">
+    <div class="inner">
+      <form>
+        <div class="field third first">
+          <label for="event-from-date">{{ res.events.from }}</label>
+          <input type="date" name="event-from-date" id="event-from-date" />
+        </div>
+        <div class="field third">
+          <label for="event-to-date">{{ res.events.to }}</label>
+          <input type="date" name="event-to-date" id="event-to-date" />
+        </div>
+        <div class="field third">
+          <label for="event-type">{{ res.events.type }}</label>
+          <div class="select-wrapper">
+            <select name="event-type" id="event-type">
+              <option value="all">{{ res.events.all }}</option>
+            </select>
+          </div>
+        </div>
+        <div class="field">
+          <input type="checkbox" name="event-level" id="event-level-beginner" checked="checked" />
+          <label for="event-level-beginner">{{ res.events.beginner }}</label>
+          <input type="checkbox" name="event-level" id="event-level-advanced" checked="checked" />
+          <label for="event-level-advanced">{{ res.events.advanced }}</label>
+        </div>
+      </form>
+    </div>
+  </section>
+  <section class="wrapper style2 color7 align-center">
+    <div id="event-timeline" class="timeline">
+    </div>
+  </section>
+</div>

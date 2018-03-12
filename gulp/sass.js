@@ -3,7 +3,7 @@ var uglifycss=require("gulp-uglifycss");
 
 // compiles the application's sass/scss files
 function run($) {
-  // combile scss
+  // compile scss
   var stream=$.src("%srcsass/main.scss")
     .pipe(sass().on("error", sass.logError));
 

@@ -1,0 +1,20 @@
+{
+  "client":
+  {
+    "level":
+    {
+      "None": "Everyone",
+      "All": "Everyone",
+      "Beginner": "Beginner",
+      "Advanced": "Advanced"
+    },
+    "eventTypes":
+    {
+      "TechniqueTraining": { "name": "Technique Training", "icon": "fa-cogs", "offer": true },
+      "GuidedTour": { "name": "Guided Tours", "icon": "fa-bicycle", "offer": true },
+      "Camp": { "name": "Camps", "icon": "fa-home", "offer": false },
+      "MechanicalTraining": { "name": "Mechanical Training", "icon": "fa-wrench", "offer": false }
+    },
+    "weekdays": []
+  }
+}

@@ -17,7 +17,7 @@
 }
 
 #menu-btn {
-  #wrapper.menu-opened &:before {
+  .page.menu-opened:before {
     background-color: _palette(menu-btn-opened);
   }
 }
@@ -93,5 +93,24 @@
     li.media a {
       margin: 0 0.3rem !important;
     }
+  }
+}
+
+#back-btn {
+  position: fixed;
+  top: 1rem;
+  left: 1rem;
+  z-index: 3;
+  @include vendor('transition', (
+    'opacity #{_duration(transition)} ease-in-out',
+    'transform #{_duration(transition)} ease-in-out'
+  ));
+  &.hidden {
+    pointer-events: none;
+    opacity: 0;
+    @include vendor('transform', 'translateY(-1rem)');
+  }
+  &:before {
+    background-color: _palette(menu-btn);
   }
 }

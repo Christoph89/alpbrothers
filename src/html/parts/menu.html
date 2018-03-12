@@ -1,12 +1,12 @@
 <ul id="menu-btns" class="content actions vertical">
-  <li><a id="menu-btn" class="icon special style2 fa-bars" title="{{ res.menu.title }}"><span class="label">{{ res.menu.title }}</span></a></li>
+  <li><a id="menu-btn" class="icon special style2 fa-bars" title="{{ res.menuBtn.title }}"><span class="label">{{ res.menuBtn.title }}</span></a></li>
   <li><a id="lang-btn" href="{{ res.lng.chgurl }}" class="{{ lang }} icon special style2" title="{{ res.lng.chg }}"><span class="label">{{ res.lng.chg }}</span></a></li>
 </ul>
-<nav id="menu" class="spotlight style5 align-center invert">
+<nav id="menu" class="spotlight style5 align-center">
   <div class="content">
     <ul class="actions vertical">
       {% for item in res.menu %}
-        <li><a href="{{ item.url }}" class="button medium wide smooth-scroll icon {{ item.icon }}" title="{{ item.text }}">{{ item.text }}</a></li>
+        <li><a href="{{ item.url }}" class="button medium wide icon {{ item.icon }}" title="{{ item.text }}">{{ item.text }}</a></li>
       {% endfor %}
       <li class="media">
        {% for item in res.media %}
@@ -16,3 +16,4 @@
     </ul>
   </div>
 </nav>
+<a id="back-btn" class="icon special style2 fa-angle-left hidden" speed="immediate" title="{{ res.menuBtn.back }}"><span class="label">{{ res.menuBtn.back }}</span></a>

@@ -5,7 +5,7 @@
   {% block head %}
   <meta charset="utf-8">
   <meta http-equiv="x-ua-compatible" content="ie=edge">
-  <title>{{ res.title }}</title>
+  <title>{{ res.client.main.title }}</title>
   <meta name="description" content="{{ res.description }}">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="alternate" hreflang="de" href="https://www.alpbrothers.at/" />
@@ -34,15 +34,21 @@
   {% endblock %}
 </head>
 
-<body>
+<body class="is-loading">
 
   <div id="bg"></div>
 
-  <!-- wrapper -->
-  <div id="wrapper">
+  <div id="loader">
+    <img class="svg" src="{{ root }}img/loader.svg" />
+  </div>
 
-    <!-- menu -->
+  <!-- menu -->
+  <div class="page menu">
     {% include "html/parts/menu.html" %} 
+  </div>
+
+  <!-- page wrapper -->
+  <div id="main" class="page current">
     
     <!-- content -->
     {% block content %}
@@ -55,10 +61,21 @@
 
   </div>
 
+  <!-- outer content -->
+  {% block outercontent %}
+  {% endblock %}
+
   <!-- Scripts -->
   {% block scripts %}
   <script src="{{ root }}js/external.js"></script>
   <script src="{{ root }}js/app.js"></script>
+  <script type="text/javascript">
+    // init app on document ready
+    $(document).ready(() =>
+    {
+      $alpbros.$app.init({{ appcfg | safe }});
+    });
+  </script>
   {% endblock %}
 </body>
 

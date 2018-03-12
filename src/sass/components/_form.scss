@@ -93,7 +93,8 @@
 		margin: 0 0 (_size(element-margin) * 0.5) 0;
 	}
 
-	input[type="text"],
+  input[type="text"],
+  input[type="date"],
 	input[type="password"],
 	input[type="email"],
 	input[type="tel"],
@@ -141,7 +142,8 @@
 		}
 	}
 
-	input[type="text"],
+  input[type="text"],
+  input[type="date"],
 	input[type="password"],
 	input[type="email"],
 	input[type="tel"],
@@ -195,8 +197,13 @@
 		&:checked + label {
 			&:before {
 				content: '\f00c';
-			}
-		}
+      }
+    }
+    
+    &.disabled + label,
+    &[disabled="disabled"] + label {
+      opacity: 0.25;
+    }
 	}
 
 	input[type="checkbox"] {
@@ -241,6 +248,7 @@
 		}
 
 		input[type="text"],
+    input[type="date"],
 		input[type="password"],
 		input[type="email"],
 		input[type="tel"],
@@ -277,7 +285,7 @@
 					background-color: _palette($p, fg-bold);
 					border-color: _palette($p, fg-bold);
 					color: _palette($p, bg);
-				}
+        }
 			}
 
 			&:focus + label {

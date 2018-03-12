@@ -1,18 +1,11 @@
 {% extends "html/tpl.html" %}
 
-{% block menuItems %}
-{{ super() }}
-<li><a href="#about" class="button special medium wide smooth-scroll icon fa-id-card">{{ res.menu.about }}</a></li>
-<li><a href="#einstein-quote" class="button special medium wide smooth-scroll icon fa-bicycle">{{ res.menu.offer }}</a></li>
-<li><a href="#events" class="button special medium wide smooth-scroll icon fa-calendar">{{ res.menu.events }}</a></li>
-<li><a href="#alpbros-quote" class="button special medium wide smooth-scroll icon fa-camera-retro">{{ res.menu.impressions }}</a></li>
-<li><a href="#alpbros-quote2" class="button special medium wide smooth-scroll icon fa-phone">{{ res.menu.contact }}</a></li>
-<li><a href="{{ res.lng.chgurl }}" class="button medium wide smooth-scroll icon fa-language" title="{{ res.lng.chg }}">{{ res.lng.other }}</a></li>
-{% endblock %}
-
 {% block content %}
-  {% set sections=["welcome", "about", "certification", "about2", "einstein-quote", "offer", "events", "alpbros-quote", "impressions", "alpbros-quote2", "contact", "partner"] %}
+  {% set sections=["welcome", "about", "region", "offer", "upcoming", "impressions", "contact", "partner"] %}
   {% for section in sections %}
     {% include "html/parts/"+section+".html" %}
   {% endfor %}
+{% endblock %}
+
+{% block outercontent %}
 {% endblock %}

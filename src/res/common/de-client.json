@@ -1,0 +1,44 @@
+{
+  "client":
+  {
+    "level":
+    {
+      "None": "Jedermann",
+      "All": "Jedermann",
+      "Beginner": "Einsteiger",
+      "Advanced": "Fortgeschritten"
+    },
+    "eventTypes":
+    {
+      "TechniqueTraining": { "name": "Technik Training", "icon": "fa-cogs", "offer": true },
+      "GuidedTour": { "name": "Geführte Touren", "icon": "fa-bicycle", "offer": true },
+      "Camp": { "name": "Camps", "icon": "fa-home", "offer": false },
+      "MechanicalTraining": { "name": "Schrauberkurs", "icon": "fa-wrench", "offer": false }
+    },
+    "months":
+    [
+      "Januar",
+      "Februar",
+      "März",
+      "April",
+      "Mai",
+      "Juni",
+      "Juli",
+      "August",
+      "September",
+      "Oktober",
+      "November",
+      "Dezember"
+    ],
+    "weekdays":
+    [
+      "Sonntag",
+      "Montag",
+      "Dienstag",
+      "Mittwoch",
+      "Donnerstag",
+      "Freitag",
+      "Samstag"
+    ]
+  }
+}

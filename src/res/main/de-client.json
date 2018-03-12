@@ -1,0 +1,13 @@
+{
+  "client":
+  {
+    "main":
+    {
+      "title": "Alpbrothers - Dein Mountainbike Guide in Kärnten am Faaker See"
+    },
+    "upcoming":
+    {
+      "dateFormat": "dd DD.MM.YYYY HH:mm [Uhr]"
+    }
+  }
+}

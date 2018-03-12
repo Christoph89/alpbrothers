@@ -1,62 +1,53 @@
 var gulp=require("gulp");
-var each=require("gulp-each");
-var changed=require("gulp-changed");
-var tpldata=require("gulp-data");
-var rename=require("gulp-rename");
-var njucks=require("gulp-nunjucks");
-var render=require("gulp-nunjucks-render");
 var fs=require("fs");
-var deepAssign=require("deep-assign");
+var file=require("gulp-file");
 var linq=require("linq");
+var each=require("gulp-each");
+var mstream=require("merge-stream");
 
-// get process environment vars
-var src=process.env.SRC;
-var dbg=process.env.DBG;
-var deflng=process.env.DEFLNG;
-
-var stories=[];
-
-function run() {
-
+// builds all blog entries
+function run($) {
+  return null;
 }
 
-// copies all html files to htd
-gulp.task("blog", ["blog-stories"], function () {
-  // create blog page
-  //createIndex("de", stories);
-  //createIndex("en", stories);
-
-  // // write story index file
-  // for (var lang in stories)
-  // {
-  //   createIndex(lang, stories);
-  //   //var lngPath=dbg+(lang!=deflng?(lang+"/"):"");
-  //   //if (!fs.existsSync(lngPath)) fs.mkdirSync(lngPath);
-  //   //if (!fs.existsSync(lngPath+"blog")) fs.mkdirSync(lngPath+"blog");
-  //   //fs.writeFileSync(lngPath+"blog/index.json", JSON.stringify(storyIndex[lang], null, "  ")); 
-  // }
-});
+function buildStories($) {
+  var stream=new mstream();
+  var stories=[];
+  $.src("%srchtml/blog/**/story.json").pipe(each(function(content, file, clb) {
+    var story=JSON.parse(content);
+    var storyStream=createStory($, story, file.history[0].replace("story.json", ""));
+    if (storyStream) 
+    {
+      stream.add(storyStream);
+      stories.push(story);
+    }
+  }));
+  return {
+    stream: stream,
+    stories: stories
+  };
+}
 
 // creates all stories
-gulp.task("blog-stories", function () {
-  return gulp.src([
-    src+"html/blog/**/story.json"
-  ])
-  .pipe(each(function (content, file, clb)
-  {
-    var story=JSON.parse(content);
-    var dir=file.history[0].replace("story.json", "");
-    if (story)
-    {
-      createStory("de", story, dir);
-      createStory("en", story, dir);
-    }
-    return clb(null, content);
-  }));
-});
+// gulp.task("blog-stories", function () {
+//   return gulp.src([
+//     src+"html/blog/**/story.json"
+//   ])
+//   .pipe(each(function (content, file, clb)
+//   {
+//     var story=JSON.parse(content);
+//     var dir=file.history[0].replace("story.json", "");
+//     if (story)
+//     {
+//       createStory("de", story, dir);
+//       createStory("en", story, dir);
+//     }
+//     return clb(null, content);
+//   }));
+// });
 
 // creates a story from the specified language and content
-function createStory(lang, story, dir)
+function createStory($, story, dir)
 {
   try
   {
@@ -101,35 +92,35 @@ function createStory(lang, story, dir)
   }
 }
 
-function createIndex(lang, stories)
-{
-  if (!lang || !stories || !stories.length)
-    return;
+// function createIndex(lang, stories)
+// {
+//   if (!lang || !stories || !stories.length)
+//     return;
 
-  // get resource
-  var defaultRes=JSON.parse(fs.readFileSync(src+"res/tpl/"+lang+".json"));
-  var res=deepAssign(defaultRes, JSON.parse(fs.readFileSync(src+"res/blog/"+lang+".json")));
+//   // get resource
+//   var defaultRes=JSON.parse(fs.readFileSync(src+"res/tpl/"+lang+".json"));
+//   var res=deepAssign(defaultRes, JSON.parse(fs.readFileSync(src+"res/blog/"+lang+".json")));
 
-  // get destination
-  var lng=lang!=deflng?(lang+"/"):"";
-  var dest=dbg+lng+"blog"; 
+//   // get destination
+//   var lng=lang!=deflng?(lang+"/"):"";
+//   var dest=dbg+lng+"blog"; 
 
-  // get relevant stories
-  Enumerable.from(stories).where(function (x) { return x && x.res && x.res[lang] && !x.res[lang].disabled; }).toArray();
+//   // get relevant stories
+//   Enumerable.from(stories).where(function (x) { return x && x.res && x.res[lang] && !x.res[lang].disabled; }).toArray();
 
-  // create html
-  gulp.src(src+"html/blog/blog.html")
-  .pipe(tpldata(function(){ 
-    return { 
-      root: lang==deflng?"../":"../../", 
-      lang: lang,
-      res: res
-    };
-  }))
-  .pipe(render({ path: [src] }))
-  .pipe(rename("index.html"))
-  .pipe(gulp.dest(dest));
-}
+//   // create html
+//   gulp.src(src+"html/blog/blog.html")
+//   .pipe(tpldata(function(){ 
+//     return { 
+//       root: lang==deflng?"../":"../../", 
+//       lang: lang,
+//       res: res
+//     };
+//   }))
+//   .pipe(render({ path: [src] }))
+//   .pipe(rename("index.html"))
+//   .pipe(gulp.dest(dest));
+// }
 
 module.exports={
   run: run

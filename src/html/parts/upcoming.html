@@ -1,0 +1,39 @@
+<!-- upcoming -->
+<section id="upcoming" href="#/upcoming" class="wrapper style1 color2 align-center no-events-off">
+  <div class="inner">
+    <h2>{{ res.upcoming.title }}</h2>
+    <p class="no-event-info">
+      <strong>{{ res.upcoming.empty }}</strong>
+    </p>
+    <div class="table-wrapper event-table">
+      <table class="alt">
+        {% for dummy in res.upcoming.list %}
+        <tr class="dummy">
+          <td>&nbsp;</td>
+          <td>&nbsp;</td>
+          <td>&nbsp;</td>
+        </tr>
+        {% endfor %}
+        <tr class="show-all">
+          <td colspan="3">
+            <a href="{{ res.upcoming.showAllUrl }}" back="#/events" class="button small icon fa-calendar animated bounce x2 slow" speed="immediate">{{ res.upcoming.showAll }}</a>
+          </td>
+        </tr>
+      </table>
+    </div>
+
+    <span class="infos">
+      <sub>{{ res.upcoming.youthDiscountInfo | safe }}</sub>
+      <br />
+      <sub>{{ res.upcoming.erlebnisCardInfo | safe }}</sub>
+      <br />
+      <br />
+    </span>
+
+    <p>{{ res.upcoming.furtherInfo | safe }}</p>
+    <ul class="actions">
+      <li><a href="{{ res.upcoming.inquireUrl }}" class="button special icon fa-envelope">{{ res.upcoming.inquire }}</a></li>
+      <li><a href="{{ res.upcoming.goUrl }}" class="button icon fa-angle-down">{{ res.upcoming.go }}</a></li>
+    </ul>
+  </div>
+</section>

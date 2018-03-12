@@ -14,4 +14,5 @@ interface JQueryScrollexOptions
 interface JQuery
 {
   scrollex(opt?: JQueryScrollexOptions): JQuery;
+  unscrollex(): JQuery;
 }

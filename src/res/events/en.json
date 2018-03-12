@@ -1,0 +1,12 @@
+{
+  "events":
+  {
+    "from": "From",
+    "to": "To",
+    "type": "Type",
+    "all": "All",
+    "level": "Level",
+    "beginner": "Beginner",
+    "advanced": "Advanced"
+  }
+}

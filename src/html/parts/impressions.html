@@ -1,5 +1,13 @@
 <!-- impressions -->
-<section id="impressions" class="wrapper style1 color5 align-center">
+<section id="impressions" href="#/impressions" class="wrapper style1 color5 align-center">
+  <!-- alpbros-quote -->
+  <section class="spotlight quote style1 color1 invert content-align-center image-position-center onscroll-content-fade-right">
+    <div class="content">
+      <h3><i>{{ res.alpbrosQuote.text | safe }}</i></h3>
+      <h4>{{ res.alpbrosQuote.author }}</h4>
+    </div>
+  </section>
+
   <div class="gallery style1 medium lightbox onload-content-fade-in">
     {% for keyword in res.impressions.keywords %}
       <article>

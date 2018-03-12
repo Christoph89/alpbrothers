@@ -8,6 +8,13 @@ interface SkelBreakpoints
   small: string;
   xsmall: string;
   xxsmall: string;
+
+  minxlarge: string;
+  minlarge: string;
+  minmedium: string;
+  minsmall: string;
+  minxsmall: string;
+  minxxsmall: string;
 }
 
 interface SkelVars

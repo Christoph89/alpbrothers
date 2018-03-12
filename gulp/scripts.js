@@ -10,6 +10,7 @@ function run($)
     "%srcvendor/modernizr/modernizr.js",
     "%srcvendor/skel/skel.js",
     "%srcvendor/linq/linq.js",
+    "%srcvendor/moment/moment.js",
   ])
   .pipe(concat("external.js"));
 

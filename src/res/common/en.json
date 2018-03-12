@@ -1,0 +1,33 @@
+{
+  "description": "Alpbrothers Mountainbike Guiding - Your certified mountainbike guides at Carinthia (Kärnten), Villach, Lake Faak (Faaker See)",
+  "menu": 
+  [
+    { "url": "#/home", "text": "Home", "icon": "fa-home" }
+  ],
+  "media": 
+  [
+    { "url": "https://www.facebook.com/alpbrothers", "text": "Facebook", "icon": "fa-facebook", "target": "_blank" },
+    { "url": "https://www.instagram.com/alpbrothers", "text": "Instagram", "icon": "fa-instagram", "target": "_blank" },
+    { "url": "mailto:office@alpbrothers.at", "text": "Email", "icon": "fa-envelope" },
+    { "url": "tel:+4367761706070", "text": "Phone", "icon": "fa-phone" },
+    { "url": "https://api.whatsapp.com/send?phone=4367761716070", "text": "WhatsApp", "icon": "fa-whatsapp", "target": "_blank" }
+  ],
+  "lng":
+  {
+    "other": "Deutsch",
+    "chg": "Deutsche Version laden",
+    "chgurl": "@@see gulp cfg"
+  },
+  "social":
+  {
+    "fb": "Facebook",
+    "ig": "Instagram",
+    "email": "Email",
+    "phone": "Phone",
+    "whatsapp": "WhatsApp"
+  },
+  "impressum": "Imprint & Privacy",
+  "impressumUrl": "#/impressum",
+  "copyright": "Copyright &copy; Christoph Schaunig 2017",
+  "alpbrosGuiding": "Alpbrothers Mountainbike Guiding"
+}

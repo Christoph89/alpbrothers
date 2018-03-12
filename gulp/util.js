@@ -1,11 +1,11 @@
 var gulp=require("gulp");
 var mstream=require("merge-stream");
 var multiDest=require("gulp-multi-dest");
-var dateFormat=require("dateformat");
 var deepAssign=require("deep-assign");
 var rename=require("gulp-rename");
 var tpldata=require("gulp-data");
 var render=require("gulp-nunjucks-render");
+var stripJsonComments=require("strip-json-comments");
 var pathutil=require("path");
 var linq=require("linq");
 var fs=require("fs");
@@ -110,52 +110,21 @@ function run(cfg) {
   function getEventList(res, includeExpired, file)
   {
     if (!file) file=cfg.events;
-    var events=JSON.parse(fs.readFileSync(file)) || [];
-
-    var all=linq.from(events).select(function(ev) { 
-      return {
-        date: parseEventDate(ev, res),
-        name: ev.name,
-        price: ev.price,
-        url: ev.url    
-      };
-    });
-    
-    if (!includeExpired)
-    {
-      var now=new Date();
-      all=all.where(function (ev) { return (ev.date.to||ev.date.from)>now; });
-    }
-
+    var events=readJson(file);
+    var all=linq.from(events).orderBy(function (ev){ return ev.from; });
     return all.toArray();
   }
 
-  // parses the specified date
-  function parseEventDate(ev, res)
-  {
-    var date={
-      from: new Date(Date.parse(ev.from)),
-      to: ev.to?new Date(Date.parse(ev.to)):null
-    };
-    if (!date.to)
-      date.txt=dateFormat(date.from, res.dateFormat);
-    else
-    {
-      var parts=res.fromToFormat.split(" - ");
-      date.txt=dateFormat(date.from, parts[0])+" - "+dateFormat(date.to, parts[1]);
-    }
-    date.iso=(date.to||date.from).toISOString();
-    return date;
-  }
-
   // merge the specified json and/or files
-  function merge()
+  function merge(files)
   {
-    return deepAssign.apply(this, linq.from(arguments).select(function (x) { 
-      if (typeof x == "string")
-        return JSON.parse(fs.readFileSync(getPath(x))); // read json file
-      return x;
-    }).toArray());
+    return deepAssign.apply(this, linq.from(files)
+      .where(function (x) { return fs.existsSync(getPath(x)); })
+      .select(function (x) { 
+        if (typeof x == "string")
+          return JSON.parse(fs.readFileSync(getPath(x))); // read json file
+        return x;
+      }).toArray());
   }
 
   function parseResource(res)
@@ -183,14 +152,21 @@ function run(cfg) {
   }
 
   // builds the specified template
-  function buildTpl(tpl, destination, extendRes)
+  function buildTpl(resources, tpl, destination, extend)
   {
     // get resource
-    var res=cfg.res=merge("%srcres/tpl/"+cfg.lang+".json", "%srcres/main/"+cfg.lang+".json");
+    resources=linq.from(resources).selectMany(function (r)
+    {
+      return [
+        "%srcres/"+r+"/"+cfg.lang+".json",
+        "%srcres/"+r+"/"+cfg.lang+"-client.json"
+      ];
+    }).toArray();
+    var res=cfg.res=merge(resources);//"%srcres/tpl/"+cfg.lang+".json", "%srcres/"+resname+"/"+cfg.lang+".json", "%srcres/"+resname+"/"+cfg.lang+"-client.json");
   
     // extend resource
-    if (extendRes)
-      extendRes(res);
+    if (extend)
+      extend(cfg);
   
     // parse resource
     res=parseResource(res);
@@ -203,6 +179,27 @@ function run(cfg) {
       .dest(destination));
   }
 
+  /** Reads the specified file. */
+  function read(path)
+  {
+    path=(getPath(path, true)||[])[0];
+    return String(fs.readFileSync(path));
+  }
+
+  /** Reads the specified json file. */
+  function readJson(path)
+  {
+    return JSON.parse(stripJsonComments(read(path)));
+  }
+
+  function getPages()
+  {
+    var pageDir=getPath("%srchtml/pages");
+    return linq.from(fs.readdirSync(pageDir)||{})
+      .select(f => f.replace(".html", ""))
+      .toArray();
+  }
+
   return {
     cfg: cfg,
     getPath: getPath,
@@ -213,7 +210,10 @@ function run(cfg) {
     getEventList: getEventList,
     buildTpl: buildTpl,
     merge: merge,
-    parseResource: parseResource
+    read: read,
+    readJson: readJson,
+    parseResource: parseResource,
+    getPages: getPages
   }; 
 }
 

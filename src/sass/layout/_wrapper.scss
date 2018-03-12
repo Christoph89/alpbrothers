@@ -7,18 +7,38 @@
 /* Wrapper */
 
 	@mixin wrapper-color($n) {
-		> .color#{$n} {
+		/*>*/ .color#{$n} {
 			background-color: _palette(color#{$n});
 		}
 	}
 
-	#wrapper {
+	.page {
 		//background-color: inherit;
 		width: 100%;
 		overflow-x: hidden;
-    position: relative;
+    position: absolute;
+    top: 0;
+    left: 0;
+    @include vendor('transition', (
+      'opacity #{_duration(transition)} ease-in-out',
+      'transform #{_duration(transition)} ease-in-out'
+    ));
 
-		> .invert {
+    &.hidden {
+      pointer-events: none;
+      opacity: 0;
+      max-height: 100vh;
+      @include vendor('transform', 'translateY(-1rem)');
+    }
+
+    &.fullscreen {
+      min-height: 100vh;
+      .wrapper, .spotlight {
+        min-height: 100vh;
+      }
+    }
+
+		/*>*/ .invert {
 			@include color(invert);
 		}
 
@@ -31,15 +51,16 @@
 		@include wrapper-color(7);
 
 		&.divided {
-			> * {
-				box-shadow: inset 0 1px 0 0 _palette(border-alt);
-
+      > * {
+        box-shadow: inset 0 1px 0 0 _palette(border-alt);
+      }
+			/*>*/ * {
 				&:first-child {
 					box-shadow: none !important;
 				}
-			}
+      }
 
-			> .invert {
+			/*>*/ .invert {
 				box-shadow: inset 0 1px 0 0 _palette(invert, border-alt);
 
 				&:first-child {

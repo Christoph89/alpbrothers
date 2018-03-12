@@ -1,0 +1,30 @@
+<div id="event" class="page hidden divided" back="#/events">
+  <section tpl="default" class="wrapper style2 color7">
+    <div class="inner">
+      <h2>
+        <span class="event-name"></span>
+        <code class="event-price">
+          <span class="icon fa-money"></span>
+          <span class="event-price-text"></span>
+        </code>
+      </h2>
+      
+      <p>
+        <strong class="event-info"></strong>
+        <br /><br />
+        <span class="event-text"></span>
+        <br /><br />
+        <span class="infos">
+          <sub class="youth-discount">{{ res.upcoming.youthDiscountInfo | safe }}</sub>
+          <br />
+          <sub class="erlebniscard-info">{{ res.upcoming.erlebnisCardInfo | safe }}</sub>
+        </span>
+      </p>
+    </div>
+  </section>
+
+  {% set tpls=["workshop"] %}
+  {% for tpl in tpls %}
+    {% include "html/pages/event-"+tpl+".html" %}
+  {% endfor %}
+</div>

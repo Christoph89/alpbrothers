@@ -1,0 +1,15 @@
+{
+  "client":
+  {
+    "events":
+    {  
+      "title": "Alpbrothers - Events",
+      "level": "Level",
+      "dateFormat": "dddd D. MMMM YYYY<br />HH:mm - HH:mm [Uhr]",
+      "multiDayFormat": "dd D. - dd D. MMMM YYYY",
+      "fromFormat": "dddd D. MMMM",
+      "erlebniscardPrice": "kostenlos (**)",
+      "imgPath": "img/events/"
+    }
+  }
+}

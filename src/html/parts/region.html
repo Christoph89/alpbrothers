@@ -1,0 +1,21 @@
+<!-- certification -->
+<section id="certification" class="spotlight quote style1 color5 invert content-align-center image-position-center onscroll-content-fade-right">
+  <div class="content">
+    <h3><i>{{ res.certification.text }}</i></h3>
+    <h4>{{ res.certification.guides }}</h4>
+  </div>
+</section>
+
+<!-- region -->
+<section id="region" href="#/region" class="spotlight style1 color2 orient-right content-align-left image-position-center onscroll-content-fade-left onscroll-image-fade-in">
+  <div class="content">
+    <h2>{{ res.region.title }}</h2>
+    <p>{{ res.region.text | safe }}</p>
+    <ul class="actions vertical">
+      <li><a href="{{ res.region.goUrl }}" class="button icon fa-angle-down">{{ res.region.go }}</a></li>
+    </ul>
+  </div>
+  <div class="image">
+    <img src="{{ root }}img/banner-region.jpg" alt="{{ res.about.img }}" />
+  </div>
+</section>

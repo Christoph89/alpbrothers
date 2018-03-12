@@ -5,16 +5,15 @@
 // vendor
 /// <reference path="../vendor/jquery/jquery.d.ts" />
 /// <reference path="../vendor/jquery/jquery.scrollex.d.ts" />
-/// <reference path="../vendor/jquery/jquery.scrolly.d.ts" />
 /// <reference path="../vendor/modernizr/modernizr.d.ts" />
 /// <reference path="../vendor/skel/skel.d.ts" />
 /// <reference path="../vendor/linq/linq.d.ts" />
+/// <reference path="../vendor/moment/moment.d.ts" />
 
 // app
+/// <reference path="def.ts" />
+/// <reference path="util.ts" />
 /// <reference path="app.ts" />
-/// <reference path="ui.ts" />
-/// <reference path="ui-events.ts" />
-/// <reference path="ui-gallery.ts" />
-/// <reference path="ui-map.ts" />
-/// <reference path="ui-map-style.ts" />
-/// <reference path="ui-menu.ts" />
+/// <reference path="ui/ui.ts" />
+/// <reference path="ctx/ctx.ts" />
+/// <reference path="pages/pages.ts" />

@@ -2,6 +2,7 @@
 @import 'libs/functions';
 @import 'libs/mixins';
 @import 'libs/skel';
+@import 'libs/animations';
 @import 'font.css';
 @import url('https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,300i,400,400i');
 
@@ -17,7 +18,14 @@
 		medium: '(max-width: 980px)',
 		small: '(max-width: 736px)',
 		xsmall: '(max-width: 480px)',
-		xxsmall: '(max-width: 360px)'
+    xxsmall: '(max-width: 360px)',
+    
+    minxlarge: '(min-width: 1680px)',
+		minlarge: '(min-width: 1280px)',
+		minmedium: '(min-width: 980px)',
+		minsmall: '(min-width: 736px)',
+		minxsmall: '(min-width: 480px)',
+		minxxsmall: '(min-width: 360px)'
 	));
 
 	@include skel-layout((
@@ -171,15 +179,20 @@
 	@import 'components/wrapper';
 	@import 'components/items';
 	@import 'components/index';
+	@import 'components/timeline';
 
 // Layout.
 	@import 'layout/wrapper';
 	@import 'layout/bg';
+	@import 'layout/loader';
 	@import 'layout/menu';
 	@import 'layout/common';
 	@import 'layout/home';
 	@import 'layout/about';
-	@import 'layout/events';
+	@import 'layout/upcoming';
 	@import 'layout/partner';
 	@import 'layout/footer';
-	@import 'layout/blog';
+  @import 'layout/blog';
+  
+  // pages
+	@import 'pages/event';

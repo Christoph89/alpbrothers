@@ -2,8 +2,15 @@
   "common":
   {
     "src": "./src/",
-    "events": "./src/res/events.json",
-    "verbose": false
+    "shownEvents": 5,
+    "preloadPages": ["events", "event"],
+    "verbose": false,
+    "ctx":
+    {
+      "apikey": "bd990ffc684f77f510084d1f7bf1d44bd0011ea33ea4215ac8f4e2d9a59d640f",
+      "baseurl": "https://ft-christoph-schaunig.oraclecloud2.dreamfactory.com/api/v2",
+      "db": "db_alpbros"
+    }
   },
   
   "dbg":

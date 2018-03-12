@@ -10,18 +10,17 @@ function run($) {
 // builds the specified template
 function buildMain($)
 {
-  // build index.html
-  var stream=$.buildTpl("%srchtml/index.html", "%dst", function (res)
-  {
-    // set lang url
-    res.lng.chgurl=$.cfg.lngurl;
+  // get pages
+  var pages=$.getPages();
+  var resources=["common", "main"].concat(pages);
 
-    // add events
-    res.events.list=$.getEventList(res)||[];
-    if (!linq.from(res.events.list).any(function (e) { return e.price.indexOf("(*)")>-1; }))
-      res.events.youthDiscountInfo=null;
-    if (!linq.from(res.events.list).any(function (e) { return e.price.indexOf("(**)")>-1; }))
-      res.events.erlebnisCardInfo=null;
+  // build index.html
+  var stream=$.buildTpl(resources, "%srchtml/index.html", "%dst", function (cfg) { return extendCfg($, cfg); });
+
+  // build pages
+  linq.from($.getPages()).forEach(function (page)
+  {
+    stream.add($.buildTpl(resources, "%srchtml/pages/"+page+".html", "%dst/pages", function (cfg) { return extendCfg($, cfg); }));
   });
 
   // create cname file
@@ -29,6 +28,27 @@ function buildMain($)
     .pipe(gulp.dest($.cfg.dest))); 
 
   return stream;
+}
+
+function extendCfg($, cfg)
+{
+  // set lang url
+  var res=cfg.res;
+  res.lng.chgurl=$.cfg.lngurl;
+
+  // add dummy events
+  res.upcoming.list=new Array($.cfg.shownEvents);
+
+  // add app config
+  cfg.appcfg=JSON.stringify({
+    root: cfg.root,
+    lang: cfg.lang,
+    shownEvents: cfg.shownEvents,
+    preloadPages: cfg.preloadPages,
+    ctx: cfg.ctx,
+    res: res.client,
+    pages: ["main"].concat($.getPages()),
+  });
 }
 
 module.exports={
