@@ -112,6 +112,8 @@
   "contact":
   {
     "title": "Contact",
-    "text": "Christoph Schaunig & Thomas Raspotnik<br /> 9582 Latschach ob. dem Faaker See, &Ouml;sterreich<br /><a href=\"mailto:office@alpbrothers.at\"><span class=\"icon style1 fa-envelope\"></span> office@alpbrothers.at</a><br /> <a href=\"tel:+4367761716070\"><span class=\"icon style1 fa-phone\"></span> +43 677 61716070</a><br /> <a href=\"https://api.whatsapp.com/send?phone=4367761716070\" target=\"_blank\"><span class=\"icon style1 fa-whatsapp\"></span> WhatsApp</a><br /><br />"
+    "titleTel": "Phone nr.",
+    "titleEmail": "Send us an Email",
+    "titleWhatsapp": "Send us a WhatsApp message"
   }
 }
