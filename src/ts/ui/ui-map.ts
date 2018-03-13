@@ -32,6 +32,7 @@ module $alpbros.$ui.map
   var apikey="AIzaSyBdO_cpM267sMdq2GO-ujjfch3dMjUHMjY";
   var currentIdx=0;
   var maps: GMap[]=[];
+  var apiAdded: boolean;
 
   /** Initializes all maps. */
   export function init(context?: JQuery)
@@ -63,7 +64,16 @@ module $alpbros.$ui.map
     }).ToArray();
 
     window["initMap"+currentIdx]=function () { initMap(map); };
-    cnt.after('<script async defer src="https://maps.googleapis.com/maps/api/js?key='+apikey+'&callback=initMap'+currentIdx+'"></script>');
+
+    // add api only once
+    if (!apiAdded)
+    {
+      cnt.after('<script async defer src="https://maps.googleapis.com/maps/api/js?key='+apikey+'&callback=initMap'+currentIdx+'"></script>');
+      apiAdded=true;
+    }
+    else
+      initMap(map);
+
     currentIdx++;
 
     return map;
