@@ -35,6 +35,17 @@ module $alpbros
     }
   }
 
+  /** Specifies all roles. */
+  export enum Roles
+  {
+    /** Partner role. */
+    Partner=2,
+    /** WWW role. */
+    WWW=3,
+    /** Admin role. */
+    Admin=4
+  }
+
   export interface HashUrl
   {
     hash: string;

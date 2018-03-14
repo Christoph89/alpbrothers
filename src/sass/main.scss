@@ -163,36 +163,37 @@
 // Base.
 	@import 'base/page';
 	@import 'base/typography';
+	@import 'base/session';
 
 // Component.
-	@import 'components/box';
-	@import 'components/button';
-	@import 'components/form';
-	@import 'components/icon';
-	@import 'components/image';
-	@import 'components/list';
-	@import 'components/section';
-	@import 'components/table';
-	@import 'components/banner';
-	@import 'components/spotlight';
-	@import 'components/gallery';
-	@import 'components/wrapper';
-	@import 'components/items';
-	@import 'components/index';
-	@import 'components/timeline';
+	@import 'ui/box';
+	@import 'ui/button';
+	@import 'ui/form';
+	@import 'ui/icon';
+	@import 'ui/image';
+	@import 'ui/list';
+	@import 'ui/section';
+	@import 'ui/table';
+	@import 'ui/banner';
+	@import 'ui/spotlight';
+	@import 'ui/gallery';
+	@import 'ui/wrapper';
+	@import 'ui/items';
+	@import 'ui/index';
+	@import 'ui/timeline';
 
 // Layout.
-	@import 'layout/wrapper';
-	@import 'layout/bg';
-	@import 'layout/loader';
-	@import 'layout/menu';
-	@import 'layout/common';
-	@import 'layout/home';
-	@import 'layout/about';
-	@import 'layout/upcoming';
-	@import 'layout/partner';
-	@import 'layout/footer';
-  @import 'layout/blog';
+	@import 'parts/wrapper';
+	@import 'parts/bg';
+	@import 'parts/loader';
+	@import 'parts/menu';
+	@import 'parts/common';
+	@import 'parts/home';
+	@import 'parts/about';
+	@import 'parts/upcoming';
+	@import 'parts/partner';
+	@import 'parts/footer';
+  @import 'parts/blog';
   
   // pages
 	@import 'pages/event';

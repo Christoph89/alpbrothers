@@ -8,6 +8,7 @@
 module $alpbros
 {
   export var $window=$(window);
+  export var $doc=$(document.documentElement);
   export var $body=$(document.body);
   export var $main=$("#main.page");
   export var $cfg: AppCfg;
@@ -53,6 +54,20 @@ module $alpbros
             popstate=true;
         });
 
+      // init session refresh
+      var refreshTimeout: any;
+      $doc.click(() => 
+      {
+        if (refreshTimeout)
+          return;
+        $ctx.session.refresh()
+          .done(() => { setAuthenticated(true); })
+          .fail(() => { setAuthenticated(false); });
+        refreshTimeout=setTimeout(() => {
+          refreshTimeout=null;
+        }, 15000); // wait at least 15sec
+      });
+
       // load meta data from api
       ($metaPromise=$ctx.meta()).done((meta) =>
       {
@@ -60,17 +75,22 @@ module $alpbros
         $meta=$cfg.meta=$.extend($cfg.meta||{}, meta);
       });
 
-      // preload main page to ensure it gets the current one on app start
-      $pages.preload("main").done(() =>
-      {
-        // init hash / load start page
-        hashChange(undefined, undefined, "immediate")
-          .done(() =>
+      // init session and preload main page to ensure it gets the current one on app start
+      $ctx.session.refresh()
+        .done(() => { setAuthenticated(true); })
+        .fail(() => { setAuthenticated(false); })
+        .always(() => {
+          $pages.preload("main").done(() =>
           {
-            // preload configured pages
-            $q($cfg.preloadPages).ForEach(p => $pages.preload(p));
+            // init hash / load start page
+            hashChange(undefined, undefined, "immediate")
+              .done(() =>
+              {
+                // preload configured pages
+                $q($cfg.preloadPages).ForEach(p => $pages.preload(p));
+              });
           });
-      });
+        });
     }
 
     export function hashChange(hash?: string, anchor?: string, speed?: string): JQueryPromise<any>
@@ -81,6 +101,15 @@ module $alpbros
 
       // get url
       $url=$util.parseUrl(hash || window.location.hash);
+
+      // is command?
+      if ($url.page=="cmd")
+        return $cmd.execUrl($url)
+          .fail((err) =>
+          {
+            console.error(err);
+            return $app.back();
+          });
       
       // is page change?
       var isPageChange=$pages.current && $url.page!=$pages.current.name;
@@ -135,19 +164,12 @@ module $alpbros
       popstate=true; // next hashchange will run as popstate
       if (!hash) hash=$ui.$backBtn.attr("back") || $pages.current && $pages.current.defaultBack() || "#/";
       hashChange(hash);
-      // if (Modernizr.history && (history.length-historyLength)>0)
-      //   history.back();
-      // else if ($pages.current)
-      // {
-      //   var back=$pages.current.defaultBack(); // try get default back url from page
-      //   if (back)
-      //   {
-      //     hashChange(back); // go back to specified url
-      //     if (Modernizr.history) setHash(back); // replace history entry, otherwise history.back() will go to the wrong page next time
-      //   }
-      //   else // page does not specify default back url -> go home
-      //     home();
-      // }
+    }
+
+    /** Sets the app authentication state. */
+    export function setAuthenticated(authenticated: boolean)
+    {
+      $doc.toggleClass("authenticated", authenticated).toggleClass("unauthenticated", !authenticated);
     }
   }
 

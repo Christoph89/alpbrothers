@@ -1,5 +1,5 @@
 <!DOCTYPE HTML>
-<html lang="de">
+<html lang="de" class="unauthenticated">
 
 <head>
   
@@ -65,6 +65,8 @@
         <li><a href="#/contact" class="button medium wide icon fa-phone" title="Kontakt">Kontakt</a></li>
       
         <li><a href="https://www.alpbrothers.com" class="button medium wide icon special fa-language" title="English">English</a></li>
+      
+        <li><a href="#/cmd/signout" class="button medium wide icon special fa-sign-out auth-only" title="Abmelden">Abmelden</a></li>
       
       <li class="media">
        
@@ -412,13 +414,13 @@
 
   <!-- Scripts -->
   
-  <script src="js/external.js"></script>
+  <script src="js/vendor.js"></script>
   <script src="js/app.js"></script>
   <script type="text/javascript">
     // init app on document ready
     $(document).ready(() =>
     {
-      $alpbros.$app.init({"root":"","lang":"de","shownEvents":5,"preloadPages":["events","event"],"ctx":{"apikey":"bd990ffc684f77f510084d1f7bf1d44bd0011ea33ea4215ac8f4e2d9a59d640f","baseurl":"https://ft-christoph-schaunig.oraclecloud2.dreamfactory.com/api/v2","db":"db_alpbros"},"res":{"level":{"None":"Jedermann","All":"Jedermann","Beginner":"Einsteiger","Advanced":"Fortgeschritten"},"eventTypes":{"TechniqueTraining":{"name":"Technik Training","icon":"fa-cogs","offer":true},"GuidedTour":{"name":"Geführte Touren","icon":"fa-bicycle","offer":true},"Camp":{"name":"Camps","icon":"fa-home","offer":false},"MechanicalTraining":{"name":"Schrauberkurs","icon":"fa-wrench","offer":false}},"months":["Januar","Februar","März","April","Mai","Juni","Juli","August","September","Oktober","November","Dezember"],"weekdays":["Sonntag","Montag","Dienstag","Mittwoch","Donnerstag","Freitag","Samstag"],"main":{"title":"Alpbrothers - Dein Mountainbike Guide in Kärnten am Faaker See"},"upcoming":{"dateFormat":"dd DD.MM.YYYY HH:mm [Uhr]"},"events":{"title":"Alpbrothers - Events","level":"Level","dateFormat":"dddd D. MMMM YYYY<br />HH:mm - HH:mm [Uhr]","multiDayFormat":"dd D. - dd D. MMMM YYYY","fromFormat":"dddd D. MMMM","erlebniscardPrice":"kostenlos (**)","imgPath":"img/events/"}},"pages":["main","event-workshop","event","events","impressum","legalnotice"]});
+      $alpbros.$app.init({"root":"","lang":"de","shownEvents":5,"preloadPages":["events","event"],"ctx":{"apikey":"bd990ffc684f77f510084d1f7bf1d44bd0011ea33ea4215ac8f4e2d9a59d640f","baseurl":"https://ft-christoph-schaunig.oraclecloud2.dreamfactory.com/api/v2","db":"db_alpbros"},"res":{"level":{"None":"Jedermann","All":"Jedermann","Beginner":"Einsteiger","Advanced":"Fortgeschritten"},"eventTypes":{"TechniqueTraining":{"name":"Technik Training","icon":"fa-cogs","offer":true},"GuidedTour":{"name":"Geführte Touren","icon":"fa-bicycle","offer":true},"Camp":{"name":"Camps","icon":"fa-home","offer":false},"MechanicalTraining":{"name":"Schrauberkurs","icon":"fa-wrench","offer":false}},"months":["Januar","Februar","März","April","Mai","Juni","Juli","August","September","Oktober","November","Dezember"],"weekdays":["Sonntag","Montag","Dienstag","Mittwoch","Donnerstag","Freitag","Samstag"],"main":{"title":"Alpbrothers - Dein Mountainbike Guide in Kärnten am Faaker See"},"upcoming":{"dateFormat":"dd DD.MM.YYYY HH:mm [Uhr]"},"events":{"title":"Alpbrothers - Events","level":"Level","dateFormat":"dddd D. MMMM YYYY<br />HH:mm - HH:mm [Uhr]","multiDayFormat":"dd D. - dd D. MMMM YYYY","fromFormat":"dddd D. MMMM","erlebniscardPrice":"kostenlos (**)","imgPath":"img/events/"}},"pages":["main","admin","event-workshop","event","events","impressum","legalnotice","signin"]});
     });
   </script>
   

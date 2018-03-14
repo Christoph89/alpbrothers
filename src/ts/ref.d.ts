@@ -9,6 +9,7 @@
 /// <reference path="../vendor/skel/skel.d.ts" />
 /// <reference path="../vendor/linq/linq.d.ts" />
 /// <reference path="../vendor/moment/moment.d.ts" />
+/// <reference path="../vendor/js-cookie/js-cookie.d.ts" />
 
 // app
 /// <reference path="def.ts" />
@@ -17,3 +18,4 @@
 /// <reference path="ui/ui.ts" />
 /// <reference path="ctx/ctx.ts" />
 /// <reference path="pages/pages.ts" />
+/// <reference path="cmd/cmd.ts" />

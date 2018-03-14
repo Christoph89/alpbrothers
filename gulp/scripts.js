@@ -11,8 +11,9 @@ function run($)
     "%srcvendor/skel/skel.js",
     "%srcvendor/linq/linq.js",
     "%srcvendor/moment/moment.js",
+    "%srcvendor/js-cookie/js-cookie.js",
   ])
-  .pipe(concat("external.js"));
+  .pipe(concat("vendor.js"));
 
   // minify 
   if ($.cfg.min)

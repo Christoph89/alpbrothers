@@ -8,7 +8,7 @@
 module $alpbros.$pages
 {
   /** Main page. */
-  export class MainPage extends Page
+  export class PageMain extends Page
   {
     /** Initializes the page */
     constructor(name: string, pageCnt: JQuery, wait: JQueryDeferred<Page>)

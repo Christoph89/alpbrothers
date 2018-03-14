@@ -22,7 +22,7 @@ module $alpbros.$ctx
       contentType: "application/json",
       headers: {
         "X-DreamFactory-API-Key": $cfg.ctx.apikey,
-        "X-DreamFactory-Session-Token": session.token
+        "X-DreamFactory-Session-Token": session.current?session.current.session_token:""
       }
     });
   }
@@ -49,6 +49,12 @@ module $alpbros.$ctx
   export function put(url: string, data?: any): JQueryPromise<any>
   {
     return call("PUT", url, data);
+  }
+  
+  /** Performs an API DELETE request. */
+  export function del(url: string, data?: any): JQueryPromise<any>
+  {
+    return call("DELETE", url, data);
   }
 
   /** Loads meta data from the api. */

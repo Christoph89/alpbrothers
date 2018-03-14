@@ -7,7 +7,8 @@
     { "url": "#/upcoming", "text": "Events", "icon": "fa-calendar" },
     { "url": "#/impressions", "text": "Impressions", "icon": "fa-camera-retro" },
     { "url": "#/contact", "text": "Contact", "icon": "fa-phone" },
-    { "url": "%lngurl", "text": "Deutsch", "icon": "special fa-language" }
+    { "url": "%lngurl", "text": "Deutsch", "icon": "special fa-language" },
+    { "url": "#/cmd/signout", "text": "Sign out", "icon": "special fa-sign-out auth-only" }  
   ],
 
   "menuBtn":

@@ -7,6 +7,8 @@
 /// <reference path="page-main.ts" />
 /// <reference path="page-events.ts" />
 /// <reference path="page-event.ts" />
+/// <reference path="page-signin.ts" />
+/// <reference path="page-admin.ts" />
 "use strict";
 
 module $alpbros.$pages
@@ -136,7 +138,7 @@ module $alpbros.$pages
     
     // get page class -> convention = NamePage
     name=name[0].toUpperCase()+name.substr(1);
-    return $pages[name+"Page"] || Page;
+    return $pages["Page"+name] || Page;
   }
 
   /** Gets the specified page container. */

@@ -8,7 +8,7 @@
 module $alpbros.$pages
 {
   /** Timeline page. */
-  export class EventsPage extends Page
+  export class PageEvents extends Page
   {
     /** Initializes the page */
     constructor(name: string, pageCnt: JQuery, wait: JQueryDeferred<Page>)

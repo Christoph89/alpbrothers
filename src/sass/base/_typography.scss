@@ -161,7 +161,11 @@
 
 	.align-right {
 		text-align: right;
-	}
+  }
+  
+  .error {
+    color: _palette(fg-error);
+  }
 
 	@include breakpoint(small) {
 		p {

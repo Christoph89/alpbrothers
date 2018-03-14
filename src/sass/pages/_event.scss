@@ -1,6 +1,6 @@
 #event.page
 {
-  section {
+  > section {
     &.partner {
       padding-top: 1px;
     }
@@ -29,3 +29,7 @@
     }
   }
 }
+
+
+@import 'event-workshop';
+@import 'signin';

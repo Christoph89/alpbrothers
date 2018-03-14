@@ -140,7 +140,7 @@ module $alpbros.$util
     // set stack
     var loc=(parts[0]||"").split("/");
     url.page=loc[0];
-    if ($cfg.pages.indexOf(url.page)<0)
+    if (url.page!="cmd" && $cfg.pages.indexOf(url.page)<0)
     {
       url.dest=url.page;
       url.page="main";

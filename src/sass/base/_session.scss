@@ -1,0 +1,11 @@
+html.authenticated {
+  .noauth-only {
+    display: none !important;
+  }
+}
+
+html.unauthenticated {
+  .auth-only {
+    display: none !important;
+  }
+}
