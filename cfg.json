@@ -5,7 +5,7 @@
     "ctx":
     {
       "apikey": "7f00b6496ff388f0f44b7857662285f954b84ff9dcaebb70d0451750e53321ff",
-      "baseurl": "http://alpbrothers.oraclecloud2.dreamfactory.com/api/v2",
+      "baseurl": "https://alpbrothers.oraclecloud2.dreamfactory.com/api/v2",
       "db": "db_alpbros"
     }
   },
