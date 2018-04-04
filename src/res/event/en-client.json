@@ -1,0 +1,19 @@
+{
+  "client":
+  {
+    "event":
+    {
+      "title": "Alpbrothers - Event",
+      "edit":
+      {
+        "title": "Alpbrothers - Edit event",
+        "dateFormat": "dddd MMMM D YYYY HH:mm",
+        "repeat": "Repeat next week"
+      },
+      "add":
+      {
+        "title": "Alpbrothers - Add event"
+      }
+    }
+  }
+}

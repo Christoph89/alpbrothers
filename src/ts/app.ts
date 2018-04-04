@@ -11,12 +11,10 @@ module $alpbros
   export var $doc=$(document.documentElement);
   export var $body=$(document.body);
   export var $main=$("#main.page");
-  export var $cfg: AppCfg;
   export var $res: any;
-  export var $meta: Meta;
-  export var $metaPromise: JQueryPromise<Meta>;
   export var $url: HashUrl;
 
+  /** Main application */
   export module $app
   {
     /** History length on app start. */
@@ -28,12 +26,11 @@ module $alpbros
     /** True if the current hash change is a history pop/back. */
     var popstate=false;
 
+    /** Initializes the app. */
     export function init(cfg)
     {
       // get config and main elements
-      $cfg=cfg;
-      $res=$cfg.res;
-      localize();
+      $cfg.init(cfg);
 
       // disable automatic scrolling on history changes
       if (Modernizr.history)
@@ -68,18 +65,15 @@ module $alpbros
         }, 15000); // wait at least 15sec
       });
 
-      // load meta data from api
-      ($metaPromise=$ctx.meta()).done((meta) =>
-      {
-        // remember meta
-        $meta=$cfg.meta=$.extend($cfg.meta||{}, meta);
-      });
+      // init app data
+      $data.init();
 
       // init session and preload main page to ensure it gets the current one on app start
       $ctx.session.refresh()
         .done(() => { setAuthenticated(true); })
         .fail(() => { setAuthenticated(false); })
-        .always(() => {
+        .always(() => 
+        {
           $pages.preload("main").done(() =>
           {
             // init hash / load start page
@@ -87,7 +81,7 @@ module $alpbros
               .done(() =>
               {
                 // preload configured pages
-                $q($cfg.preloadPages).ForEach(p => $pages.preload(p));
+                $q($cfg.pages).Where(p => p.Value.preload).ForEach(p => $pages.preload(p.Key));
               });
           });
         });
@@ -129,7 +123,7 @@ module $alpbros
       if (isPageChange) 
       {
         speed="immediate"; // scroll immediate on page change
-        document.title=($res[$url.page] || $res["main"]).title; // change page title
+        document.title=getTitle($url); // change page title
         if (!popstate) $pages.current.remOffset($window.scrollTop()); // remember scroll position on page change, but not on popstate
       }
 
@@ -144,6 +138,18 @@ module $alpbros
       // smooth scroll
       return $ui.scrollTo($url, anchor, speed, popstate)
         .done(() => { pauseHashChange=pausePopState=popstate=false; }); // enable hash change event
+    }
+
+    /** Gets the title for the specified url. */
+    function getTitle(url: HashUrl)
+    {
+      var p=$res[url.page];
+      var d=url.dest && p?p[url.dest]:null;
+      if (d && d.title)
+        return d.title;
+      else if (p && p.title)
+        return  p.title;
+      return $res["main"].title;
     }
 
     /** Set's the hash without triggering hashchange event. Only cal if history api is supported! */
@@ -171,27 +177,6 @@ module $alpbros
     {
       $doc.toggleClass("authenticated", authenticated).toggleClass("unauthenticated", !authenticated);
     }
-  }
-
-  /** Localizes the app config/data */
-  function localize()
-  {
-    // localize event types
-    $q(MTBEventTypes).ForEach(x => $.extend(x.Value, $res.eventTypes[x.Key]));
-
-    // init momentjs months
-    if ($res.months && $res.months.length)
-      moment.updateLocale("en", {
-        months: $res.months,
-        monthsShort: $q(<string[]>$res.months).Select(x => x.substr(0, 3)).ToArray()
-      });
-    // init momentjs weekdays
-    if ($res.weekdays && $res.weekdays.length)
-      moment.updateLocale("en", {
-        weekdays: $res.weekdays,
-        weekdaysShort: $q(<string[]>$res.weekdays).Select(x => x.substr(0, 3)).ToArray(),
-        weekdaysMin: $q(<string[]>$res.weekdays).Select(x => x.substr(0, 2)).ToArray()
-      });
   }
 
   // set skel breakpoints

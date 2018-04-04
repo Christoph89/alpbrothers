@@ -15,21 +15,11 @@
       {% if type.offer %}
       <section>
         <span class="icon style2 major {{ type.icon  }}"></span>
-        <h3>{{ type.name }}</h3>
+        <h3>{{ type.description }}</h3>
         <p>{{ res.offer.eventTypes[tkey] | safe }}</p>
       </section>
       {% endif %}
       {% endfor %}
-      <!-- <section>
-        <span class="icon style2 major fa-wrench"></span>
-        <h3>{{ res.offer.training }}</h3>
-        <p>{{ res.offer.trainingText | safe }}</p>
-      </section>
-      <section>
-        <span class="icon style2 major fa-bicycle"></span>
-        <h3>{{ res.offer.tour }}</h3>
-        <p>{{ res.offer.tourText | safe }}</p>
-      </section> -->
     </div>
     <ul class="actions">
       <li><a href="{{ res.offer.goUrl }}" class="button icon fa-angle-down">{{ res.offer.go }}</a></li>

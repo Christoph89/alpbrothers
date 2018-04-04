@@ -1,4 +1,4 @@
-/*! Alpbrothers - ctx-db.ts
+/*! Alpbrothers - ctx/ctx-db.ts
 * Copyright Christoph Schaunig 2017
 */
 
@@ -38,6 +38,7 @@ module $alpbros.$ctx.db
     private _groupBy: string;
     private _limit: number;
     private _offset: number;
+    private _related: string;
 
     /** Initializes a new instance of DBCall. */
     public constructor(table: DBTable<T>)
@@ -57,6 +58,13 @@ module $alpbros.$ctx.db
     public where(filter: string): DBQuery<T>
     {
       this._where=filter;
+      return this;
+    }
+
+    /** Specifies a relation. */
+    public related(fields: string): DBQuery<T>
+    {
+      this._related=fields;
       return this;
     }
 
@@ -123,18 +131,11 @@ module $alpbros.$ctx.db
       if (this._groupBy) data["group"]=this._groupBy;
       if (this._limit) data["limit"]=this._limit;
       if (this._offset) data["offset"]=this._offset;
+      if (this._related) data["related"]=this._related;
       return get(this._url, data).then(res => this.parseMany(res));
     }
   }
 
   // init tables
-  export var eventType=new DBTable<MTBEventType>("eventtype");
-  export var event=new DBTable<MTBEvent>("event", $parse.event);
-}
-
-// table shortcuts
-module $alpbros
-{
-  export var $dbEvent=$ctx.db.event;
-  export var $dbEventType=$ctx.db.eventType;
+  export var event=new DBTable<MTBEvent>("event", ev => new MTBEvent(ev));
 }

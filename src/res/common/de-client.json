@@ -3,42 +3,18 @@
   {
     "level":
     {
-      "None": "Jedermann",
-      "All": "Jedermann",
+      "Everyone": "Jedermann",
       "Beginner": "Einsteiger",
-      "Advanced": "Fortgeschritten"
+      "Advanced": "Fortgeschritten",
+      "All": "Alle"
     },
     "eventTypes":
     {
-      "TechniqueTraining": { "name": "Technik Training", "icon": "fa-cogs", "offer": true },
-      "GuidedTour": { "name": "Geführte Touren", "icon": "fa-bicycle", "offer": true },
-      "Camp": { "name": "Camps", "icon": "fa-home", "offer": false },
-      "MechanicalTraining": { "name": "Schrauberkurs", "icon": "fa-wrench", "offer": false }
-    },
-    "months":
-    [
-      "Januar",
-      "Februar",
-      "März",
-      "April",
-      "Mai",
-      "Juni",
-      "Juli",
-      "August",
-      "September",
-      "Oktober",
-      "November",
-      "Dezember"
-    ],
-    "weekdays":
-    [
-      "Sonntag",
-      "Montag",
-      "Dienstag",
-      "Mittwoch",
-      "Donnerstag",
-      "Freitag",
-      "Samstag"
-    ]
+      "TechniqueTraining": { "description": "Technik Training", "icon": "fa-cogs", "offer": true },
+      "GuidedTour": { "description": "Geführte Tour", "icon": "fa-bicycle", "offer": true },
+      "EBikeTour": { "description": "E-Bike Tour", "icon": "fa-bolt" },
+      "Camp": { "description": "Camp", "icon": "fa-home" },
+      "MechanicalTraining": { "description": "Schrauberkurs", "icon": "fa-wrench" }
+    }
   }
 }

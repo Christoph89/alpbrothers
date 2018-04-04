@@ -15,8 +15,7 @@
   "lng": 
   {
     "other": "English",
-    "chg": "Use English version",
-    "chgurl": "@@see gulp cfg"
+    "chg": "Use English version"
   },
   "social": 
   {
@@ -29,5 +28,6 @@
   "impressum": "Impressum & Datenschutz",
   "impressumUrl": "#/impressum",
   "copyright": "Copyright &copy; Christoph Schaunig 2017",
-  "alpbrosGuiding": "Alpbrothers Mountainbike Guiding"
+  "alpbrosGuiding": "Alpbrothers Mountainbike Guiding",
+  "test": "%src/abc"
 }

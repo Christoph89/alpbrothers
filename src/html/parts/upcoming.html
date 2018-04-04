@@ -1,5 +1,5 @@
 <!-- upcoming -->
-<section id="upcoming" href="#/upcoming" class="wrapper no-events style1 color2 align-center no-events-off">
+<section id="upcoming" href="#/upcoming" class="wrapper style1 color2 align-center no-events">
   <div class="inner">
     <h2>{{ res.upcoming.title }}</h2>
     <p class="no-event-info">
@@ -7,7 +7,7 @@
     </p>
     <div class="table-wrapper event-table">
       <table class="alt">
-        {% for dummy in res.upcoming.list %}
+        {% for dummy in res.eventDummies %}
         <tr class="dummy">
           <td>&nbsp;</td>
           <td>&nbsp;</td>

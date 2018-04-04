@@ -1,0 +1,125 @@
+{
+  "client":
+  {
+    "shownEvents": 5,
+    "ctx":
+    {
+      "apikey": "7f00b6496ff388f0f44b7857662285f954b84ff9dcaebb70d0451750e53321ff",
+      "baseurl": "http://alpbrothers.oraclecloud2.dreamfactory.com/api/v2",
+      "db": "db_alpbros"
+    }
+  },
+
+  "common":
+  {
+    "vendor": 
+    [
+      "%src/vendor/jquery/*.js",
+      "%src/vendor/modernizr/modernizr.js",
+      "%src/vendor/skel/skel.js",
+      "%src/vendor/linq/linq.js",
+      "%src/vendor/moment/moment.js",
+      "%src/vendor/moment/moment-de.js",
+      "%src/vendor/js-cookie/js-cookie.js"
+    ],
+    "styles":
+    [
+      "%src/sass/font.css"
+    ],
+    "fonts":
+    [
+      "%src/fonts/*"
+    ],
+    "html":
+    [
+      "%src/html/index.html"
+    ],
+    "tpl":
+    [
+      "%src/img/favicon/*",
+      "%src/tpl/CNAME",
+      "%src/tpl/browserconfig.xml",
+      "%src/tpl/sitemap.xml",
+      "%src/tpl/humans.txt",
+      "%src/tpl/robots.txt",
+      "%src/tpl/google5e333bbe565a5f1b.html",
+      "%src/tpl/google822ef9d665cb404e.html"
+    ],
+    "pages": "%src/html/pages/*.html",
+    "pageDir": "%src/html/pages",
+    "images":
+    [
+      "%src/img/**/*.png",
+      "%src/img/**/*.jpg",
+      "%src/img/**/*.svg",
+      "%src/img/**/*.gif",
+      "!%src/img/edit/**/*",
+      "!%src/img/favicon/**/*"
+    ],
+    "typescript": [ "%src/ts/app.ts" ],
+    "scss": [ "%src/sass/main.scss" ],
+    "forms":
+    [
+      "%src/forms/*.pdf",
+      "%src/forms/2017/*.pdf"
+    ]
+  },
+  
+  "dbg-de":
+  { 
+    "lang": "de", 
+    "dest": "./docs_debug", 
+    "root": "", 
+    "lngurl": "en/index.html", 
+    "cname": "www.alpbrothers.at", 
+    "minify": false,
+    "sourcemaps": true
+  },
+
+  "dbg-en":
+  { 
+    "lang": "en", 
+    "dest": "./docs_debug/en", 
+    "root": "../", 
+    "lngurl": "../index.html", 
+    "cname": "www.alpbrothers.com", 
+    "minify": false,
+    "sourcemaps": true,
+    "vendor": "null",
+    "styles": "null",
+    "fonts": "null",
+    "images": "null",
+    "typescript": "null",
+    "scss": "null",
+    "forms": "null"
+  },
+
+  "release-de":
+  { 
+    "lang": "de", 
+    "dest": "./docs", 
+    "root": "", 
+    "lngurl": "https://www.alpbrothers.com", 
+    "cname": "www.alpbrothers.at", 
+    "minify": true,
+    "sourcemaps": false
+  },
+
+  "release-en":
+  { 
+    "lang": "en", 
+    "dest": "../alpbrothers-com/docs", 
+    "root": "https://www.alpbrothers.at/", 
+    "lngurl": "https://www.alpbrothers.at",
+    "cname": "www.alpbrothers.com", 
+    "minify": true,
+    "sourcemaps": true,
+    "vendor": "null",
+    "styles": "null",
+    "fonts": "null",
+    "images": "null",
+    "typescript": "null",
+    "scss": "null",
+    "forms": "null"
+  }
+}

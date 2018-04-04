@@ -1,0 +1,146 @@
+<div id="event-edit" class="page hidden divided" back="#/events" preload="true" synonyms="event-add">
+  
+  <section class="default wrapper style2 color7">
+    <div class="inner">
+      <h2>
+        <span mode="edit">Event bearbeiten</span>
+        <span mode="add">Event hinzufügen</span>
+      </h2>
+      <form>
+        <!-- name -->
+        <div class="field half first">
+          <label>Name</label>
+          <input type="text" name="event-name-de" placeholder="Event Name auf Deutsch" />
+        </div>
+        <div class="field half">
+          <label>&nbsp;</label>
+          <input type="text" name="event-name-en" placeholder="Event name in english" />
+        </div>
+        <div class="field"></div>
+
+        <!-- type -->
+        <div class="field">
+          <label>Typ</label>
+          <div class="select-wrapper">
+            <select name="event-type">
+              
+                <option value="TechniqueTraining" selected="selected">[object Object]</option>
+              
+                <option value="GuidedTour" >[object Object]</option>
+              
+                <option value="EBikeTour" >[object Object]</option>
+              
+                <option value="Camp" >[object Object]</option>
+              
+                <option value="MechanicalTraining" >[object Object]</option>
+              
+            </select>
+          </div>
+        </div>
+        <div class="field"></div>
+
+        <!-- level -->
+        <div class="field">
+          <label>Level</label>
+          
+            
+            <input type="radio" id="event-edit-level-everyone" name="event-level" value="Everyone" checked="checked" />
+            <label for="event-edit-level-everyone">Jedermann</label>
+            
+          
+            
+            <input type="radio" id="event-edit-level-beginner" name="event-level" value="Beginner"  />
+            <label for="event-edit-level-beginner">Einsteiger</label>
+            
+          
+            
+            <input type="radio" id="event-edit-level-advanced" name="event-level" value="Advanced"  />
+            <label for="event-edit-level-advanced">Fortgeschritten</label>
+            
+          
+            
+          
+        </div>
+        <div class="field"></div>
+
+        <!-- price -->
+        <div class="field half first">
+          <label>Preis</label>
+          <input type="radio" id="event-edit-price" name="event-price-type" value="price" checked="checked" />
+          <label for="event-edit-price">EUR</label>
+          <input type="number" name="event-price" placeholder="0.00" value="0.00" step="1.00" min="0"  />
+        </div>
+        <div class="field half">
+          <label>Erlebniscard</label>
+          <input type="radio" id="event-edit-price-erlebniscard" name="event-price-type" value="erlebniscard" />
+          <label for="event-edit-price-erlebniscard">Erlebniscard</label>
+        </div>
+        <div class="field"></div>
+
+        <!-- short description -->
+        <div class="field half first">
+          <label>Kurzbeschreibung</label>
+          <textarea name="event-short-descr-de" placeholder="Kurze Event Beschreibung auf Deutsch"></textarea>
+        </div>
+        <div class="field half">
+          <label>&nbsp;</label>
+          <textarea name="event-short-descr-en" placeholder="Short event description in English"></textarea>
+        </div>
+        <div class="field"></div>
+
+        <!-- description -->
+        <div class="field half first">
+          <label>Beschreibung</label>
+          <textarea name="event-descr-de" placeholder="Event Beschreibung auf Deutsch"></textarea>
+        </div>
+        <div class="field half">
+          <label>&nbsp;</label>
+          <textarea name="event-descr-en" placeholder="Event description in English"></textarea>
+        </div>
+        <div class="field"></div>
+
+        <!-- requirements -->
+        <div class="field half first">
+          <label>Anforderungen</label>
+          <textarea name="event-requirements-de" placeholder="Anforderungen auf Deutsch (getrennt durch Zeilenumbrüche)"></textarea>
+        </div>
+        <div class="field half">
+          <label>&nbsp;</label>
+          <textarea name="event-requirements-en" placeholder="Requirements in English (separated by new lines)"></textarea>
+        </div>
+        <div class="field"></div>
+
+        <!-- image -->
+        <div class="field">
+          <label>Foto</label>
+          
+        </div>
+        <div class="field"></div>
+
+        <!-- dates -->
+        <div class="field">
+          <div class="table-wrapper">
+            <table class="dates">
+              <thead>
+                <tr>
+                    <th>Von</th>
+                    <th>Bis</th>
+                    <th></th>
+                  </tr>
+              </thead>
+              <tbody></tbody>
+              <tfoot>
+                <tr>
+                  <td><input type="datetime-local" name="event-from" /></td>
+                  <td><input type="datetime-local" name="event-to" /></td>
+                  <td><a class="add-date icon style2 fa-plus"></a></td>
+                </tr>
+              </tfoot>
+            </table>
+          </div>
+        </div>
+        <div class="field"></div>
+      </form>
+    </div>
+  </section>
+</div>

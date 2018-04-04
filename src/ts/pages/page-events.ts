@@ -1,4 +1,4 @@
-/*! Alpbrothers - page-timeline.ts
+/*! Alpbrothers - pages/page-events.ts
 * Copyright Christoph Schaunig 2017
 */
 
@@ -19,7 +19,7 @@ module $alpbros.$pages
       this.timelineCnt=$("#event-timeline");
 
       // wait for meta/events
-      $metaPromise.done(() => 
+      $data.waitEvents.done(() => 
       {
         // append events
         this.appendEvents();
@@ -64,7 +64,7 @@ module $alpbros.$pages
       var typeSelect=$("select#event-type");
       $q(MTBEventTypes).ForEach(x => {
         var type=<MTBEventType>x.Value;
-        typeSelect.append('<option value="'+type.id+'">'+type.name+'</option>');
+        typeSelect.append('<option value="'+type.id+'">'+type.description+'</option>');
       });
 
       // set change event
@@ -74,7 +74,7 @@ module $alpbros.$pages
     /** Appends all events. */
     private appendEvents()
     {
-      this.timelineItems=$q($meta.allEvents).Select(ev => <any>{
+      this.timelineItems=$q($data.events).Select(ev => <any>{
         event: ev,
         item: this.getTimelineItem(ev)
       }).ToArray();
@@ -84,22 +84,22 @@ module $alpbros.$pages
     /** Filters the events by the criteria specified in the search form. */
     private filterTimeline()
     {
-      var v: string;
-      var fromDate=(v=$("#event-from-date").val())?new Date(v):null;
-      var toDate=(v=$("#event-to-date").val())?new Date(v):null;
+      var v: any;
+      var fromDate=(v=$("#event-from-date").val())?moment(v):null;
+      var toDate=(v=$("#event-to-date").val())?moment(v):null;
       var type=$("#event-type").val();
-      var level=MTBLevel.None 
-        | ($("#event-level-beginner").is(":checked")?MTBLevel.Beginner:MTBLevel.None)
-        | ($("#event-level-advanced").is(":checked")?MTBLevel.Advanced:MTBLevel.None);
+      var level=MTBLevel.Everyone 
+        | ($("#event-level-beginner").is(":checked")?MTBLevel.Beginner:MTBLevel.Everyone)
+        | ($("#event-level-advanced").is(":checked")?MTBLevel.Advanced:MTBLevel.Everyone);
         
       var visible=0;
       $q(this.timelineItems).ForEach(x =>
       {
         var ev=x.event;
-        var hide=fromDate && ev.from<fromDate
-          || toDate && ev.to>toDate
-          || type && type!="all" && ev.type.id!=type
-          || level<MTBLevel.All && ev.level!=MTBLevel.None && (ev.level&level)==0;
+        var hide=fromDate && ev.from()<fromDate
+          || toDate && ev.to()>toDate
+          || type && type!="all" && ev.typeId()!=type
+          || level<MTBLevel.All && ev.level()!=MTBLevel.Everyone && (ev.level()&level)==0;
         x.item.toggleClass("hidden", hide);
         if (!hide) 
         {
@@ -115,24 +115,24 @@ module $alpbros.$pages
     /** Returns a timeline item. */
     private getTimelineItem(event: MTBEvent): JQuery
     {
-      var price=event.price=="Erlebniscard"?$res.events.erlebniscardPrice:event.price;
-      var eventUrl="#/event?id="+event.id+"&date="+event.isofrom;
-      return $('<div class="timeline-block" eventId="'+event.id+'">'+
-        '<div class="timeline-img bg-color-'+this.getLevelColor(event)+'" title="'+event.type.name+'">'+
-          '<span class="icon style2 major '+event.type.icon+'"></span>'+
+      var price=event.isErlebniscard()?$res.events.erlebniscardPrice:event.price();
+      var eventUrl="#/event?id="+event.eventId();
+      return $('<div class="timeline-block" eventId="'+event.eventId()+'">'+
+        '<div class="timeline-img bg-color-'+this.getLevelColor(event)+'" title="'+event.type().name+'">'+
+          '<span class="icon style2 major '+event.type().icon+'"></span>'+
         '</div>'+
         '<div class="timeline-content">'+
-          '<h3>'+event.name+'<br /><code><span class="icon fa-money"></span> '+price+'</code></h3>'+
+          '<h3>'+event.name()+'<br /><code><span class="icon fa-money"></span> '+price+'</code></h3>'+
           '<p>'+
-            '<img src="'+$cfg.root+$res.events.imgPath+event.img+'" />'+
+            '<img src="'+event.img()+'" />'+
             '<strong>'+
-              $util.formatFromTo(event.from, event.to, $res.events.dateFormat, $res.events.multiDayFormat)+
-              "<br />"+$res.events.level+": "+$res.level[MTBLevel[event.level]]+
+              $util.formatFromTo(event.from(), event.to(), $res.events.dateFormat, $res.events.multiDayFormat)+
+              "<br />"+$res.events.level+": "+$res.level[MTBLevel[event.level()]]+
             '</strong><br /><br />'+
-            event.shortText+
+            event.description()+
           '</p><br style="clear: both;" />'+
           '<a href="'+eventUrl+'" class="button special icon fa-pencil">Details & Anmeldung</a>'+
-          '<span class="date">'+$util.formatDate(event.from, $res.events.fromFormat)+'</span>'+
+          '<span class="date">'+$util.formatDate(event.from(), $res.events.fromFormat)+'</span>'+
         '</div>'+
       '</div>').data("event", event);
     }
@@ -140,7 +140,7 @@ module $alpbros.$pages
     /** Returns the color for the specified event's level. */
     private getLevelColor(event: MTBEvent)
     {
-      switch (event.level)
+      switch (event.level())
       {
         case MTBLevel.Beginner: return "green";
         case MTBLevel.Advanced: return "orange";

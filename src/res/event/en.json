@@ -1,0 +1,30 @@
+{
+  "event":
+  {
+    "edit":
+    {
+      "title": "Edit Event",
+      "type": "Type",
+      "level": "Level",
+      "name": "Name",
+      "namePlaceholderDE": "Event Name auf Deutsch",
+      "namePlaceholderEN": "Event name in english",
+      "shortDescr": "Short description",
+      "shortDescrPlaceholderDE": "Kurze Event Beschreibung auf Deutsch",
+      "shortDescrPlaceholderEN": "Short event description in English",
+      "descr": "Description",
+      "descrPlaceholderDE": "Event Beschreibung auf Deutsch",
+      "descrPlaceholderEN": "Event description in English",
+      "requirements": "Requirements",
+      "requirementsPlaceholderDE": "Anforderungen auf Deutsch (getrennt durch Zeilenumbrüche)",
+      "requirementsPlaceholderEN": "Requirements in English (separated by new lines)",
+      "price": "Price",
+      "img": "Image",
+      "dates": "Dates"
+    },
+    "add":
+    {
+      "title": "Add Event"
+    }
+  }
+}

@@ -1,4 +1,4 @@
-/*! Alpbrothers - page-signin.ts
+/*! Alpbrothers - pages/page-admin.ts
 * Copyright Christoph Schaunig 2017
 */
 
@@ -30,8 +30,7 @@ module $alpbros.$pages
       if (!session || session.role_id!=Roles.Admin)
       {
         // redirect to signin
-        $app.hashChange("#/signin?return=/admin");
-        wait.resolve(this);
+        wait.reject({ redirect: "#/signin?return=/admin" });
         return;
       }
 

@@ -1,4 +1,4 @@
-/*! Alpbrothers - page-signin.ts
+/*! Alpbrothers - pages/page-signin.ts
 * Copyright Christoph Schaunig 2017
 */
 
@@ -45,7 +45,8 @@ module $alpbros.$pages
       $ui.loader.show();
       $cmd.exec("signin", {
         email: this.email.val(),
-        pwd: this.pwd.val()
+        pwd: this.pwd.val(),
+        return: $url.args?$url.args.return:null
       })
       .always(() => 
       { 

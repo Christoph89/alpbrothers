@@ -1,12 +1,12 @@
 {
-  "files.exclude": 
-  {
-    "node_modules": true,
+  "files.exclude": {
     "docs": true,
     "docs_debug": true,
-    "*.bat": true,
     "LICENSE.txt": true,
-    ".editorconfig": true
-  },
-  "vsicons.presets.angular": false
+    ".editorconfig": true,
+    "*.sublime-workspace": true,
+    "node_modules": true,
+    ".DS_Store": true,
+    ".node": true
+  }
 }

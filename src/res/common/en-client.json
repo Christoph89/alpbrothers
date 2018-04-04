@@ -3,18 +3,18 @@
   {
     "level":
     {
-      "None": "Everyone",
-      "All": "Everyone",
+      "Everyone": "Everyone",
       "Beginner": "Beginner",
-      "Advanced": "Advanced"
+      "Advanced": "Advanced",
+      "All": "All"
     },
     "eventTypes":
     {
-      "TechniqueTraining": { "name": "Technique Training", "icon": "fa-cogs", "offer": true },
-      "GuidedTour": { "name": "Guided Tours", "icon": "fa-bicycle", "offer": true },
-      "Camp": { "name": "Camps", "icon": "fa-home", "offer": false },
-      "MechanicalTraining": { "name": "Mechanical Training", "icon": "fa-wrench", "offer": false }
-    },
-    "weekdays": []
+      "TechniqueTraining": { "description": "Technique Training", "icon": "fa-cogs", "offer": true },
+      "GuidedTour": { "description": "Guided Tour", "icon": "fa-bicycle", "offer": true },
+      "EBikeTour": { "description": "E-Bike Tour", "icon": "fa-bolt" },
+      "Camp": { "description": "Camp", "icon": "fa-home" },
+      "MechanicalTraining": { "description": "Mechanical Training", "icon": "fa-wrench" }
+    }
   }
 }

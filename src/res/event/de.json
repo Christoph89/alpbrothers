@@ -1,0 +1,31 @@
+{
+  "event":
+  {
+    "edit":
+    {
+      "title": "Event bearbeiten",
+      "type": "Typ",
+      "level": "Level",
+      "name": "Name",
+      "namePlaceholderDE": "Event Name auf Deutsch",
+      "namePlaceholderEN": "Event name in english",
+      "shortDescr": "Kurzbeschreibung",
+      "shortDescrPlaceholderDE": "Kurze Event Beschreibung auf Deutsch",
+      "shortDescrPlaceholderEN": "Short event description in English",
+      "descr": "Beschreibung",
+      "descrPlaceholderDE": "Event Beschreibung auf Deutsch",
+      "descrPlaceholderEN": "Event description in English",
+      "requirements": "Anforderungen",
+      "requirementsPlaceholderDE": "Anforderungen auf Deutsch (getrennt durch Zeilenumbrüche)",
+      "requirementsPlaceholderEN": "Requirements in English (separated by new lines)",
+      "price": "Preis",
+      "erlebniscard": "Erlebniscard",
+      "img": "Foto",
+      "dates": "Termine"
+    },
+    "add":
+    {
+      "title": "Event hinzufügen"
+    }
+  }
+}

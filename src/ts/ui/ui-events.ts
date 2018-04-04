@@ -11,7 +11,7 @@ module $alpbros.$ui.events
   export function init(context?: JQuery)
   {
     // wait for meta
-    $metaPromise.done(() => 
+    $data.waitEvents.done(() => 
     {
       // init all event-tables after meta has been loaded
       $(".event-table table", context).each((i, el) =>
@@ -25,7 +25,7 @@ module $alpbros.$ui.events
   function appendEvents(tbl: JQuery)
   {
     $("tr.dummy", tbl).remove();
-    tbl.prepend($q($meta.allEvents)
+    tbl.prepend($q($data.events)
       .Take($cfg.shownEvents)
       .Select(ev => getEventRow(ev))
       .ToArray());
@@ -35,9 +35,9 @@ module $alpbros.$ui.events
   function getEventRow(event: MTBEvent): JQuery
   {
     return $("<tr>").addClass("event")
-      .append($("<td>").text(moment(event.from).format($res.upcoming.dateFormat)))
+      .append($("<td>").text(event.from().format($res.upcoming.dateFormat)))
       .append($("<td>")
-        .append($("<a>")).attr("href", $cfg.root+event.url).attr("target", "_blank").text(event.name))
-      .append($("<td>").text(event.price=="Erlebniscard"?$res.events.erlebniscardPrice:event.price));
+        .append($("<a>"))/*.attr("href", $cfg.root+event.url)*/.attr("target", "_blank").text(event.name()))
+      .append($("<td>").text(event.isErlebniscard()?$res.events.erlebniscardPrice:event.price()));
   }
 }

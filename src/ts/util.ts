@@ -8,23 +8,43 @@
 module $alpbros.$util
 {
   /** Returns the formatted date string of the specified datetime. */
-  export function formatDate(date: Date, format: string)
+  export function formatDate(date: moment.Moment, format: string)
   {
-    return moment(date).format(format);
+    return date.format(format);
   }
 
   /** Returns the formatted string for the specified from/to date. */
-  export function formatFromTo(from: Date, to: Date, format: string, multiDayFormat?: string)
+  export function formatFromTo(from: moment.Moment, to: moment.Moment, format: string, multiDayFormat?: string)
   {
     if (multiDayFormat &&  !dateEquals(from, to)) format=multiDayFormat; // mulitple days
     var parts=format.split("-");
-    return moment(from).format(parts[0].trim())+" - "+moment(to).format(parts[1].trim());
+    return from.format(parts[0].trim())+" - "+to.format(parts[1].trim());
   }
 
   /** Returns whether the date part of the specified datetimes is equal. */
-  export function dateEquals(from: Date, to: Date)
+  export function dateEquals(from: moment.Moment, to: moment.Moment)
   {
-    return from.getFullYear()==to.getFullYear() && from.getMonth()==to.getMonth() && from.getDate()==to.getDate();
+    return from.year()==to.year() && from.month()==to.month() && from.date()==to.date();
+  }
+
+  /** Merges the specified dates. */
+  export function mergeDates(target: moment.Moment, dt: moment.Moment) : moment.Moment
+  {
+    // no valid target date -> clone
+    if (!target || !target.isValid())
+      return dt.clone();
+    if (target.hour()==0 && target.minute()==0)
+    {
+      target.hour(dt.hour());
+      target.minute(dt.minute());
+    }
+    return target;
+  }
+
+  /** Merges the specified dates. */
+  export function mergeDatesStr(target: string, dt: string) : moment.Moment
+  {
+    return mergeDates(moment(target), moment(dt));
   }
 
   /** Ensures that the specified string starts with the prefix. */
@@ -50,69 +70,10 @@ module $alpbros.$util
     return Math.max(offset, 0); 
   }
 
-  /** Returns all recurrences of the specified event. */
-  export function getRecurrences(event: MTBEvent): MTBEvent[]
-  {
-    var recurrences=[event];
-
-    // get images
-    var images: string[]=typeof event.img=="string"?[event.img]:event.img;
-    event.img=images[0];
-
-    // no recurrences
-    if (!event.repeat)
-      return recurrences;
-
-    // get how to repeat
-    var func: string;
-    var interval: number;
-    var times=parseInt(event.repeat);
-    if (!isNaN(times))
-      interval=7; // interval is weekly if not specified
-    else
-    {
-      times=parseInt(event.repeat.substr(1));
-      switch (event.repeat[0])
-      {
-        // monthly
-        case "m": 
-          func="Month";
-          interval=1;
-        // weekly
-        case "w":
-        default:
-          func="Date";
-          interval=7;
-      }
-    }
-
-
-    // repeat
-    for (var i=1; i<=(times-1); i++)
-    {
-      var rec: MTBEvent=$.extend({}, event); // copy event
-      rec.repeat=null; // recurrence does not repeat again
-      rec.img=images[i%images.length];
-
-      // repeat
-      var from=new Date(rec.from.getTime()), to=new Date(rec.to.getTime());
-      if (from) 
-      {
-        rec.from=new Date(from["set"+func](from["get"+func]()+(interval*i))); // copy and set new from date
-        rec.isofrom=moment(rec.from).format("YYYY-MM-DD");
-      }
-      if (to) rec.to=new Date(to["set"+func](to["get"+func]()+(interval*i))); // copy and set new to date
-
-      // add reccurence
-      recurrences.push(rec);
-    }
-
-    return recurrences;
-  }
-
   /** Localizes the specified object propery (if possible). */
   export function localize(obj: any, property?: string)
   {
+    if (!obj) return null;
     if (!property) property="name";
     var val=obj[property+"_"+$cfg.lang];
     if (val===undefined)
@@ -140,7 +101,7 @@ module $alpbros.$util
     // set stack
     var loc=(parts[0]||"").split("/");
     url.page=loc[0];
-    if (url.page!="cmd" && $cfg.pages.indexOf(url.page)<0)
+    if (url.page!="cmd" && !$pages.exists(url.page))
     {
       url.dest=url.page;
       url.page="main";

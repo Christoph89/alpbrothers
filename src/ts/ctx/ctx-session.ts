@@ -1,4 +1,4 @@
-/*! Alpbrothers - ctx-session.ts
+/*! Alpbrothers - ctx/ctx-session.ts
 * Copyright Christoph Schaunig 2017
 */
 
@@ -27,6 +27,12 @@ module $alpbros.$ctx.session
   const sessionCookie="alpbros_session";
   /** The current session. */
   export var current: Session=null;
+
+  /** Returns the session token. */
+  export function token() : string
+  {
+    return (current ? current.session_token : null) || Cookies.get(sessionCookie);
+  }
 
   /** Signs in the specified user. */
   export function signin(email: string, pwd: string, duration: number=0): JQueryPromise<Session>
@@ -65,7 +71,7 @@ module $alpbros.$ctx.session
   {
     if (!current || !current.session_token)
       return $.Deferred<any>().resolve().promise();
-    return del("/user/session", { "session_token": current.session_token })
+    return del("/user/session", )//{ "session_token": current.session_token })
       .then(() => 
       {
         // cancel session
@@ -82,7 +88,7 @@ module $alpbros.$ctx.session
       token=Cookies.get(sessionCookie);
     if (!token)
       return $.Deferred<any>().reject().promise();
-    return put("/user/session", { "session_token": token })
+    return put("/user/session")//, { "session_token": token })
       .then((session) => 
       {
         // refresh session

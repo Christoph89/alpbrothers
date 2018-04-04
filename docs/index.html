@@ -165,7 +165,7 @@
       
       <section>
         <span class="icon style2 major fa-bicycle"></span>
-        <h3>Geführte Touren</h3>
+        <h3>Geführte Tour</h3>
         <p>Egal ob kurz-knackiger <b>Feierabend Trail</b>, fetziger <b>Enduro Ausflug</b> oder ausgiebige <b>Dreiländer-Tagestour</b>, wir sind deine Begleiter auf dem Weg zum <b>Rundum-Sorglos-Bike-Paket</b> und führen dich durch deine individuelle Traumtour im Raum <b>Villach / Faaker See / Dreiländereck</b>.</p>
       </section>
       
@@ -174,16 +174,8 @@
       
       
       
-      <!-- <section>
-        <span class="icon style2 major fa-wrench"></span>
-        <h3></h3>
-        <p></p>
-      </section>
-      <section>
-        <span class="icon style2 major fa-bicycle"></span>
-        <h3></h3>
-        <p></p>
-      </section> -->
+      
+      
     </div>
     <ul class="actions">
       <li><a href="#/upcoming" class="button icon fa-angle-down">Termine</a></li>
@@ -192,11 +184,11 @@
 </section>
   
     <!-- upcoming -->
-<section id="upcoming" href="#/upcoming" class="wrapper no-events style1 color2 align-center no-events-off">
+<section id="upcoming" href="#/upcoming" class="wrapper style1 color2 align-center no-events">
   <div class="inner">
     <h2>Termine</h2>
     <p class="no-event-info">
-      <strong>Zur Zeit sind leider keine Termine vorhanden.</strong>
+      <strong>Zur Zeit sind leider keine Termine vorhanden. Diese werden im April online gestellt. Bitte besuchen Sie uns in ein paar Tagen nochmal.</strong>
     </p>
     <div class="table-wrapper event-table">
       <table class="alt">
@@ -414,13 +406,14 @@
 
   <!-- Scripts -->
   
+  <script src="https://cdn.polyfill.io/v2/polyfill.min.js"></script>
   <script src="js/vendor.js"></script>
   <script src="js/app.js"></script>
   <script type="text/javascript">
     // init app on document ready
     $(document).ready(() =>
     {
-      $alpbros.$app.init({"root":"","lang":"de","shownEvents":5,"preloadPages":["events","event"],"ctx":{"apikey":"bd990ffc684f77f510084d1f7bf1d44bd0011ea33ea4215ac8f4e2d9a59d640f","baseurl":"https://ft-christoph-schaunig.oraclecloud2.dreamfactory.com/api/v2","db":"db_alpbros"},"res":{"level":{"None":"Jedermann","All":"Jedermann","Beginner":"Einsteiger","Advanced":"Fortgeschritten"},"eventTypes":{"TechniqueTraining":{"name":"Technik Training","icon":"fa-cogs","offer":true},"GuidedTour":{"name":"Geführte Touren","icon":"fa-bicycle","offer":true},"Camp":{"name":"Camps","icon":"fa-home","offer":false},"MechanicalTraining":{"name":"Schrauberkurs","icon":"fa-wrench","offer":false}},"months":["Januar","Februar","März","April","Mai","Juni","Juli","August","September","Oktober","November","Dezember"],"weekdays":["Sonntag","Montag","Dienstag","Mittwoch","Donnerstag","Freitag","Samstag"],"main":{"title":"Alpbrothers - Dein Mountainbike Guide in Kärnten am Faaker See"},"upcoming":{"dateFormat":"dd DD.MM.YYYY HH:mm [Uhr]"},"events":{"title":"Alpbrothers - Events","level":"Level","dateFormat":"dddd D. MMMM YYYY<br />HH:mm - HH:mm [Uhr]","multiDayFormat":"dd D. - dd D. MMMM YYYY","fromFormat":"dddd D. MMMM","erlebniscardPrice":"kostenlos (**)","imgPath":"img/events/"}},"pages":["main","admin","event-workshop","event","events","impressum","legalnotice","signin"]});
+      $alpbros.$app.init({"shownEvents":5,"ctx":{"apikey":"7f00b6496ff388f0f44b7857662285f954b84ff9dcaebb70d0451750e53321ff","baseurl":"http://alpbrothers.oraclecloud2.dreamfactory.com/api/v2","db":"db_alpbros"},"root":"","lang":"de","res":{"level":{"Everyone":"Jedermann","Beginner":"Einsteiger","Advanced":"Fortgeschritten","All":"Alle"},"eventTypes":{"TechniqueTraining":{"description":"Technik Training","icon":"fa-cogs","offer":true},"GuidedTour":{"description":"Geführte Tour","icon":"fa-bicycle","offer":true},"EBikeTour":{"description":"E-Bike Tour","icon":"fa-bolt"},"Camp":{"description":"Camp","icon":"fa-home"},"MechanicalTraining":{"description":"Schrauberkurs","icon":"fa-wrench"}},"event":{"title":"Alpbrothers - Event","edit":{"title":"Alpbrothers - Event bearbeiten","dateFormat":"dddd D. MMMM YYYY HH:mm","repeat":"In einer Woche wiederholen"},"add":{"title":"Alpbrothers - Event hinzufügen"}},"events":{"title":"Alpbrothers - Events","level":"Level","dateFormat":"dddd D. MMMM YYYY<br />HH:mm - HH:mm [Uhr]","multiDayFormat":"dd D. - dd D. MMMM YYYY","fromFormat":"dddd D. MMMM","erlebniscardPrice":"kostenlos (**)","imgPath":"img/events/"},"main":{"title":"Alpbrothers - Dein Mountainbike Guide in Kärnten am Faaker See"},"upcoming":{"dateFormat":"dd DD.MM.YYYY HH:mm [Uhr]"}},"pages":{"main":{"name":"main","preload":true,"synonyms":[]},"admin":{"name":"admin","preload":false,"synonyms":[]},"event-edit":{"name":"event-edit","preload":true,"synonyms":["event-add"]},"event":{"name":"event","preload":false,"synonyms":[]},"events":{"name":"events","preload":false,"synonyms":[]},"impressum":{"name":"impressum","preload":false,"synonyms":[]},"legalnotice":{"name":"legalnotice","preload":false,"synonyms":[]},"signin":{"name":"signin","preload":false,"synonyms":[]}}});
     });
   </script>
   

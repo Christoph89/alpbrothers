@@ -1,4 +1,4 @@
-/*! Alpbrothers - ctx.ts
+/*! Alpbrothers - ctx/ctx.ts
 * Copyright Christoph Schaunig 2017
 */
 
@@ -18,11 +18,11 @@ module $alpbros.$ctx
       type: verb,
       url: $cfg.ctx.baseurl+url,
       data: data||{},
-      accepts: "application/json",
+      accepts: { json: "application/json" },
       contentType: "application/json",
       headers: {
         "X-DreamFactory-API-Key": $cfg.ctx.apikey,
-        "X-DreamFactory-Session-Token": session.current?session.current.session_token:""
+        "X-DreamFactory-Session-Token": session.token()
       }
     });
   }
@@ -55,11 +55,5 @@ module $alpbros.$ctx
   export function del(url: string, data?: any): JQueryPromise<any>
   {
     return call("DELETE", url, data);
-  }
-
-  /** Loads meta data from the api. */
-  export function meta(): JQueryPromise<Meta>
-  {
-    return get("/meta").then(meta => $parse.meta(meta));
   }
 }

@@ -63,7 +63,10 @@ module $alpbros.$ui
   {
     // load page
     if (!wait) wait=$.Deferred<any>();
-    $pages.load(url.page||"main").done(page => {
+    var pageName=(url.page||"main");
+    if ($pages.exists(pageName+"-"+url.dest))
+      pageName+="-"+url.dest;
+    $pages.load(pageName).done(page => {
       // get destination element
       var dest=url.dest?$("#"+url.dest):null;
       if (!dest || !dest.length) dest=page.pageCnt;

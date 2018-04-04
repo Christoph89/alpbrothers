@@ -1,4 +1,4 @@
-/*! Alpbrothers - cmd-test.ts
+/*! Alpbrothers - cmd/cmd-test.ts
 * Copyright Christoph Schaunig 2017
 */
 
