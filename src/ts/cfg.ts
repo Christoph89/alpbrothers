@@ -2,7 +2,6 @@
 * Copyright Christoph Schaunig 2017
 */
 
-/// <reference path="ref.d.ts" />
 "use strict";
 
 module $alpbros
@@ -33,6 +32,10 @@ module $alpbros
       /** The database name. */
       db: string;
     }
+    /** Gets the role map. */
+    export var roles: any;
+    /** Gets the access control object. */
+    export var access: any;
 
     /** Initializes the app config. */
     export function init(cfg: any)

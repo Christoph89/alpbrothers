@@ -22,8 +22,31 @@ module $alpbros.$data
         .then((res => 
         {
           events=res;
-          eventMap=$q(res).ToDictionary(x => x.state.eventId, x => x);
+          refreshEventMap();
         }))
     )
+  }
+
+  /** Registers or executes the data change event. */
+  export function change(handler?: () => any)
+  {
+    if (!handler)
+      $doc.trigger("data-change");
+    else
+      $doc.bind("data-change", handler);
+  }
+
+  function refreshEventMap()
+  {
+    eventMap=$q(events).ToDictionary(x => x.state.eventId, x => x)
+  }
+
+  /** Adds the specified event(s). */
+  export function addEvent(event: MTBEvent|MTBEvent[])
+  {
+    if (!Array.isArray(event)) event=[event];
+    events=$q(events).Concat(event).OrderBy(x => x.from()).ToArray();
+    refreshEventMap();
+    change(); // trigger change event
   }
 }

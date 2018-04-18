@@ -1,28 +1,32 @@
 <div id="events" class="page hidden" back="#/upcoming">
+  {% set $res=res.events %}
   <section class="wrapper style1 color6 align-center">
     <div class="inner">
       <form>
         <div class="field third first">
-          <label for="event-from-date">{{ res.events.from }}</label>
+          <label for="event-from-date">{{ $res.from }}</label>
           <input type="date" name="event-from-date" id="event-from-date" />
         </div>
         <div class="field third">
-          <label for="event-to-date">{{ res.events.to }}</label>
+          <label for="event-to-date">{{ $res.to }}</label>
           <input type="date" name="event-to-date" id="event-to-date" />
         </div>
         <div class="field third">
-          <label for="event-type">{{ res.events.type }}</label>
+          <label for="event-type">{{ $res.type }}</label>
           <div class="select-wrapper">
             <select name="event-type" id="event-type">
-              <option value="all">{{ res.events.all }}</option>
+              <option value="all">{{ $res.all }}</option>
             </select>
           </div>
         </div>
         <div class="field">
           <input type="checkbox" name="event-level" id="event-level-beginner" checked="checked" />
-          <label for="event-level-beginner">{{ res.events.beginner }}</label>
+          <label for="event-level-beginner">{{ $res.beginner }}</label>
           <input type="checkbox" name="event-level" id="event-level-advanced" checked="checked" />
-          <label for="event-level-advanced">{{ res.events.advanced }}</label>
+          <label for="event-level-advanced">{{ $res.advanced }}</label>
+        </div>
+        <div class="field role-admin">
+          <a href="{{ $res.addEventUrl }}" class="button special icon fa-plus">{{ $res.addEvent }}</a>
         </div>
       </form>
     </div>

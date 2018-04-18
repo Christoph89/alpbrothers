@@ -42,20 +42,26 @@ module $alpbros
       // check if page exists
       var pageInfo=$cfg.pages[name];
       if (pageInfo==null)
-        return  $.Deferred<Page>().reject("Missing page "+name).promise();
-
+        return $.Deferred<Page>().reject("Missing page "+name).fail((err) => { fail(err, name, preload); }).promise();
+      if (!$ctx.session.granted("page/"+name))
+      {
+        if (preload)
+          return $.Deferred<Page>().reject("Unauthorized page preload "+name).promise();
+        return $.Deferred<Page>().reject("Unauthorized page load "+name).fail((err) => { fail(err, name, preload); }).promise();
+      }
       // check if page is synonym
       if (pageInfo.synname)
         return load(pageInfo.synname, preload);
 
       // already waiting?
-      var wait=<JQueryDeferred<Page>>waiting[name];
+      var wait=<JQueryPromise<Page>>waiting[name];
 
       // not already waiting
       if (!wait)
       {
         // create promise
-        var wait=$.Deferred<Page>().fail((err) => { fail(err, name, preload); });
+        var df=$.Deferred<Page>().fail((err) => { fail(err, name, preload); });
+        wait=df.promise();
 
         // get page
         var page: Page=get(name);
@@ -63,18 +69,18 @@ module $alpbros
 
         // does page and ctor exist?
         if (!page && !(ctor=getCtor(name)))
-          return wait.reject().promise(); // page and ctor does not exist -> reject
+          return df.reject().promise(); // page and ctor does not exist -> reject
         else if (page)
-          wait.resolve(page); // page exists -> page load
+          df.resolve(page); // page exists -> page load
         else // page does not exist -> init page befor load
         {
           if (!preload) $ui.loader.show();
           getPageCnt(name).then(pageCnt => 
           {
             // create page
-            page=pages[name]=new ctor(name, pageCnt, wait);
-            if (ctor==$pages["Page"]) wait.resolve(page); // default page -> resolve
-          }, () => { wait.reject(); });
+            page=pages[name]=new ctor(name, pageCnt, df);
+            if (ctor==$pages["Page"]) df.resolve(page); // default page -> resolve
+          }, () => { df.reject(); });
         }
       }
         

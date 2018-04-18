@@ -2145,6 +2145,12 @@ html.authenticated .noauth-only {
 html.unauthenticated .auth-only {
   display: none !important; }
 
+html.role-public .role-admin, html.role-public .role-partner {
+  display: none !important; }
+
+html.role-partner .role-admin {
+  display: none !important; }
+
 /* Box */
 .box {
   border-radius: 4px;
@@ -5932,6 +5938,13 @@ body.is-loading .gallery.onload-fade-in article .image img {
 .gallery article .image {
   background-color: rgba(0, 0, 0, 0.125); }
 
+/* Wrapper */
+.wrapper.content-align-center {
+  text-align: center; }
+
+.wrapper.content-align-right {
+  text-align: right; }
+
 /* Wrapper (style1) */
 .wrapper.style1 > .inner {
   padding: 5rem 2.5rem 3rem 2.5rem ;
@@ -7300,12 +7313,11 @@ body.is-loading .items.onload-fade-in > * > .inner {
   .page .color7 {
     background-color: rgba(0, 0, 0, 0.6); }
   .page.divided {
-    /*>*/
     /*>*/ }
-    .page.divided > * {
+    .page.divided > section {
       box-shadow: inset 0 1px 0 0 rgba(0, 0, 0, 0.075); }
-    .page.divided *:first-child {
-      box-shadow: none !important; }
+      .page.divided > section:first-child {
+        box-shadow: none !important; }
     .page.divided .invert {
       box-shadow: inset 0 1px 0 0 rgba(255, 255, 255, 0.125); }
       .page.divided .invert:first-child {
@@ -7551,6 +7563,26 @@ body.is-loading .items.onload-fade-in > * > .inner {
     -ms-transform: scale(1.1);
     transform: scale(1.1); }
 
+#cookie-agreement {
+  display: none;
+  position: fixed;
+  bottom: 0;
+  padding: 0.3rem 5rem;
+  background-color: rgba(255, 255, 255, 0.95);
+  z-index: 2;
+  font-size: 0.7rem;
+  border-top: 1px solid #ccc;
+  width: 100%; }
+  #cookie-agreement .content {
+    padding: 0; }
+  #cookie-agreement .actions {
+    margin: 0; }
+  #cookie-agreement .button {
+    margin-top: 0.3rem;
+    font-size: 0.5rem; }
+  html.missing-cookie-agreement #cookie-agreement {
+    display: block; }
+
 #event.page > section.partner {
   padding-top: 1px; }
 
@@ -7597,10 +7629,10 @@ body.is-loading .items.onload-fade-in > * > .inner {
 #event.page > section.workshop.requirements p {
   margin-bottom: 1em; }
 
-#event-edit.page[mode='edit'] [mode='add'] {
+#event-edit.page[mode='edit'] [mode='add'], #event-edit.page[mode='edit'] .mode-add, #event-edit.page .mode-edit [mode='add'], #event-edit.page .mode-edit .mode-add {
   display: none; }
 
-#event-edit.page[mode='add'] [mode='edit'] {
+#event-edit.page[mode='add'] [mode='edit'], #event-edit.page[mode='add'] .mode-edit, #event-edit.page .mode-add [mode='edit'], #event-edit.page .mode-add .mode-edit {
   display: none; }
 
 #event-edit.page .event-img {

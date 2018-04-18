@@ -2,7 +2,6 @@
 * Copyright Christoph Schaunig 2017
 */
 
-/// <reference path="ref.d.ts" />
 "use strict";
 
 module $alpbros

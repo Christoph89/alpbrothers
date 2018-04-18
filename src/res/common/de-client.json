@@ -15,6 +15,13 @@
       "EBikeTour": { "description": "E-Bike Tour", "icon": "fa-bolt" },
       "Camp": { "description": "Camp", "icon": "fa-home" },
       "MechanicalTraining": { "description": "Schrauberkurs", "icon": "fa-wrench" }
+    },
+    "eventStatus":
+    {
+      "TakesPlace": "Findet statt",
+      "InProgress": "In Bearbeitung",
+      "Canceled": "Abgesagt",
+      "Deleted": "Gelöscht"
     }
   }
 }

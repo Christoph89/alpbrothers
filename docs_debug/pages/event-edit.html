@@ -24,15 +24,34 @@
           <div class="select-wrapper">
             <select name="event-type">
               
-                <option value="TechniqueTraining" selected="selected">[object Object]</option>
+                <option value="TechniqueTraining" selected="selected">Technik Training</option>
               
-                <option value="GuidedTour" >[object Object]</option>
+                <option value="GuidedTour" >Geführte Tour</option>
               
-                <option value="EBikeTour" >[object Object]</option>
+                <option value="EBikeTour" >E-Bike Tour</option>
               
-                <option value="Camp" >[object Object]</option>
+                <option value="Camp" >Camp</option>
               
-                <option value="MechanicalTraining" >[object Object]</option>
+                <option value="MechanicalTraining" >Schrauberkurs</option>
+              
+            </select>
+          </div>
+        </div>
+        <div class="field"></div>
+
+        <!-- status -->
+        <div class="field">
+          <label>Status</label>
+          <div class="select-wrapper">
+            <select name="event-status">
+              
+                <option value="TakesPlace" selected="selected">Findet statt</option>
+              
+                <option value="InProgress" >In Bearbeitung</option>
+              
+                <option value="Canceled" >Abgesagt</option>
+              
+                <option value="Deleted" >Gelöscht</option>
               
             </select>
           </div>
@@ -99,20 +118,37 @@
         </div>
         <div class="field"></div>
 
-        <!-- requirements -->
-        <div class="field half first">
-          <label>Anforderungen</label>
-          <textarea name="event-requirements-de" placeholder="Anforderungen auf Deutsch (getrennt durch Zeilenumbrüche)"></textarea>
-        </div>
-        <div class="field half">
-          <label>&nbsp;</label>
-          <textarea name="event-requirements-en" placeholder="Requirements in English (separated by new lines)"></textarea>
-        </div>
-        <div class="field"></div>
-
         <!-- image -->
         <div class="field">
           <label>Foto</label>
+          
+          <img src="img/events/1.jpg" value="1.jpg" class="event-img selected first" />
+          
+          <img src="img/events/10.jpg" value="10.jpg" class="event-img " />
+          
+          <img src="img/events/11.jpg" value="11.jpg" class="event-img " />
+          
+          <img src="img/events/12.jpg" value="12.jpg" class="event-img " />
+          
+          <img src="img/events/13.jpg" value="13.jpg" class="event-img " />
+          
+          <img src="img/events/14.jpg" value="14.jpg" class="event-img " />
+          
+          <img src="img/events/2.jpg" value="2.jpg" class="event-img " />
+          
+          <img src="img/events/3.jpg" value="3.jpg" class="event-img " />
+          
+          <img src="img/events/4.jpg" value="4.jpg" class="event-img " />
+          
+          <img src="img/events/5.jpg" value="5.jpg" class="event-img " />
+          
+          <img src="img/events/6.jpg" value="6.jpg" class="event-img " />
+          
+          <img src="img/events/7.jpg" value="7.jpg" class="event-img " />
+          
+          <img src="img/events/8.jpg" value="8.jpg" class="event-img " />
+          
+          <img src="img/events/9.jpg" value="9.jpg" class="event-img " />
           
         </div>
         <div class="field"></div>
@@ -140,6 +176,9 @@
           </div>
         </div>
         <div class="field"></div>
+        <ul class="actions">
+          <li><a class="button save">Termin speichern</a></li>
+        </ul>
       </form>
     </div>
   </section>

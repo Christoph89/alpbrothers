@@ -2,7 +2,6 @@
 * Copyright Christoph Schaunig 2017
 */
 
-/// <reference path="ref.d.ts" />
 "use strict";
 
 module $alpbros.$util
@@ -32,7 +31,7 @@ module $alpbros.$util
   {
     // no valid target date -> clone
     if (!target || !target.isValid())
-      return dt.clone();
+      return dt?dt.clone():null;
     if (target.hour()==0 && target.minute()==0)
     {
       target.hour(dt.hour());
@@ -119,7 +118,7 @@ module $alpbros.$util
   export function splitArgs(argStr: string): any
   {
     if (!argStr)
-      return null;
+      return {};
     var args={};
     $q(argStr.split("&")).ForEach(x => 
     {
@@ -128,4 +127,26 @@ module $alpbros.$util
     });
     return args;
   }
+
+  // extend String prototype
+  (<any>String.prototype).format=function() 
+  { 
+    var str=this;
+    var args=arguments;
+    if (!args || !args.length)
+      return str;
+    // format object?
+    if (args.length==1 && (typeof args[0]=="object"))
+      args=args[0];
+    for (var k in args)
+        str=str.replace("{" + k + "}", args[k]);
+    return str;
+  };
+}
+
+// extends String interface
+interface String
+{
+  format(...args: any[]): string;
+  format(obj: any): string;
 }

@@ -68,6 +68,9 @@ module $alpbros
       // init app data
       $data.init();
 
+      // show cookie agreement if not already agreed
+      setCookieAgreement($ctx.session.hasCookieAgreement());
+
       // init session and preload main page to ensure it gets the current one on app start
       $ctx.session.refresh()
         .done(() => { setAuthenticated(true); })
@@ -137,6 +140,7 @@ module $alpbros
 
       // smooth scroll
       return $ui.scrollTo($url, anchor, speed, popstate)
+        .fail(err => { back(); }) // go back on error
         .done(() => { pauseHashChange=pausePopState=popstate=false; }); // enable hash change event
     }
 
@@ -175,24 +179,20 @@ module $alpbros
     /** Sets the app authentication state. */
     export function setAuthenticated(authenticated: boolean)
     {
-      $doc.toggleClass("authenticated", authenticated).toggleClass("unauthenticated", !authenticated);
+      $doc.toggleClass("authenticated", authenticated)
+          .toggleClass("unauthenticated", !authenticated)
+          .toggleClass("role-public", $ctx.session.isPublic())
+          .toggleClass("role-partner", $ctx.session.isPartner())
+          .toggleClass("role-admin", $ctx.session.isAdmin());
+    }
+
+    /** Shows/hides the cookie agreement. */
+    export function setCookieAgreement(agreed: boolean)
+    {
+      $doc.toggleClass("missing-cookie-agreement", !agreed);
     }
   }
 
   // set skel breakpoints
-  skel.breakpoints({
-		xlarge: '(max-width: 1680px)',
-		large: '(max-width: 1280px)',
-		medium: '(max-width: 980px)',
-		small: '(max-width: 736px)',
-		xsmall: '(max-width: 480px)',
-    xxsmall: '(max-width: 360px)',
-    
-    minxlarge: '(min-width: 1680px)',
-		minlarge: '(min-width: 1280px)',
-		minmedium: '(min-width: 980px)',
-		minsmall: '(min-width: 736px)',
-		minxsmall: '(min-width: 480px)',
-		minxxsmall: '(min-width: 360px)'
-	});
+  $ui.initSkel();
 }

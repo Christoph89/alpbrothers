@@ -27,6 +27,9 @@
   },
   "impressum": "Impressum & Datenschutz",
   "impressumUrl": "#/impressum",
+  "cookieAgreement": "Um unsere Webseite für Sie optimal zu gestalten und fortlaufend verbessern zu können, verwenden wir Cookies. Durch die weitere Nutzung der Webseite stimmen Sie der Verwendung von Cookies zu. Weitere Informationen zu Cookies und der Nutzung ihrer persönlichen Daten erhalten Sie in unserer <a href=\"#/impressum\">Datenschutzerklärung</a>.",
+  "agreeCookies": "Jetzt zustimmen",
+  "agreeCookiesUrl": "#/cmd/agree-cookies",
   "copyright": "Copyright &copy; Christoph Schaunig 2017",
   "alpbrosGuiding": "Alpbrothers Mountainbike Guiding",
   "test": "%src/abc"

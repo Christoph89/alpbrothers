@@ -36,12 +36,15 @@
 
 <body class="is-loading">
 
+  
   <div id="bg"></div>
+  
 
   <div id="loader">
     <img class="svg" src="img/loader.svg" />
   </div>
 
+  
   <!-- menu -->
   <div class="page menu">
     <ul id="menu-btns" class="content actions vertical">
@@ -86,6 +89,7 @@
 </nav>
 <a id="back-btn" class="icon special style2 fa-angle-left hidden" speed="immediate" title="Zurück"><span class="label">Zurück</span></a> 
   </div>
+  
 
   <!-- page wrapper -->
   <div id="main" class="page current">
@@ -400,6 +404,15 @@
 
   </div>
 
+  <section id="cookie-agreement" class="spotlight style1 color4 orient-center content-align-center">
+    <div class="content">
+      Um unsere Webseite für Sie optimal zu gestalten und fortlaufend verbessern zu können, verwenden wir Cookies. Durch die weitere Nutzung der Webseite stimmen Sie der Verwendung von Cookies zu. Weitere Informationen zu Cookies und der Nutzung ihrer persönlichen Daten erhalten Sie in unserer <a href="#/impressum">Datenschutzerklärung</a>.
+      <ul class="actions">
+        <li><a href="#/cmd/agree-cookies" class="button medium wide icon fa-check">Jetzt zustimmen</a></li>
+      </ul>
+    </div>
+  </section>
+
   <!-- outer content -->
   
 
@@ -408,12 +421,165 @@
   
   <script src="https://cdn.polyfill.io/v2/polyfill.min.js"></script>
   <script src="js/vendor.js"></script>
+  
+  
   <script src="js/app.js"></script>
   <script type="text/javascript">
     // init app on document ready
-    $(document).ready(() =>
+    $(document).ready(function()
     {
-      $alpbros.$app.init({"shownEvents":5,"ctx":{"apikey":"7f00b6496ff388f0f44b7857662285f954b84ff9dcaebb70d0451750e53321ff","baseurl":"https://alpbrothers.oraclecloud2.dreamfactory.com/api/v2","db":"db_alpbros"},"root":"","lang":"de","res":{"level":{"Everyone":"Jedermann","Beginner":"Einsteiger","Advanced":"Fortgeschritten","All":"Alle"},"eventTypes":{"TechniqueTraining":{"description":"Technik Training","icon":"fa-cogs","offer":true},"GuidedTour":{"description":"Geführte Tour","icon":"fa-bicycle","offer":true},"EBikeTour":{"description":"E-Bike Tour","icon":"fa-bolt"},"Camp":{"description":"Camp","icon":"fa-home"},"MechanicalTraining":{"description":"Schrauberkurs","icon":"fa-wrench"}},"event":{"title":"Alpbrothers - Event","edit":{"title":"Alpbrothers - Event bearbeiten","dateFormat":"dddd D. MMMM YYYY HH:mm","repeat":"In einer Woche wiederholen"},"add":{"title":"Alpbrothers - Event hinzufügen"}},"events":{"title":"Alpbrothers - Events","level":"Level","dateFormat":"dddd D. MMMM YYYY<br />HH:mm - HH:mm [Uhr]","multiDayFormat":"dd D. - dd D. MMMM YYYY","fromFormat":"dddd D. MMMM","erlebniscardPrice":"kostenlos (**)","imgPath":"img/events/"},"main":{"title":"Alpbrothers - Dein Mountainbike Guide in Kärnten am Faaker See"},"upcoming":{"dateFormat":"dd DD.MM.YYYY HH:mm [Uhr]"}},"pages":{"main":{"name":"main","preload":true,"synonyms":[]},"admin":{"name":"admin","preload":false,"synonyms":[]},"event-edit":{"name":"event-edit","preload":true,"synonyms":["event-add"]},"event":{"name":"event","preload":false,"synonyms":[]},"events":{"name":"events","preload":false,"synonyms":[]},"impressum":{"name":"impressum","preload":false,"synonyms":[]},"legalnotice":{"name":"legalnotice","preload":false,"synonyms":[]},"signin":{"name":"signin","preload":false,"synonyms":[]}}});
+      $alpbros.$app.init({
+  "shownEvents": 5,
+  "ctx": {
+    "apikey": "7f00b6496ff388f0f44b7857662285f954b84ff9dcaebb70d0451750e53321ff",
+    "baseurl": "https://alpbrothers.oraclecloud2.dreamfactory.com/api/v2",
+    "db": "db_alpbros"
+  },
+  "roles": {
+    "Alpbrothers Admin": "admin",
+    "Alpbrothers Partner": "partner",
+    "Alpbrothers WWW": "public",
+    "": "public"
+  },
+  "access": {
+    "page": {
+      "main": [
+        "*"
+      ],
+      "events": [
+        "*"
+      ],
+      "event": [
+        "*"
+      ],
+      "event-edit": [
+        "admin"
+      ],
+      "signin": [
+        "*"
+      ]
+    }
+  },
+  "root": "",
+  "lang": "de",
+  "res": {
+    "level": {
+      "Everyone": "Jedermann",
+      "Beginner": "Einsteiger",
+      "Advanced": "Fortgeschritten",
+      "All": "Alle"
+    },
+    "eventTypes": {
+      "TechniqueTraining": {
+        "description": "Technik Training",
+        "icon": "fa-cogs",
+        "offer": true
+      },
+      "GuidedTour": {
+        "description": "Geführte Tour",
+        "icon": "fa-bicycle",
+        "offer": true
+      },
+      "EBikeTour": {
+        "description": "E-Bike Tour",
+        "icon": "fa-bolt"
+      },
+      "Camp": {
+        "description": "Camp",
+        "icon": "fa-home"
+      },
+      "MechanicalTraining": {
+        "description": "Schrauberkurs",
+        "icon": "fa-wrench"
+      }
+    },
+    "eventStatus": {
+      "TakesPlace": "Findet statt",
+      "InProgress": "In Bearbeitung",
+      "Canceled": "Abgesagt",
+      "Deleted": "Gelöscht"
+    },
+    "event": {
+      "title": "Alpbrothers - Event",
+      "edit": {
+        "title": "Alpbrothers - Event bearbeiten",
+        "dateFormat": "dddd D. MMMM YYYY HH:mm",
+        "repeat": "In einer Woche wiederholen"
+      },
+      "add": {
+        "title": "Alpbrothers - Event hinzufügen"
+      }
+    },
+    "events": {
+      "title": "Alpbrothers - Events",
+      "level": "Level",
+      "dateFormat": "dddd D. MMMM YYYY<br />HH:mm - HH:mm [Uhr]",
+      "multiDayFormat": "dd D. - dd D. MMMM YYYY",
+      "fromFormat": "dddd D. MMMM",
+      "erlebniscardPrice": "kostenlos mit Erlebniscard",
+      "imgPath": "img/events/",
+      "details": "Details & Anmeldung",
+      "edit": "Bearbeiten",
+      "eventUrl": "#/event?id={0}",
+      "editUrl": "#/event/editchoice?series={0}&id={1}"
+    },
+    "main": {
+      "title": "Alpbrothers - Dein Mountainbike Guide in Kärnten am Faaker See"
+    },
+    "upcoming": {
+      "dateFormat": "dd DD.MM.YYYY HH:mm [Uhr]"
+    }
+  },
+  "pages": {
+    "main": {
+      "name": "main",
+      "preload": true,
+      "synonyms": []
+    },
+    "admin": {
+      "name": "admin",
+      "preload": false,
+      "synonyms": []
+    },
+    "event-edit": {
+      "name": "event-edit",
+      "preload": true,
+      "synonyms": [
+        "event-add"
+      ]
+    },
+    "event-editchoice": {
+      "name": "event-editchoice",
+      "preload": false,
+      "synonyms": []
+    },
+    "event": {
+      "name": "event",
+      "preload": false,
+      "synonyms": []
+    },
+    "events": {
+      "name": "events",
+      "preload": false,
+      "synonyms": []
+    },
+    "impressum": {
+      "name": "impressum",
+      "preload": false,
+      "synonyms": []
+    },
+    "legalnotice": {
+      "name": "legalnotice",
+      "preload": false,
+      "synonyms": []
+    },
+    "signin": {
+      "name": "signin",
+      "preload": false,
+      "synonyms": []
+    }
+  }
+});
     });
   </script>
   

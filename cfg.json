@@ -7,6 +7,24 @@
       "apikey": "7f00b6496ff388f0f44b7857662285f954b84ff9dcaebb70d0451750e53321ff",
       "baseurl": "https://alpbrothers.oraclecloud2.dreamfactory.com/api/v2",
       "db": "db_alpbros"
+    },
+    "roles":
+    {
+      "Alpbrothers Admin": "admin",
+      "Alpbrothers Partner": "partner",
+      "Alpbrothers WWW": "public",
+      "": "public"
+    },
+    "access":
+    {
+      "page":
+      {
+        "main": ["*"],
+        "events": ["*"],
+        "event": ["*"],
+        "event-edit": ["admin"],
+        "signin": ["*"]
+      }
     }
   },
 
@@ -32,7 +50,8 @@
     ],
     "html":
     [
-      "%src/html/index.html"
+      "%src/html/index.html",
+      "%src/html/coop.html"
     ],
     "tpl":
     [
@@ -57,6 +76,7 @@
       "!%src/img/favicon/**/*"
     ],
     "typescript": [ "%src/ts/app.ts" ],
+    "coop": [ "%src/ts/coop.ts" ],
     "scss": [ "%src/sass/main.scss" ],
     "forms":
     [

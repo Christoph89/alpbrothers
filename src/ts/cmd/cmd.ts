@@ -5,6 +5,7 @@
 /// <reference path="../ref.d.ts" />
 /// <reference path="cmd-signin.ts" />
 /// <reference path="cmd-signout.ts" />
+/// <reference path="cmd-agree-cookies.ts" />
 "use strict";
 
 module $alpbros.$cmd
@@ -12,10 +13,17 @@ module $alpbros.$cmd
   /** Executes the specified command. */
   export function exec(name: string, args: any): JQueryPromise<any>
   {
-    var ctor=$cmd["Cmd"+name[0].toUpperCase()+name.substr(1)];
+    var ctor=$cmd[getName(name)];
     if (!ctor)
       return $.Deferred<any>().reject("Cmd "+name+" not found!").promise();
     return (<Cmd>new ctor()).exec(args||{});
+  }
+
+  function getName(name: string): string
+  {
+    var parts=name.split("-");
+    name=$q(parts).Select(p => p[0].toUpperCase()+p.substr(1)).ToArray().join("");
+    return "Cmd"+name;
   }
 
   /** Executes the specified command. */

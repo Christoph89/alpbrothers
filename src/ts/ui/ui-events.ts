@@ -26,6 +26,7 @@ module $alpbros.$ui.events
   {
     $("tr.dummy", tbl).remove();
     tbl.prepend($q($data.events)
+      .Where(ev => ev.isOccurrence())
       .Take($cfg.shownEvents)
       .Select(ev => getEventRow(ev))
       .ToArray());

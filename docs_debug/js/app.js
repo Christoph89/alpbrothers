@@ -1,7 +1,6 @@
 /*! Alpbrothers - def.ts
 * Copyright Christoph Schaunig 2017
 */
-/// <reference path="ref.d.ts" />
 "use strict";
 var __extends = (this && this.__extends) || (function () {
     var extendStatics = Object.setPrototypeOf ||
@@ -59,7 +58,7 @@ var $alpbros;
         function mergeDates(target, dt) {
             // no valid target date -> clone
             if (!target || !target.isValid())
-                return dt.clone();
+                return dt ? dt.clone() : null;
             if (target.hour() == 0 && target.minute() == 0) {
                 target.hour(dt.hour());
                 target.minute(dt.minute());
@@ -138,7 +137,7 @@ var $alpbros;
         /** Parses the specified hash args. */
         function splitArgs(argStr) {
             if (!argStr)
-                return null;
+                return {};
             var args = {};
             $q(argStr.split("&")).ForEach(function (x) {
                 var parts = x.split("=");
@@ -147,6 +146,19 @@ var $alpbros;
             return args;
         }
         $util.splitArgs = splitArgs;
+        // extend String prototype
+        String.prototype.format = function () {
+            var str = this;
+            var args = arguments;
+            if (!args || !args.length)
+                return str;
+            // format object?
+            if (args.length == 1 && (typeof args[0] == "object"))
+                args = args[0];
+            for (var k in args)
+                str = str.replace("{" + k + "}", args[k]);
+            return str;
+        };
     })($util = $alpbros.$util || ($alpbros.$util = {}));
 })($alpbros || ($alpbros = {}));
 var $alpbros;
@@ -189,15 +201,27 @@ var $alpbros;
 (function ($alpbros) {
     /** Specifies all event types. (Extended by resource!) */
     $alpbros.MTBEventTypes = {};
-    $alpbros.MTBEventTypes[0] = $alpbros.MTBEventTypes["None"] = { id: 0, name: "None", description: "@@cfg", icon: "@@cfg" },
-        $alpbros.MTBEventTypes[1] = $alpbros.MTBEventTypes["TechniqueTraining"] = { id: 1, name: "TechniqueTraining", description: "@@cfg", icon: "@@cfg" };
-    $alpbros.MTBEventTypes[2] = $alpbros.MTBEventTypes["GuidedTour"] = { id: 2, name: "GuidedTour", description: "@@cfg", icon: "@@cfg" };
-    $alpbros.MTBEventTypes[3] = $alpbros.MTBEventTypes["EBikeTour"] = { id: 3, name: "EBikeTour", description: "@@cfg", icon: "@@cfg" };
-    $alpbros.MTBEventTypes[4] = $alpbros.MTBEventTypes["Camp"] = { id: 4, name: "Camp", description: "@@cfg", icon: "@@cfg" };
-    $alpbros.MTBEventTypes[5] = $alpbros.MTBEventTypes["MechanicalTraining"] = { id: 5, name: "MechanicalTraining", description: "@@cfg", icon: "@@cfg" };
+    $alpbros.MTBEventTypes[0] = $alpbros.MTBEventTypes["None"] = { id: 0, name: "None", description: "@@cfg", icon: "@@cfg", duration: 0 },
+        $alpbros.MTBEventTypes[1] = $alpbros.MTBEventTypes["TechniqueTraining"] = { id: 1, name: "TechniqueTraining", description: "@@cfg", icon: "@@cfg", duration: 3.5 };
+    $alpbros.MTBEventTypes[2] = $alpbros.MTBEventTypes["GuidedTour"] = { id: 2, name: "GuidedTour", description: "@@cfg", icon: "@@cfg", duration: 4 };
+    $alpbros.MTBEventTypes[3] = $alpbros.MTBEventTypes["EBikeTour"] = { id: 3, name: "EBikeTour", description: "@@cfg", icon: "@@cfg", duration: 4 };
+    $alpbros.MTBEventTypes[4] = $alpbros.MTBEventTypes["Camp"] = { id: 4, name: "Camp", description: "@@cfg", icon: "@@cfg", duration: 72 };
+    $alpbros.MTBEventTypes[5] = $alpbros.MTBEventTypes["MechanicalTraining"] = { id: 5, name: "MechanicalTraining", description: "@@cfg", icon: "@@cfg", duration: 2 };
 })($alpbros || ($alpbros = {}));
 var $alpbros;
 (function ($alpbros) {
+    /** Defines the status of mtb events. */
+    var MTBEventStatus;
+    (function (MTBEventStatus) {
+        /** The event will take place. */
+        MTBEventStatus[MTBEventStatus["TakesPlace"] = 0] = "TakesPlace";
+        /** The event is in progress. */
+        MTBEventStatus[MTBEventStatus["InProgress"] = 1] = "InProgress";
+        /** The event is canceled and will not take place. */
+        MTBEventStatus[MTBEventStatus["Canceled"] = 3] = "Canceled";
+        /** The event has been deleted. */
+        MTBEventStatus[MTBEventStatus["Deleted"] = 3] = "Deleted";
+    })(MTBEventStatus = $alpbros.MTBEventStatus || ($alpbros.MTBEventStatus = {}));
     /** Defines a mtb event. */
     var MTBEvent = /** @class */ (function () {
         /** Initializes a new instance. */
@@ -208,11 +232,14 @@ var $alpbros;
         MTBEvent.prototype.get = function (prop, type) {
             switch (type) {
                 case "date":
-                    return $alpbros.$util.mergeDatesStr(this.state[prop], this.p(prop));
+                    var dt = $alpbros.$util.mergeDatesStr(this.state[prop], this.p(prop));
+                    if (!dt.isValid())
+                        dt = null;
+                    return dt;
                 case "localize":
                     return $alpbros.$util.localize(this.state, prop) || $alpbros.$util.localize(this.p(), prop);
                 default:
-                    return this.state[prop] || this.p(prop);
+                    return this.state[prop] != null ? this.state[prop] : this.p(prop);
             }
         };
         /** Returns the specified property from the parent state or null if the event has no parent. */
@@ -228,6 +255,10 @@ var $alpbros;
         MTBEvent.prototype.parentId = function () { return this.state.parentId; };
         /** Returns the parent event. */
         MTBEvent.prototype.parent = function () { return $alpbros.$data.eventMap.Get(this.state.parentId); };
+        /** Returns the parent id or if not specified the own one. */
+        MTBEvent.prototype.seriesId = function () { return this.parentId() || this.eventId(); };
+        /** Returns the parent event or if not specified the current one. */
+        MTBEvent.prototype.series = function () { return $alpbros.$data.eventMap.Get(this.seriesId()); };
         /** Returns the event from date/time. */
         MTBEvent.prototype.from = function () { return this.get("from", "date"); };
         /** Returns the event to date/time. */
@@ -236,12 +267,20 @@ var $alpbros;
         MTBEvent.prototype.typeId = function () { return this.get("type"); };
         /** Returns the event type. */
         MTBEvent.prototype.type = function () { return $alpbros.MTBEventTypes[this.typeId()]; };
+        /** Returns the event status. */
+        MTBEvent.prototype.status = function () { return this.get("status"); };
         /** Returns the localized event name. */
         MTBEvent.prototype.name = function () { return this.get("name", "localize"); };
         /** Returns the german event name. */
         MTBEvent.prototype.name_de = function () { return this.get("name"); };
         /** Returns the english event name. */
         MTBEvent.prototype.name_en = function () { return this.get("name_en"); };
+        /** Returns the localized event description. */
+        MTBEvent.prototype.shortDescription = function () { return this.get("shortDescription", "localize"); };
+        /** Returns the german event description. */
+        MTBEvent.prototype.shortDescription_de = function () { return this.get("shortDescription"); };
+        /** Returns the english event description. */
+        MTBEvent.prototype.shortDescription_en = function () { return this.get("shortDescription_en"); };
         /** Returns the localized event description. */
         MTBEvent.prototype.description = function () { return this.get("description", "localize"); };
         /** Returns the german event description. */
@@ -255,16 +294,26 @@ var $alpbros;
         /** Returns the event level */
         MTBEvent.prototype.level = function () { return this.get("level"); };
         /** Returns the event image */
-        MTBEvent.prototype.img = function () {
+        MTBEvent.prototype.img = function (addPath) {
+            if (addPath === void 0) { addPath = true; }
             var img = this.get("img");
             if (!img)
-                img = this.type().name + ".jpg";
+                return null;
             if (img.substr(0, 5) == "data:")
                 return img;
-            return $alpbros.$cfg.root + $alpbros.$res.events.imgPath + img;
+            if (addPath)
+                return $alpbros.$cfg.root + $alpbros.$res.events.imgPath + img;
+            return img;
         };
-        /** Returns the event template */
-        MTBEvent.prototype.tpl = function () { return this.get("tpl"); };
+        /** Returns all occurrences of the series. */
+        MTBEvent.prototype.occurrences = function () {
+            var seriesId = this.seriesId();
+            return $q($alpbros.$data.events).Where(function (x) { return x.seriesId() == seriesId && x.isOccurrence(); }).ToArray();
+        };
+        /** Returns whether the current event is an occurence (has parent). */
+        MTBEvent.prototype.isOccurrence = function () {
+            return this.from() != null && this.to() != null;
+        };
         MTBEvent.ErlebniscardPrice = "Erlebniscard";
         return MTBEvent;
     }());
@@ -281,10 +330,30 @@ var $alpbros;
             ($data.waitEvents = $alpbros.$ctx.db.event.q().orderBy("from asc").find())
                 .then((function (res) {
                 $data.events = res;
-                $data.eventMap = $q(res).ToDictionary(function (x) { return x.state.eventId; }, function (x) { return x; });
+                refreshEventMap();
             })));
         }
         $data.init = init;
+        /** Registers or executes the data change event. */
+        function change(handler) {
+            if (!handler)
+                $alpbros.$doc.trigger("data-change");
+            else
+                $alpbros.$doc.bind("data-change", handler);
+        }
+        $data.change = change;
+        function refreshEventMap() {
+            $data.eventMap = $q($data.events).ToDictionary(function (x) { return x.state.eventId; }, function (x) { return x; });
+        }
+        /** Adds the specified event(s). */
+        function addEvent(event) {
+            if (!Array.isArray(event))
+                event = [event];
+            $data.events = $q($data.events).Concat(event).OrderBy(function (x) { return x.from(); }).ToArray();
+            refreshEventMap();
+            change(); // trigger change event
+        }
+        $data.addEvent = addEvent;
     })($data = $alpbros.$data || ($alpbros.$data = {}));
 })($alpbros || ($alpbros = {}));
 var $alpbros;
@@ -408,7 +477,10 @@ var $alpbros;
                         if (e)
                             e.preventDefault();
                         // change hash
-                        $alpbros.$app.hashChange(link.attr("href"), link.attr("anchor"), link.attr("speed"));
+                        var hash = link.attr("href");
+                        if (hash)
+                            hash = hash.format($alpbros.$url.args);
+                        $alpbros.$app.hashChange(hash, link.attr("anchor"), link.attr("speed"));
                     });
             }
         })(link = $ui.link || ($ui.link = {}));
@@ -482,6 +554,7 @@ var $alpbros;
             function appendEvents(tbl) {
                 $("tr.dummy", tbl).remove();
                 tbl.prepend($q($alpbros.$data.events)
+                    .Where(function (ev) { return ev.isOccurrence(); })
                     .Take($alpbros.$cfg.shownEvents)
                     .Select(function (ev) { return getEventRow(ev); })
                     .ToArray());
@@ -1072,6 +1145,25 @@ var $alpbros;
             $ui.menu.init(); // menu
         }
         $ui.initCommon = initCommon;
+        /** Initializes skel. */
+        function initSkel() {
+            // set skel breakpoints
+            skel.breakpoints({
+                xlarge: '(max-width: 1680px)',
+                large: '(max-width: 1280px)',
+                medium: '(max-width: 980px)',
+                small: '(max-width: 736px)',
+                xsmall: '(max-width: 480px)',
+                xxsmall: '(max-width: 360px)',
+                minxlarge: '(min-width: 1680px)',
+                minlarge: '(min-width: 1280px)',
+                minmedium: '(min-width: 980px)',
+                minsmall: '(min-width: 736px)',
+                minxsmall: '(min-width: 480px)',
+                minxxsmall: '(min-width: 360px)'
+            });
+        }
+        $ui.initSkel = initSkel;
         /** Scrolls to the specified element.
          * anchor: top|middle
          * speed: slow|normal|fast|immediate
@@ -1102,6 +1194,9 @@ var $alpbros;
                     offset = $alpbros.$util.getOffset(dest, anchor);
                 // scroll to offset
                 scrollToPos(offset, anchor, speed, wait);
+            })
+                .fail(function (err) {
+                wait.reject(err);
             });
             return wait.promise();
         }
@@ -1209,13 +1304,31 @@ var $alpbros;
             /** Specifies a database table. */
             var DBTable = /** @class */ (function () {
                 /** Initializes a new instance of DBTable. */
-                function DBTable(name, parse) {
+                function DBTable(name, id, parse) {
                     this.name = name;
+                    this.id = id;
                     this.parse = parse;
                 }
                 /** Starts a new query. */
                 DBTable.prototype.q = function () {
                     return new DBQuery(this);
+                };
+                DBTable.prototype.set = function (method, arg) {
+                    var _this = this;
+                    var items = Array.isArray(arg) ? arg : [arg];
+                    if (method == "post" && this.id) //remove id for insert
+                        $q(items).ForEach(function (x) { return delete x[_this.id]; });
+                    return $ctx[method]("/" + $alpbros.$cfg.ctx.db + "/_table/" + this.name, { resource: items }).then(function (res) {
+                        if (res && res.resource && res.resource.length)
+                            $q(res.resource).ForEach(function (x, i) { return $.extend(items[i], x); });
+                        return Array.isArray(arg) ? $q(arg).Select(function (x) { return _this.parse(x); }).ToArray() : _this.parse(arg);
+                    });
+                };
+                DBTable.prototype.insert = function (arg) {
+                    return this.set("post", arg);
+                };
+                DBTable.prototype.update = function (arg) {
+                    return this.set("put", arg);
                 };
                 return DBTable;
             }());
@@ -1313,7 +1426,7 @@ var $alpbros;
             }());
             db.DBQuery = DBQuery;
             // init tables
-            db.event = new DBTable("event", function (ev) { return new $alpbros.MTBEvent(ev); });
+            db.event = new DBTable("event", "eventId", function (ev) { return new $alpbros.MTBEvent(ev); });
         })(db = $ctx.db || ($ctx.db = {}));
     })($ctx = $alpbros.$ctx || ($alpbros.$ctx = {}));
 })($alpbros || ($alpbros = {}));
@@ -1324,17 +1437,32 @@ var $alpbros;
         var session;
         (function (session_1) {
             var sessionCookie = "alpbros_session";
+            var agreementCookie = "alpbros_cookie_agreement";
             /** The current session. */
             session_1.current = null;
+            /** Promise to wait for session interactions. */
+            var _wait = $.Deferred().resolve();
             /** Returns the session token. */
             function token() {
                 return (session_1.current ? session_1.current.session_token : null) || Cookies.get(sessionCookie);
             }
             session_1.token = token;
+            /** Returns the promise to wait for session interactions. */
+            function wait() {
+                return _wait.promise();
+            }
+            session_1.wait = wait;
             /** Signs in the specified user. */
             function signin(email, pwd, duration) {
                 if (duration === void 0) { duration = 0; }
+                if (!_wait)
+                    _wait = $.Deferred();
                 return $ctx.post("/user/session", { email: email, password: pwd, duration: duration || 0 })
+                    .always(function () {
+                    // resolve session promise
+                    if (_wait)
+                        _wait.resolve();
+                })
                     .then(function (session) {
                     // set session
                     return setSession(session);
@@ -1347,7 +1475,14 @@ var $alpbros;
             session_1.signin = signin;
             /** Signs in the specified user by hash. */
             function hashauth(hash) {
+                if (!_wait)
+                    _wait = $.Deferred();
                 return $ctx.post("/hashauth", { hash: hash })
+                    .always(function () {
+                    // resolve session promise
+                    if (_wait)
+                        _wait.resolve();
+                })
                     .then(function (session) {
                     // set session
                     return setSession(session);
@@ -1360,9 +1495,19 @@ var $alpbros;
             session_1.hashauth = hashauth;
             /** Signs out the current user. */
             function signout() {
-                if (!session_1.current || !session_1.current.session_token)
+                if (!_wait)
+                    _wait = $.Deferred();
+                if (!session_1.current || !session_1.current.session_token) {
+                    if (_wait)
+                        _wait.resolve(); // resolve session promise
                     return $.Deferred().resolve().promise();
-                return $ctx.del("/user/session") //{ "session_token": current.session_token })
+                }
+                return $ctx.del("/user/session")
+                    .always(function () {
+                    // resolve session promise
+                    if (_wait)
+                        _wait.resolve();
+                })
                     .then(function () {
                     // cancel session
                     return setSession(null);
@@ -1371,13 +1516,23 @@ var $alpbros;
             session_1.signout = signout;
             /** Refreshes the current session. */
             function refresh() {
+                if (!_wait)
+                    _wait = $.Deferred();
                 // try get session from cookie
                 var token = session_1.current ? session_1.current.session_token : null;
                 if (!token)
                     token = Cookies.get(sessionCookie);
-                if (!token)
+                if (!token) {
+                    if (_wait)
+                        _wait.resolve(); // resolve session promise
                     return $.Deferred().reject().promise();
+                }
                 return $ctx.put("/user/session") //, { "session_token": token })
+                    .always(function () {
+                    // resolve session promise
+                    if (_wait)
+                        _wait.resolve();
+                })
                     .then(function (session) {
                     // refresh session
                     return setSession(session);
@@ -1397,6 +1552,47 @@ var $alpbros;
                     Cookies.remove(sessionCookie);
                 return session_1.current;
             }
+            function role() {
+                var r = (session_1.current ? session_1.current.role : "") || "";
+                return $alpbros.$cfg.roles[r];
+            }
+            /** Returns whether the specified path is granted. */
+            function granted(path) {
+                var parts = path.split("/").reverse();
+                var acl = $alpbros.$cfg.access;
+                while (acl && parts.length)
+                    acl = acl[parts.pop()];
+                // allow all for default
+                if (!acl)
+                    return true;
+                return $q(acl).Contains(role()) || $q(acl).Contains("*");
+            }
+            session_1.granted = granted;
+            /** Returns whether the current user is a public user. */
+            function isPublic() {
+                return session_1.current == null || session_1.current.role == null || session_1.current.role == "Alpbrothers WWW";
+            }
+            session_1.isPublic = isPublic;
+            /** Returns whether the current user is partner. */
+            function isPartner() {
+                return session_1.current != null && session_1.current.role == "Alpbrothers Partner";
+            }
+            session_1.isPartner = isPartner;
+            /** Returns whether the current user is admin. */
+            function isAdmin() {
+                return session_1.current != null && session_1.current.role == "Alpbrothers Admin";
+            }
+            session_1.isAdmin = isAdmin;
+            /** Returns whether cookies has been agreed. */
+            function hasCookieAgreement() {
+                return Cookies.get(agreementCookie) != null;
+            }
+            session_1.hasCookieAgreement = hasCookieAgreement;
+            /** Sets the cookie agreement. */
+            function agreeCookies() {
+                Cookies.set(agreementCookie, "true", { expires: 365 });
+            }
+            session_1.agreeCookies = agreeCookies;
         })(session = $ctx.session || ($ctx.session = {}));
     })($ctx = $alpbros.$ctx || ($alpbros.$ctx = {}));
 })($alpbros || ($alpbros = {}));
@@ -1406,18 +1602,20 @@ var $alpbros;
     (function ($ctx) {
         /** Performs an API request. */
         function call(verb, url, data) {
-            if (data && (verb == "POST" || verb == "PUT"))
-                data = JSON.stringify(data);
-            return $.ajax({
-                type: verb,
-                url: $alpbros.$cfg.ctx.baseurl + url,
-                data: data || {},
-                accepts: { json: "application/json" },
-                contentType: "application/json",
-                headers: {
-                    "X-DreamFactory-API-Key": $alpbros.$cfg.ctx.apikey,
-                    "X-DreamFactory-Session-Token": $ctx.session.token()
-                }
+            return $ctx.session.wait().then(function () {
+                if (data && (verb == "POST" || verb == "PUT"))
+                    data = JSON.stringify(data);
+                return $.ajax({
+                    type: verb,
+                    url: $alpbros.$cfg.ctx.baseurl + url,
+                    data: data || {},
+                    accepts: { json: "application/json" },
+                    contentType: "application/json",
+                    headers: {
+                        "X-DreamFactory-API-Key": $alpbros.$cfg.ctx.apikey,
+                        "X-DreamFactory-Session-Token": $ctx.session.token()
+                    }
+                });
             });
         }
         $ctx.call = call;
@@ -1458,6 +1656,10 @@ var $alpbros;
                 this.name = name;
                 this.pageCnt = pageCnt;
                 this.pageCnt.data("page", this);
+                if (this.pageCnt.hasClass("init-ui")) {
+                    $alpbros.$ui.init(this.pageCnt);
+                    this.pageCnt.removeClass("init-ui");
+                }
             }
             /** Returns whether the page is the current visible one. */
             Page.prototype.isCurrent = function () {
@@ -1529,17 +1731,16 @@ var $alpbros;
                 _this.timelineCnt = $("#event-timeline");
                 // wait for meta/events
                 $alpbros.$data.waitEvents.done(function () {
-                    // append events
-                    _this.appendEvents();
-                    // init ui, search form and timeline
-                    $alpbros.$ui.init(pageCnt);
-                    _this.initForm();
-                    _this.timeline = _this.timelineCnt.timeline();
-                    _this.filterTimeline();
+                    // init timeline
+                    _this.initTimeline(true);
                     // ready
                     wait.resolve(_this);
                 })
                     .fail(function () { wait.reject(); });
+                // reinit on data change
+                $alpbros.$data.change(function () {
+                    _this.initTimeline(false);
+                });
                 return _this;
             }
             /** Loads the timeline page */
@@ -1555,21 +1756,34 @@ var $alpbros;
             /** Initializes the event search form. */
             PageEvents.prototype.initForm = function () {
                 var _this = this;
+                // init ui
+                $alpbros.$ui.init($("form", this.pageCnt));
                 // init from date
-                $("input#event-from-date").val((new Date()).toISOString().substr(0, 10));
+                $("input#event-from-date", this.pageCnt).val((new Date()).toISOString().substr(0, 10));
                 // init tour select
-                var typeSelect = $("select#event-type");
+                var typeSelect = $("select#event-type", this.pageCnt);
                 $q($alpbros.MTBEventTypes).ForEach(function (x) {
                     var type = x.Value;
                     typeSelect.append('<option value="' + type.id + '">' + type.description + '</option>');
                 });
                 // set change event
-                $("input,select").change(function () { return _this.filterTimeline(); });
+                $("input,select", this.pageCnt).change(function () { return _this.filterTimeline(); });
+            };
+            PageEvents.prototype.initTimeline = function (initial) {
+                // append events
+                this.appendEvents();
+                // init ui, search form and timeline
+                $alpbros.$ui.init(this.timelineCnt.parent());
+                if (initial)
+                    this.initForm();
+                this.timeline = this.timelineCnt.timeline();
+                this.filterTimeline();
             };
             /** Appends all events. */
             PageEvents.prototype.appendEvents = function () {
                 var _this = this;
-                this.timelineItems = $q($alpbros.$data.events).Select(function (ev) { return ({
+                this.timelineCnt.empty();
+                this.timelineItems = $q($alpbros.$data.events).Where(function (ev) { return ev.isOccurrence(); }).Select(function (ev) { return ({
                     event: ev,
                     item: _this.getTimelineItem(ev)
                 }); }).ToArray();
@@ -1603,7 +1817,8 @@ var $alpbros;
             /** Returns a timeline item. */
             PageEvents.prototype.getTimelineItem = function (event) {
                 var price = event.isErlebniscard() ? $alpbros.$res.events.erlebniscardPrice : event.price();
-                var eventUrl = "#/event?id=" + event.eventId();
+                var eventUrl = $alpbros.$res.events.eventUrl.format(event.eventId());
+                var editUrl = $alpbros.$res.events.editUrl.format(event.seriesId(), event.eventId());
                 return $('<div class="timeline-block" eventId="' + event.eventId() + '">' +
                     '<div class="timeline-img bg-color-' + this.getLevelColor(event) + '" title="' + event.type().name + '">' +
                     '<span class="icon style2 major ' + event.type().icon + '"></span>' +
@@ -1618,7 +1833,8 @@ var $alpbros;
                     '</strong><br /><br />' +
                     event.description() +
                     '</p><br style="clear: both;" />' +
-                    '<a href="' + eventUrl + '" class="button special icon fa-pencil">Details & Anmeldung</a>' +
+                    '<a href="' + eventUrl + '" class="button special icon fa-pencil">' + $alpbros.$res.events.details + '</a> ' +
+                    '<a href="' + editUrl + '" class="button icon fa-pencil role-admin">' + $alpbros.$res.events.edit + '</a>' +
                     '<span class="date">' + $alpbros.$util.formatDate(event.from(), $alpbros.$res.events.fromFormat) + '</span>' +
                     '</div>' +
                     '</div>').data("event", event);
@@ -1658,33 +1874,33 @@ var $alpbros;
             /** Called when the page gets loaded. */
             PageEvent.prototype.load = function (wait) {
                 // get url args
-                var args = $alpbros.$url.args || {};
-                var eventId = args.id;
+                var eventId = $alpbros.$url.args.id;
                 // check if eventId and date is set
                 if (!eventId) {
                     if (wait)
                         wait.reject("Missing eventId and/or date!");
                     return;
                 }
-                // get event
-                var event = $q($alpbros.$data.events).FirstOrDefault(null, function (x) { return x.eventId() == eventId; });
-                if (!event) {
-                    if (wait)
-                        wait.reject("Event not found for '" + $alpbros.$url.hash + "'!");
-                    return;
-                }
-                // show command and tpl, hide other sections
-                var tplName = args.tpl || event.tpl() || "default";
-                var tpl = $(">section.common, >section." + tplName, this.pageCnt).removeClass("hidden");
-                $(">section:not(.common, ." + tplName + ")", this.pageCnt).addClass("hidden");
-                // toggle erlebniscard fields
-                this.pageCnt.toggleClass("erlebniscard", event.price() == "Erlebniscard");
-                // set event name, price
-                $(".event-name", tpl).text(event.name());
-                $(".event-price-text", tpl).text(event.price());
-                $(".event-info", tpl).html($alpbros.$util.formatFromTo(event.from(), event.to(), $alpbros.$res.events.dateFormat, $alpbros.$res.events.multiDayFormat) +
-                    "<br />" + $alpbros.$res.events.level + ": " + $alpbros.$res.level[$alpbros.MTBLevel[event.level()]]);
-                $(".event-text", tpl).html(event.description());
+                // // get event
+                // var event=$q($data.events).FirstOrDefault(null, x => x.eventId()==eventId);
+                // if (!event)
+                // {
+                //   if (wait) wait.reject("Event not found for '"+$url.hash+"'!");
+                //   return;
+                // }
+                // // show command and tpl, hide other sections
+                // var tplName=$url.args.tpl||event.tpl()||"default";
+                // var tpl=$(">section.common, >section."+tplName, this.pageCnt).removeClass("hidden");
+                // $(">section:not(.common, ."+tplName+")", this.pageCnt).addClass("hidden");
+                // // toggle erlebniscard fields
+                // this.pageCnt.toggleClass("erlebniscard", event.price()=="Erlebniscard");
+                // // set event name, price
+                // $(".event-name", tpl).text(event.name());
+                // $(".event-price-text", tpl).text(event.price());
+                // $(".event-info", tpl).html(
+                //   $util.formatFromTo(event.from(), event.to(), $res.events.dateFormat, $res.events.multiDayFormat)+
+                //   "<br />"+$res.events.level+": "+$res.level[MTBLevel[event.level()]]);
+                // $(".event-text", tpl).html(event.description());
                 // ready
                 if (wait)
                     wait.resolve(this);
@@ -1704,6 +1920,7 @@ var $alpbros;
             /** Initializes the page */
             function PageEventEdit(name, pageCnt, wait) {
                 var _this = _super.call(this, name, pageCnt, wait) || this;
+                var that = _this;
                 // init input fields
                 var inputs = ["type", "level", "name-de", "name-en",
                     "short-descr-de", "short-descr-en", "descr-de", "descr-en",
@@ -1711,25 +1928,59 @@ var $alpbros;
                 $q(inputs).ForEach(function (x) { _this[x.replace(/-/g, "_")] = _this.input(x); });
                 // init images
                 _this.img = $(".event-img", pageCnt).click(function () {
-                    $(".event-img.selected").removeClass("selected");
+                    $(".event-img.selected", pageCnt).removeClass("selected");
                     $(this).addClass("selected");
                 });
                 // init dates table
+                _this.input("from").change(function () { that.copyFromDate($(this)); });
                 _this.datesTbl = $("table.dates", pageCnt);
                 $("a.add-date", _this.datesTbl).click(function () { return _this.addDate(); });
+                // init save button
+                $("a.button.save", _this.pageCnt).click(function () { _this.save(); });
                 // ready
                 wait.resolve(_this);
                 return _this;
             }
             /** Called when the page gets loaded. */
             PageEventEdit.prototype.load = function (wait) {
-                //set page mode
-                this.pageCnt.attr("mode", $alpbros.$url.dest || "edit");
-                // init dates
-                this.dates = [];
+                //get/set page mode
+                this.pageCnt.attr("mode", this.mode = $alpbros.$url.dest || "edit");
+                // get edit event
+                if (this.mode == "edit") {
+                    var eventId = parseInt($alpbros.$url.args.id);
+                    if (eventId == null || isNaN(eventId))
+                        return wait.reject("Missing event id!");
+                    this.editEvent = $alpbros.$data.eventMap.Get(eventId);
+                    if (!this.editEvent)
+                        return wait.reject("Missing event " + eventId);
+                    this.initInputFields(this.editEvent);
+                }
+                else
+                    this.initInputFields(new $alpbros.MTBEvent({}));
                 // ready
                 if (wait)
                     wait.resolve(this);
+            };
+            PageEventEdit.prototype.initInputFields = function (event) {
+                this.input("name-de").val(event.name_de());
+                this.input("name-en").val(event.name_en());
+                var type = event.type() || $alpbros.MTBEventTypes.TechniqueTraining;
+                this.input("type").val(type.name);
+                var status = event.status() || $alpbros.MTBEventStatus.TakesPlace;
+                this.input("status").val($alpbros.MTBEventStatus[status]);
+                var level = event.level();
+                this.input("level", "[value=" + $alpbros.MTBLevel[level] + "]").click();
+                this.input("price-type", "[value=" + (event.isErlebniscard() ? "erlebniscard" : "price") + "]").click();
+                if (!event.isErlebniscard())
+                    this.input("price").val(parseInt(event.price()));
+                this.input("short-descr-de").val(event.shortDescription_de());
+                this.input("short-descr-en").val(event.shortDescription_en());
+                this.input("descr-de").val(event.description_de());
+                this.input("descr-en").val(event.description_en());
+                var img = event.img(false);
+                $(".event-img" + (img ? "[value='" + img + "']" : ".first"), this.pageCnt).click();
+                this.occurrences = event.occurrences();
+                this.refreshDatesTbl();
             };
             /** Adds the date from the event date row. */
             PageEventEdit.prototype.addDate = function () {
@@ -1739,52 +1990,131 @@ var $alpbros;
                     return alert("Invalid from date!");
                 if (!to.isValid())
                     return alert("Invalid to date!");
-                if ($q(this.dates).Any(function (x) { return x.from.isSame(from) && x.to.isSame(to); }))
+                if ($q(this.occurrences).Any(function (x) { return x.from().isSame(from) && x.to().isSame(to); }))
                     return alert("Duplicate date");
-                this.dates.push({
-                    from: from,
-                    to: to
-                });
+                this.occurrences.push(new $alpbros.MTBEvent({
+                    from: from.toISOString(),
+                    to: to.toISOString()
+                }));
                 this.refreshDatesTbl();
             };
             /** Refreshes the dates table. */
             PageEventEdit.prototype.refreshDatesTbl = function () {
                 var _this = this;
+                // dates should occur only once
+                this.occurrences = $q(this.occurrences).Distinct(function (x) { return x.from().toISOString() + "-" + x.to().toISOString(); }).ToArray();
                 var tbody = $("tbody", this.datesTbl).empty();
-                $q(this.dates).OrderBy(function (dt) { return dt.from; }).ForEach(function (dt) {
-                    tbody.append(_this.getDateRow(dt));
+                $q(this.occurrences).OrderBy(function (x) { return x.from(); }).ForEach(function (x) {
+                    tbody.append(_this.getDateRow(x));
                 });
             };
-            PageEventEdit.prototype.getDateRow = function (date) {
+            PageEventEdit.prototype.getDateRow = function (occurrence) {
                 var _this = this;
                 var row;
-                return (row = $("<tr>")).data("date", date).append(
+                var that = this;
+                return (row = $("<tr>")).data("event", occurrence).append(
                 // from date
-                $("<td>").text(date.from.format($alpbros.$res.event.edit.dateFormat)), 
+                $("<td>").addClass("event-from").text(occurrence.from().format($alpbros.$res.event.edit.dateFormat)).change(function () { that.copyFromDate($(this)); }), 
                 // to date
-                $("<td>").text(date.to.format($alpbros.$res.event.edit.dateFormat)), 
+                $("<td>").addClass("event-to").text(occurrence.to().format($alpbros.$res.event.edit.dateFormat)), 
                 // buttons
                 $("<td>").append(
                 // repeat next week button
                 $("<a>").addClass("icon style2 fa-repeat").attr("title", $alpbros.$res.event.edit.repeat).click(function () {
-                    var repeated = {
-                        from: date.from.clone().add(7, "days"),
-                        to: date.to.clone().add(7, "days")
-                    };
-                    _this.dates.push(repeated);
+                    _this.occurrences.push(new $alpbros.MTBEvent({
+                        from: occurrence.from().clone().add(7, "days").toISOString(),
+                        to: occurrence.to().clone().add(7, "days").toISOString()
+                    }));
                     _this.refreshDatesTbl();
+                }), 
+                // edit button
+                $("<a>").addClass("icon style2 fa-pencil mode-edit").click(function () {
+                    // @@ todo edit
                 }), 
                 // remove button
                 $("<a>").addClass("icon style2 fa-minus").click(function () {
                     // remove date
-                    _this.dates = $q(_this.dates).Where(function (x) { return x !== date; }).ToArray();
+                    _this.occurrences = $q(_this.occurrences).Where(function (x) { return x !== occurrence; }).ToArray();
                     // refresh dates table
                     _this.refreshDatesTbl();
                 })));
             };
+            /** Copies the from-date to the to-date input field. */
+            PageEventEdit.prototype.copyFromDate = function (from) {
+                var val = from.val();
+                if (!val)
+                    return;
+                var type = $alpbros.MTBEventTypes[this.input("type").val()];
+                from.parent().next().find("input[name=event-to]").val(moment(val).add(type.duration, "hours").format("YYYY-MM-DDTHH:mm"));
+            };
             /** Gets the specified input element by name. */
-            PageEventEdit.prototype.input = function (name) {
-                return $("input[name='event-" + name + "']", this.pageCnt);
+            PageEventEdit.prototype.input = function (name, state) {
+                return $("[name=event-" + name + "]" + (state || ""), this.pageCnt);
+            };
+            /** Returns the event object from the input. */
+            PageEventEdit.prototype.getMainEvent = function () {
+                if (this.occurrences.length == 0)
+                    return null;
+                var event = {
+                    eventId: 0,
+                    parentId: null,
+                    from: null,
+                    to: null,
+                    type: $alpbros.MTBEventTypes[this.input("type").val()].id,
+                    status: $alpbros.MTBEventStatus[this.input("status").val()],
+                    name: this.input("name-de").val(),
+                    name_en: this.input("name-en").val(),
+                    shortDescription: this.input("short-descr-de").val(),
+                    shortDescription_en: this.input("short-descr-en").val(),
+                    description: this.input("descr-de").val(),
+                    description_en: this.input("descr-en").val(),
+                    price: this.getPrice(),
+                    level: $alpbros.MTBLevel[this.input("level", ":checked").val()],
+                    img: $(".event-img.selected", this.pageCnt).attr("value")
+                };
+                return event;
+            };
+            /** Returns all event occurences. */
+            PageEventEdit.prototype.getOccurrences = function (mainEvent) {
+                return $q(this.occurrences).Select(function (x) {
+                    x.state.parentId = mainEvent.eventId();
+                    return x.state;
+                }).ToArray();
+            };
+            /** Gets the price. */
+            PageEventEdit.prototype.getPrice = function () {
+                var type = this.input("price-type", ":checked").val();
+                if (type == "erlebniscard")
+                    return $alpbros.MTBEvent.ErlebniscardPrice;
+                return this.input("price").val();
+            };
+            /** Saves (inserts or updates) the event. */
+            PageEventEdit.prototype.save = function () {
+                var _this = this;
+                // check if date has been added
+                if (this.occurrences.length == 0 && this.input("from").val() && this.input("to").val())
+                    $("a.add-date", this.pageCnt).click();
+                var mainEvent = this.getMainEvent();
+                // show loader
+                $alpbros.$ui.loader.show();
+                // insert or udpate
+                if (this.mode == "add") {
+                    // insert main event
+                    $alpbros.$ctx.db.event.insert(mainEvent).done(function (event) {
+                        // insert other occurences
+                        var occurences = _this.getOccurrences(event);
+                        $alpbros.$ctx.db.event.insert(occurences).done(function (events) {
+                            // add events to data
+                            $alpbros.$data.addEvent([event].concat(events));
+                            // go to edit page
+                            $alpbros.$app.hashChange("#/event/edit?id=" + event.eventId());
+                        });
+                    })
+                        .always(function () { $alpbros.$ui.loader.hide(); }); // hide loader
+                }
+                else {
+                    // @@todo update
+                }
             };
             return PageEventEdit;
         }($pages.Page));
@@ -1888,7 +2218,12 @@ var $alpbros;
             // check if page exists
             var pageInfo = $alpbros.$cfg.pages[name];
             if (pageInfo == null)
-                return $.Deferred().reject("Missing page " + name).promise();
+                return $.Deferred().reject("Missing page " + name).fail(function (err) { fail(err, name, preload); }).promise();
+            if (!$alpbros.$ctx.session.granted("page/" + name)) {
+                if (preload)
+                    return $.Deferred().reject("Unauthorized page preload " + name).promise();
+                return $.Deferred().reject("Unauthorized page load " + name).fail(function (err) { fail(err, name, preload); }).promise();
+            }
             // check if page is synonym
             if (pageInfo.synname)
                 return load(pageInfo.synname, preload);
@@ -1897,25 +2232,26 @@ var $alpbros;
             // not already waiting
             if (!wait) {
                 // create promise
-                var wait = $.Deferred().fail(function (err) { fail(err, name, preload); });
+                var df = $.Deferred().fail(function (err) { fail(err, name, preload); });
+                wait = df.promise();
                 // get page
                 var page = get(name);
                 var ctor;
                 // does page and ctor exist?
                 if (!page && !(ctor = getCtor(name)))
-                    return wait.reject().promise(); // page and ctor does not exist -> reject
+                    return df.reject().promise(); // page and ctor does not exist -> reject
                 else if (page)
-                    wait.resolve(page); // page exists -> page load
+                    df.resolve(page); // page exists -> page load
                 else // page does not exist -> init page befor load
                  {
                     if (!preload)
                         $alpbros.$ui.loader.show();
                     getPageCnt(name).then(function (pageCnt) {
                         // create page
-                        page = pages[name] = new ctor(name, pageCnt, wait);
+                        page = pages[name] = new ctor(name, pageCnt, df);
                         if (ctor == $pages["Page"])
-                            wait.resolve(page); // default page -> resolve
-                    }, function () { wait.reject(); });
+                            df.resolve(page); // default page -> resolve
+                    }, function () { df.reject(); });
                 }
             }
             // load page
@@ -2065,14 +2401,39 @@ var $alpbros;
 (function ($alpbros) {
     var $cmd;
     (function ($cmd) {
+        /** Sign out command. */
+        var CmdAgreeCookies = /** @class */ (function () {
+            function CmdAgreeCookies() {
+            }
+            /** Executes the command. */
+            CmdAgreeCookies.prototype.exec = function (args) {
+                $alpbros.$ctx.session.agreeCookies();
+                $alpbros.$app.setCookieAgreement(true);
+                $alpbros.$app.back();
+                return $.Deferred().resolve().promise();
+            };
+            return CmdAgreeCookies;
+        }());
+        $cmd.CmdAgreeCookies = CmdAgreeCookies;
+    })($cmd = $alpbros.$cmd || ($alpbros.$cmd = {}));
+})($alpbros || ($alpbros = {}));
+var $alpbros;
+(function ($alpbros) {
+    var $cmd;
+    (function ($cmd) {
         /** Executes the specified command. */
         function exec(name, args) {
-            var ctor = $cmd["Cmd" + name[0].toUpperCase() + name.substr(1)];
+            var ctor = $cmd[getName(name)];
             if (!ctor)
                 return $.Deferred().reject("Cmd " + name + " not found!").promise();
             return new ctor().exec(args || {});
         }
         $cmd.exec = exec;
+        function getName(name) {
+            var parts = name.split("-");
+            name = $q(parts).Select(function (p) { return p[0].toUpperCase() + p.substr(1); }).ToArray().join("");
+            return "Cmd" + name;
+        }
         /** Executes the specified command. */
         function execUrl(url) {
             if (!url || url.page != "cmd" || !url.dest)
@@ -2145,6 +2506,8 @@ var $alpbros;
             });
             // init app data
             $alpbros.$data.init();
+            // show cookie agreement if not already agreed
+            setCookieAgreement($alpbros.$ctx.session.hasCookieAgreement());
             // init session and preload main page to ensure it gets the current one on app start
             $alpbros.$ctx.session.refresh()
                 .done(function () { setAuthenticated(true); })
@@ -2202,6 +2565,7 @@ var $alpbros;
             }
             // smooth scroll
             return $alpbros.$ui.scrollTo($alpbros.$url, anchor, speed, popstate)
+                .fail(function (err) { back(); }) // go back on error
                 .done(function () { pauseHashChange = pausePopState = popstate = false; }); // enable hash change event
         }
         $app.hashChange = hashChange;
@@ -2235,23 +2599,19 @@ var $alpbros;
         $app.back = back;
         /** Sets the app authentication state. */
         function setAuthenticated(authenticated) {
-            $alpbros.$doc.toggleClass("authenticated", authenticated).toggleClass("unauthenticated", !authenticated);
+            $alpbros.$doc.toggleClass("authenticated", authenticated)
+                .toggleClass("unauthenticated", !authenticated)
+                .toggleClass("role-public", $alpbros.$ctx.session.isPublic())
+                .toggleClass("role-partner", $alpbros.$ctx.session.isPartner())
+                .toggleClass("role-admin", $alpbros.$ctx.session.isAdmin());
         }
         $app.setAuthenticated = setAuthenticated;
+        /** Shows/hides the cookie agreement. */
+        function setCookieAgreement(agreed) {
+            $alpbros.$doc.toggleClass("missing-cookie-agreement", !agreed);
+        }
+        $app.setCookieAgreement = setCookieAgreement;
     })($app = $alpbros.$app || ($alpbros.$app = {}));
     // set skel breakpoints
-    skel.breakpoints({
-        xlarge: '(max-width: 1680px)',
-        large: '(max-width: 1280px)',
-        medium: '(max-width: 980px)',
-        small: '(max-width: 736px)',
-        xsmall: '(max-width: 480px)',
-        xxsmall: '(max-width: 360px)',
-        minxlarge: '(min-width: 1680px)',
-        minlarge: '(min-width: 1280px)',
-        minmedium: '(min-width: 980px)',
-        minsmall: '(min-width: 736px)',
-        minxsmall: '(min-width: 480px)',
-        minxxsmall: '(min-width: 360px)'
-    });
+    $alpbros.$ui.initSkel();
 })($alpbros || ($alpbros = {}));

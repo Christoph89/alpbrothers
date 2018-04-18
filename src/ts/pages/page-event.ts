@@ -30,8 +30,7 @@ module $alpbros.$pages
     public load(wait: JQueryDeferred<Page>)
     { 
       // get url args
-      var args=$url.args||{};
-      var eventId=args.id;
+      var eventId=$url.args.id;
 
       // check if eventId and date is set
       if (!eventId)  
@@ -40,29 +39,29 @@ module $alpbros.$pages
         return;
       }
 
-      // get event
-      var event=$q($data.events).FirstOrDefault(null, x => x.eventId()==eventId);
-      if (!event)
-      {
-        if (wait) wait.reject("Event not found for '"+$url.hash+"'!");
-        return;
-      }
+      // // get event
+      // var event=$q($data.events).FirstOrDefault(null, x => x.eventId()==eventId);
+      // if (!event)
+      // {
+      //   if (wait) wait.reject("Event not found for '"+$url.hash+"'!");
+      //   return;
+      // }
 
-      // show command and tpl, hide other sections
-      var tplName=args.tpl||event.tpl()||"default";
-      var tpl=$(">section.common, >section."+tplName, this.pageCnt).removeClass("hidden");
-      $(">section:not(.common, ."+tplName+")", this.pageCnt).addClass("hidden");
+      // // show command and tpl, hide other sections
+      // var tplName=$url.args.tpl||event.tpl()||"default";
+      // var tpl=$(">section.common, >section."+tplName, this.pageCnt).removeClass("hidden");
+      // $(">section:not(.common, ."+tplName+")", this.pageCnt).addClass("hidden");
 
-      // toggle erlebniscard fields
-      this.pageCnt.toggleClass("erlebniscard", event.price()=="Erlebniscard");
+      // // toggle erlebniscard fields
+      // this.pageCnt.toggleClass("erlebniscard", event.price()=="Erlebniscard");
 
-      // set event name, price
-      $(".event-name", tpl).text(event.name());
-      $(".event-price-text", tpl).text(event.price());
-      $(".event-info", tpl).html(
-        $util.formatFromTo(event.from(), event.to(), $res.events.dateFormat, $res.events.multiDayFormat)+
-        "<br />"+$res.events.level+": "+$res.level[MTBLevel[event.level()]]);
-      $(".event-text", tpl).html(event.description());
+      // // set event name, price
+      // $(".event-name", tpl).text(event.name());
+      // $(".event-price-text", tpl).text(event.price());
+      // $(".event-info", tpl).html(
+      //   $util.formatFromTo(event.from(), event.to(), $res.events.dateFormat, $res.events.multiDayFormat)+
+      //   "<br />"+$res.events.level+": "+$res.level[MTBLevel[event.level()]]);
+      // $(".event-text", tpl).html(event.description());
 
       // ready
       if (wait) wait.resolve(this);

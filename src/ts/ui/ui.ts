@@ -2,7 +2,6 @@
 * Copyright Christoph Schaunig 2017
 */
 
-/// <reference path="../ref.d.ts" />
 /// <reference path="ui-loader.ts" />
 /// <reference path="ui-section.ts" />
 /// <reference path="ui-link.ts" />
@@ -55,6 +54,27 @@ module $alpbros.$ui
     $ui.menu.init(); // menu
   }
 
+  /** Initializes skel. */
+  export function initSkel()
+  {
+    // set skel breakpoints
+    skel.breakpoints({
+      xlarge: '(max-width: 1680px)',
+      large: '(max-width: 1280px)',
+      medium: '(max-width: 980px)',
+      small: '(max-width: 736px)',
+      xsmall: '(max-width: 480px)',
+      xxsmall: '(max-width: 360px)',
+      
+      minxlarge: '(min-width: 1680px)',
+      minlarge: '(min-width: 1280px)',
+      minmedium: '(min-width: 980px)',
+      minsmall: '(min-width: 736px)',
+      minxsmall: '(min-width: 480px)',
+      minxxsmall: '(min-width: 360px)'
+    });
+  }
+
   /** Scrolls to the specified element.
    * anchor: top|middle
    * speed: slow|normal|fast|immediate
@@ -85,6 +105,10 @@ module $alpbros.$ui
 
       // scroll to offset
       scrollToPos(offset, anchor, speed, wait);
+    })
+    .fail(err => 
+    {
+      wait.reject(err);
     });
     return wait.promise();
   }

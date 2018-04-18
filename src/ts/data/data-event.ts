@@ -7,35 +7,52 @@
 
 module $alpbros
 {
+  /** Defines the status of mtb events. */
+  export enum MTBEventStatus
+  {
+    /** The event will take place. */
+    TakesPlace=0,
+    /** The event is in progress. */
+    InProgress=1,
+    /** The event is canceled and will not take place. */
+    Canceled=3,
+    /** The event has been deleted. */
+    Deleted=3
+  }
+
   /** Defines a mtb event. */
   export interface IMTBEvent
   {
     /** The event id. */
-    eventId: number;
+    eventId?: number;
     /** The parent event id. */
-    parentId: number;
+    parentId?: number;
     /** The from date/time. */
-    from: string;
+    from?: string;
     /** The to date/time. */
-    to: string;
+    to?: string;
     /** The event type. */
-    type: number;
+    type?: number;
+    /** The event status. */
+    status?: MTBEventStatus;
     /** The german event name. */
-    name: string;
+    name?: string;
     /** The english event name. */
-    name_en: string;
+    name_en?: string;
+    /** The german short event description. */
+    shortDescription?: string;
+    /** The english short event description. */
+    shortDescription_en?: string;
     /** The german event description. */
-    description: string;
+    description?: string;
     /** The english event description. */
-    description_en: string;
+    description_en?: string;
     /** The event price. */
-    price: string;
+    price?: string;
     /** The event level. */
-    level: MTBLevel;
+    level?: MTBLevel;
     /** The event image. */
-    img: string;
-    /** The event template. */
-    tpl: string;
+    img?: string;
   }
 
   /** Defines a mtb event. */
@@ -58,13 +75,15 @@ module $alpbros
       switch (type)
       {
         case "date":
-          return $util.mergeDatesStr(this.state[prop], this.p(prop));
+          var dt=$util.mergeDatesStr(this.state[prop], this.p(prop));
+          if (!dt.isValid()) dt=null;
+          return dt;
 
         case "localize":
           return $util.localize(this.state, prop) || $util.localize(this.p(), prop);
 
         default:
-          return this.state[prop] || this.p(prop);
+          return this.state[prop]!=null ? this.state[prop] : this.p(prop);
       }
     }
 
@@ -78,25 +97,34 @@ module $alpbros
     }
 
     /** Returns the event id. */
-    public eventId() { return this.state.eventId; }
+    public eventId(): number { return this.state.eventId; }
 
     /** Returns the parent event id. */
-    public parentId() { return this.state.parentId; }
+    public parentId(): number { return this.state.parentId; }
 
     /** Returns the parent event. */
-    public parent() { return $data.eventMap.Get(this.state.parentId); }
+    public parent(): MTBEvent { return $data.eventMap.Get(this.state.parentId); }
+
+    /** Returns the parent id or if not specified the own one. */
+    public seriesId(): number { return this.parentId() || this.eventId();  }
+
+    /** Returns the parent event or if not specified the current one. */
+    public series(): MTBEvent { return $data.eventMap.Get(this.seriesId()); }
 
     /** Returns the event from date/time. */
-    public from() { return this.get("from", "date"); }
+    public from(): moment.Moment { return this.get("from", "date"); }
 
     /** Returns the event to date/time. */
-    public to() { return this.get("to", "date"); }
+    public to(): moment.Moment { return this.get("to", "date"); }
 
     /** Returns the event type id */
-    public typeId() { return this.get("type"); }
+    public typeId(): number { return this.get("type"); }
 
     /** Returns the event type. */
-    public type() { return MTBEventTypes[this.typeId()]; }
+    public type(): MTBEventType { return MTBEventTypes[this.typeId()]; }
+
+    /** Returns the event status. */
+    public status(): MTBEventStatus { return this.get("status"); }
 
     /** Returns the localized event name. */
     public name(): string { return this.get("name", "localize"); }
@@ -108,6 +136,15 @@ module $alpbros
     public name_en(): string { return this.get("name_en"); }
 
     /** Returns the localized event description. */
+    public shortDescription(): string { return this.get("shortDescription", "localize"); }
+    
+    /** Returns the german event description. */
+    public shortDescription_de(): string { return this.get("shortDescription"); }
+    
+    /** Returns the english event description. */
+    public shortDescription_en(): string { return this.get("shortDescription_en"); }
+
+    /** Returns the localized event description. */
     public description(): string { return this.get("description", "localize"); }
     
     /** Returns the german event description. */
@@ -117,26 +154,38 @@ module $alpbros
     public description_en(): string { return this.get("description_en"); }
 
     /** Returns the event price */
-    public price() { return this.get("price"); }
+    public price(): string { return this.get("price"); }
 
     /** Returns whether the event is an Erlebniscard event. */
-    public isErlebniscard() { return this.price()===MTBEvent.ErlebniscardPrice; }
+    public isErlebniscard(): boolean { return this.price()===MTBEvent.ErlebniscardPrice; }
 
     /** Returns the event level */
-    public level() { return this.get("level"); }
+    public level(): MTBLevel { return this.get("level"); }
 
     /** Returns the event image */
-    public img() 
+    public img(addPath: boolean=true): string
     { 
       var img: string=this.get("img");
       if (!img)
-        img=this.type().name+".jpg";
+        return null;
       if (img.substr(0, 5)=="data:")
         return img;
-      return $cfg.root+$res.events.imgPath+img;
+      if (addPath)
+        return $cfg.root+$res.events.imgPath+img;
+      return img;
     }
 
-    /** Returns the event template */
-    public tpl() { return this.get("tpl"); }
+    /** Returns all occurrences of the series. */
+    public occurrences(): MTBEvent[]
+    {
+      var seriesId=this.seriesId();
+      return $q($data.events).Where(x => x.seriesId()==seriesId && x.isOccurrence()).ToArray();
+    }
+
+    /** Returns whether the current event is an occurence (has parent). */
+    public isOccurrence(): boolean
+    {
+      return this.from()!=null && this.to()!=null;
+    }
   }
 }

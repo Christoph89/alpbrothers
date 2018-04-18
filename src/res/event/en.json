@@ -1,10 +1,20 @@
 {
   "event":
   {
+    "editchoice":
+    {
+      "header": "Edi Event",
+      "text": "Do you want to edit the single event occurrence or the whole series?",
+      "eventBtn": "Edit occurrence",
+      "seriesBtn": "Edit series",
+      "eventUrl": "#/event/edit?id={id}",
+      "seriesUrl": "#/event/edit?id={series}"
+    },
     "edit":
     {
       "title": "Edit Event",
       "type": "Type",
+      "status": "Status",
       "level": "Level",
       "name": "Name",
       "namePlaceholderDE": "Event Name auf Deutsch",
@@ -15,12 +25,12 @@
       "descr": "Description",
       "descrPlaceholderDE": "Event Beschreibung auf Deutsch",
       "descrPlaceholderEN": "Event description in English",
-      "requirements": "Requirements",
-      "requirementsPlaceholderDE": "Anforderungen auf Deutsch (getrennt durch Zeilenumbrüche)",
-      "requirementsPlaceholderEN": "Requirements in English (separated by new lines)",
       "price": "Price",
       "img": "Image",
-      "dates": "Dates"
+      "dates": "Dates",
+      "save": "Save event",
+      "from": "From",
+      "to": "To"
     },
     "add":
     {

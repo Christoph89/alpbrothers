@@ -36,16 +36,20 @@
 
 <body class="is-loading">
 
+  {% block bg %}
   <div id="bg"></div>
+  {% endblock %}
 
   <div id="loader">
     <img class="svg" src="{{ root }}img/loader.svg" />
   </div>
 
+  {% block menu %}
   <!-- menu -->
   <div class="page menu">
     {% include "html/parts/menu.html" %} 
   </div>
+  {% endblock %}
 
   <!-- page wrapper -->
   <div id="main" class="page current">
@@ -61,18 +65,29 @@
 
   </div>
 
+  <section id="cookie-agreement" class="spotlight style1 color4 orient-center content-align-center">
+    <div class="content">
+      {{ res.cookieAgreement | safe }}
+      <ul class="actions">
+        <li><a href="{{ res.agreeCookiesUrl }}" class="button medium wide icon fa-check">{{ res.agreeCookies }}</a></li>
+      </ul>
+    </div>
+  </section>
+
   <!-- outer content -->
   {% block outercontent %}
   {% endblock %}
 
   <!-- Scripts -->
-  {% block scripts %}
+  {% block vendor %}
   <script src="https://cdn.polyfill.io/v2/polyfill.min.js"></script>
   <script src="{{ root }}js/vendor.js"></script>
+  {% endblock %}
+  {% block scripts %}
   <script src="{{ root }}js/app.js"></script>
   <script type="text/javascript">
     // init app on document ready
-    $(document).ready(() =>
+    $(document).ready(function()
     {
       $alpbros.$app.init({{ clientCfg | safe }});
     });

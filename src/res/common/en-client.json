@@ -15,6 +15,13 @@
       "EBikeTour": { "description": "E-Bike Tour", "icon": "fa-bolt" },
       "Camp": { "description": "Camp", "icon": "fa-home" },
       "MechanicalTraining": { "description": "Mechanical Training", "icon": "fa-wrench" }
+    },
+    "eventStatus":
+    {
+      "TakesPlace": "Takes place",
+      "InProgress": "In progress",
+      "Canceled": "Canceled",
+      "Deleted": "Deleted"
     }
   }
 }

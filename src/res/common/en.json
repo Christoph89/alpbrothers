@@ -27,6 +27,9 @@
   },
   "impressum": "Legal notice & Data Privacy Policy",
   "impressumUrl": "#/legalnotice",
+  "cookieAgreement": "In order to improve our website, Alpbrothers uses cookies to store personal data. By further using our website you agree to our use of cookies. You can read more about cookies and the use of your personal data in our <a href=\"#/legalnotice\">Privacy Policy</a>.",
+  "agreeCookies": "Agree now",
+  "agreeCookiesUrl": "#/cmd/agree-cookies",
   "copyright": "Copyright &copy; Christoph Schaunig 2017",
   "alpbrosGuiding": "Alpbrothers Mountainbike Guiding"
 }

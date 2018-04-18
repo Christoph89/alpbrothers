@@ -12,18 +12,20 @@ module $alpbros.$ctx
   /** Performs an API request. */
   export function call(verb: string, url: string, data?: any): JQueryPromise<any>
   {
-    if (data && (verb=="POST" || verb=="PUT"))
-      data=JSON.stringify(data);
-    return $.ajax({
-      type: verb,
-      url: $cfg.ctx.baseurl+url,
-      data: data||{},
-      accepts: { json: "application/json" },
-      contentType: "application/json",
-      headers: {
-        "X-DreamFactory-API-Key": $cfg.ctx.apikey,
-        "X-DreamFactory-Session-Token": session.token()
-      }
+    return session.wait().then(() => {
+      if (data && (verb=="POST" || verb=="PUT"))
+        data=JSON.stringify(data);
+      return $.ajax({
+        type: verb,
+        url: $cfg.ctx.baseurl+url,
+        data: data||{},
+        accepts: { json: "application/json" },
+        contentType: "application/json",
+        headers: {
+          "X-DreamFactory-API-Key": $cfg.ctx.apikey,
+          "X-DreamFactory-Session-Token": session.token()
+        }
+      });
     });
   }
 

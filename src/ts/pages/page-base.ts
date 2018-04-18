@@ -16,6 +16,11 @@ module $alpbros.$pages
       this.name=name;
       this.pageCnt=pageCnt;
       this.pageCnt.data("page", this);
+      if (this.pageCnt.hasClass("init-ui")) 
+      {
+        $ui.init(this.pageCnt);
+        this.pageCnt.removeClass("init-ui");
+      }
     }
 
     /** The page name. */

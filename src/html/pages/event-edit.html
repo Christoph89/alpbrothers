@@ -24,6 +24,19 @@
           <div class="select-wrapper">
             <select name="event-type">
               {% for key, val in res.client.eventTypes %}
+                <option value="{{ key }}" {% if loop.first %}selected="selected"{% endif %}>{{ val.description }}</option>
+              {% endfor %}
+            </select>
+          </div>
+        </div>
+        <div class="field"></div>
+
+        <!-- status -->
+        <div class="field">
+          <label>{{ $res.status }}</label>
+          <div class="select-wrapper">
+            <select name="event-status">
+              {% for key, val in res.client.eventStatus %}
                 <option value="{{ key }}" {% if loop.first %}selected="selected"{% endif %}>{{ val }}</option>
               {% endfor %}
             </select>
@@ -79,22 +92,11 @@
         </div>
         <div class="field"></div>
 
-        <!-- requirements -->
-        <div class="field half first">
-          <label>{{ $res.requirements }}</label>
-          <textarea name="event-requirements-de" placeholder="{{ $res.requirementsPlaceholderDE }}"></textarea>
-        </div>
-        <div class="field half">
-          <label>&nbsp;</label>
-          <textarea name="event-requirements-en" placeholder="{{ $res.requirementsPlaceholderEN }}"></textarea>
-        </div>
-        <div class="field"></div>
-
         <!-- image -->
         <div class="field">
           <label>{{ $res.img }}</label>
           {% for img in res.event.images %}
-          <img src="{{ root }}img/events/{{ img }}" value="{{ img }}" class="event-img {% if loop.first %}selected{% endif %}" />
+          <img src="{{ root }}img/events/{{ img }}" value="{{ img }}" class="event-img {% if loop.first %}selected first{% endif %}" />
           {% endfor %}
         </div>
         <div class="field"></div>
@@ -105,8 +107,8 @@
             <table class="dates">
               <thead>
                 <tr>
-                    <th>Von</th>
-                    <th>Bis</th>
+                    <th>{{ $res.from }}</th>
+                    <th>{{ $res.to }}</th>
                     <th></th>
                   </tr>
               </thead>
@@ -122,6 +124,9 @@
           </div>
         </div>
         <div class="field"></div>
+        <ul class="actions">
+          <li><a class="button save">{{ $res.save }}</a></li>
+        </ul>
       </form>
     </div>
   </section>

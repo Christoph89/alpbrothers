@@ -25,8 +25,11 @@ module $alpbros.$ctx.session
   }
 
   const sessionCookie="alpbros_session";
+  const agreementCookie="alpbros_cookie_agreement";
   /** The current session. */
   export var current: Session=null;
+  /** Promise to wait for session interactions. */
+  var _wait: JQueryDeferred<any>=$.Deferred<any>().resolve();
 
   /** Returns the session token. */
   export function token() : string
@@ -34,10 +37,22 @@ module $alpbros.$ctx.session
     return (current ? current.session_token : null) || Cookies.get(sessionCookie);
   }
 
+  /** Returns the promise to wait for session interactions. */
+  export function wait(): JQueryPromise<any>
+  {
+    return _wait.promise();
+  }
+
   /** Signs in the specified user. */
   export function signin(email: string, pwd: string, duration: number=0): JQueryPromise<Session>
   {
+    if (!_wait) _wait=$.Deferred<any>();
     return post("/user/session", { email: email, password: pwd, duration: duration||0 })
+      .always(() => 
+      {
+        // resolve session promise
+        if (_wait) _wait.resolve();
+      })
       .then(session => 
       {
         // set session
@@ -53,7 +68,13 @@ module $alpbros.$ctx.session
   /** Signs in the specified user by hash. */
   export function hashauth(hash: string): JQueryPromise<Session>
   {
+    if (!_wait) _wait=$.Deferred<any>();
     return post("/hashauth", { hash: hash })
+      .always(() => 
+      {
+        // resolve session promise
+        if (_wait) _wait.resolve();
+      })
       .then(session => 
       {
         // set session
@@ -69,9 +90,18 @@ module $alpbros.$ctx.session
   /** Signs out the current user. */
   export function signout(): JQueryPromise<any>
   {
+    if (!_wait) _wait=$.Deferred<any>();
     if (!current || !current.session_token)
+    {
+      if (_wait) _wait.resolve(); // resolve session promise
       return $.Deferred<any>().resolve().promise();
-    return del("/user/session", )//{ "session_token": current.session_token })
+    }
+    return del("/user/session")
+      .always(() => 
+      {
+        // resolve session promise
+        if (_wait) _wait.resolve();
+      })
       .then(() => 
       {
         // cancel session
@@ -82,13 +112,22 @@ module $alpbros.$ctx.session
   /** Refreshes the current session. */
   export function refresh() : JQueryPromise<Session>
   {
+    if (!_wait) _wait=$.Deferred<any>();
     // try get session from cookie
     var token=current?current.session_token:null;
     if (!token)
       token=Cookies.get(sessionCookie);
     if (!token)
+    {
+      if (_wait) _wait.resolve(); // resolve session promise
       return $.Deferred<any>().reject().promise();
+    }
     return put("/user/session")//, { "session_token": token })
+      .always(() => 
+      {
+        // resolve session promise
+        if (_wait) _wait.resolve();
+      })
       .then((session) => 
       {
         // refresh session
@@ -110,5 +149,56 @@ module $alpbros.$ctx.session
     else
       Cookies.remove(sessionCookie);
     return current;
+  }
+
+  function role(): string
+  {
+    var r=(current?current.role:"")||"";
+    return $cfg.roles[r];
+  }
+
+  /** Returns whether the specified path is granted. */
+  export function granted(path: string): boolean
+  {
+    var parts=path.split("/").reverse();
+    var acl=$cfg.access;
+    while (acl && parts.length)
+      acl=acl[parts.pop()];
+     
+    // allow all for default
+    if (!acl) 
+      return true
+    
+    return $q(<string[]>acl).Contains(role()) || $q(<string[]>acl).Contains("*");
+  }
+
+  /** Returns whether the current user is a public user. */
+  export function isPublic()
+  {
+    return current==null || current.role==null || current.role=="Alpbrothers WWW";
+  }
+
+  /** Returns whether the current user is partner. */
+  export function isPartner()
+  {
+    return  current!=null && current.role=="Alpbrothers Partner";
+  }
+
+  /** Returns whether the current user is admin. */
+  export function isAdmin()
+  {
+    return  current!=null && current.role=="Alpbrothers Admin";
+  }
+
+  /** Returns whether cookies has been agreed. */
+  export function hasCookieAgreement(): boolean
+  {
+    return Cookies.get(agreementCookie)!=null;
+  }
+
+  /** Sets the cookie agreement. */
+  export function agreeCookies()
+  {
+    Cookies.set(agreementCookie, "true", { expires: 365 });
   }
 }

@@ -1,4 +1,5 @@
 import * as fs from "fs";
+import * as $p from "path";
 import * as $ from "gulp-web-build";
 
 /** Set meta log. */
@@ -44,7 +45,8 @@ function add(mode: string, lang: string="de") {
       .add("%tpl", "%dest") // copy cname, robots.txt, favicon,...
       .addFile(b => cfg.cname, "CNAME", "%dest")
       .add("%images", "%dest/img") // copy images
-      .addTs("%typescript", "%dest/js/app.js") // build typescript
+      .addTs("%typescript", "%dest/js/app.js") // build main ts
+      //.addTs("%coop", "%dest/js/coop.js") // build coop ts
       .addScss("%scss", "%dest/css") // build scss
       .add("%forms", "%dest/forms") // copy forms
       .run(cb);
@@ -71,7 +73,7 @@ $.task("rebuild", $.series("clean", "build"));
 
 
 /** Returns all pages. */
-function getPages(b: $.Build)
+function getPages(b: $.Build) : any
 {
   return {
     htmlPages: $.linq.from(fs.readdirSync(b.cfg.pageDir)||[])
@@ -89,12 +91,15 @@ function getPages(b: $.Build)
 }
 
 /** Returns the client config. */
-function getClientCfg(b: $.Build)
+function getClientCfg(b: $.Build): any
 {
   var cfg=b.cfg;
 
   // add event dummies
   cfg.res.eventDummies=new Array(cfg.client.shownEvents);
+
+  // add event images
+  cfg.res.event.images=getEventImages(b);
 
   var clientCfg=$.merge({}, cfg.client, {
     root: cfg.root,
@@ -106,6 +111,14 @@ function getClientCfg(b: $.Build)
   });
 
   return {
-    clientCfg: JSON.stringify(clientCfg)
+    clientCfg: JSON.stringify(clientCfg, null, cfg.minify?"":"  ")
   }
+}
+
+/** Returns all event images. */
+function getEventImages(b: $.Build): string[]
+{
+  return $.linq.from(fs.readdirSync(b.resolve("%src/img/events")[0]))
+    .where(x => { var ext=$p.extname(x).toLowerCase(); return  ext==".jpg" || ext==".png"; })
+    .toArray();
 }

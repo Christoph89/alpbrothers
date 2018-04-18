@@ -1,10 +1,20 @@
 {
   "event":
   {
+    "editchoice":
+    {
+      "header": "Event bearbeiten",
+      "text": "Wollen Sie das einzelne Event oder die gesamte Serie bearbeiten?",
+      "eventBtn": "Event bearbeiten",
+      "seriesBtn": "Serie bearbeiten",
+      "eventUrl": "#/event/edit?id={id}",
+      "seriesUrl": "#/event/edit?id={series}"
+    },
     "edit":
     {
       "title": "Event bearbeiten",
       "type": "Typ",
+      "status": "Status",
       "level": "Level",
       "name": "Name",
       "namePlaceholderDE": "Event Name auf Deutsch",
@@ -15,13 +25,13 @@
       "descr": "Beschreibung",
       "descrPlaceholderDE": "Event Beschreibung auf Deutsch",
       "descrPlaceholderEN": "Event description in English",
-      "requirements": "Anforderungen",
-      "requirementsPlaceholderDE": "Anforderungen auf Deutsch (getrennt durch Zeilenumbrüche)",
-      "requirementsPlaceholderEN": "Requirements in English (separated by new lines)",
       "price": "Preis",
       "erlebniscard": "Erlebniscard",
       "img": "Foto",
-      "dates": "Termine"
+      "dates": "Termine",
+      "save": "Termin speichern",
+      "from": "Von",
+      "to": "Bis"
     },
     "add":
     {

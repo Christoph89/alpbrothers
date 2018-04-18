@@ -33,7 +33,9 @@ module $alpbros.$ui.link
         if (e) e.preventDefault();
 
         // change hash
-        $app.hashChange(link.attr("href"), link.attr("anchor"), link.attr("speed"));
+        var hash=link.attr("href");
+        if (hash) hash=hash.format($url.args);
+        $app.hashChange(hash, link.attr("anchor"), link.attr("speed"));
       });
   }
 }

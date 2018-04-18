@@ -21,19 +21,19 @@ module $alpbros.$pages
       // wait for meta/events
       $data.waitEvents.done(() => 
       {
-        // append events
-        this.appendEvents();
-
-        // init ui, search form and timeline
-        $ui.init(pageCnt);
-        this.initForm();
-        this.timeline=this.timelineCnt.timeline();
-        this.filterTimeline();
+        // init timeline
+        this.initTimeline(true);
 
         // ready
         wait.resolve(this);
       })
       .fail(() => { wait.reject(); });
+
+      // reinit on data change
+      $data.change(() => 
+      {
+        this.initTimeline(false);
+      });
     }
 
     private timelineCnt: JQuery;
@@ -57,24 +57,40 @@ module $alpbros.$pages
     /** Initializes the event search form. */
     private initForm()
     {
+      // init ui
+      $ui.init($("form", this.pageCnt));
+
       // init from date
-      $("input#event-from-date").val((new Date()).toISOString().substr(0, 10));
+      $("input#event-from-date", this.pageCnt).val((new Date()).toISOString().substr(0, 10));
 
       // init tour select
-      var typeSelect=$("select#event-type");
+      var typeSelect=$("select#event-type", this.pageCnt);
       $q(MTBEventTypes).ForEach(x => {
         var type=<MTBEventType>x.Value;
         typeSelect.append('<option value="'+type.id+'">'+type.description+'</option>');
       });
 
       // set change event
-      $("input,select").change(() => this.filterTimeline());
+      $("input,select", this.pageCnt).change(() => this.filterTimeline());
+    }
+
+    private initTimeline(initial: boolean)
+    {
+      // append events
+      this.appendEvents();
+
+      // init ui, search form and timeline
+      $ui.init(this.timelineCnt.parent());
+      if (initial) this.initForm();
+      this.timeline=this.timelineCnt.timeline();
+      this.filterTimeline();
     }
 
     /** Appends all events. */
     private appendEvents()
     {
-      this.timelineItems=$q($data.events).Select(ev => <any>{
+      this.timelineCnt.empty();
+      this.timelineItems=$q($data.events).Where(ev => ev.isOccurrence()).Select(ev => <any>{
         event: ev,
         item: this.getTimelineItem(ev)
       }).ToArray();
@@ -116,7 +132,8 @@ module $alpbros.$pages
     private getTimelineItem(event: MTBEvent): JQuery
     {
       var price=event.isErlebniscard()?$res.events.erlebniscardPrice:event.price();
-      var eventUrl="#/event?id="+event.eventId();
+      var eventUrl=(<string>$res.events.eventUrl).format(event.eventId());
+      var editUrl=(<string>$res.events.editUrl).format(event.seriesId(), event.eventId());
       return $('<div class="timeline-block" eventId="'+event.eventId()+'">'+
         '<div class="timeline-img bg-color-'+this.getLevelColor(event)+'" title="'+event.type().name+'">'+
           '<span class="icon style2 major '+event.type().icon+'"></span>'+
@@ -131,7 +148,8 @@ module $alpbros.$pages
             '</strong><br /><br />'+
             event.description()+
           '</p><br style="clear: both;" />'+
-          '<a href="'+eventUrl+'" class="button special icon fa-pencil">Details & Anmeldung</a>'+
+          '<a href="'+eventUrl+'" class="button special icon fa-pencil">'+$res.events.details+'</a> '+
+          '<a href="'+editUrl+'" class="button icon fa-pencil role-admin">'+$res.events.edit+'</a>'+
           '<span class="date">'+$util.formatDate(event.from(), $res.events.fromFormat)+'</span>'+
         '</div>'+
       '</div>').data("event", event);

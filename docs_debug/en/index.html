@@ -36,12 +36,15 @@
 
 <body class="is-loading">
 
+  
   <div id="bg"></div>
+  
 
   <div id="loader">
     <img class="svg" src="../img/loader.svg" />
   </div>
 
+  
   <!-- menu -->
   <div class="page menu">
     <ul id="menu-btns" class="content actions vertical">
@@ -86,6 +89,7 @@
 </nav>
 <a id="back-btn" class="icon special style2 fa-angle-left hidden" speed="immediate" title="Back"><span class="label">Back</span></a> 
   </div>
+  
 
   <!-- page wrapper -->
   <div id="main" class="page current">
@@ -400,6 +404,15 @@
 
   </div>
 
+  <section id="cookie-agreement" class="spotlight style1 color4 orient-center content-align-center">
+    <div class="content">
+      In order to improve our website, Alpbrothers uses cookies to store personal data. By further using our website you agree to our use of cookies. You can read more about cookies and the use of your personal data in our <a href="#/legalnotice">Privacy Policy</a>.
+      <ul class="actions">
+        <li><a href="#/cmd/agree-cookies" class="button medium wide icon fa-check">Agree now</a></li>
+      </ul>
+    </div>
+  </section>
+
   <!-- outer content -->
   
 
@@ -408,12 +421,165 @@
   
   <script src="https://cdn.polyfill.io/v2/polyfill.min.js"></script>
   <script src="../js/vendor.js"></script>
+  
+  
   <script src="../js/app.js"></script>
   <script type="text/javascript">
     // init app on document ready
-    $(document).ready(() =>
+    $(document).ready(function()
     {
-      $alpbros.$app.init({"shownEvents":5,"ctx":{"apikey":"7f00b6496ff388f0f44b7857662285f954b84ff9dcaebb70d0451750e53321ff","baseurl":"https://alpbrothers.oraclecloud2.dreamfactory.com/api/v2","db":"db_alpbros"},"root":"../","lang":"en","res":{"level":{"Everyone":"Everyone","Beginner":"Beginner","Advanced":"Advanced","All":"All"},"eventTypes":{"TechniqueTraining":{"description":"Technique Training","icon":"fa-cogs","offer":true},"GuidedTour":{"description":"Guided Tour","icon":"fa-bicycle","offer":true},"EBikeTour":{"description":"E-Bike Tour","icon":"fa-bolt"},"Camp":{"description":"Camp","icon":"fa-home"},"MechanicalTraining":{"description":"Mechanical Training","icon":"fa-wrench"}},"event":{"title":"Alpbrothers - Event","edit":{"title":"Alpbrothers - Edit event","dateFormat":"dddd MMMM D YYYY HH:mm","repeat":"Repeat next week"},"add":{"title":"Alpbrothers - Add event"}},"events":{"title":"Alpbrothers - Events","level":"Level","dateFormat":"dddd MMMM D YYYY<br />HH:mm a - HH:mm a","multiDayFormat":"dd MMMM D<br />- dd MMMM D YYYY","fromFormat":"dddd MMMM D","erlebniscardPrice":"free (**)","imgPath":"img/events/"},"main":{"title":"Alpbrothers - Your mountainbike guide at Lake Faak in Carinthia"},"upcoming":{"dateFormat":"dd DD.MM.YYYY HH:mm a"}},"pages":{"main":{"name":"main","preload":true,"synonyms":[]},"admin":{"name":"admin","preload":false,"synonyms":[]},"event-edit":{"name":"event-edit","preload":true,"synonyms":["event-add"]},"event":{"name":"event","preload":false,"synonyms":[]},"events":{"name":"events","preload":false,"synonyms":[]},"impressum":{"name":"impressum","preload":false,"synonyms":[]},"legalnotice":{"name":"legalnotice","preload":false,"synonyms":[]},"signin":{"name":"signin","preload":false,"synonyms":[]}}});
+      $alpbros.$app.init({
+  "shownEvents": 5,
+  "ctx": {
+    "apikey": "7f00b6496ff388f0f44b7857662285f954b84ff9dcaebb70d0451750e53321ff",
+    "baseurl": "https://alpbrothers.oraclecloud2.dreamfactory.com/api/v2",
+    "db": "db_alpbros"
+  },
+  "roles": {
+    "Alpbrothers Admin": "admin",
+    "Alpbrothers Partner": "partner",
+    "Alpbrothers WWW": "public",
+    "": "public"
+  },
+  "access": {
+    "page": {
+      "main": [
+        "*"
+      ],
+      "events": [
+        "*"
+      ],
+      "event": [
+        "*"
+      ],
+      "event-edit": [
+        "admin"
+      ],
+      "signin": [
+        "*"
+      ]
+    }
+  },
+  "root": "../",
+  "lang": "en",
+  "res": {
+    "level": {
+      "Everyone": "Everyone",
+      "Beginner": "Beginner",
+      "Advanced": "Advanced",
+      "All": "All"
+    },
+    "eventTypes": {
+      "TechniqueTraining": {
+        "description": "Technique Training",
+        "icon": "fa-cogs",
+        "offer": true
+      },
+      "GuidedTour": {
+        "description": "Guided Tour",
+        "icon": "fa-bicycle",
+        "offer": true
+      },
+      "EBikeTour": {
+        "description": "E-Bike Tour",
+        "icon": "fa-bolt"
+      },
+      "Camp": {
+        "description": "Camp",
+        "icon": "fa-home"
+      },
+      "MechanicalTraining": {
+        "description": "Mechanical Training",
+        "icon": "fa-wrench"
+      }
+    },
+    "eventStatus": {
+      "TakesPlace": "Takes place",
+      "InProgress": "In progress",
+      "Canceled": "Canceled",
+      "Deleted": "Deleted"
+    },
+    "event": {
+      "title": "Alpbrothers - Event",
+      "edit": {
+        "title": "Alpbrothers - Edit event",
+        "dateFormat": "dddd MMMM D YYYY HH:mm",
+        "repeat": "Repeat next week"
+      },
+      "add": {
+        "title": "Alpbrothers - Add event"
+      }
+    },
+    "events": {
+      "title": "Alpbrothers - Events",
+      "level": "Level",
+      "dateFormat": "dddd MMMM D YYYY<br />HH:mm a - HH:mm a",
+      "multiDayFormat": "dd MMMM D<br />- dd MMMM D YYYY",
+      "fromFormat": "dddd MMMM D",
+      "erlebniscardPrice": "free with Erlebniscard",
+      "imgPath": "img/events/",
+      "details": "Details & Registration",
+      "edit": "Edit",
+      "eventUrl": "#/event?id={0}",
+      "editUrl": "#/event/editchoice?series={0}&id={1}"
+    },
+    "main": {
+      "title": "Alpbrothers - Your mountainbike guide at Lake Faak in Carinthia"
+    },
+    "upcoming": {
+      "dateFormat": "dd DD.MM.YYYY HH:mm a"
+    }
+  },
+  "pages": {
+    "main": {
+      "name": "main",
+      "preload": true,
+      "synonyms": []
+    },
+    "admin": {
+      "name": "admin",
+      "preload": false,
+      "synonyms": []
+    },
+    "event-edit": {
+      "name": "event-edit",
+      "preload": true,
+      "synonyms": [
+        "event-add"
+      ]
+    },
+    "event-editchoice": {
+      "name": "event-editchoice",
+      "preload": false,
+      "synonyms": []
+    },
+    "event": {
+      "name": "event",
+      "preload": false,
+      "synonyms": []
+    },
+    "events": {
+      "name": "events",
+      "preload": false,
+      "synonyms": []
+    },
+    "impressum": {
+      "name": "impressum",
+      "preload": false,
+      "synonyms": []
+    },
+    "legalnotice": {
+      "name": "legalnotice",
+      "preload": false,
+      "synonyms": []
+    },
+    "signin": {
+      "name": "signin",
+      "preload": false,
+      "synonyms": []
+    }
+  }
+});
     });
   </script>
   

@@ -1,10 +1,10 @@
 // adds pages modes
 @mixin pagemodes($modes...) {
   @each $m in $modes {
-    &[mode='#{$m}'] {
+    &[mode='#{$m}'], .mode-#{$m} {
       @each $mx in $modes {
         @if $mx != $m {
-          [mode='#{$mx}'] {
+          [mode='#{$mx}'], .mode-#{$mx} {
             display: none;
           }
         }

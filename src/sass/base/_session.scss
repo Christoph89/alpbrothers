@@ -9,3 +9,15 @@ html.unauthenticated {
     display: none !important;
   }
 }
+
+html.role-public {
+  .role-admin, .role-partner {
+    display: none !important;
+  }
+}
+
+html.role-partner {
+  .role-admin {
+    display: none !important;
+  }
+}
