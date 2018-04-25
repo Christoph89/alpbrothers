@@ -1,5 +1,7 @@
 {% extends "html/tpl.html" %}
 
+{% block opts %}no-data{% endblock %}
+
 {% block bg %} 
 {% endblock %}
 
@@ -9,27 +11,112 @@
 {% block content %}
 <section class="spotlight style1 color2 orient-left content-align-left image-position-center onscroll-content-fade-right onscroll-image-fade-in">
   <div class="content">
-    <h1>{{ res.alpbrosGuiding }}</h1>
-    <p>{{ res.about.text | safe }}</p>
+    <h1 style="font-size: 2.25rem">Guiding & Workshops</h1>
+    <p><b>Mountainbiken in Kärnten</b> ist einzigartig. 
+      Die atemberaubende Kulisse der Karawanken, des <b>Faaker und Ossiacher Sees</b>
+      bilden das Rezept für ein unvergessliches <b>Berg & Seen Erlebnis</b>.
+      Wer bei uns seinen Urlaub verbringt soll vor allem eines, mit einem breiten Lächeln nach Hause gehen!
+      Hier findest du die besten Anbieter rund ums Mountainbiken im <b>Alpe Adria Raum Villach, Faaker See, Ossiacher See</b>.
+    </p>
     <ul class="actions vertical">
-      <li><a href="{{ res.about.moreUrl }}" class="button icon fa-angle-down" anchor="middle">{{ res.about.more }}</a></li>
+      <li><a id="learnMoreBtn" href="#alpbrothers" class="button icon fa-angle-down">Mehr erfahren</a></li>
     </ul>
   </div>
   <div class="image">
-    <img src="{{ root }}img/banner-about.jpg" alt="{{ res.about.img }}" />
+    <img src="{{ root }}img/coop/guiding.jpg" alt="{{ res.about.img }}" />
   </div>
 </section>
-{% endblock %}
 
-{% block scripts %} 
-<script type="text/javascript">
-  // init app on document ready
-  $(document).ready(function()
-  {
-    $(document.body).removeClass("is-loading");
-  });
-</script>
+<section class="spotlight quote style1 color3 invert content-align-center image-position-center onscroll-content-fade-right">
+  <div class="content">
+    <h3><i>Vom Berg zum See, Mountainbiken in Kärnten ist einzigartig!</i></h3>
+  </div>
+</section>
+
+<section id="alpbrothers" class="alpbrothers spotlight style1 color2 orient-right content-align-left image-position-center onscroll-content-fade-right onscroll-image-fade-in">
+  <div class="content">
+    <h2>{{ res.alpbrosGuiding }}</h2>
+    <p>{{ res.about.text | safe }}</p>
+    <ul class="actions vertical">
+      <li>Alle Details auf <a href="https://www.alpbrothers.at" target="_blank">www.alpbrothers.at</a></li>
+    </ul>
+  </div>
+  <div class="image">
+    <img src="{{ root }}img/coop/alpbrothers/0.jpg" alt="{{ res.about.img }}" />
+  </div>
+</section>
+
+<section class="alpbrothers wrapper style1 color5 align-center">
+  <section class="spotlight quote style1 color1 invert content-align-center image-position-center onscroll-content-fade-right">
+    <div class="content">
+      <h3><i>{{ res.alpbrosQuote.text | safe }}</i></h3>
+      <h4>{{ res.alpbrosQuote.author }}</h4>
+    </div>
+  </section>
+
+  <div class="gallery style1 small lightbox onload-content-fade-in">
+    {% set images=[1,2,3,4,5,6,7,8,9,10] %}
+    {% for img in images %}
+      <article>
+        <a href="{{ root }}img/coop/alpbrothers/{{ img }}.jpg" class="image"><img src="{{ root }}img/coop/alpbrothers/{{ img }}.jpg" /></a>
+        <div class="caption"><h3>{{ keyword }}</h3></div>
+      </article>
+    {% endfor %}
+  </div>
+</section>
+
+<section id="ridecompany" class="ridecompany spotlight style1 color2 orient-left content-align-left image-position-center onscroll-content-fade-right onscroll-image-fade-in">
+  <div class="content">
+    <h2>ride.company</h2>
+    <p>Unser Basecamp ist die <b>Region Villach mit dem Ossiacher See</b> und dem Faaker See.
+      Hier bieten wir wöchentlich <b>Fahrtechnik-Kurse</b> sowie kleine und größere <b>Touren</b> an.
+      Im gesamten <b>Alpen Adria Raum</b> kannst du mit uns regelmäßig ausgefallene
+      <b>Tagestouren oder mehrtägige Bikereisen</b> erleben.
+      Alle Tour Locations in <b>Italien, Slowenien und Kärnten</b> befinden
+      sich maximal eine Autofahrstunde von Villach entfernt.</p>
+    <ul class="actions vertical">
+      <li>Alle Details auf <a href="https://www.ride.company/" target="_blank">www.ride.company</a></li>
+    </ul>
+  </div>
+  <div class="image">
+    <img src="{{ root }}img/coop/ridecompany/0.jpg" alt="Ride.Company" />
+  </div>
+</section>
+
+<section class="ridecompany wrapper style1 color5 align-center">
+  <section class="spotlight quote style1 color1 invert content-align-center image-position-center onscroll-content-fade-right">
+    <div class="content">
+      <h3><i>Fahrtechnikkurse | Familientouren | Sonnenaufgangstouren | Sonnenuntergangstouren | E-Mountainbiketouren | leichte Tagestouren | mittlere Tagestouren | schwere Tagestouren | Bikebergsteigen | Mehrtägige Bikereisen | Individuelle Touren | Schrauber Workshops</i></h3>
+      <h4>ride.company</h4>
+    </div>
+  </section>
+
+  <div class="gallery style1 small lightbox onload-content-fade-in">
+    {% set images=[1,2,3,4,5,6,7,8,9,10] %}
+    {% for img in images %}
+      <article>
+        <a href="{{ root }}img/coop/ridecompany/{{ img }}.jpg" class="image"><img src="{{ root }}img/coop/ridecompany/{{ img }}.jpg" /></a>
+        <div class="caption"><h3>{{ keyword }}</h3></div>
+      </article>
+    {% endfor %}
+  </div>
+</section>
+
 {% endblock %}
 
 {% block footer %} 
+{% endblock %}
+
+{% block scripts %}
+  <script type="text/javascript">
+  // change order of alpbros and ridecompany randomly
+  $(document).ready(function()
+  {
+    if (Math.floor((Math.random() * 100) + 1)%2!=0)
+      return;
+    $("section.alpbrothers").appendTo($("#main"));
+    $("#learnMoreBtn").attr("href", "#ridecompany");
+  });
+  </script>
+  {{ super() }}
 {% endblock %}
