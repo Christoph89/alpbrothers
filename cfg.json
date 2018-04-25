@@ -76,7 +76,6 @@
       "!%src/img/favicon/**/*"
     ],
     "typescript": [ "%src/ts/app.ts" ],
-    "coop": [ "%src/ts/coop.ts" ],
     "scss": [ "%src/sass/main.scss" ],
     "forms":
     [
