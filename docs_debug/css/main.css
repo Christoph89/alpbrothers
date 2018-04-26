@@ -2255,6 +2255,13 @@ button,
     pointer-events: none;
     opacity: 0.25; }
 
+a.icon.disabled {
+  -moz-pointer-events: none;
+  -webkit-pointer-events: none;
+  -ms-pointer-events: none;
+  pointer-events: none;
+  opacity: 0.25; }
+
 input[type="submit"],
 input[type="reset"],
 input[type="button"],
@@ -7496,8 +7503,6 @@ body.is-loading .items.onload-fade-in > * > .inner {
     display: none; }
   #upcoming.no-events .no-event-info {
     display: block; }
-  #upcoming.no-events .infos {
-    display: none; }
   #upcoming tr.show-all td {
     padding: 0.5rem; }
   #upcoming tr.show-all .button {
@@ -7583,51 +7588,23 @@ body.is-loading .items.onload-fade-in > * > .inner {
   html.missing-cookie-agreement #cookie-agreement {
     display: block; }
 
-#event.page > section.partner {
-  padding-top: 1px; }
-
-#event.page > section.hidden {
-  display: none; }
-
 #event.page .erlebniscard-only {
   display: none; }
 
 #event.page.erlebniscard .erlebniscard-only {
   display: inherit; }
 
-#event.page .event-price {
-  white-space: nowrap; }
+#event.page .reg-only {
+  display: none; }
 
-@media screen and (min-width: 980px) {
-  #event.page .event-price {
-    float: right; } }
+#event.page.allow-reg .reg-only {
+  display: inherit; }
 
-#event.page > section.workshop.requirements p {
-  margin-bottom: 1em; }
+#event.page.allow-reg .no-reg-only {
+  display: none; }
 
-#signin.page > section > .inner {
-  max-width: 50%;
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  -moz-transform: translate(-50%, -50%);
-  -webkit-transform: translate(-50%, -50%);
-  -ms-transform: translate(-50%, -50%);
-  transform: translate(-50%, -50%); }
-  @media screen and (max-width: 980px) {
-    #signin.page > section > .inner {
-      max-width: 75%; } }
-  @media screen and (max-width: 480px) {
-    #signin.page > section > .inner {
-      max-width: 90%; } }
-
-#signin.page .error {
-  color: red; }
-  #signin.page .error.hidden {
-    display: none; }
-
-#event.page > section.workshop.requirements p {
-  margin-bottom: 1em; }
+#event.page .event-requirements-text {
+  margin-bottom: 1rem; }
 
 #event-edit.page[mode='edit'] [mode='add'], #event-edit.page[mode='edit'] .mode-add, #event-edit.page .mode-edit [mode='add'], #event-edit.page .mode-edit .mode-add {
   display: none; }
@@ -7642,6 +7619,9 @@ body.is-loading .items.onload-fade-in > * > .inner {
   cursor: pointer; }
   #event-edit.page .event-img.selected {
     opacity: 1; }
+
+#event-edit.page .map {
+  height: 400px; }
 
 #signin.page > section > .inner {
   max-width: 50%;

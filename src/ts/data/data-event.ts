@@ -47,12 +47,22 @@ module $alpbros
     description?: string;
     /** The english event description. */
     description_en?: string;
+    /** The german event requirements. */
+    requirements?: string;
+    /** The english event requirements. */
+    requirements_en?: string;
     /** The event price. */
     price?: string;
     /** The event level. */
     level?: MTBLevel;
     /** The event image. */
     img?: string;
+    /** The meeting point coordinates (lat/lng/description). */
+    meeting?: string;
+    /** The max amount of participants. */
+    max_participants?: number;
+    /** Allow reg or not (<=0 false / >0 true) */
+    allow_reg?: number;
   }
 
   /** Defines a mtb event. */
@@ -65,6 +75,7 @@ module $alpbros
     }
 
     public static ErlebniscardPrice="Erlebniscard";
+    public static DefaultMeetingPoint="46.57305526/13.93681599/Parkplatz Natur Aktiv Park, Faak am See";
 
     /** The state of the event. */
     public state: IMTBEvent;
@@ -109,7 +120,10 @@ module $alpbros
     public seriesId(): number { return this.parentId() || this.eventId();  }
 
     /** Returns the parent event or if not specified the current one. */
-    public series(): MTBEvent { return $data.eventMap.Get(this.seriesId()); }
+    public series(): MTBEvent { return $data.eventMap.Get(this.seriesId()) || this; }
+
+    /*** Returns whether the event is a series. */
+    public isSeries(): boolean { return this.seriesId() == this.eventId(); }
 
     /** Returns the event from date/time. */
     public from(): moment.Moment { return this.get("from", "date"); }
@@ -153,14 +167,35 @@ module $alpbros
     /** Returns the english event description. */
     public description_en(): string { return this.get("description_en"); }
 
+    /** Returns the localized event description. */
+    public requirements(): string { return this.get("requirements", "localize"); }
+    
+    /** Returns the german event description. */
+    public requirements_de(): string { return this.get("requirements"); }
+    
+    /** Returns the english event description. */
+    public requirements_en(): string { return this.get("requirements_en"); }
+
     /** Returns the event price */
     public price(): string { return this.get("price"); }
+
+    /** Returns the price as text. */
+    public priceText(): string { return this.isErlebniscard()?$res.events.erlebniscardPrice:(this.priceAsNr()+ " EUR"); }
+
+    /** Returns the event price as number */
+    public priceAsNr(): number { return parseFloat(this.price()); }
 
     /** Returns whether the event is an Erlebniscard event. */
     public isErlebniscard(): boolean { return this.price()===MTBEvent.ErlebniscardPrice; }
 
     /** Returns the event level */
     public level(): MTBLevel { return this.get("level"); }
+
+    /** Returns the level name. */
+    public levelName(): string { return MTBLevel[this.level()]; }
+
+    /** Returns the level name. */
+    public levelDescription(): string { return $res.level[this.levelName()]; }
 
     /** Returns the event image */
     public img(addPath: boolean=true): string
@@ -174,6 +209,24 @@ module $alpbros
         return $cfg.root+$res.events.imgPath+img;
       return img;
     }
+
+    /** Returns the meeting point coordinates (lat/lng). */
+    public meetingPoint(): string { return this.get("meeting") || MTBEvent.DefaultMeetingPoint; }
+
+    /** Returns the lat coordinate of the meeting point. */
+    public lat(): number { return parseFloat(this.meetingPoint().split("/")[0]) || 46.57305526; }
+
+    /** Returns the lng coordinate of the meeting point. */
+    public lng(): number { return parseFloat(this.meetingPoint().split("/")[1]) || 13.93681599; }
+
+    /** Returns the lng coordinate of the meeting point. */
+    public meetingPointDescription(): string { return this.meetingPoint().split("/")[2] || "Parkplatz Natur Aktiv Park, Faak am See"; }
+
+    /** Returns the max amount of participants. */
+    public maxParticipants(): number { return this.get("max_participants") || 0; }
+
+    /** Returns whether registration is allowed. */
+    public isRegAllowed(): boolean { return $cfg.allow_reg && (this.get("allow_reg")||0)>0; }
 
     /** Returns all occurrences of the series. */
     public occurrences(): MTBEvent[]

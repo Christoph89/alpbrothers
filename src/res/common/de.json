@@ -25,6 +25,11 @@
     "phone": "Telefon",
     "whatsapp": "WhatsApp"
   },
+  "confirm":
+  {
+    "ok": "OK",
+    "cancel": "Abbrechen"
+  },
   "impressum": "Impressum & Datenschutz",
   "impressumUrl": "#/impressum",
   "cookieAgreement": "Um unsere Webseite für Sie optimal zu gestalten und fortlaufend verbessern zu können, verwenden wir Cookies. Durch die weitere Nutzung der Webseite stimmen Sie der Verwendung von Cookies zu. Weitere Informationen zu Cookies und der Nutzung ihrer persönlichen Daten erhalten Sie in unserer <a href=\"#/impressum\">Datenschutzerklärung</a>.",

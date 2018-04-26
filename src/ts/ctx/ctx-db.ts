@@ -56,6 +56,13 @@ module $alpbros.$ctx.db
     {
       return this.set("put", arg);
     }
+
+    public delete(item: TRaw): JQueryPromise<T>;
+    public delete(items: TRaw[]): JQueryPromise<T[]>;
+    public delete(arg: any): JQueryPromise<any>
+    {
+      return this.set("del", arg);
+    }
   }
 
   /** Specifies a database call. */

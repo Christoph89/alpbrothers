@@ -18,6 +18,8 @@ module $alpbros
     export var lang: string;
     /** Specifies the amount of upcoming events */
     export var shownEvents: number;
+    /** Specifies whether registration is allowed. */
+    export var allow_reg: boolean;
     /** Gets all page infos. */
     export var pages: { [name: string]: PageInfo };
     /** Gets the app resource. */

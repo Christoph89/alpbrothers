@@ -10,6 +10,8 @@
 /// <reference path="page-event-edit.ts" />
 /// <reference path="page-signin.ts" />
 /// <reference path="page-admin.ts" />
+/// <reference path="page-choice.ts" />
+/// <reference path="page-confirm.ts" />
 "use strict";
 
 module $alpbros

@@ -1,5 +1,5 @@
 <!DOCTYPE HTML>
-<html lang="en" class="unauthenticated">
+<html lang="en" class="unauthenticated ">
 
 <head>
   
@@ -34,7 +34,7 @@
   
 </head>
 
-<body class="is-loading">
+<body class="is-loading ">
 
   
   <div id="bg"></div>
@@ -92,7 +92,7 @@
   
 
   <!-- page wrapper -->
-  <div id="main" class="page current">
+  <div id="main" class="page current ">
     
     <!-- content -->
     
@@ -188,9 +188,9 @@
 </section>
   
     <!-- upcoming -->
-<section id="upcoming" href="#/upcoming" class="wrapper style1 color2 align-center no-events">
+<section id="upcoming" href="#/upcoming" class="wrapper style1 color2 align-center no-events-off">
   <div class="inner">
-    <h2>Events</h2>
+    <h2>Upcoming Events</h2>
     <p class="no-event-info">
       <strong>We&#39;re sorry, there are currently no upcoming events. They will go online in April. Please come back an take a look in a few days.</strong>
     </p>
@@ -235,15 +235,7 @@
       </table>
     </div>
 
-    <span class="infos">
-      <sub>(*) Young people unter the age of 18.</sub>
-      <br />
-      <sub>(**) Only free with <i>Erlebnis Card</i>. Tickets without <i>Erlebnis Card</i> are only available at our tourist offices and cost 15 EUR. For more information about the <i> Erlebnis Card</i> visit: <a href="https://www.region-villach.at/en/offers/region-villach-card-2505115.html" target="_blank">https://www.region-villach.at/en/offers/region-villach-card-2505115.html</a> </sub>
-      <br />
-      <br />
-    </span>
-
-    <p>For more information or <b>individual tours</b> please send us your <b>inquiry</b>.</p>
+    <p>For more information or <b>individual tours</b> please send us your <b>inquiry</b> or take a look at <i>"Show all events"</i>.</p>
     <ul class="actions">
       <li><a href="mailto:office@alpbrothers.at" class="button special icon fa-envelope">Inquire now</a></li>
       <li><a href="#/impressions" class="button icon fa-angle-down">Impressions</a></li>
@@ -430,10 +422,11 @@
     {
       $alpbros.$app.init({
   "shownEvents": 5,
+  "allow_reg": false,
   "ctx": {
     "apikey": "7f00b6496ff388f0f44b7857662285f954b84ff9dcaebb70d0451750e53321ff",
     "baseurl": "https://alpbrothers.oraclecloud2.dreamfactory.com/api/v2",
-    "db": "db_alpbros"
+    "db": "db_alpbros_dbg"
   },
   "roles": {
     "Alpbrothers Admin": "admin",
@@ -499,21 +492,72 @@
       "Canceled": "Canceled",
       "Deleted": "Deleted"
     },
+    "requirements": {
+      "TechniqueTraining": {
+        "0": "Mindestalter <b>12 Jahre</b> (darunter nur mit Begleitung eines Erziehungsberechtigten)",
+        "1": "<b>Unter 18 Jahren</b> benötigst du die <b>Einverständnis deines Erziehungsberechtigten</b>",
+        "2": "Du musst <b>gesund</b> sein",
+        "3": "Ein <b>geländefähiges Mountainike</b> = Hardtail oder Fully ab rund 100mm Federweg (nicht mitgenommen werden Räder mit Starrgabel, Straßen-/Renn-/Triathlonräder, City- und Trekking Bikes sowie BMX und Dirt Bikes)",
+        "4": "Idealerweise <b>Fahrradbekleidung</b> + Regenbekleidung + Rucksack",
+        "5": "<b>Fahrrad Helm und Handschuhe</b> sind Pflicht! (Halbschalenhelm genügt)",
+        "6": "<b>Passendes Schuhwerk</b>. Idealerweise Mountainbike- oder Sport Schuhe",
+        "7": "Genügend Getränke/Verpflegung für 3-4 Stunden",
+        "8": "<b>Lernbereitschaft</b> und die Liebe zum Mountainbiken",
+        "9": "Mountainbike + Ausrüstung kann auf Anfrage ausgeliehen werden.",
+        "text": "Unser Trail Workshop ist <b>für Einsteiger und Interessierte</b>, sowie für jeden der seine <b>Technik am Mountainbike verbessern</b> möchte geeignet."
+      },
+      "GuidedTour": {
+        "0": "Mindestalter <b>12 Jahre</b> (darunter nur mit Begleitung eines Erziehungsberechtigten)",
+        "1": "<b>Unter 18 Jahren</b> benötigst du die <b>Einverständnis deines Erziehungsberechtigten</b>",
+        "2": "Du musst <b>gesund</b> sein",
+        "3": "Ein <b>geländefähiges Mountainike</b> = Hardtail oder Fully ab rund 100mm Federweg (nicht mitgenommen werden Räder mit Starrgabel, Straßen-/Renn-/Triathlonräder, City- und Trekking Bikes sowie BMX und Dirt Bikes)",
+        "4": "Idealerweise <b>Fahrradbekleidung</b> + Regenbekleidung + Rucksack",
+        "5": "<b>Fahrrad Helm und Handschuhe</b> sind Pflicht! (Halbschalenhelm genügt)",
+        "6": "<b>Passendes Schuhwerk</b>. Idealerweise Mountainbike- oder Sport Schuhe",
+        "7": "Genügend Getränke/Verpflegung für 3-4 Stunden",
+        "8": "<b>Lernbereitschaft</b> und die Liebe zum Mountainbiken",
+        "9": "Mountainbike + Ausrüstung kann auf Anfrage ausgeliehen werden.",
+        "text": ""
+      }
+    },
     "event": {
       "title": "Alpbrothers - Event",
       "edit": {
         "title": "Alpbrothers - Edit event",
         "dateFormat": "dddd MMMM D YYYY HH:mm",
-        "repeat": "Repeat next week"
+        "repeat": "Repeat next week",
+        "occurrenceUrl": "#/event/edit?id={0}"
       },
       "add": {
         "title": "Alpbrothers - Add event"
+      },
+      "editChoice": {
+        "title": "Edi Event",
+        "text": "Do you want to edit the single event occurrence or the whole series?",
+        "@Edit occurrence": "#/event/edit?id={id}",
+        "@Edit series": "#/event/edit?id={series}"
+      },
+      "deleteConfirm": {
+        "title": "Delete event?",
+        "text": "Do you really want to delete the event?",
+        "ok": "#/cmd/delete-event?id={id}",
+        "cancel": "#/event/edit?id={id}"
+      },
+      "details": {
+        "date": "{0}",
+        "dateFormat": "dddd MMMM D YYYY hh:mm a - hh:mm a",
+        "level": "{0} (see requirements)",
+        "meeting": "{0} {1}. For more time on trail, please be in time.",
+        "meetingTimeFormat": "hh:mm a",
+        "participants": "max. 6 persons",
+        "price": "The price for the workshop is {0} EUR per person.",
+        "erlebniscardPrice": "The workshop is <b>free with <i>Erlebniscard</i></b>. The standard price without <i>Erlebniscard</i> is <b>15 EUR</b>."
       }
     },
     "events": {
       "title": "Alpbrothers - Events",
       "level": "Level",
-      "dateFormat": "dddd MMMM D YYYY<br />HH:mm a - HH:mm a",
+      "dateFormat": "dddd MMMM D YYYY<br />hh:mm a - hh:mm a",
       "multiDayFormat": "dd MMMM D<br />- dd MMMM D YYYY",
       "fromFormat": "dddd MMMM D",
       "erlebniscardPrice": "free with Erlebniscard",
@@ -541,17 +585,22 @@
       "preload": false,
       "synonyms": []
     },
+    "choice": {
+      "name": "choice",
+      "preload": false,
+      "synonyms": []
+    },
+    "confirm": {
+      "name": "confirm",
+      "preload": false,
+      "synonyms": []
+    },
     "event-edit": {
       "name": "event-edit",
       "preload": true,
       "synonyms": [
         "event-add"
       ]
-    },
-    "event-editchoice": {
-      "name": "event-editchoice",
-      "preload": false,
-      "synonyms": []
     },
     "event": {
       "name": "event",

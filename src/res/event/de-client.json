@@ -8,11 +8,37 @@
       {
         "title": "Alpbrothers - Event bearbeiten",
         "dateFormat": "dddd D. MMMM YYYY HH:mm",
-        "repeat": "In einer Woche wiederholen"
+        "repeat": "In einer Woche wiederholen",
+        "occurrenceUrl": "#/event/edit?id={0}"
       },
       "add":
       {
         "title": "Alpbrothers - Event hinzufügen"
+      },
+      "editChoice":
+      {
+        "title": "Event bearbeiten",
+        "text": "Wollen Sie den einzelnen Termin oder die gesamte Serie bearbeiten?",
+        "@Termin bearbeiten": "#/event/edit?id={id}",
+        "@Serie bearbeiten": "#/event/edit?id={series}"
+      },
+      "deleteConfirm":
+      {
+        "title": "Event löschen?",
+        "text": "Wollen sie das Event wirklich löschen?",
+        "ok": "#/cmd/delete-event?id={id}",
+        "cancel": "#/event/edit?id={id}"
+      },
+      "details":
+      {
+        "date": "{0}",
+        "dateFormat": "dddd D. MMMM YYYY HH:mm - HH:mm [Uhr]",
+        "level": "{0} (siehe Anforderungen)",
+        "meeting": "{0} {1}. Für mehr Zeit am Trail, bitten wir um <b>Pünktlichkeit</b>.",
+        "meetingTimeFormat": "HH:mm [Uhr]",
+        "participants": "Da wir um <b>Qualität</b> bemüht sind und auf unsere Teilnehmer eingehen möchten ist die <b>Teilnehmerzahl auf {0} Personen begrenzt</b>.",
+        "price": "Der Workshop kostet {0} EUR pro Teilnehmer",
+        "erlebniscardPrice": "Der Workshop ist <b>kostenlos mit <i>Erlebniscard</i></b>. Der Regulärpreis ohne <i>Erlebniscard</i> beträgt <b>15 EUR</b>."
       }
     }
   }

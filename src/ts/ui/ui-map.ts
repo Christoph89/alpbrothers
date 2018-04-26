@@ -17,6 +17,7 @@ interface GMapMarker
 {
   position?: GMapPosition;
   title?: string;
+  draggable?: boolean;
 }
 
 interface GMap
@@ -25,14 +26,16 @@ interface GMap
   start?: GMapPosition;
   zoom?: number;
   marker?: GMapMarker[];
+  wait?: JQueryDeferred<any>;
 }
 
 module $alpbros.$ui.map
 {
   var apikey="AIzaSyBdO_cpM267sMdq2GO-ujjfch3dMjUHMjY";
   var currentIdx=0;
-  var maps: GMap[]=[];
   var apiAdded: boolean;
+  var wait: JQueryDeferred<any>=$.Deferred<any>();
+  export var maps: GMap[]=[];
 
   /** Initializes all maps. */
   export function init(context?: JQuery)
@@ -42,12 +45,15 @@ module $alpbros.$ui.map
 
   function createMap(cnt: JQuery): GMap
   {
-    var map: GMap={ element: cnt };
+    var map: GMap={ element: cnt, wait: $.Deferred<any>() };
     var lat=parseFloat(cnt.attr("lat"));
     var lng=parseFloat(cnt.attr("lng"));
     var zoom=parseFloat(cnt.attr("zoom"));
     if (lat&&lng) map.start={ lat: lat, lng: lng };
     if (zoom) map.zoom=zoom;
+
+    // add map promise
+    map.element.data("gmap_promise", map.wait.promise());
 
     // read markers
     map.marker=$q($(".marker", cnt)).Select(x => 
@@ -58,12 +64,13 @@ module $alpbros.$ui.map
           lat: parseFloat(x.attr("lat")),
           lng: parseFloat(x.attr("lng"))
         },
-        title: x.text()
+        title: x.text(),
+        draggable: x.hasClass("draggable")
       };
       return marker;
     }).ToArray();
 
-    window["initMap"+currentIdx]=function () { initMap(map); };
+    window["initMap"+currentIdx]=function () { initMap(map, currentIdx); };
 
     // add api only once
     if (!apiAdded)
@@ -72,15 +79,18 @@ module $alpbros.$ui.map
       apiAdded=true;
     }
     else
-      initMap(map);
+      wait.done(() => { initMap(map, currentIdx) });
 
     currentIdx++;
 
     return map;
   }
 
-  function initMap(map: GMap)
+  function initMap(map: GMap, idx: number)
   {
+    // stop waiting
+    wait.resolve();
+
     // initialize the map and set the start location
     var gmap=new google.maps.Map(map.element[0], 
     {
@@ -88,15 +98,33 @@ module $alpbros.$ui.map
       zoom: map.zoom,
       styles: mapStyle
     });
+    map.element.data("gmap", gmap);
 
     // add some markers
-    var markers=$q(map.marker).ForEach(m => 
+    var markers=[];
+    $q(map.marker).ForEach((m, midx) => 
     {
       var marker=new google.maps.Marker({
         position: new google.maps.LatLng(m.position.lat, m.position.lng),
-        title: m.title});
+        title: m.title,
+        draggable: m.draggable
+      });
       marker.setMap(gmap);
+      markers.push(marker);
+
+      // set marker pos
+      map.element.attr("m"+midx+"_lat", m.position.lat);
+      map.element.attr("m"+midx+"_lng", m.position.lng);
+
+      // set marker pos on drag
+      if (m.draggable)
+        marker.addListener("drag", function() {
+          var pos=marker.getPosition();
+          map.element.attr("m"+midx+"_lat", pos.lat);
+          map.element.attr("m"+midx+"_lng", pos.lng);
+        });
     });
+    map.element.data("gmap_markers", markers);
 
     // prevent mouse event capturing
     var innerMap: JQuery;
@@ -110,5 +138,8 @@ module $alpbros.$ui.map
       innerMap.addClass("no-pointer-events"); 
     });
     map.element.click(() => { innerMap.removeClass("no-pointer-events"); });
+
+    // map ready
+    map.wait.resolve();
   }
 }

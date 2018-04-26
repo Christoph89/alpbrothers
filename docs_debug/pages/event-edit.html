@@ -96,6 +96,20 @@
         </div>
         <div class="field"></div>
 
+        <!-- max participants -->
+        <div class="field half first">
+          <label>Maximale Teilnehmer</label>
+          <input type="number" name="event-max-participants" placeholder="0" value="6" step="1" min="1"  />
+        </div>
+        <div class="field half">
+          <label>Anmeldung</label>
+          <select name="event-allow-reg">
+            <option value="1">Ja (Online)</option>
+            <option value="0">Nein (via Email)</option>
+          </select>
+        </div>
+        <div class="field"></div>
+
         <!-- short description -->
         <div class="field half first">
           <label>Kurzbeschreibung</label>
@@ -118,6 +132,17 @@
         </div>
         <div class="field"></div>
 
+        <!-- requirements -->
+        <div class="field half first">
+          <label>Anforderungen</label>
+          <textarea name="event-requirements-de" placeholder="Event Anforderungen auf Deutsch (getrennt durch Zeilenumbruch, verwende ! als 1. Zeile um alle Anforderungen zu überschreiben)"></textarea>
+        </div>
+        <div class="field half">
+          <label>&nbsp;</label>
+          <textarea name="event-requirements-en" placeholder="Event requirements in English (separated by new lines, use ! als 1st line to overwrite all requirements"></textarea>
+        </div>
+        <div class="field"></div>
+
         <!-- image -->
         <div class="field">
           <label>Foto</label>
@@ -133,6 +158,14 @@
           <img src="img/events/13.jpg" value="13.jpg" class="event-img " />
           
           <img src="img/events/14.jpg" value="14.jpg" class="event-img " />
+          
+          <img src="img/events/15.jpg" value="15.jpg" class="event-img " />
+          
+          <img src="img/events/16.jpg" value="16.jpg" class="event-img " />
+          
+          <img src="img/events/17.jpg" value="17.jpg" class="event-img " />
+          
+          <img src="img/events/18.jpg" value="18.jpg" class="event-img " />
           
           <img src="img/events/2.jpg" value="2.jpg" class="event-img " />
           
@@ -150,6 +183,17 @@
           
           <img src="img/events/9.jpg" value="9.jpg" class="event-img " />
           
+        </div>
+        <div class="field"></div>
+
+        <!-- meeting point -->
+        <div class="field">
+          <label>Treffpunkt</label>
+          <input type="text" name="event-meeting-point-description" placeholder="Beschreibung Treffpunkt" />
+          <br />
+          <div class="map" lat="46.57305526" lng="13.93681599" zoom="12">
+            <div class="marker draggable" lat="46.57305526" lng="13.93681599"></div>
+          </div>
         </div>
         <div class="field"></div>
 
@@ -177,7 +221,9 @@
         </div>
         <div class="field"></div>
         <ul class="actions">
-          <li><a class="button save">Termin speichern</a></li>
+          <li mode="edit"><a class="button edit-series icon fa-pencil">Serie bearbeiten</a></li>
+          <li mode="edit"><a class="button delete icon fa-trash">Termin löschen</a></li>
+          <li><a class="button save icon fa-save">Termin speichern</a></li>
         </ul>
       </form>
     </div>

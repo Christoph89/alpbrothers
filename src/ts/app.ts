@@ -92,6 +92,18 @@ module $alpbros
 
     export function hashChange(hash?: string, anchor?: string, speed?: string): JQueryPromise<any>
     {
+      // go back
+      if (hash==="#back")
+      {
+        $app.back();
+        return;
+      }
+      else if (hash=="#back-history")
+      {
+        $app.back("#history");
+        return;
+      }
+
       // disable hash change event
       pauseHashChange=true;
       if (!popstate) pausePopState=true;
@@ -173,7 +185,10 @@ module $alpbros
     {
       popstate=true; // next hashchange will run as popstate
       if (!hash) hash=$ui.$backBtn.attr("back") || $pages.current && $pages.current.defaultBack() || "#/";
-      hashChange(hash);
+      if (hash=="#history")
+        history.back();
+      else
+        hashChange(hash);
     }
 
     /** Sets the app authentication state. */
@@ -190,6 +205,64 @@ module $alpbros
     export function setCookieAgreement(agreed: boolean)
     {
       $doc.toggleClass("missing-cookie-agreement", !agreed);
+    }
+
+     /** Gets the specified confirm url. */
+     export function confirmUrl(title: string, text: string, okUrl: string);
+     export function confirmUrl(res: any);
+     export function confirmUrl(res: any, text?: string, okUrl?: string)
+     {
+       if (typeof res=="string")
+       {
+         var title=res;
+         res={ title: title, text: text, ok: okUrl };
+       }
+       var url: string;
+       for (var prop in res)
+       {
+         if (!url) url="#/confirm?";
+         else url+="&";
+         url+=encodeURIComponent(prop)+"="+encodeURIComponent(res[prop]);
+       }
+       return url;
+     }
+
+     /** Shows the specified confirm. */
+     export function confirm(title: string, text: string, okUrl: string);
+     export function confirm(res: any);
+     export function confirm(res: any, text?: string, okUrl?: string)
+     {
+       hashChange(confirmUrl(res, text, okUrl));
+     }
+
+    /** Gets the specified choice url. */
+    export function choiceUrl(title: string, text: string, items: { [text: string]: string });
+    export function choiceUrl(res: any);
+    export function choiceUrl(res: any, text?: string, items?: { [text: string]: string })
+    {
+      if (typeof res=="string")
+      {
+        var title=res;
+        res=$q(items).ToObject(x => (x.Key[0]=="@"?"":"@")+x.Key, x => x.Value);
+        res.title=title;
+        res.text=text;
+      }
+      var url: string;
+      for (var prop in res)
+      {
+        if (!url) url="#/choice?";
+        else url+="&";
+        url+=encodeURIComponent(prop)+"="+encodeURIComponent(res[prop]);
+      }
+      return url;
+    }
+
+    /** Shows the specified choices. */
+    export function choice(title: string, text: string, items: { [text: string]: string });
+    export function choice(res: any);
+    export function choice(res: any, text?: string, items?: { [text: string]: string })
+    {
+      hashChange(choiceUrl(res, text, items));
     }
   }
 

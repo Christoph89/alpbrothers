@@ -43,7 +43,7 @@ module $alpbros.$util
   /** Merges the specified dates. */
   export function mergeDatesStr(target: string, dt: string) : moment.Moment
   {
-    return mergeDates(moment(target), moment(dt));
+    return mergeDates(moment(target||null), moment(dt||null));
   }
 
   /** Ensures that the specified string starts with the prefix. */
@@ -123,9 +123,43 @@ module $alpbros.$util
     $q(argStr.split("&")).ForEach(x => 
     {
       var parts=x.split("=");
-      args[parts[0]]=parts[1];
+      args[decodeURIComponent(parts[0])]=decodeURIComponent(parts[1]);
     });
     return args;
+  }
+
+  /** Simple markdown format for bold, strong and italic. */
+  export function formatMd(text: string): string
+  {
+    var bold=0, strong=0, italic=0;
+    return text.replace(/\*\*/g, (substr, args) => // bold
+    {
+      return (++bold)%2==1?"<b>":"</b>";
+    }).replace(/\*/g, (substr, args) => // strong
+    {
+      return (++strong)%2==1?"<strong>":"</strong>";
+    }).replace(/_/g, (substr, args) => // italic
+    {
+      return (++italic)%2==1?"<i>":"</i>";
+    });
+  }
+
+  /** Trims the specified character. */
+  export function trim (text, character) {
+    if (character === "]") character = "\\]";
+    if (character === "\\") character = "\\\\";
+    return text.replace(new RegExp(
+      "^[" + character + "]+|[" + character + "]+$", "g"
+    ), "");
+  }
+  
+  /** Trims the specified character at the start of the text. */
+  export function trimStart (text, character) {
+    if (character === "]") character = "\\]";
+    if (character === "\\") character = "\\\\";
+    return text.replace(new RegExp(
+      "^[" + character + "]", "g"
+    ), "");
   }
 
   // extend String prototype

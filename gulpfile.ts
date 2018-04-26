@@ -33,7 +33,7 @@ function add(mode: string, lang: string="de") {
   $.task("build-"+mode+"-"+lang, function (cb) {
     var cfg: any={ src: "./src" };
     new $.Build(cfg)
-      .config("./cfg.json", ["<common", "<"+mode+"-"+lang, "client"])
+      .config("./cfg.json", ["<common", "client", "<"+mode+"-"+lang])
       .config("res=%src/res/**/"+lang+"*.json")
       .config(getPages)
       .config(getClientCfg)
@@ -46,7 +46,7 @@ function add(mode: string, lang: string="de") {
       .addFile(b => cfg.cname, "CNAME", "%dest")
       .add("%images", "%dest/img") // copy images
       .addTs("%typescript", "%dest/js/app.js") // build main ts
-      //.addTs("%coop", "%dest/js/coop.js") // build coop ts
+      .addTs("%coop", "%dest/js/coop.js") // build coop ts
       .addScss("%scss", "%dest/css") // build scss
       .add("%forms", "%dest/forms") // copy forms
       .run(cb);

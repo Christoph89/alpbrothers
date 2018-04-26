@@ -13,7 +13,7 @@ module $alpbros.$ctx
   export function call(verb: string, url: string, data?: any): JQueryPromise<any>
   {
     return session.wait().then(() => {
-      if (data && (verb=="POST" || verb=="PUT"))
+      if (data && verb!="GET")
         data=JSON.stringify(data);
       return $.ajax({
         type: verb,

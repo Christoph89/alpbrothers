@@ -47,7 +47,11 @@ module $alpbros.$ctx.session
   export function signin(email: string, pwd: string, duration: number=0): JQueryPromise<Session>
   {
     if (!_wait) _wait=$.Deferred<any>();
-    return post("/user/session", { email: email, password: pwd, duration: duration||0 })
+    var data={ email: email, password: pwd };
+    if (duration) data["duration"]=duration;
+    else data["remember_me"]=true;
+    console.debug("sign in "+JSON.stringify(data));
+    return post("/user/session", data)
       .always(() => 
       {
         // resolve session promise
@@ -96,6 +100,7 @@ module $alpbros.$ctx.session
       if (_wait) _wait.resolve(); // resolve session promise
       return $.Deferred<any>().resolve().promise();
     }
+    console.debug("sign out");
     return del("/user/session")
       .always(() => 
       {
@@ -117,6 +122,7 @@ module $alpbros.$ctx.session
     var token=current?current.session_token:null;
     if (!token)
       token=Cookies.get(sessionCookie);
+    console.debug("refresh session "+token);
     if (!token)
     {
       if (_wait) _wait.resolve(); // resolve session promise
@@ -143,6 +149,7 @@ module $alpbros.$ctx.session
   /** Sets the current session and cookie. */
   function setSession(session: Session): Session
   {
+    console.debug("set session "+JSON.stringify(session));
     current=session;
     if (current)
       Cookies.set(sessionCookie, current.session_token, { expires: 1 });

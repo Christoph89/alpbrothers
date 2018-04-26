@@ -66,11 +66,9 @@
   
   "upcoming":
   {
-    "title": "Events",
+    "title": "Upcoming Events",
     "empty": "We're sorry, there are currently no upcoming events. They will go online in April. Please come back an take a look in a few days.",
-    "youthDiscountInfo": "(*) Young people unter the age of 18.",
-    "erlebnisCardInfo": "(**) Only free with <i>Erlebnis Card</i>. Tickets without <i>Erlebnis Card</i> are only available at our tourist offices and cost 15 EUR. For more information about the <i> Erlebnis Card</i> visit: <a href=\"https://www.region-villach.at/en/offers/region-villach-card-2505115.html\" target=\"_blank\">https://www.region-villach.at/en/offers/region-villach-card-2505115.html</a> ",
-    "furtherInfo": "For more information or <b>individual tours</b> please send us your <b>inquiry</b>.",
+    "furtherInfo": "For more information or <b>individual tours</b> please send us your <b>inquiry</b> or take a look at <i>\"Show all events\"</i>.",
     "inquireUrl": "mailto:office@alpbrothers.at",
     "inquire": "Inquire now",
     "goUrl": "#/impressions",

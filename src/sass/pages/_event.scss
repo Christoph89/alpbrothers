@@ -1,15 +1,5 @@
 #event.page
 {
-  > section {
-    &.partner {
-      padding-top: 1px;
-    }
-
-    &.hidden {
-      display: none;
-    }
-  }
-
   // erlebniscard
   .erlebniscard-only {
     display: none;
@@ -20,16 +10,20 @@
     }
   }
 
-  .event-price {
-    white-space: nowrap;
+  // registration
+  .reg-only {
+    display: none;
   }
-  @include breakpoint(minmedium) {
-    .event-price {
-      float: right;
+  &.allow-reg {
+    .reg-only {
+      display: inherit;
+    }
+    .no-reg-only {
+      display: none;
     }
   }
+
+  .event-requirements-text {
+    margin-bottom: 1rem;
+  }
 }
-
-
-@import 'event-workshop';
-@import 'signin';

@@ -16,6 +16,12 @@ module $alpbros.$data
   /** Initializes all app data. */
   export function init(): JQueryPromise<any>
   {
+    if ($doc.hasClass("no-data"))
+    {
+      waitEvents=$.Deferred().resolve().promise();
+      return $.Deferred().resolve().promise();
+    }
+
     return $.when(
       // load events
       (waitEvents=$ctx.db.event.q().orderBy("from asc").find())
@@ -46,6 +52,15 @@ module $alpbros.$data
   {
     if (!Array.isArray(event)) event=[event];
     events=$q(events).Concat(event).OrderBy(x => x.from()).ToArray();
+    refreshEventMap();
+    change(); // trigger change event
+  }
+
+  /** Adds the specified event(s). */
+  export function deleteEvent(event: MTBEvent|MTBEvent[])
+  {
+    var arr: MTBEvent[]=Array.isArray(event)?event:[event];
+    events=$q(events).Where(x => !$q(arr).Any(e => e.eventId()==x.eventId())).ToArray();
     refreshEventMap();
     change(); // trigger change event
   }

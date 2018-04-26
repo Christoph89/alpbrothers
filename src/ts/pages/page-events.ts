@@ -65,8 +65,8 @@ module $alpbros.$pages
 
       // init tour select
       var typeSelect=$("select#event-type", this.pageCnt);
-      $q(MTBEventTypes).ForEach(x => {
-        var type=<MTBEventType>x.Value;
+      $q(<Object>$res.eventTypes).ForEach(x => {
+        var type=<MTBEventType>MTBEventTypes[x.Key];
         typeSelect.append('<option value="'+type.id+'">'+type.description+'</option>');
       });
 
@@ -131,9 +131,9 @@ module $alpbros.$pages
     /** Returns a timeline item. */
     private getTimelineItem(event: MTBEvent): JQuery
     {
-      var price=event.isErlebniscard()?$res.events.erlebniscardPrice:event.price();
+      var price=event.priceText();
       var eventUrl=(<string>$res.events.eventUrl).format(event.eventId());
-      var editUrl=(<string>$res.events.editUrl).format(event.seriesId(), event.eventId());
+      var editUrl=$app.choiceUrl($.extend($res.event.editChoice, { series: event.seriesId(), id: event.eventId() }));
       return $('<div class="timeline-block" eventId="'+event.eventId()+'">'+
         '<div class="timeline-img bg-color-'+this.getLevelColor(event)+'" title="'+event.type().name+'">'+
           '<span class="icon style2 major '+event.type().icon+'"></span>'+
@@ -146,7 +146,7 @@ module $alpbros.$pages
               $util.formatFromTo(event.from(), event.to(), $res.events.dateFormat, $res.events.multiDayFormat)+
               "<br />"+$res.events.level+": "+$res.level[MTBLevel[event.level()]]+
             '</strong><br /><br />'+
-            event.description()+
+            event.shortDescription()+
           '</p><br style="clear: both;" />'+
           '<a href="'+eventUrl+'" class="button special icon fa-pencil">'+$res.events.details+'</a> '+
           '<a href="'+editUrl+'" class="button icon fa-pencil role-admin">'+$res.events.edit+'</a>'+

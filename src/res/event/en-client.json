@@ -8,11 +8,37 @@
       {
         "title": "Alpbrothers - Edit event",
         "dateFormat": "dddd MMMM D YYYY HH:mm",
-        "repeat": "Repeat next week"
+        "repeat": "Repeat next week",
+        "occurrenceUrl": "#/event/edit?id={0}"
       },
       "add":
       {
         "title": "Alpbrothers - Add event"
+      },
+      "editChoice":
+      {
+        "title": "Edi Event",
+        "text": "Do you want to edit the single event occurrence or the whole series?",
+        "@Edit occurrence": "#/event/edit?id={id}",
+        "@Edit series": "#/event/edit?id={series}"
+      },
+      "deleteConfirm":
+      {
+        "title": "Delete event?",
+        "text": "Do you really want to delete the event?",
+        "ok": "#/cmd/delete-event?id={id}",
+        "cancel": "#/event/edit?id={id}"
+      },
+      "details":
+      {
+        "date": "{0}",
+        "dateFormat": "dddd MMMM D YYYY hh:mm a - hh:mm a",
+        "level": "{0} (see requirements)",
+        "meeting": "{0} {1}. For more time on trail, please be in time.",
+        "meetingTimeFormat": "hh:mm a",
+        "participants": "max. 6 persons",
+        "price": "The price for the workshop is {0} EUR per person.",
+        "erlebniscardPrice": "The workshop is <b>free with <i>Erlebniscard</i></b>. The standard price without <i>Erlebniscard</i> is <b>15 EUR</b>."
       }
     }
   }

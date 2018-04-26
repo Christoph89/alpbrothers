@@ -1,4 +1,4 @@
-/*! Alpbrothers - cmd/cmd-test.ts
+/*! Alpbrothers - cmd/cmd-agree-cookie.ts
 * Copyright Christoph Schaunig 2017
 */
 

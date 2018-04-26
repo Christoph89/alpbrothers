@@ -72,7 +72,14 @@
 			@include vendor('pointer-events', 'none');
 			opacity: 0.25;
 		}
-	}
+  }
+  
+  a.icon {
+    &.disabled {
+			@include vendor('pointer-events', 'none');
+			opacity: 0.25; 
+		}
+  }
 
 	@mixin color-button($p: null) {
 		input[type="submit"],

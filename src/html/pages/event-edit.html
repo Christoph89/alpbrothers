@@ -70,6 +70,20 @@
         </div>
         <div class="field"></div>
 
+        <!-- max participants -->
+        <div class="field half first">
+          <label>{{ $res.maxParticipants }}</label>
+          <input type="number" name="event-max-participants" placeholder="0" value="6" step="1" min="1"  />
+        </div>
+        <div class="field half">
+          <label>{{ $res.registration }}</label>
+          <select name="event-allow-reg">
+            <option value="1">{{ $res.yes }}</option>
+            <option value="0">{{ $res.no }}</option>
+          </select>
+        </div>
+        <div class="field"></div>
+
         <!-- short description -->
         <div class="field half first">
           <label>{{ $res.shortDescr }}</label>
@@ -92,12 +106,34 @@
         </div>
         <div class="field"></div>
 
+        <!-- requirements -->
+        <div class="field half first">
+          <label>{{ $res.requirements }}</label>
+          <textarea name="event-requirements-de" placeholder="{{ $res.requirementsPlaceholderDE }}"></textarea>
+        </div>
+        <div class="field half">
+          <label>&nbsp;</label>
+          <textarea name="event-requirements-en" placeholder="{{ $res.requirementsPlaceholderEN }}"></textarea>
+        </div>
+        <div class="field"></div>
+
         <!-- image -->
         <div class="field">
           <label>{{ $res.img }}</label>
           {% for img in res.event.images %}
           <img src="{{ root }}img/events/{{ img }}" value="{{ img }}" class="event-img {% if loop.first %}selected first{% endif %}" />
           {% endfor %}
+        </div>
+        <div class="field"></div>
+
+        <!-- meeting point -->
+        <div class="field">
+          <label>{{ $res.meetingPoint }}</label>
+          <input type="text" name="event-meeting-point-description" placeholder="{{ $res.meetingPointDescription }}" />
+          <br />
+          <div class="map" lat="46.57305526" lng="13.93681599" zoom="12">
+            <div class="marker draggable" lat="46.57305526" lng="13.93681599"></div>
+          </div>
         </div>
         <div class="field"></div>
 
@@ -125,7 +161,9 @@
         </div>
         <div class="field"></div>
         <ul class="actions">
-          <li><a class="button save">{{ $res.save }}</a></li>
+          <li mode="edit"><a class="button edit-series icon fa-pencil">{{ $res.editSeries }}</a></li>
+          <li mode="edit"><a class="button delete icon fa-trash">{{ $res.delete }}</a></li>
+          <li><a class="button save icon fa-save">{{ $res.save }}</a></li>
         </ul>
       </form>
     </div>

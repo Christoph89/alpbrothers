@@ -44,10 +44,23 @@ module $alpbros.$pages
       $("a.add-date", this.datesTbl).click(() => this.addDate());
 
       // init save button
-      $("a.button.save", this.pageCnt).click(() => { this.save(); });
+      $("a.button.save", this.pageCnt).click(() => 
+      {
+        this.save(); 
+      });
 
-      // ready
-      wait.resolve(this);
+      // init ui
+      $ui.init(pageCnt);
+
+      // wait for map ready
+      (<JQueryPromise<any>>$(".map", this.pageCnt).data("gmap_promise")).done(() => 
+      {
+        // get map marker
+        this.mapMarker=$(".map", this.pageCnt).data("gmap_markers")[0];
+
+        // ready
+        wait.resolve(this);
+      });
     }
 
     // input fields/controls
@@ -68,9 +81,11 @@ module $alpbros.$pages
     private datesTbl: JQuery;
     private from: JQuery;
     private to: JQuery;
+    private mapMarker: any;
 
     private occurrences: MTBEvent[];
-    private editEvent: MTBEvent;
+    private event: MTBEvent;
+    private series: MTBEvent;
 
     /** Called when the page gets loaded. */
     public load(wait: JQueryDeferred<Page>)
@@ -81,19 +96,33 @@ module $alpbros.$pages
       // get edit event
       if (this.mode=="edit")
       {
+        // ger event id
         var eventId=parseInt($url.args.id);
         if (eventId==null || isNaN(eventId))
           return wait.reject("Missing event id!");
-        this.editEvent=$data.eventMap.Get(eventId);
-        if (!this.editEvent)
+
+        // get event
+        this.event=$data.eventMap.Get(eventId);
+        if (!this.event)
           return wait.reject("Missing event "+eventId);
-        this.initInputFields(this.editEvent);
+
       }
       else
-        this.initInputFields(new MTBEvent(<any>{}));
+        this.event=new MTBEvent(<any>{});
+
+      // get series
+      this.series=this.event.series();
+
+      // init fields
+      this.initInputFields(this.event);
 
       // ready
       if (wait) wait.resolve(this);
+    }
+
+    private isSeries(): boolean
+    {
+      return this.series===this.event;
     }
 
     private initInputFields(event: MTBEvent)
@@ -108,13 +137,28 @@ module $alpbros.$pages
       this.input("level", "[value="+MTBLevel[level]+"]").click();
       this.input("price-type", "[value="+(event.isErlebniscard()?"erlebniscard":"price")+"]").click();
       if (!event.isErlebniscard()) this.input("price").val(parseInt(event.price()));
+      this.input("max-participants").val(event.maxParticipants() || (this.mode=="add"?6:0));
+      this.input("allow-reg").val(event.isRegAllowed()?"1":"0");
       this.input("short-descr-de").val(event.shortDescription_de());
       this.input("short-descr-en").val(event.shortDescription_en());
       this.input("descr-de").val(event.description_de());
       this.input("descr-en").val(event.description_en());
+      this.input("requirements-de").val(event.requirements_de());
+      this.input("requirements-en").val(event.requirements_en());
       var img=event.img(false);
       $(".event-img"+(img?"[value='"+img+"']":".first"), this.pageCnt).click();
+      this.input("meeting-point-description").val(event.meetingPointDescription());
+      var latLng=new google.maps.LatLng(event.lat(), event.lng());
+      this.mapMarker.setPosition(latLng);
+      var from=event.from();
+      if (from) this.input("from").val(from.format("YYYY-MM-DDTHH:mm"));
+      var to=event.to();
+      if (to) this.input("to").val(to.format("YYYY-MM-DDTHH:mm"));
       this.occurrences=event.occurrences();
+      $("table.dates tbody", this.pageCnt).toggle(this.isSeries());
+      $(".add-date", this.pageCnt).toggle(this.isSeries());
+      $(".button.edit-series", this.pageCnt).attr("href", "#/event/edit?id="+event.parentId()).toggle(event.parentId()!=null);
+      $(".button.delete", this.pageCnt).attr("href", $app.confirmUrl($.extend($res.event.deleteConfirm, { id: event.eventId() })));
       this.refreshDatesTbl();
     }
 
@@ -127,9 +171,12 @@ module $alpbros.$pages
         return alert("Invalid from date!");
       if (!to.isValid())
         return alert("Invalid to date!");
-      if ($q(this.occurrences).Any(x => x.from().isSame(from) && x.to().isSame(to)))
+      if ($q(this.occurrences).Any(x => x.from().isSame(from) && x.to().isSame(to) && x.status()!=MTBEventStatus.Deleted))
         return  alert("Duplicate date");
-      this.occurrences.push(new MTBEvent({
+      // try get existing deleted occurence
+      var existing=$q(this.series.occurrences()).FirstOrDefault(null, x => x.from().isSame(from) && x.to().isSame(to));
+      if (existing) existing.state.status=MTBEventStatus.TakesPlace;
+      this.occurrences.push(existing || new MTBEvent({
         from: from.toISOString(),
         to: to.toISOString()
       }));
@@ -144,7 +191,8 @@ module $alpbros.$pages
 
       var tbody=$("tbody", this.datesTbl).empty();
       $q(this.occurrences).OrderBy(x => x.from()).ForEach(x => {
-        tbody.append(this.getDateRow(x));
+        if (x.status()!=MTBEventStatus.Deleted)
+          tbody.append(this.getDateRow(x));
       });
     }
 
@@ -162,22 +210,21 @@ module $alpbros.$pages
           // repeat next week button
           $("<a>").addClass("icon style2 fa-repeat").attr("title", $res.event.edit.repeat).click(() =>
           {
-            this.occurrences.push(new MTBEvent({
-              from: occurrence.from().clone().add(7, "days").toISOString(),
-              to: occurrence.to().clone().add(7, "days").toISOString()
-            }));
+            this.from.val(occurrence.from().clone().add(7, "days").format("YYYY-MM-DDTHH:mm"));
+            this.to.val(occurrence.to().clone().add(7, "days").format("YYYY-MM-DDTHH:mm"));
+            this.addDate();
             this.refreshDatesTbl();
           }),
           // edit button
           $("<a>").addClass("icon style2 fa-pencil mode-edit").click(() =>
           {
-            // @@ todo edit
+            $app.hashChange($res.event.edit.occurrenceUrl.format(occurrence.eventId()))
           }),
           // remove button
           $("<a>").addClass("icon style2 fa-minus").click(() =>
           {
-            // remove date
-            this.occurrences=$q(this.occurrences).Where(x => x!==occurrence).ToArray();
+            // set deleted
+            occurrence.state.status=MTBEventStatus.Deleted;
             // refresh dates table
             this.refreshDatesTbl();
           })
@@ -202,37 +249,44 @@ module $alpbros.$pages
     }
 
     /** Returns the event object from the input. */
-    private getMainEvent(): IMTBEvent
+    private getState(): IMTBEvent
     {
-      if (this.occurrences.length==0)
+      if (this.isSeries() && this.occurrences.length==0)
         return null;
-      var event: IMTBEvent=
+      var state: IMTBEvent;
+      if (this.isSeries())
+        state=this.series? this.series.state : { parentId: null, from: null, to: null };
+      else
       {
-        eventId: 0,
-        parentId: null,
-        from: null,
-        to: null,
-        type: MTBEventTypes[<any>this.input("type").val()].id,
-        status: MTBEventStatus[<string>this.input("status").val()],
-        name: <string>this.input("name-de").val(),
-        name_en: <string>this.input("name-en").val(),
-        shortDescription: <string>this.input("short-descr-de").val(),
-        shortDescription_en: <string>this.input("short-descr-en").val(),
-        description: <string>this.input("descr-de").val(),
-        description_en: <string>this.input("descr-en").val(),
-        price: this.getPrice(),
-        level: MTBLevel[<string>this.input("level", ":checked").val()],
-        img: $(".event-img.selected", this.pageCnt).attr("value")
-      };
-      return event;
+        state=this.event.state;
+        state.from=moment(this.from.val()).format("YYYY-MM-DDTHH:mm");
+        state.to=moment(this.to.val()).format("YYYY-MM-DDTHH:mm");
+      }
+      state.type=MTBEventTypes[<any>this.input("type").val()].id;
+      state.status=MTBEventStatus[<string>this.input("status").val()];
+      state.name=<string>this.input("name-de").val();
+      state.name_en=<string>this.input("name-en").val();
+      state.shortDescription=<string>this.input("short-descr-de").val();
+      state.shortDescription_en=<string>this.input("short-descr-en").val();
+      state.description=<string>this.input("descr-de").val();
+      state.description_en=<string>this.input("descr-en").val();
+      state.requirements=<string>this.input("requirements-de").val();
+      state.requirements_en=<string>this.input("requirements-en").val();
+      state.price=this.getPrice();
+      state.max_participants=parseInt(<string>this.input("max-participants").val());
+      state.allow_reg=parseInt(<string>this.input("allow-reg").val()) || 0;
+      state.level=MTBLevel[<string>this.input("level", ":checked").val()];
+      state.img=$(".event-img.selected", this.pageCnt).attr("value");
+      state.meeting=this.getMeetingPoint();
+      return state;
     }
 
     /** Returns all event occurences. */
-    private getOccurrences(mainEvent: MTBEvent): IMTBEvent[]
+    private getOccurrences(series: MTBEvent): IMTBEvent[]
     {
       return $q(this.occurrences).Select(x => 
       {
-        x.state.parentId=mainEvent.eventId();
+        x.state.parentId=series.eventId();
         return x.state;
       }).ToArray();
     }
@@ -246,41 +300,63 @@ module $alpbros.$pages
       return <string>this.input("price").val();
     }
 
+    /** Gets the meeting point. */
+    private getMeetingPoint(): string
+    {
+      var pos=this.mapMarker.getPosition();
+      var descr=<string>this.input("meeting-point-description").val();
+      return pos.lat()+"/"+pos.lng()+"/"+descr;
+    }
+
     /** Saves (inserts or updates) the event. */
-    private save(): void
+    private save()
     {
       // check if date has been added
       if (this.occurrences.length==0 && this.input("from").val() && this.input("to").val())
         $("a.add-date", this.pageCnt).click();
 
-      var mainEvent=this.getMainEvent();
+      // get series state
+      var state=this.getState();
       
       // show loader
       $ui.loader.show(); 
 
-      // insert or udpate
-      if (this.mode=="add")
+      // insert/update main event
+      $ctx.db.event[this.mode=="add"?"insert":"update"](state).done(event => 
       {
-        // insert main event
-        $ctx.db.event.insert(mainEvent).done(event => 
+        // saved single event
+        if (!this.isSeries())
         {
-          // insert other occurences
-          var occurences=this.getOccurrences(event);
-          $ctx.db.event.insert(occurences).done(events => 
-          {
-            // add events to data
-            $data.addEvent([event].concat(events));
-
-            // go to edit page
+          $ui.loader.hide(); // hide loader
+          $data.change(); // trigger data change event
+          // go to edit page
+          if (this.mode=="add")
             $app.hashChange("#/event/edit?id="+event.eventId());
-          });
+          return;
+        }
+        // else saved series
+
+        // insert/update/delete other occurences
+        var occurences=this.getOccurrences(event);
+        var insert=$q(occurences).Where(x => x.eventId==null || x.eventId==0).ToArray();
+        var update=$q(occurences).Where(x => x.eventId!=null).ToArray();
+
+        $.when(
+          insert.length?$ctx.db.event.insert(insert):$.Deferred<any>().resolve().promise(),
+          update.length?$ctx.db.event.update(update):$.Deferred<any>().resolve().promise()
+        ).done((created, updated) => 
+        {
+          // add events to data
+          if (this.mode=="add") created=[event].concat(created);
+          if (created && created.length) $data.addEvent(created);
+          else $data.change(); // trigger data change event
+
+          // go to edit page
+          if (this.mode=="add")
+            $app.hashChange("#/event/edit?id="+event.eventId());
         })
         .always(() => { $ui.loader.hide(); }); // hide loader
-      }
-      else
-      {
-        // @@todo update
-      }
+      }).fail(() => { $ui.loader.hide(); }); // hide loader
     }
   }
 }

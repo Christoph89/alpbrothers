@@ -21,16 +21,26 @@ module $alpbros.$pages
         // init ui
         $ui.init(pageCnt);
 
-        // ready
-        wait.resolve(this);
+        // wait for map ready
+        (<JQueryPromise<any>>$(".map", this.pageCnt).data("gmap_promise")).done(() => 
+        {
+          // get map marker
+          this.mapMarker=$(".map", this.pageCnt).data("gmap_markers")[0];
+
+          // ready
+          wait.resolve(this);
+        });
       });
     }
+
+    /** Google maps marker */
+    private mapMarker: any;
 
     /** Called when the page gets loaded. */
     public load(wait: JQueryDeferred<Page>)
     { 
       // get url args
-      var eventId=$url.args.id;
+      var eventId=parseInt($url.args.id);
 
       // check if eventId and date is set
       if (!eventId)  
@@ -40,31 +50,68 @@ module $alpbros.$pages
       }
 
       // // get event
-      // var event=$q($data.events).FirstOrDefault(null, x => x.eventId()==eventId);
-      // if (!event)
-      // {
-      //   if (wait) wait.reject("Event not found for '"+$url.hash+"'!");
-      //   return;
-      // }
+      var event: MTBEvent=$data.eventMap.Get(eventId);
+      if (!event)
+      {
+        if (wait) wait.reject("Event not found for '"+$url.hash+"'!");
+        return;
+      }
 
-      // // show command and tpl, hide other sections
-      // var tplName=$url.args.tpl||event.tpl()||"default";
-      // var tpl=$(">section.common, >section."+tplName, this.pageCnt).removeClass("hidden");
-      // $(">section:not(.common, ."+tplName+")", this.pageCnt).addClass("hidden");
-
-      // // toggle erlebniscard fields
-      // this.pageCnt.toggleClass("erlebniscard", event.price()=="Erlebniscard");
-
-      // // set event name, price
-      // $(".event-name", tpl).text(event.name());
-      // $(".event-price-text", tpl).text(event.price());
-      // $(".event-info", tpl).html(
-      //   $util.formatFromTo(event.from(), event.to(), $res.events.dateFormat, $res.events.multiDayFormat)+
-      //   "<br />"+$res.events.level+": "+$res.level[MTBLevel[event.level()]]);
-      // $(".event-text", tpl).html(event.description());
+      // set event data
+      var res=$res.event.details;
+      var get=(n) => $(".event-"+n, this.pageCnt);
+      get("name").text(event.name());
+      get("description").text(event.description());
+      get("img").attr("src", event.img());
+      var dateStr=$util.formatFromTo(event.from(), event.to(), $res.event.details.dateFormat);
+      get("date").html(res.date.format(dateStr));
+      get("level").html(res.level.format(event.levelDescription()))
+      var startTime=event.from().format(res.meetingTimeFormat);
+      get("meeting").html(res.meeting.format(startTime, event.meetingPointDescription()));
+      get("participants").html(res.participants.format(event.maxParticipants()))
+      var price=event.isErlebniscard()?res.erlebniscardPrice:res.price.format(event.priceAsNr());
+      get("price").html(price);
+      this.mapMarker.setPosition(new google.maps.LatLng(event.lat(), event.lng()));
+      this.pageCnt.toggleClass("erlebniscard", event.isErlebniscard());
+      this.pageCnt.toggleClass("allow-reg", event.isRegAllowed());
+      this.setRequirements(event);
 
       // ready
       if (wait) wait.resolve(this);
+    }
+
+    private setRequirements(event: MTBEvent)
+    {
+      var requirements: string[]=[];
+      var lines=$q((event.requirements()||"").split("\n")).Select(x => x.trim()).ToArray();
+      var addDefault=lines[0]!="!";
+      var text=$q(lines).FirstOrDefault(null, x => x[0]!="*") || $res.requirements[event.type().name].text;
+      var customReq=$q(lines).Where(x => x[0]=="*").ToArray();
+      
+      // add default requirements
+      if (addDefault)
+      {
+        var i=0;
+        while (true)
+        {
+          var dreq=$res.requirements[event.type().name][i.toString()];
+          if (!dreq)
+            break;
+          requirements.push(dreq);
+          i++;
+        }
+      }
+      else if (customReq[0]=="!")
+        customReq=$q(customReq).Skip(1).ToArray();
+
+      // add custom requirements
+      requirements=requirements.concat(customReq);
+
+      // set text
+      $(".event-requirements-text", this.pageCnt).html($util.formatMd(text));
+
+      // set requirements
+      $(".event-requirements", this.pageCnt).empty().append($q(requirements).Select(r => $("<li>"+$util.formatMd($util.trimStart(r, "*").trim())+"</li>")).ToArray());
     }
   }
 }

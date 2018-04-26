@@ -1,15 +1,6 @@
 {
   "event":
   {
-    "editchoice":
-    {
-      "header": "Event bearbeiten",
-      "text": "Wollen Sie das einzelne Event oder die gesamte Serie bearbeiten?",
-      "eventBtn": "Event bearbeiten",
-      "seriesBtn": "Serie bearbeiten",
-      "eventUrl": "#/event/edit?id={id}",
-      "seriesUrl": "#/event/edit?id={series}"
-    },
     "edit":
     {
       "title": "Event bearbeiten",
@@ -25,17 +16,43 @@
       "descr": "Beschreibung",
       "descrPlaceholderDE": "Event Beschreibung auf Deutsch",
       "descrPlaceholderEN": "Event description in English",
+      "requirements": "Anforderungen",
+      "requirementsPlaceholderDE": "Event Anforderungen auf Deutsch (getrennt durch Zeilenumbruch, verwende ! als 1. Zeile um alle Anforderungen zu überschreiben)",
+      "requirementsPlaceholderEN": "Event requirements in English (separated by new lines, use ! als 1st line to overwrite all requirements",
       "price": "Preis",
       "erlebniscard": "Erlebniscard",
+      "maxParticipants": "Maximale Teilnehmer",
+      "registration": "Anmeldung",
+      "yes": "Ja (Online)",
+      "no": "Nein (via Email)",
       "img": "Foto",
       "dates": "Termine",
       "save": "Termin speichern",
+      "delete": "Termin löschen",
+      "editSeries": "Serie bearbeiten",
       "from": "Von",
-      "to": "Bis"
+      "to": "Bis",
+      "meetingPoint": "Treffpunkt",
+      "meetingPointDescription": "Beschreibung Treffpunkt"
     },
     "add":
     {
       "title": "Event hinzufügen"
+    },
+    "details":
+    {
+      "date": "Termin",
+      "level": "Level",
+      "meeting": "Treffpunkt",
+      "participants": "Teilnehmer",
+      "price": "Preis",
+      "erlebniscard": "Erlebniscard",
+      "erlebniscardInfo": "Tickets für die Teilnahme ohne <i>Erlebnis Card</i> können nur in den Tourismusinformationen der Region erworben werden. Weitere Informationen zur <i>Erlebnis Card</i> finden Sie hier: <a href=\"https://www.region-villach.at/de/angebote/erlebnis-card-urlaubserlebnisse-im-herzen-3074815.html\" target=\"_blank\">https://www.region-villach.at/de/angebote/erlebnis-card-urlaubserlebnisse-im-herzen-3074815.html</a>",
+      "requirements": "Anforderungen",
+      "registration": "Anmeldung",
+      "noreginfo": "Um sich für dieses Event anzumelden wenden Sie sich bitte per Email, Telefon oder Whatsapp an uns.",
+      "inquire": "Jetzt Anfragen",
+      "inquireUrl": "mailto:office@alpbrothers.at"
     }
   }
 }

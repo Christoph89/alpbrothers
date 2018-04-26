@@ -1,38 +1,52 @@
 <div id="event" class="page hidden divided" back="#/events">
-  <section class="default wrapper style2 color7">
-    <div class="inner">
-      <h2>
-        <span class="event-name"></span>
-        <code class="event-price">
-          <span class="icon fa-money"></span>
-          <span class="event-price-text"></span>
-        </code>
-      </h2>
-      
-      <p>
-        <strong class="event-info"></strong>
-        <br /><br />
-        <span class="event-text"></span>
-        <br /><br />
-        <span class="infos">
-          <sub class="youth-discount">{{ res.upcoming.youthDiscountInfo | safe }}</sub>
-          <br />
-          <sub class="erlebniscard-info">{{ res.upcoming.erlebnisCardInfo | safe }}</sub>
-        </span>
-      </p>
+  {% set $res=res.event.details %}
+  <section class="workshop info spotlight style2 color2 orient-left content-align-left image-position-center">
+    <div class="content">
+      <h2 class="event-name"></h2>
+      <p class="event-description"></p>
+    </div>
+    <div class="image">
+      <img class="event-img" />
+    </div>
+  </section>
+  
+  <section class="workshop organization spotlight style1 color6 orient-right content-align-left">
+    <div class="content">
+      <ul class="alt">
+        <li><strong>{{ $res.date }}:</strong> <span class="event-date"></span></li>
+        <li><strong>{{ $res.level }}:</strong> <span class="event-level"></span></li>
+        <li><strong>{{ $res.meeting }}:</strong> <span class="event-meeting"></span></li>
+        <li><strong>{{ $res.participants }}:</strong> <span class="event-participants"></span></li>
+        <li><strong>{{ $res.price }}:</strong> <span class="event-price"></span></li>
+        <li class="erlebniscard-only"><strong>{{ $res.erlebniscard }}: </strong>{{ $res.erlebniscardInfo | safe }}</li>
+      </ul>
+    </div>
+    <div class="image map" lat="46.57305526" lng="13.93681599" zoom="12">
+      <div class="marker draggable" lat="46.57305526" lng="13.93681599"></div>
+    </div>
+  </section>
+  
+  
+  <section class="workshop requirements spotlight style1 color2 orient-right content-align-left">
+    <div class="content">
+      <h3>{{ $res.requirements }}</h3>
+      <p class="event-requirements-text"></p>
+      <ul class="event-requirements"></ul>
     </div>
   </section>
 
-  {% set tpls=["workshop"] %}
-  {% for tpl in tpls %}
-    {% include "html/pages/event-tpl/event-"+tpl+".html" %}
-  {% endfor %}
-
-  
-  <section class="wrapper style2 color5">
+  <section class="wrapper style2 color5 no-reg-only">
     <div class="inner">
-      <h2>Anmeldung</h2>
-      
+      <h3>{{ $res.registration }}</h3>
+      <p>
+        {{ $res.noreginfo }}
+      </p>
+      <p>
+        Christoph Schaunig & Thomas Raspotnik<br />
+        <a href="tel:+4367761716070" title="{{ res.contact.titleTel }} Christoph Schaunig"><span class="icon style1 fa-phone"></span> +43 677 61716070</a> / <a href="tel:+436767020725" title="{{ res.contact.titleTel }} Thomas Raspotnik">+43 676 7020725</a><br />
+        <a href="mailto:office@alpbrothers.at" title="{{ res.contact.titleEmail }}"><span class="icon style1 fa-envelope"></span> office@alpbrothers.at</a><br />
+        <a href="https://api.whatsapp.com/send?phone=4367761716070" title="{{ res.contact.titleWhatsapp }}" target="_blank"><span class="icon style1 fa-whatsapp"></span> WhatsApp</a>
+      </p>
     </div>
   </section>
     

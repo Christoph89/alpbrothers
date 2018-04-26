@@ -1,15 +1,6 @@
 {
   "event":
   {
-    "editchoice":
-    {
-      "header": "Edi Event",
-      "text": "Do you want to edit the single event occurrence or the whole series?",
-      "eventBtn": "Edit occurrence",
-      "seriesBtn": "Edit series",
-      "eventUrl": "#/event/edit?id={id}",
-      "seriesUrl": "#/event/edit?id={series}"
-    },
     "edit":
     {
       "title": "Edit Event",
@@ -25,16 +16,42 @@
       "descr": "Description",
       "descrPlaceholderDE": "Event Beschreibung auf Deutsch",
       "descrPlaceholderEN": "Event description in English",
+      "requirements": "Requirements",
+      "requirementsPlaceholderDE": "Event Anforderungen auf Deutsch (getrennt durch Zeilenumbruch, verwende ! als 1. Zeile um alle Anforderungen zu überschreiben)",
+      "requirementsPlaceholderEN": "Event requirements in English (separated by new lines, use ! als 1st line to overwrite all requirements",
       "price": "Price",
+      "erlebniscard": "Erlebniscard",
+      "maxParticipants": "Max. Participants",
+      "registration": "Registration",
+      "yes": "Yes (Online)",
+      "no": "No (via Email)",
       "img": "Image",
       "dates": "Dates",
       "save": "Save event",
+      "delete": "Delete event",
+      "editSeries": "Edit Series",
       "from": "From",
-      "to": "To"
+      "to": "To",
+      "meetingPoint": "Meeting Point",
+      "meetingPointDescription": "Meeting point description"
     },
     "add":
     {
       "title": "Add Event"
+    },
+    "details":
+    {
+      "date": "Date",
+      "level": "Level",
+      "meeting": "Meeting point",
+      "participants": "Participants",
+      "price": "Price",
+      "erlebniscard": "Erlebniscard",
+      "erlebniscardInfo": "Tickets without <i>Erlebnis Card</i> are only available at our tourist offices and cost 15 EUR. For more information about the <i> Erlebnis Card</i> visit: <a href=\"https://www.region-villach.at/en/offers/region-villach-card-2505115.html\" target=\"_blank\">https://www.region-villach.at/en/offers/region-villach-card-2505115.html</a>",
+      "requirements": "Requirements",
+      "registration": "Registration",
+      "noreginfo": "In order to register for the event please contact us via email, phone or Whatsapp.",
+      "inquire": "Inquire now"
     }
   }
 }

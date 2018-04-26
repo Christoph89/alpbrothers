@@ -35,10 +35,11 @@ module $alpbros.$ui.events
   /** Returns an event row. */
   function getEventRow(event: MTBEvent): JQuery
   {
+    var eventUrl=(<string>$res.events.eventUrl).format(event.eventId());
     return $("<tr>").addClass("event")
       .append($("<td>").text(event.from().format($res.upcoming.dateFormat)))
       .append($("<td>")
-        .append($("<a>"))/*.attr("href", $cfg.root+event.url)*/.attr("target", "_blank").text(event.name()))
-      .append($("<td>").text(event.isErlebniscard()?$res.events.erlebniscardPrice:event.price()));
+        .append($("<a>").attr("href", eventUrl).attr("target", "_blank").text(event.name())))
+      .append($("<td>").text(event.priceText()));
   }
 }

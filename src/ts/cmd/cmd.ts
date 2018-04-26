@@ -6,6 +6,7 @@
 /// <reference path="cmd-signin.ts" />
 /// <reference path="cmd-signout.ts" />
 /// <reference path="cmd-agree-cookies.ts" />
+/// <reference path="cmd-delete-event.ts" />
 "use strict";
 
 module $alpbros.$cmd

@@ -1,5 +1,5 @@
 <!-- upcoming -->
-<section id="upcoming" href="#/upcoming" class="wrapper style1 color2 align-center no-events">
+<section id="upcoming" href="#/upcoming" class="wrapper style1 color2 align-center no-events-off">
   <div class="inner">
     <h2>{{ res.upcoming.title }}</h2>
     <p class="no-event-info">
@@ -21,14 +21,6 @@
         </tr>
       </table>
     </div>
-
-    <span class="infos">
-      <sub>{{ res.upcoming.youthDiscountInfo | safe }}</sub>
-      <br />
-      <sub>{{ res.upcoming.erlebnisCardInfo | safe }}</sub>
-      <br />
-      <br />
-    </span>
 
     <p>{{ res.upcoming.furtherInfo | safe }}</p>
     <ul class="actions">

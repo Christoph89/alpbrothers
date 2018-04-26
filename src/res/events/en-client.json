@@ -5,7 +5,7 @@
     {  
       "title": "Alpbrothers - Events",
       "level": "Level",
-      "dateFormat": "dddd MMMM D YYYY<br />HH:mm a - HH:mm a",
+      "dateFormat": "dddd MMMM D YYYY<br />hh:mm a - hh:mm a",
       "multiDayFormat": "dd MMMM D<br />- dd MMMM D YYYY",
       "fromFormat": "dddd MMMM D",
       "erlebniscardPrice": "free with Erlebniscard",

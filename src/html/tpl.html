@@ -1,5 +1,5 @@
 <!DOCTYPE HTML>
-<html lang="{{ lang }}" class="unauthenticated">
+<html lang="{{ lang }}" class="unauthenticated {% block opts %}{% endblock %}">
 
 <head>
   {% block head %}
@@ -34,7 +34,7 @@
   {% endblock %}
 </head>
 
-<body class="is-loading">
+<body class="is-loading {% block bodyopts %}{% endblock %}">
 
   {% block bg %}
   <div id="bg"></div>
@@ -52,7 +52,7 @@
   {% endblock %}
 
   <!-- page wrapper -->
-  <div id="main" class="page current">
+  <div id="main" class="page current {% block mainopts %}{% endblock %}">
     
     <!-- content -->
     {% block content %}
