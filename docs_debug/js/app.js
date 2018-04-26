@@ -636,7 +636,7 @@ var $alpbros;
                 return $("<tr>").addClass("event")
                     .append($("<td>").text(event.from().format($alpbros.$res.upcoming.dateFormat)))
                     .append($("<td>")
-                    .append($("<a>").attr("href", eventUrl).attr("target", "_blank").text(event.name())))
+                    .append($("<a>").attr("href", eventUrl).text(event.name())))
                     .append($("<td>").text(event.priceText()));
             }
         })(events = $ui.events || ($ui.events = {}));
