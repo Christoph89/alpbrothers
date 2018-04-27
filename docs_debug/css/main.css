@@ -7606,6 +7606,12 @@ body.is-loading .items.onload-fade-in > * > .inner {
 #event.page .event-requirements-text {
   margin-bottom: 1rem; }
 
+#event.page section.registration.no-reg-only {
+  padding-bottom: 0; }
+
+#event.page section.partner .inner {
+  padding-top: 0.1rem; }
+
 #event-edit.page[mode='edit'] [mode='add'], #event-edit.page[mode='edit'] .mode-add, #event-edit.page .mode-edit [mode='add'], #event-edit.page .mode-edit .mode-add {
   display: none; }
 

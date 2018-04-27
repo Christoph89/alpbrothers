@@ -26,4 +26,14 @@
   .event-requirements-text {
     margin-bottom: 1rem;
   }
+
+  section.registration.no-reg-only {
+    padding-bottom: 0;
+  }
+
+  section.partner {
+    .inner {
+      padding-top: 0.1rem;
+    }
+  }
 }
