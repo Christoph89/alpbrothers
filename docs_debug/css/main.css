@@ -6537,17 +6537,26 @@ body.is-loading .items.onload-fade-in > * > .inner {
   .items.style3.small > * {
     padding: 0.65625rem 0.65625rem 0.1rem 0.65625rem ;
     width: 25%; }
+  .items.style3.xsmall > * {
+    padding: 0.39375rem 0.39375rem 0.1rem 0.39375rem ;
+    width: 20%; }
   @media screen and (max-width: 1280px) {
     .items.style3.small > * {
       padding: 1.09375rem 1.09375rem 0.1rem 1.09375rem ;
-      width: 33.33333%; } }
+      width: 33.33333%; }
+    .items.style3.xsmall > * {
+      padding: 0.65625rem 0.65625rem 0.1rem 0.65625rem ;
+      width: 25%; } }
   @media screen and (max-width: 980px) {
     .items.style3.medium > * {
       padding: 1.75rem 1.75rem 0.1rem 1.75rem ;
       width: 50%; }
     .items.style3.small > * {
       padding: 1.75rem 1.75rem 0.1rem 1.75rem ;
-      width: 50%; } }
+      width: 50%; }
+    .items.style3.xsmall > * {
+      padding: 1.09375rem 1.09375rem 0.1rem 1.09375rem ;
+      width: 33.33333%; } }
   @media screen and (max-width: 736px) {
     .items.style3 {
       margin: 2rem 0; } }
@@ -6561,14 +6570,17 @@ body.is-loading .items.onload-fade-in > * > .inner {
     .items.style3.small > * {
       padding: 1.3125rem 1.3125rem 0.1rem 1.3125rem ;
       width: 100%; }
-    .items.style3.big > *, .items.style3.medium > *, .items.style3.small > * {
+    .items.style3.xsmall > * {
+      padding: 1.3125rem 1.3125rem 0.1rem 1.3125rem ;
+      width: 100%; }
+    .items.style3.big > *, .items.style3.medium > *, .items.style3.small > *, .items.style3.xsmall > * {
       padding-left: 0;
       padding-right: 0; }
-    .items.style3.big > :first-child, .items.style3.medium > :first-child, .items.style3.small > :first-child {
+    .items.style3.big > :first-child, .items.style3.medium > :first-child, .items.style3.small > :first-child, .items.style3.xsmall > :first-child {
       padding-top: 0; }
-    .items.style3.big > :last-child, .items.style3.medium > :last-child, .items.style3.small > :last-child {
+    .items.style3.big > :last-child, .items.style3.medium > :last-child, .items.style3.small > :last-child, .items.style3.xsmall > :last-child {
       padding-bottom: 0; }
-      .items.style3.big > :last-child > .inner > :last-child, .items.style3.medium > :last-child > .inner > :last-child, .items.style3.small > :last-child > .inner > :last-child {
+      .items.style3.big > :last-child > .inner > :last-child, .items.style3.medium > :last-child > .inner > :last-child, .items.style3.small > :last-child > .inner > :last-child, .items.style3.xsmall > :last-child > .inner > :last-child {
         margin-bottom: 0; } }
 
 .items.style1 > * {
@@ -7508,17 +7520,23 @@ body.is-loading .items.onload-fade-in > * > .inner {
   #upcoming tr.show-all .button {
     vertical-align: middle; }
 
-#partner > .inner {
+section.partner > .inner {
   padding: 0.2rem 0; }
 
 .items.partner section {
-  height: 10rem; }
+  height: 8rem; }
   @media screen and (max-width: 480px) {
     .items.partner section {
       height: 6rem; } }
   .items.partner section.anderwald .inner a {
     background-image: url(../img/partner/anderwald.png);
     background-image: url(../img/partner/anderwald.svg); }
+  .items.partner section.lakebike .inner a {
+    background-image: url(../img/partner/lakebike.png);
+    background-image: url(../img/partner/lakebike.svg); }
+  .items.partner section.regionvillach .inner a {
+    background-image: url(../img/partner/regionvillach.png);
+    background-image: url(../img/partner/regionvillach.svg); }
   .items.partner section.grossegger .inner a {
     background-image: url(../img/partner/grossegger.png);
     background-image: url(../img/partner/grossegger.svg); }
@@ -7531,6 +7549,12 @@ body.is-loading .items.onload-fade-in > * > .inner {
   .items.partner section.r2bike .inner a {
     background-image: url(../img/partner/r2bike.png);
     background-image: url(../img/partner/r2bike.svg); }
+  .items.partner section.ridecompany .inner a {
+    background-image: url(../img/partner/ridecompany.png);
+    background-image: url(../img/partner/ridecompany.svg); }
+  .items.partner section.samonigghof .inner a {
+    background-image: url(../img/partner/samonigghof.png);
+    background-image: url(../img/partner/samonigghof.svg); }
   .items.partner section .inner {
     width: 100%;
     height: 100%; }

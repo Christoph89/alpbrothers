@@ -272,14 +272,17 @@
 				@include items-style3-size(big, 2, _size(gutter) * 0.5);
 				@include items-style3-size(medium, 3, _size(gutter) * 0.5 * 0.625);
 				@include items-style3-size(small, 4, _size(gutter) * 0.5 * 0.375);
+				@include items-style3-size(xsmall, 5, _size(gutter) * 0.5 * 0.225);
 
 				@include breakpoint(large) {
 					@include items-style3-size(small, 3, _size(gutter) * 0.5 * 0.625);
+					@include items-style3-size(xsmall, 4, _size(gutter) * 0.5 * 0.375);
 				}
 
 				@include breakpoint(medium) {
 					@include items-style3-size(medium, 2, _size(gutter) * 0.5);
 					@include items-style3-size(small, 2, _size(gutter) * 0.5);
+					@include items-style3-size(xsmall, 3, _size(gutter) * 0.5 * 0.625);
 				}
 
 				@include breakpoint(small) {
@@ -290,10 +293,12 @@
 					@include items-style3-size(big, 1, _size(gutter) * 0.5 * 0.75);
 					@include items-style3-size(medium, 1, _size(gutter) * 0.5 * 0.75);
 					@include items-style3-size(small, 1, _size(gutter) * 0.5 * 0.75);
+					@include items-style3-size(xsmall, 1, _size(gutter) * 0.5 * 0.75);
 
 					&.big,
 					&.medium,
-					&.small {
+					&.small,
+					&.xsmall  {
 						> * {
 							padding-left: 0;
 							padding-right: 0;

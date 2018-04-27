@@ -5,7 +5,7 @@
   }
 }
 
-#partner {
+section.partner {
   >.inner { 
     padding: 0.2rem 0;
   }
@@ -13,14 +13,18 @@
 
 .items.partner {
   section {
-    height: 10rem;
+    height: 8rem;
     @include breakpoint(xsmall) { height: 6rem; }
 
     @include _partner(anderwald);
+    @include _partner(lakebike);
+    @include _partner(regionvillach);
     @include _partner(grossegger);
     @include _partner(raika);
     @include _partner(ktn);
     @include _partner(r2bike);
+    @include _partner(ridecompany);
+    @include _partner(samonigghof);
 
     .inner {
       width: 100%;
