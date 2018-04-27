@@ -13,13 +13,17 @@ module $alpbros.$ctx.db
     public name: string;
     public id: string;
     public parse: (obj: any) => T;
+    public failLoadStatic: () => void;
+    public staticRes: string;
 
     /** Initializes a new instance of DBTable. */
-    public constructor(name: string, id: string, parse?: (obj: any) => T)
+    public constructor(name: string, id: string, parse?: (obj: any) => T, staticRes?: string, failLoadStatic?: () => void)
     {
       this.name=name;
       this.id=id;
       this.parse=parse;
+      this.staticRes=staticRes;
+      this.failLoadStatic=failLoadStatic;
     }
 
     /** Starts a new query. */
@@ -170,10 +174,31 @@ module $alpbros.$ctx.db
       if (this._limit) data["limit"]=this._limit;
       if (this._offset) data["offset"]=this._offset;
       if (this._related) data["related"]=this._related;
-      return get(this._url, data).then(res => this.parseMany(res));
+      return get(this._url, data).then(
+        res => this.parseMany(res), // success
+        () => // fail
+        {
+          // retry from static resource
+          if (this._table.staticRes)
+          {
+            console.debug("Failed to load "+this._table.name+" from service, try using static resource.");
+            if (this._table.failLoadStatic) this._table.failLoadStatic();
+            return this.retryStatic(this._table.staticRes).then(res => this.parseMany(res));
+          }
+        });
+    }
+
+    private retryStatic(res): JQueryPromise<any>
+    {
+      return $.ajax({
+        type: "GET",
+        url: $cfg.root+res,
+        accepts: { json: "application/json" },
+        contentType: "application/json",
+      });
     }
   }
 
   // init tables
-  export var event=new DBTable<IMTBEvent, MTBEvent>("event", "eventId", ev => new MTBEvent(ev));
+  export var event=new DBTable<IMTBEvent, MTBEvent>("event", "eventId", ev => new MTBEvent(ev), "data/events.json", () => { $cfg.allow_reg=false; });
 }

@@ -49,6 +49,7 @@ function add(mode: string, lang: string="de") {
       .addTs("%coop", "%dest/js/coop.js") // build coop ts
       .addScss("%scss", "%dest/css") // build scss
       .add("%forms", "%dest/forms") // copy forms
+      .addJson("%src/res/events.json", "%dest/data") // copy events
       .run(cb);
   });
   if (lang=="de") add(mode, "en");

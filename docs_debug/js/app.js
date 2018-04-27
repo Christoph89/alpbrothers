@@ -1399,10 +1399,12 @@ var $alpbros;
             /** Specifies a database table. */
             var DBTable = /** @class */ (function () {
                 /** Initializes a new instance of DBTable. */
-                function DBTable(name, id, parse) {
+                function DBTable(name, id, parse, staticRes, failLoadStatic) {
                     this.name = name;
                     this.id = id;
                     this.parse = parse;
+                    this.staticRes = staticRes;
+                    this.failLoadStatic = failLoadStatic;
                 }
                 /** Starts a new query. */
                 DBTable.prototype.q = function () {
@@ -1518,13 +1520,30 @@ var $alpbros;
                         data["offset"] = this._offset;
                     if (this._related)
                         data["related"] = this._related;
-                    return $ctx.get(this._url, data).then(function (res) { return _this.parseMany(res); });
+                    return $ctx.get(this._url, data).then(function (res) { return _this.parseMany(res); }, // success
+                    function () {
+                        // retry from static resource
+                        if (_this._table.staticRes) {
+                            console.debug("Failed to load " + _this._table.name + " from service, try using static resource.");
+                            if (_this._table.failLoadStatic)
+                                _this._table.failLoadStatic();
+                            return _this.retryStatic(_this._table.staticRes).then(function (res) { return _this.parseMany(res); });
+                        }
+                    });
+                };
+                DBQuery.prototype.retryStatic = function (res) {
+                    return $.ajax({
+                        type: "GET",
+                        url: $alpbros.$cfg.root + res,
+                        accepts: { json: "application/json" },
+                        contentType: "application/json"
+                    });
                 };
                 return DBQuery;
             }());
             db.DBQuery = DBQuery;
             // init tables
-            db.event = new DBTable("event", "eventId", function (ev) { return new $alpbros.MTBEvent(ev); });
+            db.event = new DBTable("event", "eventId", function (ev) { return new $alpbros.MTBEvent(ev); }, "data/events.json", function () { $alpbros.$cfg.allow_reg = false; });
         })(db = $ctx.db || ($ctx.db = {}));
     })($ctx = $alpbros.$ctx || ($alpbros.$ctx = {}));
 })($alpbros || ($alpbros = {}));
