@@ -38,15 +38,15 @@ function add(mode: string, lang: string="de") {
       .config(getPages)
       .config(getClientCfg)
       .add("%vendor", "%dest/js/vendor.js") // copy and join vendor scripts
-      .add("%src/vendor/iframeResizer/iframeResizer*.js", "%dest/js") // copy iframeResizer
+      .add("%iframeResizer", "%dest/js") // copy iframeResizer
       .add("%styles", "%dest/css") // copy pure css styles
       .add("%fonts", "%dest/fonts") // copy fonts
-      .addTpl("%html", "%src/", "%dest", cfg) // build html templates
+      .addTpl("%html", "%src/", "%dest", cfg) // build html templates 
       .addTpl("%pages", "%src/", "%dest/pages", cfg) // build page templates
       .add("%tpl", "%dest") // copy cname, robots.txt, favicon,...
       .addFile(b => cfg.cname, "CNAME", "%dest")
       .add("%images", "%dest/img") // copy images
-      .addTs("%typescript", "%dest/js/app.js") // build main ts
+      .addTs("%typescript", "%dest/js/app.js") // build main ts  
       .addTs("%coop", "%dest/js/coop.js") // build coop ts
       .addScss("%scss", "%dest/css") // build scss
       .add("%forms", "%dest/forms") // copy forms
