@@ -22,6 +22,11 @@
 
   <link rel="stylesheet" href="css/main.css" />
 
+  
+  <script src="https://cdn.polyfill.io/v2/polyfill.min.js"></script>
+  <script src="js/vendor.js"></script>
+  
+
   <!-- Google Analytics -->
   <script>
     (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
@@ -51,7 +56,7 @@
     
     <!-- content -->
     
-<section class="spotlight style1 color2 orient-left content-align-left image-position-center onscroll-content-fade-right onscroll-image-fade-in">
+<section class="spotlight style1 color2 orient-left content-align-left image-position-center">
   <div class="content">
     <h1 style="font-size: 2.25rem">Guiding & Workshops</h1>
     <p><b>Mountainbiken in Kärnten</b> ist einzigartig. 
@@ -66,13 +71,13 @@
   </div>
 </section>
 
-<section class="spotlight quote style1 color3 invert content-align-center image-position-center onscroll-content-fade-right">
+<section class="spotlight quote style1 color3 invert content-align-center image-position-center">
   <div class="content">
     <h3><i>Vom Berg zum See, Mountainbiken in Kärnten ist einzigartig!</i></h3>
   </div>
 </section>
 
-<section id="alpbrothers" class="alpbrothers spotlight style1 color2 orient-right content-align-left image-position-center onscroll-content-fade-right onscroll-image-fade-in">
+<section id="alpbrothers" class="alpbrothers spotlight style1 color2 orient-right content-align-left image-position-center">
   <div class="content">
     <h2>Alpbrothers Mountainbike Guiding</h2>
     <p>ist dein Anbieter für <b>individuelle Mountainbike Touren in K&auml;rnten</b>. Egal ob Techniktraining, kurz-knackiger Feierabend Trail, fetziger Enduro Ausflug oder ausgiebige Dreiländer-Tagestour, wir sind deine Begleiter auf dem Weg zum <b>Rundum-Sorglos-Bike-Paket</b> und führen dich durch deine individuelle Traumtour im Raum <b>Villach / Faaker See / Dreiländereck</b>.</p>
@@ -86,7 +91,7 @@
 </section>
 
 <section class="alpbrothers wrapper style1 color5 align-center">
-  <section class="spotlight quote style1 color1 invert content-align-center image-position-center onscroll-content-fade-right">
+  <section class="spotlight quote style1 color1 invert content-align-center image-position-center">
     <div class="content">
       <h3><i>"Mountainbiken ist für uns eine Lebenseinstellung."</i></h3>
       <h4>Alpbrothers</h4>
@@ -149,7 +154,7 @@
   </div>
 </section>
 
-<section id="ridecompany" class="ridecompany spotlight style1 color2 orient-left content-align-left image-position-center onscroll-content-fade-right onscroll-image-fade-in">
+<section id="ridecompany" class="ridecompany spotlight style1 color2 orient-left content-align-left image-position-center">
   <div class="content">
     <h2>ride.company</h2>
     <p>Unser Basecamp ist die <b>Region Villach mit dem Ossiacher See</b> und dem Faaker See.
@@ -168,7 +173,7 @@
 </section>
 
 <section class="ridecompany wrapper style1 color5 align-center">
-  <section class="spotlight quote style1 color1 invert content-align-center image-position-center onscroll-content-fade-right">
+  <section class="spotlight quote style1 color1 invert content-align-center image-position-center">
     <div class="content">
       <h3><i>Fahrtechnikkurse | Familientouren | Sonnenaufgangstouren | Sonnenuntergangstouren | E-Mountainbiketouren | leichte Tagestouren | mittlere Tagestouren | schwere Tagestouren | Bikebergsteigen | Mehrtägige Bikereisen | Individuelle Touren | Schrauber Workshops</i></h3>
       <h4>ride.company</h4>
@@ -254,10 +259,6 @@
 
   <!-- Scripts -->
   
-  <script src="https://cdn.polyfill.io/v2/polyfill.min.js"></script>
-  <script src="js/vendor.js"></script>
-  
-  
   <script type="text/javascript">
   // change order of alpbros and ridecompany randomly
   $(document).ready(function()
@@ -273,7 +274,7 @@
     // init app on document ready
     $(document).ready(function()
     {
-      $alpbros.$app.init({"shownEvents":5,"allow_reg":false,"ctx":{"apikey":"7f00b6496ff388f0f44b7857662285f954b84ff9dcaebb70d0451750e53321ff","baseurl":"https://alpbrothers.oraclecloud2.dreamfactory.com/api/v2","db":"db_alpbros"},"roles":{"Alpbrothers Admin":"admin","Alpbrothers Partner":"partner","Alpbrothers WWW":"public","":"public"},"access":{"page":{"main":["*"],"events":["*"],"event":["*"],"event-edit":["admin"],"signin":["*"]}},"root":"","lang":"de","res":{"level":{"Everyone":"Jedermann","Beginner":"Einsteiger","Advanced":"Fortgeschritten","All":"Alle"},"eventTypes":{"TechniqueTraining":{"description":"Technik Training","icon":"fa-cogs","offer":true},"GuidedTour":{"description":"Geführte Tour","icon":"fa-bicycle","offer":true},"EBikeTour":{"description":"E-Bike Tour","icon":"fa-bolt"},"Camp":{"description":"Camp","icon":"fa-home"},"MechanicalTraining":{"description":"Schrauberkurs","icon":"fa-wrench"}},"eventStatus":{"TakesPlace":"Findet statt","InProgress":"In Bearbeitung","Canceled":"Abgesagt","Deleted":"Gelöscht"},"requirements":{"TechniqueTraining":{"0":"Mindestalter <b>12 Jahre</b> (darunter nur mit Begleitung eines Erziehungsberechtigten)","1":"<b>Unter 18 Jahren</b> benötigst du die <b>Einverständnis deines Erziehungsberechtigten</b>","2":"Du musst <b>gesund</b> sein","3":"Ein <b>geländefähiges Mountainike</b> = Hardtail oder Fully ab rund 100mm Federweg (nicht mitgenommen werden Räder mit Starrgabel, Straßen-/Renn-/Triathlonräder, City- und Trekking Bikes sowie BMX und Dirt Bikes)","4":"Idealerweise <b>Fahrradbekleidung</b> + Regenbekleidung + Rucksack","5":"<b>Fahrrad Helm und Handschuhe</b> sind Pflicht! (Halbschalenhelm genügt)","6":"<b>Passendes Schuhwerk</b>. Idealerweise Mountainbike- oder Sport Schuhe","7":"Genügend Getränke/Verpflegung für 3-4 Stunden","8":"<b>Lernbereitschaft</b> und die Liebe zum Mountainbiken","9":"Mountainbike + Ausrüstung kann auf Anfrage ausgeliehen werden.","text":"Unser Trail Workshop ist <b>für Einsteiger und Interessierte</b>, sowie für jeden der seine <b>Technik am Mountainbike verbessern</b> möchte geeignet."},"GuidedTour":{"0":"Mindestalter <b>12 Jahre</b> (darunter nur mit Begleitung eines Erziehungsberechtigten)","1":"<b>Unter 18 Jahren</b> benötigst du die <b>Einverständnis deines Erziehungsberechtigten</b>","2":"Du musst <b>gesund</b> sein","3":"Ein <b>geländefähiges Mountainike</b> = Hardtail oder Fully ab rund 100mm Federweg (nicht mitgenommen werden Räder mit Starrgabel, Straßen-/Renn-/Triathlonräder, City- und Trekking Bikes sowie BMX und Dirt Bikes)","4":"Idealerweise <b>Fahrradbekleidung</b> + Regenbekleidung + Rucksack","5":"<b>Fahrrad Helm und Handschuhe</b> sind Pflicht! (Halbschalenhelm genügt)","6":"<b>Passendes Schuhwerk</b>. Idealerweise Mountainbike- oder Sport Schuhe","7":"Genügend Getränke/Verpflegung für 3-4 Stunden","8":"<b>Lernbereitschaft</b> und die Liebe zum Mountainbiken","9":"Mountainbike + Ausrüstung kann auf Anfrage ausgeliehen werden.","text":""}},"event":{"title":"Alpbrothers - Event","edit":{"title":"Alpbrothers - Event bearbeiten","dateFormat":"dddd D. MMMM YYYY HH:mm","repeat":"In einer Woche wiederholen","occurrenceUrl":"#/event/edit?id={0}"},"add":{"title":"Alpbrothers - Event hinzufügen"},"editChoice":{"title":"Event bearbeiten","text":"Wollen Sie den einzelnen Termin oder die gesamte Serie bearbeiten?","@Termin bearbeiten":"#/event/edit?id={id}","@Serie bearbeiten":"#/event/edit?id={series}"},"deleteConfirm":{"title":"Event löschen?","text":"Wollen sie das Event wirklich löschen?","ok":"#/cmd/delete-event?id={id}","cancel":"#/event/edit?id={id}"},"details":{"date":"{0}","dateFormat":"dddd D. MMMM YYYY HH:mm - HH:mm [Uhr]","level":"{0} (siehe Anforderungen)","meeting":"{0} {1}. Für mehr Zeit am Trail, bitten wir um <b>Pünktlichkeit</b>.","meetingTimeFormat":"HH:mm [Uhr]","participants":"Da wir um <b>Qualität</b> bemüht sind und auf unsere Teilnehmer eingehen möchten ist die <b>Teilnehmerzahl auf {0} Personen begrenzt</b>.","price":"Der Workshop kostet {0} EUR pro Teilnehmer","erlebniscardPrice":"Der Workshop ist <b>kostenlos mit <i>Erlebniscard</i></b>. Der Regulärpreis ohne <i>Erlebniscard</i> beträgt <b>15 EUR</b>."}},"events":{"title":"Alpbrothers - Events","level":"Level","dateFormat":"dddd D. MMMM YYYY<br />HH:mm - HH:mm [Uhr]","multiDayFormat":"dd D. - dd D. MMMM YYYY","fromFormat":"dddd D. MMMM","erlebniscardPrice":"kostenlos mit Erlebniscard","imgPath":"img/events/","details":"Details & Anmeldung","edit":"Bearbeiten","eventUrl":"#/event?id={0}","editUrl":"#/event/editchoice?series={0}&id={1}"},"main":{"title":"Alpbrothers - Dein Mountainbike Guide in Kärnten am Faaker See"},"upcoming":{"dateFormat":"dd DD.MM.YYYY HH:mm [Uhr]"}},"pages":{"main":{"name":"main","preload":true,"synonyms":[]},"admin":{"name":"admin","preload":false,"synonyms":[]},"choice":{"name":"choice","preload":false,"synonyms":[]},"confirm":{"name":"confirm","preload":false,"synonyms":[]},"event-edit":{"name":"event-edit","preload":true,"synonyms":["event-add"]},"event":{"name":"event","preload":false,"synonyms":[]},"events":{"name":"events","preload":false,"synonyms":[]},"impressum":{"name":"impressum","preload":false,"synonyms":[]},"legalnotice":{"name":"legalnotice","preload":false,"synonyms":[]},"signin":{"name":"signin","preload":false,"synonyms":[]}}});
+      $alpbros.$app.init({"shownEvents":5,"allow_reg":true,"ctx":{"apikey":"4b33abd43ef19f34327029142e4d8a0ca58a78477f82622f48775493dd4e1087","baseurl":"https://api.alpbrothers.at/api/v2","db":"db_alpbros"},"roles":{"Alpbrothers Admin":"admin","Alpbrothers Partner":"partner","Alpbrothers WWW":"public","":"public"},"access":{"page":{"main":["*"],"events":["*"],"event":["*"],"event-edit":["admin"],"signin":["*"]}},"root":"","lang":"de","res":{"level":{"Everyone":"Jedermann","Beginner":"Einsteiger","Advanced":"Fortgeschritten","All":"Alle"},"eventTypes":{"TechniqueTraining":{"description":"Technik Training","icon":"fa-cogs","offer":true},"GuidedTour":{"description":"Geführte Tour","icon":"fa-bicycle","offer":true},"EBikeTour":{"description":"E-Bike Tour","icon":"fa-bolt"},"Camp":{"description":"Camp","icon":"fa-home"},"MechanicalTraining":{"description":"Schrauberkurs","icon":"fa-wrench"}},"eventStatus":{"TakesPlace":"Findet statt","InProgress":"In Bearbeitung","Canceled":"Abgesagt","Deleted":"Gelöscht"},"requirements":{"TechniqueTraining":{"0":"Mindestalter <b>12 Jahre</b> (darunter nur mit Begleitung eines Erziehungsberechtigten)","1":"<b>Unter 18 Jahren</b> benötigst du die <b>Einverständnis deines Erziehungsberechtigten</b>","2":"Du musst <b>gesund</b> sein","3":"Ein <b>geländefähiges Mountainike</b> = Hardtail oder Fully ab rund 100mm Federweg (nicht mitgenommen werden Räder mit Starrgabel, Straßen-/Renn-/Triathlonräder, City- und Trekking Bikes sowie BMX und Dirt Bikes)","4":"Idealerweise <b>Fahrradbekleidung</b> + Regenbekleidung + Rucksack","5":"<b>Fahrrad Helm und Handschuhe</b> sind Pflicht! (Halbschalenhelm genügt)","6":"<b>Passendes Schuhwerk</b>. Idealerweise Mountainbike- oder Sport Schuhe","7":"Genügend Getränke/Verpflegung für 3-4 Stunden","8":"<b>Lernbereitschaft</b> und die Liebe zum Mountainbiken","9":"Mountainbike + Ausrüstung kann auf Anfrage ausgeliehen werden.","text":"Unser Trail Workshop ist <b>für Einsteiger und Interessierte</b>, sowie für jeden der seine <b>Technik am Mountainbike verbessern</b> möchte geeignet."},"GuidedTour":{"0":"Mindestalter <b>12 Jahre</b> (darunter nur mit Begleitung eines Erziehungsberechtigten)","1":"<b>Unter 18 Jahren</b> benötigst du die <b>Einverständnis deines Erziehungsberechtigten</b>","2":"Du musst <b>gesund</b> sein","3":"Ein <b>geländefähiges Mountainike</b> = Hardtail oder Fully ab rund 100mm Federweg (nicht mitgenommen werden Räder mit Starrgabel, Straßen-/Renn-/Triathlonräder, City- und Trekking Bikes sowie BMX und Dirt Bikes)","4":"Idealerweise <b>Fahrradbekleidung</b> + Regenbekleidung + Rucksack","5":"<b>Fahrrad Helm und Handschuhe</b> sind Pflicht! (Halbschalenhelm genügt)","6":"<b>Passendes Schuhwerk</b>. Idealerweise Mountainbike- oder Sport Schuhe","7":"Genügend Getränke/Verpflegung für 3-4 Stunden","8":"<b>Lernbereitschaft</b> und die Liebe zum Mountainbiken","9":"Mountainbike + Ausrüstung kann auf Anfrage ausgeliehen werden.","text":""}},"events":{"title":"Alpbrothers - Events","level":"Level","dateFormat":"dddd D. MMMM YYYY<br />HH:mm - HH:mm [Uhr]","multiDayFormat":"dd D. - dd D. MMMM YYYY","fromFormat":"dddd D. MMMM","erlebniscardPrice":"kostenlos mit Erlebniscard","imgPath":"img/events/","details":"Details & Anmeldung","edit":"Bearbeiten","eventUrl":"#/event?id={0}","editUrl":"#/event/editchoice?series={0}&id={1}"},"event":{"title":"Alpbrothers - Event","edit":{"title":"Alpbrothers - Event bearbeiten","dateFormat":"dddd D. MMMM YYYY HH:mm","repeat":"In einer Woche wiederholen","occurrenceUrl":"#/event/edit?id={0}"},"add":{"title":"Alpbrothers - Event hinzufügen"},"editChoice":{"title":"Event bearbeiten","text":"Wollen Sie den einzelnen Termin oder die gesamte Serie bearbeiten?","@Termin bearbeiten":"#/event/edit?id={id}","@Serie bearbeiten":"#/event/edit?id={series}"},"deleteConfirm":{"title":"Event löschen?","text":"Wollen sie das Event wirklich löschen?","ok":"#/cmd/delete-event?id={id}&goto={goto}"},"details":{"date":"{0}","dateFormat":"dddd D. MMMM YYYY HH:mm - HH:mm [Uhr]","level":"{0} (siehe Anforderungen)","meeting":"{0} {1}. Für mehr Zeit am Trail, bitten wir um <b>Pünktlichkeit</b>.","meetingTimeFormat":"HH:mm [Uhr]","participants":"Da wir um <b>Qualität</b> bemüht sind und auf unsere Teilnehmer eingehen möchten ist die <b>Teilnehmerzahl auf {0} Personen begrenzt</b>.","price":"Der Workshop kostet {0} EUR pro Teilnehmer","erlebniscardPrice":"Der Workshop ist <b>kostenlos mit <i>Erlebniscard</i></b>. Der Regulärpreis ohne <i>Erlebniscard</i> beträgt <b>15 EUR</b>.","regDateFormat":"DD.MM.YYYY HH:mm","regBy":"Anmeldung durch {0}","regSuccess":"Anmeldung erfolgreich! Eine Bestätigung wurde an deine Email Adresse gesendet.","regFail":"Anmeldung fehlgeschlagen. Bitte versuchen Sie es erneut. Sollte es dennoch nicht funktionieren, wenden Sie sich bitte per Email oder Telefon an uns!","deleteReg":"Anmeldung löschen","cancelReg":"Anmeldung stornieren","reactivate":"Anmeldung reaktivieren"},"deleteRegConfirm":{"title":"Anmeldung löschen?","text":"Wollen sie die Anmeldung für {name} wirklich löschen?","ok":"#/cmd/delete-registration?regId={regId}&eventId={eventId}&created={created}&createdBy={createdBy}&email={email}&phone={phone}&name={name}&goto={goto}&force={force}&status={status}"},"cancelRegConfirm":{"title":"Anmeldung stornieren?","text":"Wollen sie die Anmeldung für {name} wirklich stornieren?","ok":"#/cmd/delete-registration?regId={regId}&eventId={eventId}&created={created}&createdBy={createdBy}&email={email}&phone={phone}&name={name}&goto={goto}&force={force}&status={status}"},"reactivateRegConfirm":{"title":"Anmeldung reaktivieren?","text":"Wollen sie die Anmeldung für {name} wirklich reaktivieren?","ok":"#/cmd/delete-registration?regId={regId}&eventId={eventId}&created={created}&createdBy={createdBy}&email={email}&phone={phone}&name={name}&goto={goto}&force={force}&status={status}"}},"main":{"title":"Alpbrothers - Dein Mountainbike Guide in Kärnten am Faaker See"},"upcoming":{"dateFormat":"dd DD.MM.YYYY HH:mm [Uhr]"}},"pages":{"main":{"name":"main","preload":true,"synonyms":[]},"admin":{"name":"admin","preload":false,"synonyms":[]},"choice":{"name":"choice","preload":false,"synonyms":[]},"confirm":{"name":"confirm","preload":false,"synonyms":[]},"event-edit":{"name":"event-edit","preload":true,"synonyms":["event-add"]},"event":{"name":"event","preload":false,"synonyms":[]},"events":{"name":"events","preload":false,"synonyms":[]},"impressum":{"name":"impressum","preload":false,"synonyms":[]},"legalnotice":{"name":"legalnotice","preload":false,"synonyms":[]},"signin":{"name":"signin","preload":false,"synonyms":[]}}});
     });
   </script>
   
