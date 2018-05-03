@@ -38,6 +38,7 @@ function add(mode: string, lang: string="de") {
       .config(getPages)
       .config(getClientCfg)
       .add("%vendor", "%dest/js/vendor.js") // copy and join vendor scripts
+      .add("%src/vendor/iframeResizer/iframeResizer*.js", "%dest/js") // copy iframeResizer
       .add("%styles", "%dest/css") // copy pure css styles
       .add("%fonts", "%dest/fonts") // copy fonts
       .addTpl("%html", "%src/", "%dest", cfg) // build html templates
