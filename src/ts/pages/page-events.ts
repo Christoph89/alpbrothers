@@ -90,7 +90,7 @@ module $alpbros.$pages
     private appendEvents()
     {
       this.timelineCnt.empty();
-      this.timelineItems=$q($data.events).Where(ev => ev.isOccurrence()).Select(ev => <any>{
+      this.timelineItems=$q($data.events).Where(ev => ev.isOccurrence() && (ev.status()==MTBEventStatus.TakesPlace || $ctx.session.isAdmin())).Select(ev => <any>{
         event: ev,
         item: this.getTimelineItem(ev)
       }).ToArray();

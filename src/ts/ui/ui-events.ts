@@ -27,7 +27,7 @@ module $alpbros.$ui.events
     var now=moment(new Date());
     $("tr.dummy", tbl).remove();
     tbl.prepend($q($data.events)
-      .Where(ev => ev.isOccurrence())
+      .Where(ev => ev.isOccurrence() && ev.status()==MTBEventStatus.TakesPlace)
       .SkipWhile(ev => ev.from()<now)
       .Take($cfg.shownEvents)
       .Select(ev => getEventRow(ev))

@@ -648,7 +648,7 @@ var $alpbros;
                 var now = moment(new Date());
                 $("tr.dummy", tbl).remove();
                 tbl.prepend($q($alpbros.$data.events)
-                    .Where(function (ev) { return ev.isOccurrence(); })
+                    .Where(function (ev) { return ev.isOccurrence() && ev.status() == $alpbros.MTBEventStatus.TakesPlace; })
                     .SkipWhile(function (ev) { return ev.from() < now; })
                     .Take($alpbros.$cfg.shownEvents)
                     .Select(function (ev) { return getEventRow(ev); })
@@ -1993,7 +1993,7 @@ var $alpbros;
             PageEvents.prototype.appendEvents = function () {
                 var _this = this;
                 this.timelineCnt.empty();
-                this.timelineItems = $q($alpbros.$data.events).Where(function (ev) { return ev.isOccurrence(); }).Select(function (ev) { return ({
+                this.timelineItems = $q($alpbros.$data.events).Where(function (ev) { return ev.isOccurrence() && (ev.status() == $alpbros.MTBEventStatus.TakesPlace || $alpbros.$ctx.session.isAdmin()); }).Select(function (ev) { return ({
                     event: ev,
                     item: _this.getTimelineItem(ev)
                 }); }).ToArray();
