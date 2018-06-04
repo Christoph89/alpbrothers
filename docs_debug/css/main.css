@@ -2684,6 +2684,20 @@ a.icon.style2:active:before {
     width: 100%; }
     .image.main img {
       width: 100%; }
+  .image .label {
+    position: absolute;
+    font-size: 0.5rem;
+    font-weight: bold; }
+    .image .label.white {
+      color: #ffffff; }
+    .image .label.left {
+      left: 5px; }
+    .image .label.right {
+      right: 5px; }
+    .image .label.top {
+      top: 5px; }
+    .image .label.bottom {
+      bottom: 5px; }
 
 /* List */
 ol {

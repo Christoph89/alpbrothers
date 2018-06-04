@@ -57,5 +57,16 @@
 			img {
 				width: 100%;
 			}
-		}
+    }
+    
+    .label {
+      position: absolute;
+      font-size: 0.5rem;
+      font-weight: bold;
+      &.white { color: #ffffff; }
+      &.left { left: 5px; }
+      &.right { right: 5px; }
+      &.top { top: 5px; }
+      &.bottom { bottom: 5px; }
+    }
 	}
