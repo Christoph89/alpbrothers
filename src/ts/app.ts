@@ -93,14 +93,9 @@ module $alpbros
     export function hashChange(hash?: string, anchor?: string, speed?: string): JQueryPromise<any>
     {
       // go back
-      if (hash==="#back")
+      if (hash==="#back" || hash=="#pophistory" || hash=="#poppage")
       {
-        $app.back();
-        return;
-      }
-      else if (hash=="#back-history")
-      {
-        $app.back("#history");
+        $app.back(hash);
         return;
       }
 
@@ -168,7 +163,7 @@ module $alpbros
       return $res["main"].title;
     }
 
-    /** Set's the hash without triggering hashchange event. Only cal if history api is supported! */
+    /** Set's the hash without triggering hashchange event. Only call if history api is supported! */
     export function setHash(hash: string)
     {
       history.replaceState(hash, undefined, hash);
@@ -184,11 +179,14 @@ module $alpbros
     export function back(hash?: string)
     {
       popstate=true; // next hashchange will run as popstate
+      if (hash==="#back") hash=null;
       if (!hash) hash=$ui.$backBtn.attr("back") || $pages.current && $pages.current.defaultBack() || "#/";
-      if (hash=="#history")
+      if (hash=="#pophistory")
         history.back();
+      else if (hash=="#poppage")
+        $pages.back().always(() => { popstate=false; });
       else
-        hashChange(hash);
+        hashChange(hash).always(() => { popstate=false; });
     }
 
     /** Sets the app authentication state. */
@@ -208,14 +206,14 @@ module $alpbros
     }
 
      /** Gets the specified confirm url. */
-     export function confirmUrl(title: string, text: string, okUrl: string);
+     export function confirmUrl(title: string, text: string, ok: string);
      export function confirmUrl(res: any);
-     export function confirmUrl(res: any, text?: string, okUrl?: string)
+     export function confirmUrl(res: any, text?: string, ok?: string)
      {
        if (typeof res=="string")
        {
          var title=res;
-         res={ title: title, text: text, ok: okUrl };
+         res={ title: title, text: text, ok: ok };
        }
        var url: string;
        for (var prop in res)
@@ -228,11 +226,18 @@ module $alpbros
      }
 
      /** Shows the specified confirm. */
-     export function confirm(title: string, text: string, okUrl: string);
-     export function confirm(res: any);
-     export function confirm(res: any, text?: string, okUrl?: string)
+     export function confirm(title: string, text: string, ok?: string, cancel?: string, mode?: "confirm"|"info");
+     export function confirm(args: any);
+     export function confirm(args: any, text?: string, ok?: string, cancel?: string, mode?: "confirm"|"info")
      {
-       hashChange(confirmUrl(res, text, okUrl));
+       //hashChange(confirmUrl(res, text, okUrl));
+       if (typeof args=="string")
+        args={ title: args, text: text, ok: ok, cancel: cancel };
+      args.mode=mode||"confirm";
+      return $pages.load("confirm", false, args).then(page =>
+      {
+        return (<$pages.PageConfirm>page).result;
+      });
      }
 
     /** Gets the specified choice url. */
@@ -263,6 +268,13 @@ module $alpbros
     export function choice(res: any, text?: string, items?: { [text: string]: string })
     {
       hashChange(choiceUrl(res, text, items));
+    }
+
+    export function info(title: string, text: string, ok?: string): JQueryPromise<any>;
+    export function info(args: any): JQueryPromise<any>;
+    export function info(args: any, text?: string, ok?: string): JQueryPromise<any>
+    {
+      return confirm(args, text, ok, "info");
     }
   }
 

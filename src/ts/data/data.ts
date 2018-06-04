@@ -5,6 +5,8 @@
 /// <reference path="../ref.d.ts" />
 /// <reference path="data-eventtype.ts" />
 /// <reference path="data-event.ts" />
+/// <reference path="data-registration.ts" />
+/// <reference path="data-email.ts" />
 "use strict";
 
 module $alpbros.$data

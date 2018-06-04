@@ -100,6 +100,7 @@
 	input[type="password"],
 	input[type="email"],
 	input[type="tel"],
+	input[type="number"],
 	input[type="search"],
 	input[type="url"],
 	select,
@@ -118,7 +119,12 @@
 
 		&:invalid {
 			box-shadow: none;
-		}
+    }
+    
+    &.error {
+      color: _palette(fg-error);
+      border-color: _palette(fg-error);
+    }
 	}
 
 	.select-wrapper {
@@ -151,6 +157,7 @@
 	input[type="password"],
 	input[type="email"],
 	input[type="tel"],
+	input[type="number"],
 	input[type="search"],
 	input[type="url"],
 	select {
@@ -208,6 +215,10 @@
     &[disabled="disabled"] + label {
       opacity: 0.25;
     }
+
+    &.error + label {
+      color: _palette(fg-error);
+    }
 	}
 
 	input[type="checkbox"] {
@@ -258,6 +269,7 @@
 		input[type="password"],
 		input[type="email"],
 		input[type="tel"],
+    input[type="number"],
 		input[type="search"],
 		input[type="url"],
 		select,

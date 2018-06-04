@@ -24,9 +24,11 @@ module $alpbros.$ui.events
   /** Appends all events. */
   function appendEvents(tbl: JQuery)
   {
+    var now=moment(new Date());
     $("tr.dummy", tbl).remove();
     tbl.prepend($q($data.events)
       .Where(ev => ev.isOccurrence())
+      .SkipWhile(ev => ev.from()<now)
       .Take($cfg.shownEvents)
       .Select(ev => getEventRow(ev))
       .ToArray());

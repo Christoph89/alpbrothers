@@ -162,6 +162,15 @@ module $alpbros.$util
     ), "");
   }
 
+  /** Returns the object at the specified path. */
+  export function expandPath(obj: any, path: string)
+  {
+    var parts=path.split(".");
+    for (var i=0; i<parts.length; i++)
+      obj=obj[parts[i]];
+    return obj;
+  }
+
   // extend String prototype
   (<any>String.prototype).format=function() 
   { 

@@ -65,7 +65,7 @@ module $alpbros.$pages
     }
 
     /** Called when the page gets loaded. */
-    public load(wait: JQueryDeferred<Page>)
+    public load(wait: JQueryDeferred<Page>, args?: any)
     { 
       if (wait) wait.resolve(this);
     }

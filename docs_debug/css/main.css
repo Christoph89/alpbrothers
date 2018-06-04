@@ -2100,6 +2100,9 @@ hr {
 .error {
   color: #9b0000; }
 
+.success {
+  color: #009b00; }
+
 @media screen and (max-width: 736px) {
   p.major {
     font-size: 1.1rem; }
@@ -2365,6 +2368,7 @@ input[type="datetime-local"],
 input[type="password"],
 input[type="email"],
 input[type="tel"],
+input[type="number"],
 input[type="search"],
 input[type="url"],
 select,
@@ -2390,11 +2394,26 @@ textarea {
   input[type="password"]:invalid,
   input[type="email"]:invalid,
   input[type="tel"]:invalid,
+  input[type="number"]:invalid,
   input[type="search"]:invalid,
   input[type="url"]:invalid,
   select:invalid,
   textarea:invalid {
     box-shadow: none; }
+  input[type="text"].error,
+  input[type="date"].error,
+  input[type="datetime"].error,
+  input[type="datetime-local"].error,
+  input[type="password"].error,
+  input[type="email"].error,
+  input[type="tel"].error,
+  input[type="number"].error,
+  input[type="search"].error,
+  input[type="url"].error,
+  select.error,
+  textarea.error {
+    color: #9b0000;
+    border-color: #9b0000; }
 
 .select-wrapper {
   text-decoration: none;
@@ -2428,6 +2447,7 @@ input[type="datetime-local"],
 input[type="password"],
 input[type="email"],
 input[type="tel"],
+input[type="number"],
 input[type="search"],
 input[type="url"],
 select {
@@ -2492,6 +2512,9 @@ input[type="radio"] {
   input[type="radio"].disabled + label,
   input[type="radio"][disabled="disabled"] + label {
     opacity: 0.25; }
+  input[type="checkbox"].error + label,
+  input[type="radio"].error + label {
+    color: #9b0000; }
 
 input[type="checkbox"] + label:before {
   border-radius: 4px; }
@@ -2524,6 +2547,7 @@ input[type="datetime-local"],
 input[type="password"],
 input[type="email"],
 input[type="tel"],
+input[type="number"],
 input[type="search"],
 input[type="url"],
 select,
@@ -2536,6 +2560,7 @@ textarea {
   input[type="password"]:focus,
   input[type="email"]:focus,
   input[type="tel"]:focus,
+  input[type="number"]:focus,
   input[type="search"]:focus,
   input[type="url"]:focus,
   select:focus,
@@ -6837,20 +6862,7 @@ body.is-loading .items.onload-fade-in > * > .inner {
     color: #303e49 !important; }
     .timeline-content h2 code, .timeline-content h3 code {
       font-size: 0.7em;
-      margin: 0.15em 0;
-      float: right; }
-    .timeline-content h2 br, .timeline-content h3 br {
-      display: none; }
-    @media screen and (max-width: 480px) {
-      .timeline-content h2 code, .timeline-content h3 code {
-        float: none; }
-      .timeline-content h2 br, .timeline-content h3 br {
-        display: initial; } }
-    @media screen and (min-width: 980px) {
-      .timeline-content h2 code, .timeline-content h3 code {
-        float: none; }
-      .timeline-content h2 br, .timeline-content h3 br {
-        display: initial; } }
+      margin: 0.15em 0; }
   .timeline-content .read-more, .timeline-content .date {
     display: none; }
   .timeline-content p {
@@ -7197,6 +7209,7 @@ body.is-loading .items.onload-fade-in > * > .inner {
     .page .invert input[type="password"],
     .page .invert input[type="email"],
     .page .invert input[type="tel"],
+    .page .invert input[type="number"],
     .page .invert input[type="search"],
     .page .invert input[type="url"],
     .page .invert select,
@@ -7209,6 +7222,7 @@ body.is-loading .items.onload-fade-in > * > .inner {
       .page .invert input[type="password"]:focus,
       .page .invert input[type="email"]:focus,
       .page .invert input[type="tel"]:focus,
+      .page .invert input[type="number"]:focus,
       .page .invert input[type="search"]:focus,
       .page .invert input[type="url"]:focus,
       .page .invert select:focus,
@@ -7627,14 +7641,39 @@ section.partner > .inner {
 #event.page.allow-reg .no-reg-only {
   display: none; }
 
+#event.page .regs-remaining {
+  display: none; }
+
+#event.page.regs-remaining .regs-remaining {
+  display: inherit; }
+
+#event.page.regs-remaining .no-regs-remaining {
+  display: none; }
+
+#event.page .see-regs-only {
+  display: none; }
+
+#event.page.see-regs .see-regs-only {
+  display: inherit; }
+
+#event.page.see-regs .see-no-regs-only {
+  display: none; }
+
 #event.page .event-requirements-text {
   margin-bottom: 1rem; }
 
-#event.page section.registration.no-reg-only {
+#event.page section.registrations,
+#event.page section.registration,
+#event.page section.further-reg {
   padding-bottom: 0; }
 
 #event.page section.partner .inner {
   padding-top: 0.1rem; }
+
+#event.page section.registrations table {
+  font-size: 0.8rem; }
+  #event.page section.registrations table tr.canceled {
+    text-decoration: line-through; }
 
 #event-edit.page[mode='edit'] [mode='add'], #event-edit.page[mode='edit'] .mode-add, #event-edit.page .mode-edit [mode='add'], #event-edit.page .mode-edit .mode-add {
   display: none; }

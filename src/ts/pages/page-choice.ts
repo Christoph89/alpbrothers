@@ -20,12 +20,12 @@ module $alpbros.$pages
     }
 
     /** Called when the page gets loaded. */
-    public load(wait: JQueryDeferred<Page>)
+    public load(wait: JQueryDeferred<Page>, args?: any)
     {
       $(".inner", this.pageCnt).empty().append('<h2></h2><p></p><ul class="actions"></ul>');
 
       // set title and text
-      var args=$url.args;
+      if (!args) args=$url.args;
       $("h2", this.pageCnt).text(args.title);
       $("p", this.pageCnt).text(args.text);
       

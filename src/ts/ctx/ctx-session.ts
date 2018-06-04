@@ -8,7 +8,7 @@
 module $alpbros.$ctx.session
 {
   /** Specifies a session. */
-  export interface Session
+  export interface Session  
   {
     email: string;
     first_name: string;
@@ -24,10 +24,27 @@ module $alpbros.$ctx.session
     session_token: string;
   }
 
+  /** Specifies a user profile. */
+  export interface Profile
+  {
+    username: string;
+    first_name: string;
+    last_name: string;
+    name: string;
+    email: string;
+    phone: string;
+    security_question: string;
+    default_app_id: string;
+    oauth_provider: string;
+    adldap: string;
+  }
+
   const sessionCookie="alpbros_session";
   const agreementCookie="alpbros_cookie_agreement";
   /** The current session. */
   export var current: Session=null;
+  /** The current profile. */
+  export var profile: Profile=null;
   /** Promise to wait for session interactions. */
   var _wait: JQueryDeferred<any>=$.Deferred<any>().resolve();
 
@@ -60,7 +77,15 @@ module $alpbros.$ctx.session
       .then(session => 
       {
         // set session
-        return setSession(session);
+        setSession(session);
+        // load profile
+        return get("/user/profile");
+      })
+      .then(profile => 
+      {
+        // set profile
+        session.profile=profile;
+        return session.current;
       })
       .fail((jqXHR, status, err) => 
       {
@@ -82,7 +107,15 @@ module $alpbros.$ctx.session
       .then(session => 
       {
         // set session
-        return setSession(session);
+        setSession(session);
+        // load profile
+        return get("/user/profile");
+      })
+      .then(profile => 
+      {
+        // set profile
+        session.profile=profile;
+        return session.current;
       })
       .fail((jqXHR, status, err) => 
       {
@@ -134,10 +167,18 @@ module $alpbros.$ctx.session
         // resolve session promise
         if (_wait) _wait.resolve();
       })
-      .then((session) => 
+      .then(session => 
       {
         // refresh session
-        return setSession(session);
+        setSession(session);
+        // load profile
+        return get("/user/profile");
+      })
+      .then(profile => 
+      {
+        // set profile
+        session.profile=profile;
+        return session.current;
       })
       .fail((jqXHR, status, err) => 
       {
@@ -154,7 +195,10 @@ module $alpbros.$ctx.session
     if (current)
       Cookies.set(sessionCookie, current.session_token, { expires: 1 });
     else
+    {
       Cookies.remove(sessionCookie);
+      profile=null;
+    }
     return current;
   }
 

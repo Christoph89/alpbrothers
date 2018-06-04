@@ -37,9 +37,11 @@ module $alpbros
 
     /** Gets the current page */
     export var current: Page;
+    /** Gets the page stack. */
+    export var stack: Page[]=[];
 
     /** Loads the specified page. */
-    export function load(name: string, preload?: boolean): JQueryPromise<Page>
+    export function load(name: string, preload?: boolean, args?: any): JQueryPromise<Page>
     {
       // check if page exists
       var pageInfo=$cfg.pages[name];
@@ -93,42 +95,68 @@ module $alpbros
           if (!page.load || preload)
             return page;
           var waitLoad=$.Deferred<Page>();
-          page.load(waitLoad);
+          page.load(waitLoad, args);
           return <any>waitLoad;
         })
         .then(page => {
-        // init current page on app start, should be main page
-        if (!current)
-          current=page;
-
-        // hide loader and set current page if not preloading
-        if (!preload)
-        {
+          setCurrentPage(page, preload);
           $ui.loader.hide();
-          if (current!=page)
-          {
-            // hide old current
-            if (current) 
-            {
-              current.pageCnt.removeClass("current").addClass("hidden");
-              current.pageCnt.trigger("pagehide");
-            }
+          return page;
+        })).fail((err) => { fail(err, name, preload); }); // catch fail
+    }
 
-            // set new current
-            (current=page).pageCnt.addClass("current").removeClass("hidden");
-            current.pageCnt.trigger("pageload");
-          }
-          // set back btn
-          $ui.$backBtn.toggleClass("hidden", current==get("main"));
+    function setCurrentPage(page: Page, preload?: boolean, isBack?: boolean)
+    {
+      // init current page on app start, should be main page
+      if (!current)
+      {
+        current=page;
+        if (!isBack) stack.push(current);
+      }
+
+      // hide loader and set current page if not preloading
+      if (preload)
+        return;
+        
+      if (current!=page)
+      {
+        // hide old current
+        if (current) 
+        {
+          current.remOffset($window.scrollTop()); // remember scroll offset
+          current.pageCnt.removeClass("current").addClass("hidden");
+          current.pageCnt.trigger("pagehide");
         }
-        return page;
-      })).fail((err) => { fail(err, name, preload); }); // catch fail
+
+        // set new current
+        (current=page).pageCnt.addClass("current").removeClass("hidden");
+        current.pageCnt.trigger("pageload");
+
+        // add page to stack
+        if (!isBack) stack.push(current);
+      }
+      // set back btn
+      $ui.$backBtn.toggleClass("hidden", current==get("main") || current.pageCnt.hasClass("no-back-btn"));
     }
 
     /** Preloads the specified page. */
     export function preload(name: string): JQueryPromise<Page>
     {
       return load(name, true);
+    }
+
+    /** Loads the previous page. */
+    export function back(): JQueryPromise<any>
+    {
+      var wait=$.Deferred<any>();
+      if (stack.length<2)
+        return wait.resolve().promise();
+      stack.pop();
+      var prev=stack[stack.length-1];
+      if (!prev)
+        return wait.resolve().promise();
+      setCurrentPage(prev, false, true);
+      return $ui.scrollToPage(prev, undefined, undefined, "immediate", true, wait);
     }
 
     function fail(err: any, name: string, preload: boolean)

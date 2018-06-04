@@ -158,7 +158,11 @@ module $alpbros.$pages
       $("table.dates tbody", this.pageCnt).toggle(this.isSeries());
       $(".add-date", this.pageCnt).toggle(this.isSeries());
       $(".button.edit-series", this.pageCnt).attr("href", "#/event/edit?id="+event.parentId()).toggle(event.parentId()!=null);
-      $(".button.delete", this.pageCnt).attr("href", $app.confirmUrl($.extend($res.event.deleteConfirm, { id: event.eventId() })));
+      $(".button.delete", this.pageCnt).attr("href", $app.confirmUrl($.extend($res.event.deleteConfirm, 
+        { 
+          id: event.eventId(),
+          goto: encodeURIComponent("#/events")
+        })));
       this.refreshDatesTbl();
     }
 

@@ -50,9 +50,25 @@
       "erlebniscardInfo": "Tickets für die Teilnahme ohne <i>Erlebnis Card</i> können nur in den Tourismusinformationen der Region erworben werden. Weitere Informationen zur <i>Erlebnis Card</i> finden Sie hier: <a href=\"https://www.region-villach.at/de/angebote/erlebnis-card-urlaubserlebnisse-im-herzen-3074815.html\" target=\"_blank\">https://www.region-villach.at/de/angebote/erlebnis-card-urlaubserlebnisse-im-herzen-3074815.html</a>",
       "requirements": "Anforderungen",
       "registration": "Anmeldung",
+      "registrations": "Anmeldungen",
       "noreginfo": "Um sich für dieses Event anzumelden wenden Sie sich bitte per Email, Telefon oder Whatsapp an uns.",
       "inquire": "Jetzt Anfragen",
-      "inquireUrl": "mailto:office@alpbrothers.at"
+      "inquireUrl": "mailto:office@alpbrothers.at",
+      "created": "Anmeldung",
+      "name": "Name",
+      "nameTip": "Vor- und Nachname des Teilnehmers",
+      "email": "Email",
+      "emailTip": "Gültige Email Adresse des Teilnehmers",
+      "phone": "Telefon",
+      "phoneTip": "Gültige Telefonnr. für evtl. Rückfragen/Planänderungen",
+      "age": "Alter",
+      "accommodation": "Unterkunft",
+      "accommodationTip": "Name Ihrer Unterkunft (leer falls Sie nirgends untergebracht sind)",
+      "agreement": "Diese Anmeldung ist unverbindlich und dient nur der Organisation durch Alpbrothers. Es entstehen keinerlei Verpflichtungen beiderseits. Ich erkläre mich jedoch damit einverstanden dass meine Daten zum Zweck der Anmeldung/Organisation von Alpbrothers gespeichert werden.",
+      "furtherInfo": "Für weitere Informationen oder Fragen wenden Sie sich bitte per Email oder Telefon an uns.",
+      "submit": "Jetzt Anmelden",
+      "remaining": "Verbleibende Plätze:",
+      "noRegsRemaining": "Dieses Event ist leider bereits ausgebucht. Sie können sich dennoch anmelden. Sollte ein Platz frei werden kontaktieren wir Sie telefonisch."
     }
   }
 }

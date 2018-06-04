@@ -21,12 +21,15 @@ module $alpbros.$ui.link
   {
     var href=link.attr("href");
 
-    // no href -> no action
+    // disable empty href links
     if (!href)
-      return;
-
+      link.off("click.href").on("click.href", e => 
+      {
+        e.preventDefault();
+        return false;
+      });
     // hash -> scroll to
-    if (href[0]=="#")
+    else if (href[0]=="#")
       link.off("click.href").on("click.href", e => 
       {
         // prevent default scrolling

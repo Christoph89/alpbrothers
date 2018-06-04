@@ -166,6 +166,10 @@
   .error {
     color: _palette(fg-error);
   }
+  
+  .success {
+    color: _palette(fg-success);
+  }
 
 	@include breakpoint(small) {
 		p {

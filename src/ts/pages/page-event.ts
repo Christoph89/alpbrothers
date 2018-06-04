@@ -3,7 +3,10 @@
 */
 
 /// <reference path="pages.ts" />
+
 "use strict";
+
+declare var grecaptcha: any;
 
 module $alpbros.$pages
 {
@@ -21,6 +24,21 @@ module $alpbros.$pages
         // init ui
         $ui.init(pageCnt);
 
+        // init submit button
+        $("#reg-submit").click((e) => 
+        {
+          e.preventDefault();
+          var reg=this.validateReg();
+          if (reg)
+          {
+            $ui.loader.show();
+            grecaptcha.reset();
+            this.recaptcha=$.Deferred<any>();
+            this.recaptcha.done(token => { this.submitReg(token, reg); });
+            grecaptcha.execute(); // execute recaptcha
+          }
+        });
+
         // wait for map ready
         (<JQueryPromise<any>>$(".map", this.pageCnt).data("gmap_promise")).done(() => 
         {
@@ -35,6 +53,14 @@ module $alpbros.$pages
 
     /** Google maps marker */
     private mapMarker: any;
+    /** The current event. */
+    public event: MTBEvent;
+    /** The registrations the use is allowed to see for the current event. */
+    public registrations: IMTBEventRegistration[];
+    /** The amount of registrations. */
+    public regcount: number;
+    /** Google recaptcha promise */
+    public recaptcha: JQueryDeferred<any>;
 
     /** Called when the page gets loaded. */
     public load(wait: JQueryDeferred<Page>)
@@ -49,37 +75,81 @@ module $alpbros.$pages
         return;
       }
 
-      // // get event
-      var event: MTBEvent=$data.eventMap.Get(eventId);
+      // get event
+      var event=this.event=$data.eventMap.Get(eventId);
       if (!event)
       {
         if (wait) wait.reject("Event not found for '"+$url.hash+"'!");
         return;
       }
 
-      // set event data
-      var res=$res.event.details;
-      var get=(n) => $(".event-"+n, this.pageCnt);
-      get("name").text(event.name());
-      get("description").text(event.description());
-      get("img").attr("src", event.img());
-      var dateStr=$util.formatFromTo(event.from(), event.to(), $res.event.details.dateFormat);
-      get("date").html(res.date.format(dateStr));
-      get("level").html(res.level.format(event.levelDescription()))
-      var startTime=event.from().format(res.meetingTimeFormat);
-      get("meeting").html(res.meeting.format(startTime, event.meetingPointDescription()));
-      get("participants").html(res.participants.format(event.maxParticipants()))
-      var price=event.isErlebniscard()?res.erlebniscardPrice:res.price.format(event.priceAsNr());
-      get("price").html(price);
-      this.mapMarker.setPosition(new google.maps.LatLng(event.lat(), event.lng()));
-      this.pageCnt.toggleClass("erlebniscard", event.isErlebniscard());
-      this.pageCnt.toggleClass("allow-reg", event.isRegAllowed());
-      this.setRequirements(event);
+      // load registrations
+      $ctx.getRegistrations(eventId).done(res => 
+      {
+        // set registrations and count
+        this.registrations=res.registrations;
+        this.regcount=res.count||0;
 
-      // ready
-      if (wait) wait.resolve(this);
+        // init details and reg form
+        this.initUI(event);
+
+        // ready
+        if (wait) wait.resolve(this);
+      });
     }
 
+    /** Initialiazes the event */
+    private initUI(event: MTBEvent)
+    {
+      this.initDetails(event);
+      this.initRegForm(event);
+    }
+
+    /** Initializes the event details with the specified event data. */
+    private initDetails(event: MTBEvent)
+    {
+      var res=$res.event.details;
+      var get=(n) => $(".event-"+n, this.pageCnt);
+
+      // set name
+      get("name").text(event.name());
+
+      // set description
+      get("description").text(event.description());
+
+      // set image
+      get("img").attr("src", event.img());
+
+      // set date
+      var dateStr=$util.formatFromTo(event.from(), event.to(), $res.event.details.dateFormat);
+      get("date").html(res.date.format(dateStr));
+
+      // set level
+      get("level").html(res.level.format(event.levelDescription()))
+
+      // set meeting point
+      var startTime=event.from().format(res.meetingTimeFormat);
+      get("meeting").html(res.meeting.format(startTime, event.meetingPointDescription()));
+
+      // set max participants
+      get("participants").html(res.participants.format(event.maxParticipants()))
+
+      // set price
+      var price=event.isErlebniscard()?res.erlebniscardPrice:res.price.format(event.priceAsNr());
+      get("price").html(price);
+
+      // set map marker
+      this.mapMarker.setPosition(new google.maps.LatLng(event.lat(), event.lng()));
+
+      // set access classes
+      this.pageCnt.toggleClass("erlebniscard", event.isErlebniscard());
+      this.pageCnt.toggleClass("allow-reg", event.isRegAllowed());
+
+      // set requirements
+      this.setRequirements(event);
+    }
+
+    /** Sets the requirements for the specified event. */
     private setRequirements(event: MTBEvent)
     {
       var requirements: string[]=[];
@@ -112,6 +182,118 @@ module $alpbros.$pages
 
       // set requirements
       $(".event-requirements", this.pageCnt).empty().append($q(requirements).Select(r => $("<li>"+$util.formatMd($util.trimStart(r, "*").trim())+"</li>")).ToArray());
+    }
+
+    private initRegForm(event: MTBEvent)
+    {
+      // set remaining regs
+      var remainingLbl=$("#reg-remaining", this.pageCnt);
+      var remaining=Math.max(0, event.maxParticipants() - this.regcount);
+      remainingLbl.text(remaining);
+      this.pageCnt.toggleClass("regs-remaining", remaining>0);
+
+      // prefill phone and accomodation for partners
+      if ($ctx.session.isPartner())
+      {
+        var cur=$ctx.session.profile;
+        $("#reg-phone", this.pageCnt).val(cur.phone)
+        $("#reg-accommodation", this.pageCnt).val(cur.name);
+      }
+
+      // set reg table
+      this.pageCnt.toggleClass("see-regs", this.registrations!=null);
+      var table=$("section.registrations table tbody", this.pageCnt);
+      table.empty().append($q(this.registrations).Select((x, i) => this.getRegRow(x, i)).ToArray())
+    }
+
+    /** Returns a registration row. */
+    private getRegRow(reg: IMTBEventRegistration, idx: number): JQuery
+    {
+      var res=$res.event.details;
+      var isOwnReg=$ctx.session.isAdmin() || $ctx.session.isPartner() && reg.createdBy===$ctx.session.current.email;
+      var isValid=(idx+1)<=this.event.maxParticipants();
+      var isActive=reg.status==MTBRegistrationStatus.Active;
+      var setStatus=isActive?MTBRegistrationStatus.Canceled:MTBRegistrationStatus.Active;
+      var setType=isActive?"cancel":"reactivate";
+      return $("<tr>").toggleClass("error", !isValid).toggleClass("canceled", !isActive)
+        .append(
+        $("<td>").text(moment(reg.created).format(res.regDateFormat)).attr("title", res.regBy.format(reg.createdBy)),
+        $("<td>").text(reg.name),
+        $("<td>").text(reg.email),
+        $("<td>").text(reg.phone),
+        $("<td>").text(reg.age || "***"),
+        $("<td>").text(reg.accommodation),
+        $("<td>").append(
+          // cancel button
+          $("<a>").addClass("icon style2 "+(isActive?"fa-close":"fa-check role-admin")).attr("title", res[setType+"Reg"]).toggleClass("disabled", !isOwnReg)
+            .attr("href", $app.confirmUrl($.extend(reg, { res: "event."+setType+"RegConfirm", goto: encodeURIComponent($url.hash), force: false, status: setStatus }))),
+          // delete button
+          $("<a>").addClass("icon style2 fa-trash role-admin").attr("title", res.deleteReg).toggleClass("disabled", !isOwnReg)
+            .attr("href", $app.confirmUrl($.extend($res.event.deleteRegConfirm, reg, { goto: encodeURIComponent($url.hash), force: true })))
+        )
+      );
+    }
+
+    /** Gets the registration data from the form. */
+    private getReg(): IMTBEventRegistration
+    {
+      var reg: IMTBEventRegistration={};
+      var get=(n) => (<string>$("#reg-"+n, this.pageCnt).val()).trim()||null;
+      reg.eventId=this.event.eventId();
+      reg.name=get("name");
+      reg.email=get("email");
+      reg.phone=get("phone");
+      reg.age=parseInt(get("age")) || 0;
+      reg.accommodation=get("accommodation");
+      reg.status=MTBRegistrationStatus.Active;
+      return reg;
+    }
+
+    /** Validates the registration input. */
+    private validateReg(): IMTBEventRegistration
+    {
+      var reg=this.getReg();
+      var required=(n) => $("#reg-"+n, this.pageCnt).toggleClass("error", reg[n]==null);
+      required("name");
+      required("email");
+      required("phone");
+      var agreementChb=$("#reg-agreement", this.pageCnt);
+      var agreed=agreementChb.is(":checked");
+      agreementChb.toggleClass("error", !agreed);
+      if ($("input.error", this.pageCnt).length>0)
+        return null;
+      return reg;
+    }
+
+    /** Validates the registration input. */
+    private submitReg(token: string, reg: IMTBEventRegistration): void
+    {
+      var email: IEmail={
+        template: "registration_"+$cfg.lang,
+        to: [{ name: reg.name, email: reg.email }],
+        cc: [{ name: "Alpbrothers Mountainbike Guiding", email: "office@alpbrothers.at" }],
+        location_origin: location.origin
+      };
+      $ctx.register(reg, token, email)
+        .always(() => $ui.loader.hide())
+        .done(newReg => 
+        {
+          // add reg
+          if (this.registrations)
+            this.registrations.push(newReg); // only add if allowed to see
+          this.regcount++;
+          this.initUI(this.event);
+          this.setRegMsg($res.event.details.regSuccess, false);
+        })
+        .fail(err => 
+        {
+          this.setRegMsg($res.event.details.regFail, true);
+        });
+    }
+
+    private setRegMsg(msg: string, err: boolean)
+    {
+      $("p.msg", this.pageCnt).toggleClass("error", err).toggleClass("success", !err).text(msg);
     }
   }
 }

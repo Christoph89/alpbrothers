@@ -5,8 +5,8 @@
     "allow_reg": false,
     "ctx":
     {
-      "apikey": "7f00b6496ff388f0f44b7857662285f954b84ff9dcaebb70d0451750e53321ff",
-      "baseurl": "https://alpbrothers.oraclecloud2.dreamfactory.com/api/v2",
+      "apikey": "4b33abd43ef19f34327029142e4d8a0ca58a78477f82622f48775493dd4e1087",
+      "baseurl": "https://api.alpbrothers.at/api/v2",
       "db": "db_alpbros"
     },
     "roles":
@@ -41,6 +41,10 @@
       "%src/vendor/moment/moment-de.js",
       "%src/vendor/js-cookie/js-cookie.js"
     ],
+    "iframeResizer":
+    [
+      "%src/vendor/iframeResizer/iframeResizer*.js"
+    ],
     "styles":
     [
       "%src/sass/font.css"
@@ -52,7 +56,8 @@
     "html":
     [
       "%src/html/index.html",
-      "%src/html/coop.html"
+      "%src/html/coop.html",
+      "%src/html/coopTest.html"
     ],
     "tpl":
     [
@@ -107,6 +112,7 @@
     "minify": false,
     "sourcemaps": true,
     "vendor": "null",
+    "iframeResizer": "null",
     "styles": "null",
     "fonts": "null",
     "images": "null",
@@ -137,6 +143,7 @@
     "minify": true,
     "sourcemaps": true,
     "vendor": "null",
+    "iframeResizer": "null",
     "styles": "null",
     "fonts": "null",
     "images": "null",

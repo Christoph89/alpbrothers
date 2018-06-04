@@ -26,8 +26,7 @@
       {
         "title": "Delete event?",
         "text": "Do you really want to delete the event?",
-        "ok": "#/cmd/delete-event?id={id}",
-        "cancel": "#/event/edit?id={id}"
+        "ok": "#/cmd/delete-event?id={id}&goto={goto}"
       },
       "details":
       {
@@ -38,7 +37,32 @@
         "meetingTimeFormat": "hh:mm a",
         "participants": "max. 6 persons",
         "price": "The price for the workshop is {0} EUR per person.",
-        "erlebniscardPrice": "The workshop is <b>free with <i>Erlebniscard</i></b>. The standard price without <i>Erlebniscard</i> is <b>15 EUR</b>."
+        "erlebniscardPrice": "The workshop is <b>free with <i>Erlebniscard</i></b>. The standard price without <i>Erlebniscard</i> is <b>15 EUR</b>.",
+        "regDateFormat": "DD.MM.YYYY hh:mm a",
+        "regBy": "Registration by {0}",
+        "regSuccess": "Anmeldung erfolgreich! Eine Bestätigung wurde an deine Email Adresse gesendet.",
+        "regFail": "Anmeldung fehlgeschlagen. Bitte versuchen Sie es erneut. Sollte es dennoch nicht funktionieren, wenden Sie sich bitte per Email oder Telefon an uns!",
+        "deleteReg": "Delete registration",
+        "cancelReg": "Cancel registration",
+        "reactivate": "Reactivate registration"
+      },
+      "deleteRegConfirm":
+      {
+        "title": "Delete registration?",
+        "text": "Do you really want to delete the registration for {name}?",
+        "ok": "#/cmd/delete-registration?regId={regId}&eventId={eventId}&created={created}&createdBy={createdBy}&email={email}&phone={phone}&name={name}&goto={goto}&force={force}&status={status}"
+      },
+      "cancelRegConfirm":
+      {
+        "title": "Cancel registration?",
+        "text": "Do you really want to cancel the registration for {name}?",
+        "ok": "#/cmd/delete-registration?regId={regId}&eventId={eventId}&created={created}&createdBy={createdBy}&email={email}&phone={phone}&name={name}&goto={goto}&force={force}&status={status}"
+      },
+      "reactivateRegConfirm":
+      {
+        "title": "Reactivate registration?",
+        "text": "Do you really want to reactivate the registration for {name}?",
+        "ok": "#/cmd/delete-registration?regId={regId}&eventId={eventId}&created={created}&createdBy={createdBy}&email={email}&phone={phone}&name={name}&goto={goto}&force={force}&status={status}"
       }
     }
   }

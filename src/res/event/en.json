@@ -51,7 +51,23 @@
       "requirements": "Requirements",
       "registration": "Registration",
       "noreginfo": "In order to register for the event please contact us via email, phone or Whatsapp.",
-      "inquire": "Inquire now"
+      "inquire": "Inquire now",
+      "inquireUrl": "mailto:office@alpbrothers.at",
+      "created": "Registration",
+      "name": "Name",
+      "nameTip": "First- and last name of the participant",
+      "email": "Email",
+      "emailTip": "Valid email address of the participant",
+      "phone": "Telefon",
+      "phoneTip": "Valid phone nr. for further inquiries or changes",
+      "age": "Age",
+      "accommodation": "Accommodation",
+      "accommodationTip": "Name of your accommodation (empty if you are from here)",
+      "agreement": "This registration is nonbinding. It's only for Alpbrothers to organize the event accurate. There will be no costs or duties on both sides caused by the registration. The participant agrees that Alpbrothers stores the entered personal data in order to organize the event.",
+      "furtherInfo": "For further information please contact us by Email or phone.",
+      "submit": "Register Now",
+      "remaining": "Remaining Participants:",
+      "noRegsRemaining": "We are sorry, the event is already fully booked. Nevertheless you can register yourself. If Dieses Event ist leider bereits ausgebucht. Sie können sich dennoch anmelden. Sollte ein Platz frei werden kontaktieren wir Sie telefonisch."
     }
   }
 }

@@ -184,26 +184,11 @@ $secondary-font: 'Open Sans', sans-serif;
 	h2, h3 {
     color: $color-1 !important;
     
-    code 
-    { 
+    code {
       font-size: 0.7em;
       margin: 0.15em 0;
-      float: right; 
-    }
-    br { display: none; }
-    @include breakpoint(xsmall) {
-      code { float: none; }
-      br { display: initial; }
-    }
-    @include breakpoint(minmedium) {
-      code { float: none; }
-      br { display: initial; }
     }
   }
-
-	// p, .read-more, .date {
-	// 	@include font-size(13px);
-	// }
 
 	.read-more, .date {
 		display: none;

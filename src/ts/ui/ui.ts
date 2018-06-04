@@ -89,28 +89,33 @@ module $alpbros.$ui
     $pages.load(pageName).done(page => {
       // get destination element
       var dest=url.dest?$("#"+url.dest):null;
-      if (!dest || !dest.length) dest=page.pageCnt;
-
-      // get anchor and speed
-      if (!anchor) anchor=dest.attr("anchor") || "top";
-      if (!speed) speed=dest.attr("speed") || "normal";
-
-      // if popstate try get offset from page
-      var offset: number;
-      if (popstate)
-        offset=page.remOffset();
-      // otherwise get offset from dest
-      if (offset==undefined) 
-        offset=$util.getOffset(dest, anchor);
-
-      // scroll to offset
-      scrollToPos(offset, anchor, speed, wait);
+      scrollToPage(page, dest, anchor, speed, popstate, wait);
     })
     .fail(err => 
     {
       wait.reject(err);
     });
     return wait.promise();
+  }
+
+  /** Scroll to the specifie page. */
+  export function scrollToPage(page: $pages.Page, dest: JQuery, anchor: string="top", speed: string="normal", popstate?: boolean, wait?: JQueryDeferred<any>): JQueryPromise<any>
+  {
+    // get anchor and speed
+    if (!dest || !dest.length) dest=page.pageCnt;
+    if (!anchor) anchor=dest.attr("anchor") || "top";
+    if (!speed) speed=dest.attr("speed") || "normal";
+
+    // if popstate try get offset from page
+    var offset: number;
+    if (popstate)
+      offset=page.remOffset();
+    // otherwise get offset from dest
+    if (offset==undefined) 
+      offset=$util.getOffset(dest, anchor);
+
+    // scroll to offset
+    return scrollToPos(offset, anchor, speed, wait);
   }
 
   /** Scrolls to the specified position. */

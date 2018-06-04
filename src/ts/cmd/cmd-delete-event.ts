@@ -37,7 +37,7 @@ module $alpbros.$cmd
           $data.deleteEvent(deleted);
 
           // go to events page
-          return $app.hashChange(args.back || "#/events");
+          return $app.hashChange(args.goto);
         });
     }
   }

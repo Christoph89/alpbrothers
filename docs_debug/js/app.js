@@ -176,6 +176,14 @@ var $alpbros;
             return text.replace(new RegExp("^[" + character + "]", "g"), "");
         }
         $util.trimStart = trimStart;
+        /** Returns the object at the specified path. */
+        function expandPath(obj, path) {
+            var parts = path.split(".");
+            for (var i = 0; i < parts.length; i++)
+                obj = obj[parts[i]];
+            return obj;
+        }
+        $util.expandPath = expandPath;
         // extend String prototype
         String.prototype.format = function () {
             var str = this;
@@ -380,6 +388,17 @@ var $alpbros;
 })($alpbros || ($alpbros = {}));
 var $alpbros;
 (function ($alpbros) {
+    /** Specifies the registration status. */
+    var MTBRegistrationStatus;
+    (function (MTBRegistrationStatus) {
+        /** Canceled */
+        MTBRegistrationStatus[MTBRegistrationStatus["Canceled"] = 0] = "Canceled";
+        /** Active */
+        MTBRegistrationStatus[MTBRegistrationStatus["Active"] = 1] = "Active";
+    })(MTBRegistrationStatus = $alpbros.MTBRegistrationStatus || ($alpbros.MTBRegistrationStatus = {}));
+})($alpbros || ($alpbros = {}));
+var $alpbros;
+(function ($alpbros) {
     var $data;
     (function ($data) {
         /** Initializes all app data. */
@@ -538,11 +557,14 @@ var $alpbros;
             /** Initializes the specified link. */
             function initLink(link) {
                 var href = link.attr("href");
-                // no href -> no action
+                // disable empty href links
                 if (!href)
-                    return;
+                    link.off("click.href").on("click.href", function (e) {
+                        e.preventDefault();
+                        return false;
+                    });
                 // hash -> scroll to
-                if (href[0] == "#")
+                else if (href[0] == "#")
                     link.off("click.href").on("click.href", function (e) {
                         // prevent default scrolling
                         if (e)
@@ -623,9 +645,11 @@ var $alpbros;
             events.init = init;
             /** Appends all events. */
             function appendEvents(tbl) {
+                var now = moment(new Date());
                 $("tr.dummy", tbl).remove();
                 tbl.prepend($q($alpbros.$data.events)
                     .Where(function (ev) { return ev.isOccurrence(); })
+                    .SkipWhile(function (ev) { return ev.from() < now; })
                     .Take($alpbros.$cfg.shownEvents)
                     .Select(function (ev) { return getEventRow(ev); })
                     .ToArray());
@@ -1273,22 +1297,7 @@ var $alpbros;
             $alpbros.$pages.load(pageName).done(function (page) {
                 // get destination element
                 var dest = url.dest ? $("#" + url.dest) : null;
-                if (!dest || !dest.length)
-                    dest = page.pageCnt;
-                // get anchor and speed
-                if (!anchor)
-                    anchor = dest.attr("anchor") || "top";
-                if (!speed)
-                    speed = dest.attr("speed") || "normal";
-                // if popstate try get offset from page
-                var offset;
-                if (popstate)
-                    offset = page.remOffset();
-                // otherwise get offset from dest
-                if (offset == undefined)
-                    offset = $alpbros.$util.getOffset(dest, anchor);
-                // scroll to offset
-                scrollToPos(offset, anchor, speed, wait);
+                scrollToPage(page, dest, anchor, speed, popstate, wait);
             })
                 .fail(function (err) {
                 wait.reject(err);
@@ -1296,6 +1305,28 @@ var $alpbros;
             return wait.promise();
         }
         $ui.scrollTo = scrollTo;
+        /** Scroll to the specifie page. */
+        function scrollToPage(page, dest, anchor, speed, popstate, wait) {
+            if (anchor === void 0) { anchor = "top"; }
+            if (speed === void 0) { speed = "normal"; }
+            // get anchor and speed
+            if (!dest || !dest.length)
+                dest = page.pageCnt;
+            if (!anchor)
+                anchor = dest.attr("anchor") || "top";
+            if (!speed)
+                speed = dest.attr("speed") || "normal";
+            // if popstate try get offset from page
+            var offset;
+            if (popstate)
+                offset = page.remOffset();
+            // otherwise get offset from dest
+            if (offset == undefined)
+                offset = $alpbros.$util.getOffset(dest, anchor);
+            // scroll to offset
+            return scrollToPos(offset, anchor, speed, wait);
+        }
+        $ui.scrollToPage = scrollToPage;
         /** Scrolls to the specified position. */
         function scrollToPos(offset, anchor, speed, wait) {
             if (anchor === void 0) { anchor = "top"; }
@@ -1557,6 +1588,8 @@ var $alpbros;
             var agreementCookie = "alpbros_cookie_agreement";
             /** The current session. */
             session_1.current = null;
+            /** The current profile. */
+            session_1.profile = null;
             /** Promise to wait for session interactions. */
             var _wait = $.Deferred().resolve();
             /** Returns the session token. */
@@ -1588,7 +1621,14 @@ var $alpbros;
                 })
                     .then(function (session) {
                     // set session
-                    return setSession(session);
+                    setSession(session);
+                    // load profile
+                    return $ctx.get("/user/profile");
+                })
+                    .then(function (profile) {
+                    // set profile
+                    session.profile = profile;
+                    return session.current;
                 })
                     .fail(function (jqXHR, status, err) {
                     // cancel session
@@ -1608,7 +1648,14 @@ var $alpbros;
                 })
                     .then(function (session) {
                     // set session
-                    return setSession(session);
+                    setSession(session);
+                    // load profile
+                    return $ctx.get("/user/profile");
+                })
+                    .then(function (profile) {
+                    // set profile
+                    session.profile = profile;
+                    return session.current;
                 })
                     .fail(function (jqXHR, status, err) {
                     // cancel session
@@ -1660,7 +1707,14 @@ var $alpbros;
                 })
                     .then(function (session) {
                     // refresh session
-                    return setSession(session);
+                    setSession(session);
+                    // load profile
+                    return $ctx.get("/user/profile");
+                })
+                    .then(function (profile) {
+                    // set profile
+                    session.profile = profile;
+                    return session.current;
                 })
                     .fail(function (jqXHR, status, err) {
                     // cancel session
@@ -1674,8 +1728,10 @@ var $alpbros;
                 session_1.current = session;
                 if (session_1.current)
                     Cookies.set(sessionCookie, session_1.current.session_token, { expires: 1 });
-                else
+                else {
                     Cookies.remove(sessionCookie);
+                    session_1.profile = null;
+                }
                 return session_1.current;
             }
             function role() {
@@ -1720,6 +1776,34 @@ var $alpbros;
             }
             session_1.agreeCookies = agreeCookies;
         })(session = $ctx.session || ($ctx.session = {}));
+    })($ctx = $alpbros.$ctx || ($alpbros.$ctx = {}));
+})($alpbros || ($alpbros = {}));
+var $alpbros;
+(function ($alpbros) {
+    var $ctx;
+    (function ($ctx) {
+        /** Loads all registrations for the specified event. */
+        function getRegistrations(eventId) {
+            return $ctx.get("/registration/" + eventId + "?db=" + $alpbros.$cfg.ctx.db).then(function (res) {
+                if (!res)
+                    res = {};
+                return {
+                    registrations: res.registrations,
+                    count: res.count || 0
+                };
+            });
+        }
+        $ctx.getRegistrations = getRegistrations;
+        /** Adds the specified registration with the specified recaptcha token. */
+        function register(reg, token, email) {
+            return $ctx.post("/registration?lang=" + $alpbros.$cfg.lang + "&db=" + $alpbros.$cfg.ctx.db, { token: token, reg: reg, email: email });
+        }
+        $ctx.register = register;
+        /** Deletes the specified event registration. */
+        function deleteRegistration(reg, force, status, email) {
+            return $ctx.del("/registration?lang=" + $alpbros.$cfg.lang + "&db=" + $alpbros.$cfg.ctx.db, { reg: reg, force: force, status: status || $alpbros.MTBRegistrationStatus.Canceled, email: email });
+        }
+        $ctx.deleteRegistration = deleteRegistration;
     })($ctx = $alpbros.$ctx || ($alpbros.$ctx = {}));
 })($alpbros || ($alpbros = {}));
 var $alpbros;
@@ -1812,7 +1896,7 @@ var $alpbros;
                 }
             };
             /** Called when the page gets loaded. */
-            Page.prototype.load = function (wait) {
+            Page.prototype.load = function (wait, args) {
                 if (wait)
                     wait.resolve(this);
             };
@@ -1992,6 +2076,18 @@ var $alpbros;
                 $alpbros.$data.waitEvents.done(function () {
                     // init ui
                     $alpbros.$ui.init(pageCnt);
+                    // init submit button
+                    $("#reg-submit").click(function (e) {
+                        e.preventDefault();
+                        var reg = _this.validateReg();
+                        if (reg) {
+                            $alpbros.$ui.loader.show();
+                            grecaptcha.reset();
+                            _this.recaptcha = $.Deferred();
+                            _this.recaptcha.done(function (token) { _this.submitReg(token, reg); });
+                            grecaptcha.execute(); // execute recaptcha
+                        }
+                    });
                     // wait for map ready
                     $(".map", _this.pageCnt).data("gmap_promise").done(function () {
                         // get map marker
@@ -2013,35 +2109,63 @@ var $alpbros;
                         wait.reject("Missing eventId and/or date!");
                     return;
                 }
-                // // get event
-                var event = $alpbros.$data.eventMap.Get(eventId);
+                // get event
+                var event = this.event = $alpbros.$data.eventMap.Get(eventId);
                 if (!event) {
                     if (wait)
                         wait.reject("Event not found for '" + $alpbros.$url.hash + "'!");
                     return;
                 }
-                // set event data
+                // load registrations
+                $alpbros.$ctx.getRegistrations(eventId).done(function (res) {
+                    // set registrations and count
+                    _this.registrations = res.registrations;
+                    _this.regcount = res.count || 0;
+                    // init details and reg form
+                    _this.initUI(event);
+                    // ready
+                    if (wait)
+                        wait.resolve(_this);
+                });
+            };
+            /** Initialiazes the event */
+            PageEvent.prototype.initUI = function (event) {
+                this.initDetails(event);
+                this.initRegForm(event);
+            };
+            /** Initializes the event details with the specified event data. */
+            PageEvent.prototype.initDetails = function (event) {
+                var _this = this;
                 var res = $alpbros.$res.event.details;
                 var get = function (n) { return $(".event-" + n, _this.pageCnt); };
+                // set name
                 get("name").text(event.name());
+                // set description
                 get("description").text(event.description());
+                // set image
                 get("img").attr("src", event.img());
+                // set date
                 var dateStr = $alpbros.$util.formatFromTo(event.from(), event.to(), $alpbros.$res.event.details.dateFormat);
                 get("date").html(res.date.format(dateStr));
+                // set level
                 get("level").html(res.level.format(event.levelDescription()));
+                // set meeting point
                 var startTime = event.from().format(res.meetingTimeFormat);
                 get("meeting").html(res.meeting.format(startTime, event.meetingPointDescription()));
+                // set max participants
                 get("participants").html(res.participants.format(event.maxParticipants()));
+                // set price
                 var price = event.isErlebniscard() ? res.erlebniscardPrice : res.price.format(event.priceAsNr());
                 get("price").html(price);
+                // set map marker
                 this.mapMarker.setPosition(new google.maps.LatLng(event.lat(), event.lng()));
+                // set access classes
                 this.pageCnt.toggleClass("erlebniscard", event.isErlebniscard());
                 this.pageCnt.toggleClass("allow-reg", event.isRegAllowed());
+                // set requirements
                 this.setRequirements(event);
-                // ready
-                if (wait)
-                    wait.resolve(this);
             };
+            /** Sets the requirements for the specified event. */
             PageEvent.prototype.setRequirements = function (event) {
                 var requirements = [];
                 var lines = $q((event.requirements() || "").split("\n")).Select(function (x) { return x.trim(); }).ToArray();
@@ -2067,6 +2191,96 @@ var $alpbros;
                 $(".event-requirements-text", this.pageCnt).html($alpbros.$util.formatMd(text));
                 // set requirements
                 $(".event-requirements", this.pageCnt).empty().append($q(requirements).Select(function (r) { return $("<li>" + $alpbros.$util.formatMd($alpbros.$util.trimStart(r, "*").trim()) + "</li>"); }).ToArray());
+            };
+            PageEvent.prototype.initRegForm = function (event) {
+                var _this = this;
+                // set remaining regs
+                var remainingLbl = $("#reg-remaining", this.pageCnt);
+                var remaining = Math.max(0, event.maxParticipants() - this.regcount);
+                remainingLbl.text(remaining);
+                this.pageCnt.toggleClass("regs-remaining", remaining > 0);
+                // prefill phone and accomodation for partners
+                if ($alpbros.$ctx.session.isPartner()) {
+                    var cur = $alpbros.$ctx.session.profile;
+                    $("#reg-phone", this.pageCnt).val(cur.phone);
+                    $("#reg-accommodation", this.pageCnt).val(cur.name);
+                }
+                // set reg table
+                this.pageCnt.toggleClass("see-regs", this.registrations != null);
+                var table = $("section.registrations table tbody", this.pageCnt);
+                table.empty().append($q(this.registrations).Select(function (x, i) { return _this.getRegRow(x, i); }).ToArray());
+            };
+            /** Returns a registration row. */
+            PageEvent.prototype.getRegRow = function (reg, idx) {
+                var res = $alpbros.$res.event.details;
+                var isOwnReg = $alpbros.$ctx.session.isAdmin() || $alpbros.$ctx.session.isPartner() && reg.createdBy === $alpbros.$ctx.session.current.email;
+                var isValid = (idx + 1) <= this.event.maxParticipants();
+                var isActive = reg.status == $alpbros.MTBRegistrationStatus.Active;
+                var setStatus = isActive ? $alpbros.MTBRegistrationStatus.Canceled : $alpbros.MTBRegistrationStatus.Active;
+                var setType = isActive ? "cancel" : "reactivate";
+                return $("<tr>").toggleClass("error", !isValid).toggleClass("canceled", !isActive)
+                    .append($("<td>").text(moment(reg.created).format(res.regDateFormat)).attr("title", res.regBy.format(reg.createdBy)), $("<td>").text(reg.name), $("<td>").text(reg.email), $("<td>").text(reg.phone), $("<td>").text(reg.age || "***"), $("<td>").text(reg.accommodation), $("<td>").append(
+                // cancel button
+                $("<a>").addClass("icon style2 " + (isActive ? "fa-close" : "fa-check role-admin")).attr("title", res[setType + "Reg"]).toggleClass("disabled", !isOwnReg)
+                    .attr("href", $alpbros.$app.confirmUrl($.extend(reg, { res: "event." + setType + "RegConfirm", goto: encodeURIComponent($alpbros.$url.hash), force: false, status: setStatus }))), 
+                // delete button
+                $("<a>").addClass("icon style2 fa-trash role-admin").attr("title", res.deleteReg).toggleClass("disabled", !isOwnReg)
+                    .attr("href", $alpbros.$app.confirmUrl($.extend($alpbros.$res.event.deleteRegConfirm, reg, { goto: encodeURIComponent($alpbros.$url.hash), force: true })))));
+            };
+            /** Gets the registration data from the form. */
+            PageEvent.prototype.getReg = function () {
+                var _this = this;
+                var reg = {};
+                var get = function (n) { return $("#reg-" + n, _this.pageCnt).val().trim() || null; };
+                reg.eventId = this.event.eventId();
+                reg.name = get("name");
+                reg.email = get("email");
+                reg.phone = get("phone");
+                reg.age = parseInt(get("age")) || 0;
+                reg.accommodation = get("accommodation");
+                reg.status = $alpbros.MTBRegistrationStatus.Active;
+                return reg;
+            };
+            /** Validates the registration input. */
+            PageEvent.prototype.validateReg = function () {
+                var _this = this;
+                var reg = this.getReg();
+                var required = function (n) { return $("#reg-" + n, _this.pageCnt).toggleClass("error", reg[n] == null); };
+                required("name");
+                required("email");
+                required("phone");
+                var agreementChb = $("#reg-agreement", this.pageCnt);
+                var agreed = agreementChb.is(":checked");
+                agreementChb.toggleClass("error", !agreed);
+                if ($("input.error", this.pageCnt).length > 0)
+                    return null;
+                return reg;
+            };
+            /** Validates the registration input. */
+            PageEvent.prototype.submitReg = function (token, reg) {
+                var _this = this;
+                var email = {
+                    template: "registration_" + $alpbros.$cfg.lang,
+                    to: [{ name: reg.name, email: reg.email }],
+                    cc: [{ name: "Alpbrothers Mountainbike Guiding", email: "office@alpbrothers.at" }],
+                    location_origin: location.origin
+                };
+                $alpbros.$ctx.register(reg, token, email)
+                    .always(function () { return $alpbros.$ui.loader.hide(); })
+                    .done(function (newReg) {
+                    // add reg
+                    if (_this.registrations)
+                        _this.registrations.push(newReg); // only add if allowed to see
+                    _this.regcount++;
+                    _this.initUI(_this.event);
+                    _this.setRegMsg($alpbros.$res.event.details.regSuccess, false);
+                })
+                    .fail(function (err) {
+                    _this.setRegMsg($alpbros.$res.event.details.regFail, true);
+                });
+            };
+            PageEvent.prototype.setRegMsg = function (msg, err) {
+                $("p.msg", this.pageCnt).toggleClass("error", err).toggleClass("success", !err).text(msg);
             };
             return PageEvent;
         }($pages.Page));
@@ -2176,7 +2390,10 @@ var $alpbros;
                 $("table.dates tbody", this.pageCnt).toggle(this.isSeries());
                 $(".add-date", this.pageCnt).toggle(this.isSeries());
                 $(".button.edit-series", this.pageCnt).attr("href", "#/event/edit?id=" + event.parentId()).toggle(event.parentId() != null);
-                $(".button.delete", this.pageCnt).attr("href", $alpbros.$app.confirmUrl($.extend($alpbros.$res.event.deleteConfirm, { id: event.eventId() })));
+                $(".button.delete", this.pageCnt).attr("href", $alpbros.$app.confirmUrl($.extend($alpbros.$res.event.deleteConfirm, {
+                    id: event.eventId(),
+                    goto: encodeURIComponent("#/events")
+                })));
                 this.refreshDatesTbl();
             };
             /** Adds the date from the event date row. */
@@ -2449,10 +2666,11 @@ var $alpbros;
                 return _this;
             }
             /** Called when the page gets loaded. */
-            PageChoice.prototype.load = function (wait) {
+            PageChoice.prototype.load = function (wait, args) {
                 $(".inner", this.pageCnt).empty().append('<h2></h2><p></p><ul class="actions"></ul>');
                 // set title and text
-                var args = $alpbros.$url.args;
+                if (!args)
+                    args = $alpbros.$url.args;
                 $("h2", this.pageCnt).text(args.title);
                 $("p", this.pageCnt).text(args.text);
                 var actions = $(".actions", this.pageCnt).empty();
@@ -2486,21 +2704,50 @@ var $alpbros;
                 var _this = _super.call(this, name, pageCnt, wait) || this;
                 // init ui
                 $alpbros.$ui.init(pageCnt);
+                // init title, text, buttons
+                _this.title = $("h2.title", _this.pageCnt);
+                _this.text = $("p.text", _this.pageCnt);
+                _this.okBtn = $(".button.ok", _this.pageCnt).click(function () {
+                    if (_this._result)
+                        _this._result.resolve(true);
+                });
+                _this.cancelBtn = $(".button.cancel", _this.pageCnt).click(function () {
+                    if (_this._result)
+                        _this._result.resolve(false);
+                });
                 // ready
                 wait.resolve(_this);
                 return _this;
             }
             /** Called when the page gets loaded. */
-            PageConfirm.prototype.load = function (wait) {
-                // set title and text
-                var args = $alpbros.$url.args;
-                $("h2", this.pageCnt).text(args.title);
-                $("p", this.pageCnt).text(args.text);
-                if (args.ok)
-                    $(".button.ok", this.pageCnt).attr("href", args.ok);
-                if (!args.cancel)
-                    args.cancel = "#back";
-                $(".button.cancel", this.pageCnt).attr("href", args.cancel);
+            PageConfirm.prototype.load = function (wait, args) {
+                // get args
+                if (!args)
+                    args = $alpbros.$url.args || {};
+                var res = args.res;
+                if (res) {
+                    res = $alpbros.$util.expandPath($alpbros.$res, res);
+                    if (res.title)
+                        args.title = res.title;
+                    if (res.text)
+                        args.text = res.text;
+                    if (res.ok)
+                        args.ok = res.ok;
+                    if (res.cancel)
+                        args.cancel = res.cancel;
+                }
+                // init result promise
+                this._result = $.Deferred();
+                this.result = this._result.promise();
+                // set title, text, buttons
+                $("h2", this.pageCnt).text((args.title || "").format(args));
+                $("p", this.pageCnt).text((args.text || "").format(args));
+                this.okBtn.attr("href", args.ok || "");
+                if (args.cancel)
+                    this.cancelBtn.attr("href", args.cancel);
+                this.cancelBtn.parent().toggle(args.mode != "info");
+                // reinit links
+                $alpbros.$ui.link.init(this.pageCnt);
                 // ready
                 wait.resolve(this);
             };
@@ -2515,8 +2762,10 @@ var $alpbros;
     (function ($pages) {
         var waiting = {};
         var pages = {};
+        /** Gets the page stack. */
+        $pages.stack = [];
         /** Loads the specified page. */
-        function load(name, preload) {
+        function load(name, preload, args) {
             // check if page exists
             var pageInfo = $alpbros.$cfg.pages[name];
             if (pageInfo == null)
@@ -2562,38 +2811,61 @@ var $alpbros;
                 if (!page.load || preload)
                     return page;
                 var waitLoad = $.Deferred();
-                page.load(waitLoad);
+                page.load(waitLoad, args);
                 return waitLoad;
             })
                 .then(function (page) {
-                // init current page on app start, should be main page
-                if (!$pages.current)
-                    $pages.current = page;
-                // hide loader and set current page if not preloading
-                if (!preload) {
-                    $alpbros.$ui.loader.hide();
-                    if ($pages.current != page) {
-                        // hide old current
-                        if ($pages.current) {
-                            $pages.current.pageCnt.removeClass("current").addClass("hidden");
-                            $pages.current.pageCnt.trigger("pagehide");
-                        }
-                        // set new current
-                        ($pages.current = page).pageCnt.addClass("current").removeClass("hidden");
-                        $pages.current.pageCnt.trigger("pageload");
-                    }
-                    // set back btn
-                    $alpbros.$ui.$backBtn.toggleClass("hidden", $pages.current == get("main"));
-                }
+                setCurrentPage(page, preload);
+                $alpbros.$ui.loader.hide();
                 return page;
             })).fail(function (err) { fail(err, name, preload); }); // catch fail
         }
         $pages.load = load;
+        function setCurrentPage(page, preload, isBack) {
+            // init current page on app start, should be main page
+            if (!$pages.current) {
+                $pages.current = page;
+                if (!isBack)
+                    $pages.stack.push($pages.current);
+            }
+            // hide loader and set current page if not preloading
+            if (preload)
+                return;
+            if ($pages.current != page) {
+                // hide old current
+                if ($pages.current) {
+                    $pages.current.remOffset($alpbros.$window.scrollTop()); // remember scroll offset
+                    $pages.current.pageCnt.removeClass("current").addClass("hidden");
+                    $pages.current.pageCnt.trigger("pagehide");
+                }
+                // set new current
+                ($pages.current = page).pageCnt.addClass("current").removeClass("hidden");
+                $pages.current.pageCnt.trigger("pageload");
+                // add page to stack
+                if (!isBack)
+                    $pages.stack.push($pages.current);
+            }
+            // set back btn
+            $alpbros.$ui.$backBtn.toggleClass("hidden", $pages.current == get("main") || $pages.current.pageCnt.hasClass("no-back-btn"));
+        }
         /** Preloads the specified page. */
         function preload(name) {
             return load(name, true);
         }
         $pages.preload = preload;
+        /** Loads the previous page. */
+        function back() {
+            var wait = $.Deferred();
+            if ($pages.stack.length < 2)
+                return wait.resolve().promise();
+            $pages.stack.pop();
+            var prev = $pages.stack[$pages.stack.length - 1];
+            if (!prev)
+                return wait.resolve().promise();
+            setCurrentPage(prev, false, true);
+            return $alpbros.$ui.scrollToPage(prev, undefined, undefined, "immediate", true, wait);
+        }
+        $pages.back = back;
         function fail(err, name, preload) {
             $alpbros.$ui.loader.hide();
             delete waiting[name];
@@ -2748,12 +3020,41 @@ var $alpbros;
                     // delete from data
                     $alpbros.$data.deleteEvent(deleted);
                     // go to events page
-                    return $alpbros.$app.hashChange(args.back || "#/events");
+                    return $alpbros.$app.hashChange(args.goto);
                 });
             };
             return CmdDeleteEvent;
         }());
         $cmd.CmdDeleteEvent = CmdDeleteEvent;
+    })($cmd = $alpbros.$cmd || ($alpbros.$cmd = {}));
+})($alpbros || ($alpbros = {}));
+var $alpbros;
+(function ($alpbros) {
+    var $cmd;
+    (function ($cmd) {
+        /** Sign out command. */
+        var CmdDeleteRegistration = /** @class */ (function () {
+            function CmdDeleteRegistration() {
+            }
+            /** Executes the command. */
+            CmdDeleteRegistration.prototype.exec = function (args) {
+                // get event id
+                var reg = args;
+                if (!reg || !reg.regId)
+                    return $.Deferred().reject("Missing reg!").promise();
+                return $alpbros.$app.confirm("Delete Reg?", "Do you really want to delete the reg?", args.ok, args.cancel).done(function (res) {
+                    $alpbros.$ui.loader.show(); // show loader
+                    return $alpbros.$ctx.deleteRegistration(reg, args.force, args.status)
+                        .always(function () { $alpbros.$ui.loader.hide(); }) // hide loader
+                        .done(function (deleted) {
+                        // go back
+                        return $alpbros.$app.hashChange(args.goto);
+                    });
+                });
+            };
+            return CmdDeleteRegistration;
+        }());
+        $cmd.CmdDeleteRegistration = CmdDeleteRegistration;
     })($cmd = $alpbros.$cmd || ($alpbros.$cmd = {}));
 })($alpbros || ($alpbros = {}));
 var $alpbros;
@@ -2865,12 +3166,8 @@ var $alpbros;
         $app.init = init;
         function hashChange(hash, anchor, speed) {
             // go back
-            if (hash === "#back") {
-                $app.back();
-                return;
-            }
-            else if (hash == "#back-history") {
-                $app.back("#history");
+            if (hash === "#back" || hash == "#pophistory" || hash == "#poppage") {
+                $app.back(hash);
                 return;
             }
             // disable hash change event
@@ -2927,7 +3224,7 @@ var $alpbros;
                 return p.title;
             return $alpbros.$res["main"].title;
         }
-        /** Set's the hash without triggering hashchange event. Only cal if history api is supported! */
+        /** Set's the hash without triggering hashchange event. Only call if history api is supported! */
         function setHash(hash) {
             history.replaceState(hash, undefined, hash);
         }
@@ -2940,12 +3237,16 @@ var $alpbros;
         /** Go back. */
         function back(hash) {
             popstate = true; // next hashchange will run as popstate
+            if (hash === "#back")
+                hash = null;
             if (!hash)
                 hash = $alpbros.$ui.$backBtn.attr("back") || $alpbros.$pages.current && $alpbros.$pages.current.defaultBack() || "#/";
-            if (hash == "#history")
+            if (hash == "#pophistory")
                 history.back();
+            else if (hash == "#poppage")
+                $alpbros.$pages.back().always(function () { popstate = false; });
             else
-                hashChange(hash);
+                hashChange(hash).always(function () { popstate = false; });
         }
         $app.back = back;
         /** Sets the app authentication state. */
@@ -2962,10 +3263,10 @@ var $alpbros;
             $alpbros.$doc.toggleClass("missing-cookie-agreement", !agreed);
         }
         $app.setCookieAgreement = setCookieAgreement;
-        function confirmUrl(res, text, okUrl) {
+        function confirmUrl(res, text, ok) {
             if (typeof res == "string") {
                 var title = res;
-                res = { title: title, text: text, ok: okUrl };
+                res = { title: title, text: text, ok: ok };
             }
             var url;
             for (var prop in res) {
@@ -2978,8 +3279,14 @@ var $alpbros;
             return url;
         }
         $app.confirmUrl = confirmUrl;
-        function confirm(res, text, okUrl) {
-            hashChange(confirmUrl(res, text, okUrl));
+        function confirm(args, text, ok, cancel, mode) {
+            //hashChange(confirmUrl(res, text, okUrl));
+            if (typeof args == "string")
+                args = { title: args, text: text, ok: ok, cancel: cancel };
+            args.mode = mode || "confirm";
+            return $alpbros.$pages.load("confirm", false, args).then(function (page) {
+                return page.result;
+            });
         }
         $app.confirm = confirm;
         function choiceUrl(res, text, items) {
@@ -3004,6 +3311,10 @@ var $alpbros;
             hashChange(choiceUrl(res, text, items));
         }
         $app.choice = choice;
+        function info(args, text, ok) {
+            return confirm(args, text, ok, "info");
+        }
+        $app.info = info;
     })($app = $alpbros.$app || ($alpbros.$app = {}));
     // set skel breakpoints
     $alpbros.$ui.initSkel();

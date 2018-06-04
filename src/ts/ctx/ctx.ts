@@ -5,6 +5,7 @@
 /// <reference path="../ref.d.ts" />
 /// <reference path="ctx-db.ts" />
 /// <reference path="ctx-session.ts" />
+/// <reference path="ctx-registration.ts" />
 "use strict";
 
 module $alpbros.$ctx
