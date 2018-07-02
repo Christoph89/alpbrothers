@@ -2264,10 +2264,7 @@ var $alpbros;
                     .click(function () {
                     $alpbros.$cmd.exec("delete-registration", $.extend({}, reg, { force: true })).done(function () {
                         _this.registrations = $q(_this.registrations).Where(function (x) { return x.regId != reg.regId; }).ToArray();
-                        if (setStatus == $alpbros.MTBRegistrationStatus.Canceled)
-                            _this.regcount--;
-                        else
-                            _this.regcount++;
+                        _this.regcount--;
                         _this.initRegForm(_this.event);
                     });
                 })));

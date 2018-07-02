@@ -243,8 +243,7 @@ module $alpbros.$pages
               $cmd.exec("delete-registration", $.extend({}, reg, { force: true })).done(() => 
               {
                 this.registrations=$q(this.registrations).Where(x => x.regId!=reg.regId).ToArray();
-                if (setStatus==MTBRegistrationStatus.Canceled) this.regcount--;
-                else this.regcount++;
+                this.regcount--;
                 this.initRegForm(this.event);
               }); 
             }),  
