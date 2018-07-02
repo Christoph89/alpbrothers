@@ -154,7 +154,7 @@ module $alpbros
       stack.pop();
       var prev=stack[stack.length-1];
       if (!prev)
-        return wait.resolve().promise();
+        prev=$pages.get("main");
       setCurrentPage(prev, false, true);
       return $ui.scrollToPage(prev, undefined, undefined, "immediate", true, wait);
     }

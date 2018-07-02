@@ -2,7 +2,7 @@
   "client":
   {
     "shownEvents": 5,
-    "allow_reg": false,
+    "allow_reg": true,
     "ctx":
     {
       "apikey": "4b33abd43ef19f34327029142e4d8a0ca58a78477f82622f48775493dd4e1087",
@@ -15,6 +15,10 @@
       "Alpbrothers Partner": "partner",
       "Alpbrothers WWW": "public",
       "": "public"
+    },
+    "email":
+    {
+      "bcc": [{ "name": "Alpbrothers Mountainbike Guiding", "email": "office@alpbrothers.at" }]
     },
     "access":
     {

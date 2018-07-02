@@ -15,9 +15,22 @@ module $alpbros
     /** The event is in progress. */
     InProgress=1,
     /** The event is canceled and will not take place. */
-    Canceled=3,
+    Canceled=2,
     /** The event has been deleted. */
     Deleted=3
+  }
+
+  /** Defines different kinds of registrations. */
+  export enum MTBEventRegType
+  {
+    /** Denies regisration for everyone. */
+    NoOne=0,
+    /** Allows registration for admins. */
+    Admins=1<<0,
+    /** Allows registration for partners */
+    Partner=1<<0 | 1<<1,
+    /** Allows regisration for everyone. */
+    Everyone=1<<0 | 1<<1 | 1<<2
   }
 
   /** Defines a mtb event. */
@@ -61,8 +74,8 @@ module $alpbros
     meeting?: string;
     /** The max amount of participants. */
     max_participants?: number;
-    /** Allow reg or not (<=0 false / >0 true) */
-    allow_reg?: number;
+    /** The reg type, specifies who can reg. */
+    allow_reg?: MTBEventRegType;
   }
 
   /** Defines a mtb event. */
@@ -225,8 +238,23 @@ module $alpbros
     /** Returns the max amount of participants. */
     public maxParticipants(): number { return this.get("max_participants") || 0; }
 
+    /** Gets the reg type. */
+    public allowReg(): MTBEventRegType { return this.get("allow_reg") || 0; }
+
     /** Returns whether registration is allowed. */
-    public isRegAllowed(): boolean { return $cfg.allow_reg && (this.get("allow_reg")||0)>0; }
+    public isRegAllowed(): boolean 
+    { 
+      if (!$cfg.allow_reg)
+        return false;
+      var regtype: MTBEventRegType=this.allowReg();
+      switch (regtype)
+      {
+        case MTBEventRegType.Admins: return $ctx.session.isAdmin();
+        case MTBEventRegType.Partner: return $ctx.session.isPartner() || $ctx.session.isAdmin();
+        case MTBEventRegType.Everyone: return true;
+      }
+      return false;
+    }
 
     /** Returns all occurrences of the series. */
     public occurrences(): MTBEvent[]

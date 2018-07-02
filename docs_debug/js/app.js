@@ -17,12 +17,12 @@ var $alpbros;
     /** Specifies all roles. */
     var Roles;
     (function (Roles) {
-        /** Partner role. */
-        Roles[Roles["Partner"] = 2] = "Partner";
         /** WWW role. */
-        Roles[Roles["WWW"] = 3] = "WWW";
+        Roles[Roles["WWW"] = 1] = "WWW";
         /** Admin role. */
-        Roles[Roles["Admin"] = 4] = "Admin";
+        Roles[Roles["Admin"] = 2] = "Admin";
+        /** Partner role. */
+        Roles[Roles["Partner"] = 3] = "Partner";
     })(Roles = $alpbros.Roles || ($alpbros.Roles = {}));
     var MTBLevel;
     (function (MTBLevel) {
@@ -256,10 +256,22 @@ var $alpbros;
         /** The event is in progress. */
         MTBEventStatus[MTBEventStatus["InProgress"] = 1] = "InProgress";
         /** The event is canceled and will not take place. */
-        MTBEventStatus[MTBEventStatus["Canceled"] = 3] = "Canceled";
+        MTBEventStatus[MTBEventStatus["Canceled"] = 2] = "Canceled";
         /** The event has been deleted. */
         MTBEventStatus[MTBEventStatus["Deleted"] = 3] = "Deleted";
     })(MTBEventStatus = $alpbros.MTBEventStatus || ($alpbros.MTBEventStatus = {}));
+    /** Defines different kinds of registrations. */
+    var MTBEventRegType;
+    (function (MTBEventRegType) {
+        /** Denies regisration for everyone. */
+        MTBEventRegType[MTBEventRegType["NoOne"] = 0] = "NoOne";
+        /** Allows registration for admins. */
+        MTBEventRegType[MTBEventRegType["Admins"] = 1] = "Admins";
+        /** Allows registration for partners */
+        MTBEventRegType[MTBEventRegType["Partner"] = 3] = "Partner";
+        /** Allows regisration for everyone. */
+        MTBEventRegType[MTBEventRegType["Everyone"] = 7] = "Everyone";
+    })(MTBEventRegType = $alpbros.MTBEventRegType || ($alpbros.MTBEventRegType = {}));
     /** Defines a mtb event. */
     var MTBEvent = /** @class */ (function () {
         /** Initializes a new instance. */
@@ -369,8 +381,20 @@ var $alpbros;
         MTBEvent.prototype.meetingPointDescription = function () { return this.meetingPoint().split("/")[2] || "Parkplatz Natur Aktiv Park, Faak am See"; };
         /** Returns the max amount of participants. */
         MTBEvent.prototype.maxParticipants = function () { return this.get("max_participants") || 0; };
+        /** Gets the reg type. */
+        MTBEvent.prototype.allowReg = function () { return this.get("allow_reg") || 0; };
         /** Returns whether registration is allowed. */
-        MTBEvent.prototype.isRegAllowed = function () { return $alpbros.$cfg.allow_reg && (this.get("allow_reg") || 0) > 0; };
+        MTBEvent.prototype.isRegAllowed = function () {
+            if (!$alpbros.$cfg.allow_reg)
+                return false;
+            var regtype = this.allowReg();
+            switch (regtype) {
+                case MTBEventRegType.Admins: return $alpbros.$ctx.session.isAdmin();
+                case MTBEventRegType.Partner: return $alpbros.$ctx.session.isPartner() || $alpbros.$ctx.session.isAdmin();
+                case MTBEventRegType.Everyone: return true;
+            }
+            return false;
+        };
         /** Returns all occurrences of the series. */
         MTBEvent.prototype.occurrences = function () {
             var seriesId = this.seriesId();
@@ -1708,12 +1732,14 @@ var $alpbros;
                     .then(function (session) {
                     // refresh session
                     setSession(session);
+                    console.debug("session refreshed " + session.session_token);
                     // load profile
                     return $ctx.get("/user/profile");
                 })
                     .then(function (profile) {
                     // set profile
                     session.profile = profile;
+                    console.debug("got profile for session");
                     return session.current;
                 })
                     .fail(function (jqXHR, status, err) {
@@ -2212,6 +2238,7 @@ var $alpbros;
             };
             /** Returns a registration row. */
             PageEvent.prototype.getRegRow = function (reg, idx) {
+                var _this = this;
                 var res = $alpbros.$res.event.details;
                 var isOwnReg = $alpbros.$ctx.session.isAdmin() || $alpbros.$ctx.session.isPartner() && reg.createdBy === $alpbros.$ctx.session.current.email;
                 var isValid = (idx + 1) <= this.event.maxParticipants();
@@ -2222,10 +2249,28 @@ var $alpbros;
                     .append($("<td>").text(moment(reg.created).format(res.regDateFormat)).attr("title", res.regBy.format(reg.createdBy)), $("<td>").text(reg.name), $("<td>").text(reg.email), $("<td>").text(reg.phone), $("<td>").text(reg.age || "***"), $("<td>").text(reg.accommodation), $("<td>").append(
                 // cancel button
                 $("<a>").addClass("icon style2 " + (isActive ? "fa-close" : "fa-check role-admin")).attr("title", res[setType + "Reg"]).toggleClass("disabled", !isOwnReg)
-                    .attr("href", $alpbros.$app.confirmUrl($.extend(reg, { res: "event." + setType + "RegConfirm", goto: encodeURIComponent($alpbros.$url.hash), force: false, status: setStatus }))), 
+                    .click(function () {
+                    $alpbros.$cmd.exec("delete-registration", $.extend({}, reg, { force: false, status: setStatus })).done(function () {
+                        reg.status = setStatus;
+                        if (setStatus == $alpbros.MTBRegistrationStatus.Canceled)
+                            _this.regcount--;
+                        else
+                            _this.regcount++;
+                        _this.initRegForm(_this.event);
+                    });
+                }), 
                 // delete button
                 $("<a>").addClass("icon style2 fa-trash role-admin").attr("title", res.deleteReg).toggleClass("disabled", !isOwnReg)
-                    .attr("href", $alpbros.$app.confirmUrl($.extend($alpbros.$res.event.deleteRegConfirm, reg, { goto: encodeURIComponent($alpbros.$url.hash), force: true })))));
+                    .click(function () {
+                    $alpbros.$cmd.exec("delete-registration", $.extend({}, reg, { force: true })).done(function () {
+                        _this.registrations = $q(_this.registrations).Where(function (x) { return x.regId != reg.regId; }).ToArray();
+                        if (setStatus == $alpbros.MTBRegistrationStatus.Canceled)
+                            _this.regcount--;
+                        else
+                            _this.regcount++;
+                        _this.initRegForm(_this.event);
+                    });
+                })));
             };
             /** Gets the registration data from the form. */
             PageEvent.prototype.getReg = function () {
@@ -2262,9 +2307,13 @@ var $alpbros;
                 var email = {
                     template: "registration_" + $alpbros.$cfg.lang,
                     to: [{ name: reg.name, email: reg.email }],
-                    cc: [{ name: "Alpbrothers Mountainbike Guiding", email: "office@alpbrothers.at" }],
+                    bcc: $alpbros.$cfg.email.bcc || [],
                     location_origin: location.origin
                 };
+                // add current user to bcc
+                var cur = $alpbros.$ctx.session.current;
+                if (cur && cur.email && !$q(email.bcc).Any(function (x) { return x.email == cur.email; }))
+                    email.bcc.push({ name: cur.first_name + " " + cur.last_name, email: cur.email });
                 $alpbros.$ctx.register(reg, token, email)
                     .always(function () { return $alpbros.$ui.loader.hide(); })
                     .done(function (newReg) {
@@ -2368,7 +2417,7 @@ var $alpbros;
                 if (!event.isErlebniscard())
                     this.input("price").val(parseInt(event.price()));
                 this.input("max-participants").val(event.maxParticipants() || (this.mode == "add" ? 6 : 0));
-                this.input("allow-reg").val(event.isRegAllowed() ? "1" : "0");
+                this.input("allow-reg").val(event.allowReg().toString());
                 this.input("short-descr-de").val(event.shortDescription_de());
                 this.input("short-descr-en").val(event.shortDescription_en());
                 this.input("descr-de").val(event.description_de());
@@ -2742,7 +2791,7 @@ var $alpbros;
                 // set title, text, buttons
                 $("h2", this.pageCnt).text((args.title || "").format(args));
                 $("p", this.pageCnt).text((args.text || "").format(args));
-                this.okBtn.attr("href", args.ok || "");
+                this.okBtn.attr("href", args.ok || "#poppage");
                 if (args.cancel)
                     this.cancelBtn.attr("href", args.cancel);
                 this.cancelBtn.parent().toggle(args.mode != "info");
@@ -2861,7 +2910,7 @@ var $alpbros;
             $pages.stack.pop();
             var prev = $pages.stack[$pages.stack.length - 1];
             if (!prev)
-                return wait.resolve().promise();
+                prev = $pages.get("main");
             setCurrentPage(prev, false, true);
             return $alpbros.$ui.scrollToPage(prev, undefined, undefined, "immediate", true, wait);
         }
@@ -3042,14 +3091,34 @@ var $alpbros;
                 var reg = args;
                 if (!reg || !reg.regId)
                     return $.Deferred().reject("Missing reg!").promise();
-                return $alpbros.$app.confirm("Delete Reg?", "Do you really want to delete the reg?", args.ok, args.cancel).done(function (res) {
+                // parse boolean
+                if (typeof args.force === "string")
+                    args.force = args.force === "true";
+                // get title and text
+                var action = "";
+                if (args.force)
+                    action = "Delete";
+                else if (args.status == $alpbros.MTBRegistrationStatus.Canceled)
+                    action = "Cancel";
+                else
+                    action = "Reactivate";
+                var title = $alpbros.$res.cmdDeleteReg["title" + action];
+                var text = $alpbros.$res.cmdDeleteReg["text" + action].format(reg.name);
+                // get email
+                var email = {
+                    template: (args.force || action == "Cancel" ? "delete_" : "") + "registration_" + $alpbros.$cfg.lang,
+                    to: [{ name: reg.name, email: reg.email }],
+                    bcc: $alpbros.$cfg.email.bcc || [],
+                    location_origin: location.origin
+                };
+                // add current user to bcc
+                var cur = $alpbros.$ctx.session.current;
+                if (cur && cur.email && !$q(email.bcc).Any(function (x) { return x.email == cur.email; }))
+                    email.bcc.push({ name: cur.first_name + " " + cur.last_name, email: cur.email });
+                return $alpbros.$app.confirm(title, text, args.ok, args.cancel).done(function (res) {
                     $alpbros.$ui.loader.show(); // show loader
-                    return $alpbros.$ctx.deleteRegistration(reg, args.force, args.status)
-                        .always(function () { $alpbros.$ui.loader.hide(); }) // hide loader
-                        .done(function (deleted) {
-                        // go back
-                        return $alpbros.$app.hashChange(args.goto);
-                    });
+                    return $alpbros.$ctx.deleteRegistration(reg, args.force, args.status, email)
+                        .always(function () { $alpbros.$ui.loader.hide(); }); // hide loader
                 });
             };
             return CmdDeleteRegistration;
@@ -3133,19 +3202,18 @@ var $alpbros;
                         popstate = true;
                 });
             // init session refresh
-            var refreshTimeout;
-            $alpbros.$doc.click(function () {
-                if (refreshTimeout)
-                    return;
-                $alpbros.$ctx.session.refresh()
-                    .done(function () { setAuthenticated(true); })
-                    .fail(function () { setAuthenticated(false); });
-                refreshTimeout = setTimeout(function () {
-                    refreshTimeout = null;
-                }, 15000); // wait at least 15sec
-            });
-            // init app data
-            $alpbros.$data.init();
+            // var refreshTimeout: any;
+            // $doc.click(() => 
+            // {
+            //   if (refreshTimeout)
+            //     return;
+            //   $ctx.session.refresh()
+            //     .done(() => { setAuthenticated(true); })
+            //     .fail(() => { setAuthenticated(false); });
+            //   refreshTimeout=setTimeout(() => {
+            //     refreshTimeout=null;
+            //   }, 15000); // wait at least 15sec
+            // });
             // show cookie agreement if not already agreed
             setCookieAgreement($alpbros.$ctx.session.hasCookieAgreement());
             // init session and preload main page to ensure it gets the current one on app start
@@ -3153,6 +3221,9 @@ var $alpbros;
                 .done(function () { setAuthenticated(true); })
                 .fail(function () { setAuthenticated(false); })
                 .always(function () {
+                // init app data
+                $alpbros.$data.init();
+                // preload main page
                 $alpbros.$pages.preload("main").done(function () {
                     // init hash / load start page
                     hashChange(undefined, undefined, "immediate")

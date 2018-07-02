@@ -78,8 +78,10 @@
         <div class="field half">
           <label>{{ $res.registration }}</label>
           <select name="event-allow-reg">
-            <option value="1">{{ $res.yes }}</option>
-            <option value="0">{{ $res.no }}</option>
+            <option value="0">{{ $res.noOne }}</option>
+            <option value="1">{{ $res.admins }}</option>
+            <option value="3">{{ $res.partner }}</option>
+            <option value="7">{{ $res.everyone }}</option>
           </select>
         </div>
         <div class="field"></div>

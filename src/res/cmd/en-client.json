@@ -1,0 +1,14 @@
+{
+  "client":
+  {
+    "cmdDeleteReg":
+    {
+      "titleDelete": "Delete registration?",
+      "textDelete": "Do you really want to delete the registration for {0}?",
+      "titleCancel": "Cancel registration?",
+      "textCancel": "Do you really want to cancel the registration for {0}?",
+      "titleReactivate": "Reactivate registration?",
+      "textReactivate": "Do you really want to reactivate the registration for {0}?"
+    }
+  }
+}

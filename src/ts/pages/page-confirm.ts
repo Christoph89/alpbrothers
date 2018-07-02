@@ -71,7 +71,7 @@ module $alpbros.$pages
       // set title, text, buttons
       $("h2", this.pageCnt).text((args.title||"").format(args));
       $("p", this.pageCnt).text((args.text||"").format(args));
-      this.okBtn.attr("href", args.ok||"");
+      this.okBtn.attr("href", args.ok||"#poppage");
       if (args.cancel) this.cancelBtn.attr("href", args.cancel);
       this.cancelBtn.parent().toggle(args.mode!="info");
 

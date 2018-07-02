@@ -1,0 +1,14 @@
+{
+  "client":
+  {
+    "cmdDeleteReg":
+    {
+      "titleDelete": "Anmeldung löschen?",
+      "textDelete": "Wollen sie die Anmeldung für {0} wirklich löschen?",
+      "titleCancel": "Anmeldung stornieren?",
+      "textCancel": "Wollen sie die Anmeldung für {0} wirklich stornieren?",
+      "titleReactivate": "Anmeldung reaktivieren?",
+      "textReactivate": "Wollen sie die Anmeldung für {0} wirklich reaktivieren?"
+    }
+  }
+}

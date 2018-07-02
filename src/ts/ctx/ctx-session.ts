@@ -171,6 +171,7 @@ module $alpbros.$ctx.session
       {
         // refresh session
         setSession(session);
+        console.debug("session refreshed "+session.session_token);
         // load profile
         return get("/user/profile");
       })
@@ -178,6 +179,7 @@ module $alpbros.$ctx.session
       {
         // set profile
         session.profile=profile;
+        console.debug("got profile for session");
         return session.current;
       })
       .fail((jqXHR, status, err) => 

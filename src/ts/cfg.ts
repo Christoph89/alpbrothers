@@ -34,6 +34,12 @@ module $alpbros
       /** The database name. */
       db: string;
     }
+    /** Gets the email config. */
+    export var email:
+    {
+      /** Gets the predefined bcc recipients. */
+      bcc: IEmailRecipient[]
+    }
     /** Gets the role map. */
     export var roles: any;
     /** Gets the access control object. */

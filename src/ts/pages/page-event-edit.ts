@@ -138,7 +138,7 @@ module $alpbros.$pages
       this.input("price-type", "[value="+(event.isErlebniscard()?"erlebniscard":"price")+"]").click();
       if (!event.isErlebniscard()) this.input("price").val(parseInt(event.price()));
       this.input("max-participants").val(event.maxParticipants() || (this.mode=="add"?6:0));
-      this.input("allow-reg").val(event.isRegAllowed()?"1":"0");
+      this.input("allow-reg").val(event.allowReg().toString());
       this.input("short-descr-de").val(event.shortDescription_de());
       this.input("short-descr-en").val(event.shortDescription_en());
       this.input("descr-de").val(event.description_de());

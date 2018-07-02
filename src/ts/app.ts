@@ -52,21 +52,18 @@ module $alpbros
         });
 
       // init session refresh
-      var refreshTimeout: any;
-      $doc.click(() => 
-      {
-        if (refreshTimeout)
-          return;
-        $ctx.session.refresh()
-          .done(() => { setAuthenticated(true); })
-          .fail(() => { setAuthenticated(false); });
-        refreshTimeout=setTimeout(() => {
-          refreshTimeout=null;
-        }, 15000); // wait at least 15sec
-      });
-
-      // init app data
-      $data.init();
+      // var refreshTimeout: any;
+      // $doc.click(() => 
+      // {
+      //   if (refreshTimeout)
+      //     return;
+      //   $ctx.session.refresh()
+      //     .done(() => { setAuthenticated(true); })
+      //     .fail(() => { setAuthenticated(false); });
+      //   refreshTimeout=setTimeout(() => {
+      //     refreshTimeout=null;
+      //   }, 15000); // wait at least 15sec
+      // });
 
       // show cookie agreement if not already agreed
       setCookieAgreement($ctx.session.hasCookieAgreement());
@@ -77,6 +74,10 @@ module $alpbros
         .fail(() => { setAuthenticated(false); })
         .always(() => 
         {
+          // init app data
+          $data.init();
+
+          // preload main page
           $pages.preload("main").done(() =>
           {
             // init hash / load start page

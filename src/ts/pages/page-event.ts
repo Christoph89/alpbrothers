@@ -226,10 +226,28 @@ module $alpbros.$pages
         $("<td>").append(
           // cancel button
           $("<a>").addClass("icon style2 "+(isActive?"fa-close":"fa-check role-admin")).attr("title", res[setType+"Reg"]).toggleClass("disabled", !isOwnReg)
-            .attr("href", $app.confirmUrl($.extend(reg, { res: "event."+setType+"RegConfirm", goto: encodeURIComponent($url.hash), force: false, status: setStatus }))),
+            .click(() => 
+            { 
+              $cmd.exec("delete-registration", $.extend({}, reg, { force: false, status: setStatus })).done(() => 
+              {
+                reg.status=setStatus;
+                if (setStatus==MTBRegistrationStatus.Canceled) this.regcount--;
+                else this.regcount++;
+                this.initRegForm(this.event);
+              }); 
+            }),  
           // delete button
           $("<a>").addClass("icon style2 fa-trash role-admin").attr("title", res.deleteReg).toggleClass("disabled", !isOwnReg)
-            .attr("href", $app.confirmUrl($.extend($res.event.deleteRegConfirm, reg, { goto: encodeURIComponent($url.hash), force: true })))
+            .click(() => 
+            { 
+              $cmd.exec("delete-registration", $.extend({}, reg, { force: true })).done(() => 
+              {
+                this.registrations=$q(this.registrations).Where(x => x.regId!=reg.regId).ToArray();
+                if (setStatus==MTBRegistrationStatus.Canceled) this.regcount--;
+                else this.regcount++;
+                this.initRegForm(this.event);
+              }); 
+            }),  
         )
       );
     }
@@ -271,9 +289,15 @@ module $alpbros.$pages
       var email: IEmail={
         template: "registration_"+$cfg.lang,
         to: [{ name: reg.name, email: reg.email }],
-        cc: [{ name: "Alpbrothers Mountainbike Guiding", email: "office@alpbrothers.at" }],
+        bcc: $cfg.email.bcc||[],
         location_origin: location.origin
       };
+
+      // add current user to bcc
+      var cur=$ctx.session.current;
+      if (cur && cur.email && !$q(email.bcc).Any(x => x.email==cur.email))
+        email.bcc.push({ name: cur.first_name+" "+cur.last_name, email: cur.email });
+
       $ctx.register(reg, token, email)
         .always(() => $ui.loader.hide())
         .done(newReg => 
