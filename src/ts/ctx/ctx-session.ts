@@ -201,6 +201,7 @@ module $alpbros.$ctx.session
       Cookies.remove(sessionCookie);
       profile=null;
     }
+    change(); // trigger session change event
     return current;
   }
 
@@ -253,5 +254,14 @@ module $alpbros.$ctx.session
   export function agreeCookies()
   {
     Cookies.set(agreementCookie, "true", { expires: 365 });
+  }
+
+  /** Registers or executes the session change event. */
+  export function change(handler?: () => any)
+  {
+    if (!handler)
+      $doc.trigger("session-change");
+    else
+      $doc.bind("session-change", handler);
   }
 }

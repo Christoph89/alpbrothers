@@ -29,11 +29,9 @@ module $alpbros.$pages
       })
       .fail(() => { wait.reject(); });
 
-      // reinit on data change
-      $data.change(() => 
-      {
-        this.initTimeline(false);
-      });
+      // reinit on data or session change
+      $data.change(() => { this.initTimeline(false); });
+      $ctx.session.change(() => { this.initTimeline(false); });
     }
 
     private timelineCnt: JQuery;

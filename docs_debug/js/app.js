@@ -1758,6 +1758,7 @@ var $alpbros;
                     Cookies.remove(sessionCookie);
                     session_1.profile = null;
                 }
+                change(); // trigger session change event
                 return session_1.current;
             }
             function role() {
@@ -1801,6 +1802,14 @@ var $alpbros;
                 Cookies.set(agreementCookie, "true", { expires: 365 });
             }
             session_1.agreeCookies = agreeCookies;
+            /** Registers or executes the session change event. */
+            function change(handler) {
+                if (!handler)
+                    $alpbros.$doc.trigger("session-change");
+                else
+                    $alpbros.$doc.bind("session-change", handler);
+            }
+            session_1.change = change;
         })(session = $ctx.session || ($ctx.session = {}));
     })($ctx = $alpbros.$ctx || ($alpbros.$ctx = {}));
 })($alpbros || ($alpbros = {}));
@@ -1973,10 +1982,9 @@ var $alpbros;
                     wait.resolve(_this);
                 })
                     .fail(function () { wait.reject(); });
-                // reinit on data change
-                $alpbros.$data.change(function () {
-                    _this.initTimeline(false);
-                });
+                // reinit on data or session change
+                $alpbros.$data.change(function () { _this.initTimeline(false); });
+                $alpbros.$ctx.session.change(function () { _this.initTimeline(false); });
                 return _this;
             }
             /** Loads the timeline page */
