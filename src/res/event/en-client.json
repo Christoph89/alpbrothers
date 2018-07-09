@@ -15,19 +15,6 @@
       {
         "title": "Alpbrothers - Add event"
       },
-      "editChoice":
-      {
-        "title": "Edi Event",
-        "text": "Do you want to edit the single event occurrence or the whole series?",
-        "@Edit occurrence": "#/event/edit?id={id}",
-        "@Edit series": "#/event/edit?id={series}"
-      },
-      "deleteConfirm":
-      {
-        "title": "Delete event?",
-        "text": "Do you really want to delete the event?",
-        "ok": "#/cmd/delete-event?id={id}&goto={goto}"
-      },
       "details":
       {
         "date": "{0}",

@@ -15,30 +15,52 @@ module $alpbros.$pages
     {
       super(name, pageCnt, wait);
 
+      // init title, text
+      this.title=$("h2.title", this.pageCnt);
+      this.text=$("p.text", this.pageCnt);
+
       // ready
       wait.resolve(this);
     }
 
+    
+    /** The title header. */
+    private title: JQuery;
+    /** The text paragraph. */
+    private text: JQuery;
+    /** Result deferred. */
+    private _result: JQueryDeferred<any>;
+    /** Result promise. */
+    public result: JQueryPromise<any>;
+
     /** Called when the page gets loaded. */
     public load(wait: JQueryDeferred<Page>, args?: any)
     {
-      $(".inner", this.pageCnt).empty().append('<h2></h2><p></p><ul class="actions"></ul>');
+      // init result promise
+      this._result=$.Deferred<any>();
+      this.result=this._result.promise();
 
       // set title and text
       if (!args) args=$url.args;
-      $("h2", this.pageCnt).text(args.title);
-      $("p", this.pageCnt).text(args.text);
+      this.title.text(args.title);
+      this.text.text(args.text);
       
+      // add buttons
       var actions=$(".actions", this.pageCnt).empty();
-      for (var prop in args)
+      $q(<object>args.items).ForEach(it => 
       {
-        var text=prop;
-        var url=args[prop];
-        if (text[0]!="@")
-        continue;
-        text=text.substr(1);
-        actions.append('<li><a href="'+url+'" class="button special">'+text+'</a></li>');
-      }
+        var val=it.Key;
+        var text=it.Value;
+        var item=$("<li>").appendTo(actions);
+        var btn=$("<a>").addClass("button special").text(text).appendTo(item).click(() =>
+        {
+          // resolve with val
+          this._result.resolve(val);
+        });
+      });
+
+      // append cancel button
+      actions.append($('<li><a href="#poppage" class="button cancel special icon fa-close">'+$res.common.cancel+'</a></li>'))
 
       // init links
       $ui.link.init(this.pageCnt);

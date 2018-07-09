@@ -10,7 +10,8 @@ html.unauthenticated {
   }
 }
 
-html.role-public {
+html.role-public,
+html.unauthenticated {
   .role-admin, .role-partner {
     display: none !important;
   }

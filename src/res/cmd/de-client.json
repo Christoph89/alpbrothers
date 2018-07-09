@@ -9,6 +9,21 @@
       "textCancel": "Wollen sie die Anmeldung für {0} wirklich stornieren?",
       "titleReactivate": "Anmeldung reaktivieren?",
       "textReactivate": "Wollen sie die Anmeldung für {0} wirklich reaktivieren?"
+    },
+    "cmdEditEvent":
+    {
+      "title": "Event bearbeiten",
+      "text": "Wollen Sie den einzelnen Termin oder die gesamte Serie bearbeiten?",
+      "items":
+      {
+        "occurrence": "Termin bearbeiten",
+        "series": "Serie bearbeiten"
+      }
+    },
+    "cmdDeleteEvent":
+    {
+      "title": "Event löschen?",
+      "text": "Wollen sie das Event wirklich löschen?"
     }
   }
 }

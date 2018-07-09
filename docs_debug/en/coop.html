@@ -321,13 +321,8 @@
   "root": "../",
   "lang": "en",
   "res": {
-    "cmdDeleteReg": {
-      "titleDelete": "Delete registration?",
-      "textDelete": "Do you really want to delete the registration for {0}?",
-      "titleCancel": "Cancel registration?",
-      "textCancel": "Do you really want to cancel the registration for {0}?",
-      "titleReactivate": "Reactivate registration?",
-      "textReactivate": "Do you really want to reactivate the registration for {0}?"
+    "common": {
+      "cancel": "Cancel"
     },
     "level": {
       "Everyone": "Everyone",
@@ -393,6 +388,26 @@
         "text": ""
       }
     },
+    "cmdDeleteReg": {
+      "titleDelete": "Delete registration?",
+      "textDelete": "Do you really want to delete the registration for {0}?",
+      "titleCancel": "Cancel registration?",
+      "textCancel": "Do you really want to cancel the registration for {0}?",
+      "titleReactivate": "Reactivate registration?",
+      "textReactivate": "Do you really want to reactivate the registration for {0}?"
+    },
+    "cmdEditEvent": {
+      "title": "Edit Event",
+      "text": "Do you want to edit the single event occurrence or the whole series?",
+      "items": {
+        "occurrence": "Edit occurrence",
+        "series": "Edit series"
+      }
+    },
+    "cmdDeleteEvent": {
+      "title": "Delete event?",
+      "text": "Do you really want to delete the event?"
+    },
     "event": {
       "title": "Alpbrothers - Event",
       "edit": {
@@ -403,17 +418,6 @@
       },
       "add": {
         "title": "Alpbrothers - Add event"
-      },
-      "editChoice": {
-        "title": "Edi Event",
-        "text": "Do you want to edit the single event occurrence or the whole series?",
-        "@Edit occurrence": "#/event/edit?id={id}",
-        "@Edit series": "#/event/edit?id={series}"
-      },
-      "deleteConfirm": {
-        "title": "Delete event?",
-        "text": "Do you really want to delete the event?",
-        "ok": "#/cmd/delete-event?id={id}&goto={goto}"
       },
       "details": {
         "date": "{0}",
@@ -448,6 +452,12 @@
         "ok": "#/cmd/delete-registration?regId={regId}&eventId={eventId}&created={created}&createdBy={createdBy}&email={email}&phone={phone}&name={name}&goto={goto}&force={force}&status={status}"
       }
     },
+    "main": {
+      "title": "Alpbrothers - Your mountainbike guide at Lake Faak in Carinthia"
+    },
+    "upcoming": {
+      "dateFormat": "dd DD.MM.YYYY HH:mm a"
+    },
     "events": {
       "title": "Alpbrothers - Events",
       "level": "Level",
@@ -458,14 +468,7 @@
       "imgPath": "img/events/",
       "details": "Details & Registration",
       "edit": "Edit",
-      "eventUrl": "#/event?id={0}",
-      "editUrl": "#/event/editchoice?series={0}&id={1}"
-    },
-    "main": {
-      "title": "Alpbrothers - Your mountainbike guide at Lake Faak in Carinthia"
-    },
-    "upcoming": {
-      "dateFormat": "dd DD.MM.YYYY HH:mm a"
+      "eventUrl": "#/event?id={0}"
     }
   },
   "pages": {

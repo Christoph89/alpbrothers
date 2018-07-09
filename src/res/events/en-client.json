@@ -12,8 +12,7 @@
       "imgPath": "img/events/",
       "details": "Details & Registration",
       "edit": "Edit",
-      "eventUrl": "#/event?id={0}",
-      "editUrl": "#/event/editchoice?series={0}&id={1}"
+      "eventUrl": "#/event?id={0}"
     }
   }
 }

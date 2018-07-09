@@ -1984,7 +1984,6 @@ var $alpbros;
                     .fail(function () { wait.reject(); });
                 // reinit on data or session change
                 $alpbros.$data.change(function () { _this.initTimeline(false); });
-                $alpbros.$ctx.session.change(function () { _this.initTimeline(false); });
                 return _this;
             }
             /** Loads the timeline page */
@@ -2062,7 +2061,7 @@ var $alpbros;
             PageEvents.prototype.getTimelineItem = function (event) {
                 var price = event.priceText();
                 var eventUrl = $alpbros.$res.events.eventUrl.format(event.eventId());
-                var editUrl = $alpbros.$app.choiceUrl($.extend($alpbros.$res.event.editChoice, { series: event.seriesId(), id: event.eventId() }));
+                var editUrl = "#/cmd/edit-event?id=" + event.eventId();
                 return $('<div class="timeline-block" eventId="' + event.eventId() + '">' +
                     '<div class="timeline-img bg-color-' + this.getLevelColor(event) + '" title="' + event.type().name + '">' +
                     '<span class="icon style2 major ' + event.type().icon + '"></span>' +
@@ -2236,6 +2235,7 @@ var $alpbros;
                 // prefill phone and accomodation for partners
                 if ($alpbros.$ctx.session.isPartner()) {
                     var cur = $alpbros.$ctx.session.profile;
+                    $("#reg-email", this.pageCnt).val(cur.email);
                     $("#reg-phone", this.pageCnt).val(cur.phone);
                     $("#reg-accommodation", this.pageCnt).val(cur.name);
                 }
@@ -2444,10 +2444,13 @@ var $alpbros;
                 $("table.dates tbody", this.pageCnt).toggle(this.isSeries());
                 $(".add-date", this.pageCnt).toggle(this.isSeries());
                 $(".button.edit-series", this.pageCnt).attr("href", "#/event/edit?id=" + event.parentId()).toggle(event.parentId() != null);
-                $(".button.delete", this.pageCnt).attr("href", $alpbros.$app.confirmUrl($.extend($alpbros.$res.event.deleteConfirm, {
-                    id: event.eventId(),
-                    goto: encodeURIComponent("#/events")
-                })));
+                $(".button.delete", this.pageCnt).click(function () {
+                    // exec delete event cmd
+                    $alpbros.$cmd.exec("delete-event", { id: event.eventId() }).done(function () {
+                        // goto events page
+                        $alpbros.$app.hashChange("#/events");
+                    });
+                });
                 this.refreshDatesTbl();
             };
             /** Adds the date from the event date row. */
@@ -2715,27 +2718,37 @@ var $alpbros;
             /** Initializes the page */
             function PageChoice(name, pageCnt, wait) {
                 var _this = _super.call(this, name, pageCnt, wait) || this;
+                // init title, text
+                _this.title = $("h2.title", _this.pageCnt);
+                _this.text = $("p.text", _this.pageCnt);
                 // ready
                 wait.resolve(_this);
                 return _this;
             }
             /** Called when the page gets loaded. */
             PageChoice.prototype.load = function (wait, args) {
-                $(".inner", this.pageCnt).empty().append('<h2></h2><p></p><ul class="actions"></ul>');
+                var _this = this;
+                // init result promise
+                this._result = $.Deferred();
+                this.result = this._result.promise();
                 // set title and text
                 if (!args)
                     args = $alpbros.$url.args;
-                $("h2", this.pageCnt).text(args.title);
-                $("p", this.pageCnt).text(args.text);
+                this.title.text(args.title);
+                this.text.text(args.text);
+                // add buttons
                 var actions = $(".actions", this.pageCnt).empty();
-                for (var prop in args) {
-                    var text = prop;
-                    var url = args[prop];
-                    if (text[0] != "@")
-                        continue;
-                    text = text.substr(1);
-                    actions.append('<li><a href="' + url + '" class="button special">' + text + '</a></li>');
-                }
+                $q(args.items).ForEach(function (it) {
+                    var val = it.Key;
+                    var text = it.Value;
+                    var item = $("<li>").appendTo(actions);
+                    var btn = $("<a>").addClass("button special").text(text).appendTo(item).click(function () {
+                        // resolve with val
+                        _this._result.resolve(val);
+                    });
+                });
+                // append cancel button
+                actions.append($('<li><a href="#poppage" class="button cancel special icon fa-close">' + $alpbros.$res.common.cancel + '</a></li>'));
                 // init links
                 $alpbros.$ui.link.init(this.pageCnt);
                 // ready
@@ -2989,7 +3002,7 @@ var $alpbros;
                     .always(function () { $alpbros.$ui.loader.hide(); }) // always hide loader
                     .done(function (session) {
                     // set document session classes
-                    $alpbros.$app.setAuthenticated(true);
+                    //$app.setAuthenticated(true);
                     // goto return url
                     return $alpbros.$app.hashChange($alpbros.$util.ensureStartsWith(returnUrl, "#"));
                 })
@@ -3017,7 +3030,7 @@ var $alpbros;
                     .always(function () { $alpbros.$app.back(); })
                     .done(function () {
                     // set app unauthenticated
-                    $alpbros.$app.setAuthenticated(false);
+                    //$app.setAuthenticated(false);
                 });
             };
             return CmdSignout;
@@ -3050,6 +3063,35 @@ var $alpbros;
     var $cmd;
     (function ($cmd) {
         /** Sign out command. */
+        var CmdEditEvent = /** @class */ (function () {
+            function CmdEditEvent() {
+            }
+            /** Executes the command. */
+            CmdEditEvent.prototype.exec = function (args) {
+                // get event id
+                var eventId = parseInt(args.id);
+                if (eventId == null || isNaN(eventId))
+                    return $.Deferred().reject("Missing id!").promise();
+                // get event
+                var event = $alpbros.$data.eventMap.Get(eventId);
+                if (!event)
+                    return $.Deferred().reject("Missing event with id " + eventId + "!").promise();
+                // choose between series and occurrence
+                return $alpbros.$app.choice($alpbros.$res.cmdEditEvent).done(function (res) {
+                    var id = res == "series" ? event.seriesId() : event.eventId();
+                    $alpbros.$app.hashChange("#/event/edit?id=" + id);
+                });
+            };
+            return CmdEditEvent;
+        }());
+        $cmd.CmdEditEvent = CmdEditEvent;
+    })($cmd = $alpbros.$cmd || ($alpbros.$cmd = {}));
+})($alpbros || ($alpbros = {}));
+var $alpbros;
+(function ($alpbros) {
+    var $cmd;
+    (function ($cmd) {
+        /** Sign out command. */
         var CmdDeleteEvent = /** @class */ (function () {
             function CmdDeleteEvent() {
             }
@@ -3067,14 +3109,16 @@ var $alpbros;
                 var events = [event];
                 if (event.isSeries())
                     events = event.occurrences().concat(event);
-                $alpbros.$ui.loader.show(); // show loader
-                return $alpbros.$ctx.db.event["delete"]($q(events).Select(function (x) { return x.state; }).ToArray())
-                    .always(function () { $alpbros.$ui.loader.hide(); }) // hide loader
-                    .done(function (deleted) {
-                    // delete from data
-                    $alpbros.$data.deleteEvent(deleted);
-                    // go to events page
-                    return $alpbros.$app.hashChange(args.goto);
+                // confirm
+                return $alpbros.$app.confirm($alpbros.$res.cmdDeleteEvent.title, $alpbros.$res.cmdDeleteEvent.text, args.ok, args.cancel).done(function (res) {
+                    $alpbros.$ui.loader.show(); // show loader
+                    return $alpbros.$ctx.db.event["delete"]($q(events).Select(function (x) { return x.state; }).ToArray())
+                        .always(function () { $alpbros.$ui.loader.hide(); }) // hide loader
+                        .done(function (deleted) {
+                        // delete from data
+                        $alpbros.$data.deleteEvent(deleted);
+                        return deleted;
+                    });
                 });
             };
             return CmdDeleteEvent;
@@ -3222,9 +3266,12 @@ var $alpbros;
             // show cookie agreement if not already agreed
             setCookieAgreement($alpbros.$ctx.session.hasCookieAgreement());
             // init session and preload main page to ensure it gets the current one on app start
+            $alpbros.$ctx.session.change(function () {
+                setAuthenticated($alpbros.$ctx.session.current != null);
+            });
             $alpbros.$ctx.session.refresh()
-                .done(function () { setAuthenticated(true); })
-                .fail(function () { setAuthenticated(false); })
+                //.done(() => { setAuthenticated(true); })
+                //.fail(() => { setAuthenticated(false); })
                 .always(function () {
                 // init app data
                 $alpbros.$data.init();
@@ -3339,24 +3386,7 @@ var $alpbros;
             $alpbros.$doc.toggleClass("missing-cookie-agreement", !agreed);
         }
         $app.setCookieAgreement = setCookieAgreement;
-        function confirmUrl(res, text, ok) {
-            if (typeof res == "string") {
-                var title = res;
-                res = { title: title, text: text, ok: ok };
-            }
-            var url;
-            for (var prop in res) {
-                if (!url)
-                    url = "#/confirm?";
-                else
-                    url += "&";
-                url += encodeURIComponent(prop) + "=" + encodeURIComponent(res[prop]);
-            }
-            return url;
-        }
-        $app.confirmUrl = confirmUrl;
         function confirm(args, text, ok, cancel, mode) {
-            //hashChange(confirmUrl(res, text, okUrl));
             if (typeof args == "string")
                 args = { title: args, text: text, ok: ok, cancel: cancel };
             args.mode = mode || "confirm";
@@ -3365,32 +3395,18 @@ var $alpbros;
             });
         }
         $app.confirm = confirm;
-        function choiceUrl(res, text, items) {
-            if (typeof res == "string") {
-                var title = res;
-                res = $q(items).ToObject(function (x) { return (x.Key[0] == "@" ? "" : "@") + x.Key; }, function (x) { return x.Value; });
-                res.title = title;
-                res.text = text;
-            }
-            var url;
-            for (var prop in res) {
-                if (!url)
-                    url = "#/choice?";
-                else
-                    url += "&";
-                url += encodeURIComponent(prop) + "=" + encodeURIComponent(res[prop]);
-            }
-            return url;
-        }
-        $app.choiceUrl = choiceUrl;
-        function choice(res, text, items) {
-            hashChange(choiceUrl(res, text, items));
-        }
-        $app.choice = choice;
         function info(args, text, ok) {
             return confirm(args, text, ok, "info");
         }
         $app.info = info;
+        function choice(args, text, items) {
+            if (typeof args == "string")
+                args = { title: args, text: text, items: items };
+            return $alpbros.$pages.load("choice", false, args).then(function (page) {
+                return page.result;
+            });
+        }
+        $app.choice = choice;
     })($app = $alpbros.$app || ($alpbros.$app = {}));
     // set skel breakpoints
     $alpbros.$ui.initSkel();

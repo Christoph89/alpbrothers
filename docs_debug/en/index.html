@@ -68,11 +68,11 @@
       
         <li><a href="#/upcoming" class="button medium wide icon fa-calendar" title="Events">Events</a></li>
       
-        <li><a href="#/impressions" class="button medium wide icon fa-camera-retro" title="Impressions">Impressions</a></li>
-      
         <li><a href="#/contact" class="button medium wide icon fa-phone" title="Contact">Contact</a></li>
       
         <li><a href="../index.html" class="button medium wide icon special fa-language" title="Deutsch">Deutsch</a></li>
+      
+        <li><a href="#/signin" class="button medium wide icon special fa-sign-in noauth-only" title="Sign in">Sign in</a></li>
       
         <li><a href="#/cmd/signout" class="button medium wide icon special fa-sign-out auth-only" title="Sign out">Sign out</a></li>
       
@@ -195,7 +195,7 @@
 </section>
   
     <!-- upcoming -->
-<section id="upcoming" href="#/upcoming" class="wrapper style1 color2 align-center no-events-off">
+<section id="upcoming" href="#/upcoming" class="wrapper style1 color2 align-center no-events-off border-top">
   <div class="inner">
     <h2>Upcoming Events</h2>
     <p class="no-event-info">
@@ -354,6 +354,9 @@
     <!-- partner -->
 <section class="partner wrapper style1 color5 align-center">
   <div class="inner">
+    <!-- anna kirchtag -->
+    <img id="annakirchtag" src="../img/AnnaKirchtag.jpg" alt="Anna Kirchtag is..." style="width: 50%;" />
+
     <div class="items partner style3 small onscroll-fade-in">
       <section class="anderwald">
         <a href="http://www.campinganderwald.at/" class="inner" target="_blank"></a>
@@ -479,13 +482,8 @@
   "root": "../",
   "lang": "en",
   "res": {
-    "cmdDeleteReg": {
-      "titleDelete": "Delete registration?",
-      "textDelete": "Do you really want to delete the registration for {0}?",
-      "titleCancel": "Cancel registration?",
-      "textCancel": "Do you really want to cancel the registration for {0}?",
-      "titleReactivate": "Reactivate registration?",
-      "textReactivate": "Do you really want to reactivate the registration for {0}?"
+    "common": {
+      "cancel": "Cancel"
     },
     "level": {
       "Everyone": "Everyone",
@@ -551,6 +549,26 @@
         "text": ""
       }
     },
+    "cmdDeleteReg": {
+      "titleDelete": "Delete registration?",
+      "textDelete": "Do you really want to delete the registration for {0}?",
+      "titleCancel": "Cancel registration?",
+      "textCancel": "Do you really want to cancel the registration for {0}?",
+      "titleReactivate": "Reactivate registration?",
+      "textReactivate": "Do you really want to reactivate the registration for {0}?"
+    },
+    "cmdEditEvent": {
+      "title": "Edit Event",
+      "text": "Do you want to edit the single event occurrence or the whole series?",
+      "items": {
+        "occurrence": "Edit occurrence",
+        "series": "Edit series"
+      }
+    },
+    "cmdDeleteEvent": {
+      "title": "Delete event?",
+      "text": "Do you really want to delete the event?"
+    },
     "event": {
       "title": "Alpbrothers - Event",
       "edit": {
@@ -561,17 +579,6 @@
       },
       "add": {
         "title": "Alpbrothers - Add event"
-      },
-      "editChoice": {
-        "title": "Edi Event",
-        "text": "Do you want to edit the single event occurrence or the whole series?",
-        "@Edit occurrence": "#/event/edit?id={id}",
-        "@Edit series": "#/event/edit?id={series}"
-      },
-      "deleteConfirm": {
-        "title": "Delete event?",
-        "text": "Do you really want to delete the event?",
-        "ok": "#/cmd/delete-event?id={id}&goto={goto}"
       },
       "details": {
         "date": "{0}",
@@ -606,6 +613,12 @@
         "ok": "#/cmd/delete-registration?regId={regId}&eventId={eventId}&created={created}&createdBy={createdBy}&email={email}&phone={phone}&name={name}&goto={goto}&force={force}&status={status}"
       }
     },
+    "main": {
+      "title": "Alpbrothers - Your mountainbike guide at Lake Faak in Carinthia"
+    },
+    "upcoming": {
+      "dateFormat": "dd DD.MM.YYYY HH:mm a"
+    },
     "events": {
       "title": "Alpbrothers - Events",
       "level": "Level",
@@ -616,14 +629,7 @@
       "imgPath": "img/events/",
       "details": "Details & Registration",
       "edit": "Edit",
-      "eventUrl": "#/event?id={0}",
-      "editUrl": "#/event/editchoice?series={0}&id={1}"
-    },
-    "main": {
-      "title": "Alpbrothers - Your mountainbike guide at Lake Faak in Carinthia"
-    },
-    "upcoming": {
-      "dateFormat": "dd DD.MM.YYYY HH:mm a"
+      "eventUrl": "#/event?id={0}"
     }
   },
   "pages": {

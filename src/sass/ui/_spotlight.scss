@@ -8,6 +8,10 @@
 
 	.spotlight {
 
+    &.border-top {
+      border-top: 1px solid #ccc;
+    }
+
 		// Mixin.
 			@mixin transition-spotlight($event) {
 				$x: null;

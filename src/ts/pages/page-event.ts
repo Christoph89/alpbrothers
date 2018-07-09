@@ -196,6 +196,7 @@ module $alpbros.$pages
       if ($ctx.session.isPartner())
       {
         var cur=$ctx.session.profile;
+        $("#reg-email", this.pageCnt).val(cur.email);
         $("#reg-phone", this.pageCnt).val(cur.phone)
         $("#reg-accommodation", this.pageCnt).val(cur.name);
       }

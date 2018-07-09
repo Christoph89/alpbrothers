@@ -5,9 +5,9 @@
     { "url": "#/about", "text": "About", "icon": "fa-id-card" },
     { "url": "#/offer", "text": "Offer", "icon": "fa-bicycle" },
     { "url": "#/upcoming", "text": "Events", "icon": "fa-calendar" },
-    { "url": "#/impressions", "text": "Impressions", "icon": "fa-camera-retro" },
     { "url": "#/contact", "text": "Contact", "icon": "fa-phone" },
     { "url": "%lngurl", "text": "Deutsch", "icon": "special fa-language" },
+    { "url": "#/signin", "text": "Sign in", "icon": "special fa-sign-in noauth-only" },
     { "url": "#/cmd/signout", "text": "Sign out", "icon": "special fa-sign-out auth-only" }  
   ],
 

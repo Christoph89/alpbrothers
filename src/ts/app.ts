@@ -69,9 +69,13 @@ module $alpbros
       setCookieAgreement($ctx.session.hasCookieAgreement());
 
       // init session and preload main page to ensure it gets the current one on app start
+      $ctx.session.change(() => 
+      {
+        setAuthenticated($ctx.session.current!=null);
+      });
       $ctx.session.refresh()
-        .done(() => { setAuthenticated(true); })
-        .fail(() => { setAuthenticated(false); })
+        //.done(() => { setAuthenticated(true); })
+        //.fail(() => { setAuthenticated(false); })
         .always(() => 
         {
           // init app data
@@ -206,69 +210,18 @@ module $alpbros
       $doc.toggleClass("missing-cookie-agreement", !agreed);
     }
 
-     /** Gets the specified confirm url. */
-     export function confirmUrl(title: string, text: string, ok: string);
-     export function confirmUrl(res: any);
-     export function confirmUrl(res: any, text?: string, ok?: string)
-     {
-       if (typeof res=="string")
-       {
-         var title=res;
-         res={ title: title, text: text, ok: ok };
-       }
-       var url: string;
-       for (var prop in res)
-       {
-         if (!url) url="#/confirm?";
-         else url+="&";
-         url+=encodeURIComponent(prop)+"="+encodeURIComponent(res[prop]);
-       }
-       return url;
-     }
-
-     /** Shows the specified confirm. */
-     export function confirm(title: string, text: string, ok?: string, cancel?: string, mode?: "confirm"|"info");
-     export function confirm(args: any);
-     export function confirm(args: any, text?: string, ok?: string, cancel?: string, mode?: "confirm"|"info")
-     {
-       //hashChange(confirmUrl(res, text, okUrl));
-       if (typeof args=="string")
+    /** Shows the specified confirm. */
+    export function confirm(title: string, text: string, ok?: string, cancel?: string, mode?: "confirm"|"info");
+    export function confirm(args: any);
+    export function confirm(args: any, text?: string, ok?: string, cancel?: string, mode?: "confirm"|"info")
+    {
+      if (typeof args=="string")
         args={ title: args, text: text, ok: ok, cancel: cancel };
       args.mode=mode||"confirm";
       return $pages.load("confirm", false, args).then(page =>
       {
         return (<$pages.PageConfirm>page).result;
       });
-     }
-
-    /** Gets the specified choice url. */
-    export function choiceUrl(title: string, text: string, items: { [text: string]: string });
-    export function choiceUrl(res: any);
-    export function choiceUrl(res: any, text?: string, items?: { [text: string]: string })
-    {
-      if (typeof res=="string")
-      {
-        var title=res;
-        res=$q(items).ToObject(x => (x.Key[0]=="@"?"":"@")+x.Key, x => x.Value);
-        res.title=title;
-        res.text=text;
-      }
-      var url: string;
-      for (var prop in res)
-      {
-        if (!url) url="#/choice?";
-        else url+="&";
-        url+=encodeURIComponent(prop)+"="+encodeURIComponent(res[prop]);
-      }
-      return url;
-    }
-
-    /** Shows the specified choices. */
-    export function choice(title: string, text: string, items: { [text: string]: string });
-    export function choice(res: any);
-    export function choice(res: any, text?: string, items?: { [text: string]: string })
-    {
-      hashChange(choiceUrl(res, text, items));
     }
 
     export function info(title: string, text: string, ok?: string): JQueryPromise<any>;
@@ -276,6 +229,19 @@ module $alpbros
     export function info(args: any, text?: string, ok?: string): JQueryPromise<any>
     {
       return confirm(args, text, ok, "info");
+    }
+
+    /** Shows the specified choices. */
+    export function choice(title: string, text: string, items: { [val: string]: string }): JQueryPromise<any>;
+    export function choice(args: any): JQueryPromise<any>;
+    export function choice(args: any, text?: string, items?: { [val: string]: string }): JQueryPromise<any>
+    {
+      if (typeof args=="string")
+        args={ title: args, text: text, items: items };
+      return $pages.load("choice", false, args).then(page =>
+      {
+        return (<$pages.PageConfirm>page).result;
+      });
     }
   }
 

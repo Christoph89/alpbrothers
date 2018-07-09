@@ -2148,7 +2148,9 @@ html.authenticated .noauth-only {
 html.unauthenticated .auth-only {
   display: none !important; }
 
-html.role-public .role-admin, html.role-public .role-partner {
+html.role-public .role-admin, html.role-public .role-partner,
+html.unauthenticated .role-admin,
+html.unauthenticated .role-partner {
   display: none !important; }
 
 html.role-partner .role-admin {
@@ -3916,6 +3918,9 @@ body.is-loading .banner.onload-image-fade-in .image img {
   background-image: url("data:image/svg+xml;charset=utf8,%3Csvg xmlns='http://www.w3.org/2000/svg' xmlns:xlink='http://www.w3.org/1999/xlink' width='64px' height='32px' viewBox='0 0 64 32' zoomAndPan='disable'%3E%3Cstyle%3Erect %7Bfill: transparent%3B stroke: white%3B stroke-width: 1px%3B %7D%3C/style%3E%3Crect rx='4' ry='4' x='6' y='4' width='52' height='24' vector-effect='non-scaling-stroke' /%3E%3C/svg%3E"); }
 
 /* Spotlight (transitions) */
+.spotlight.border-top {
+  border-top: 1px solid #ccc; }
+
 .spotlight.onload-content-fade-up .content {
   -moz-transition: opacity 0.75s ease-in-out, -moz-transform 0.75s ease-in-out;
   -webkit-transition: opacity 0.75s ease-in-out, -webkit-transform 0.75s ease-in-out;
@@ -5991,6 +5996,9 @@ body.is-loading .gallery.onload-fade-in article .image img {
 .wrapper.content-align-right {
   text-align: right; }
 
+.wrapper.border-top {
+  border-top: 1px solid #ccc; }
+
 /* Wrapper (style1) */
 .wrapper.style1 > .inner {
   padding: 5rem 2.5rem 3rem 2.5rem ;
@@ -7533,20 +7541,23 @@ body.is-loading .items.onload-fade-in > * > .inner {
 #about h1 {
   font-size: 2.25rem; }
 
-#upcoming {
-  border-top: 1px solid #ccc; }
-  #upcoming .no-event-info {
-    display: none; }
-  #upcoming .table-wrapper {
-    margin-bottom: 0px; }
-  #upcoming.no-events .table-wrapper {
-    display: none; }
-  #upcoming.no-events .no-event-info {
-    display: block; }
-  #upcoming tr.show-all td {
-    padding: 0.5rem; }
-  #upcoming tr.show-all .button {
-    vertical-align: middle; }
+#upcoming .no-event-info {
+  display: none; }
+
+#upcoming .table-wrapper {
+  margin-bottom: 0px; }
+
+#upcoming.no-events .table-wrapper {
+  display: none; }
+
+#upcoming.no-events .no-event-info {
+  display: block; }
+
+#upcoming tr.show-all td {
+  padding: 0.5rem; }
+
+#upcoming tr.show-all .button {
+  vertical-align: middle; }
 
 section.partner > .inner {
   padding: 0.2rem 0; }
@@ -7677,8 +7688,7 @@ section.partner > .inner {
   margin-bottom: 1rem; }
 
 #event.page section.registrations,
-#event.page section.registration,
-#event.page section.further-reg {
+#event.page section.registration {
   padding-bottom: 0; }
 
 #event.page section.partner .inner {

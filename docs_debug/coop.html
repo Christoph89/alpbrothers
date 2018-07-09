@@ -321,13 +321,8 @@
   "root": "",
   "lang": "de",
   "res": {
-    "cmdDeleteReg": {
-      "titleDelete": "Anmeldung löschen?",
-      "textDelete": "Wollen sie die Anmeldung für {0} wirklich löschen?",
-      "titleCancel": "Anmeldung stornieren?",
-      "textCancel": "Wollen sie die Anmeldung für {0} wirklich stornieren?",
-      "titleReactivate": "Anmeldung reaktivieren?",
-      "textReactivate": "Wollen sie die Anmeldung für {0} wirklich reaktivieren?"
+    "common": {
+      "cancel": "Abbrechen"
     },
     "level": {
       "Everyone": "Jedermann",
@@ -393,6 +388,26 @@
         "text": ""
       }
     },
+    "cmdDeleteReg": {
+      "titleDelete": "Anmeldung löschen?",
+      "textDelete": "Wollen sie die Anmeldung für {0} wirklich löschen?",
+      "titleCancel": "Anmeldung stornieren?",
+      "textCancel": "Wollen sie die Anmeldung für {0} wirklich stornieren?",
+      "titleReactivate": "Anmeldung reaktivieren?",
+      "textReactivate": "Wollen sie die Anmeldung für {0} wirklich reaktivieren?"
+    },
+    "cmdEditEvent": {
+      "title": "Event bearbeiten",
+      "text": "Wollen Sie den einzelnen Termin oder die gesamte Serie bearbeiten?",
+      "items": {
+        "occurrence": "Termin bearbeiten",
+        "series": "Serie bearbeiten"
+      }
+    },
+    "cmdDeleteEvent": {
+      "title": "Event löschen?",
+      "text": "Wollen sie das Event wirklich löschen?"
+    },
     "event": {
       "title": "Alpbrothers - Event",
       "edit": {
@@ -403,17 +418,6 @@
       },
       "add": {
         "title": "Alpbrothers - Event hinzufügen"
-      },
-      "editChoice": {
-        "title": "Event bearbeiten",
-        "text": "Wollen Sie den einzelnen Termin oder die gesamte Serie bearbeiten?",
-        "@Termin bearbeiten": "#/event/edit?id={id}",
-        "@Serie bearbeiten": "#/event/edit?id={series}"
-      },
-      "deleteConfirm": {
-        "title": "Event löschen?",
-        "text": "Wollen sie das Event wirklich löschen?",
-        "ok": "#/cmd/delete-event?id={id}&goto={goto}"
       },
       "details": {
         "date": "{0}",
@@ -448,6 +452,12 @@
         "ok": "#/cmd/delete-registration?regId={regId}&eventId={eventId}&created={created}&createdBy={createdBy}&email={email}&phone={phone}&name={name}&goto={goto}&force={force}&status={status}"
       }
     },
+    "main": {
+      "title": "Alpbrothers - Dein Mountainbike Guide in Kärnten am Faaker See"
+    },
+    "upcoming": {
+      "dateFormat": "dd DD.MM.YYYY HH:mm [Uhr]"
+    },
     "events": {
       "title": "Alpbrothers - Events",
       "level": "Level",
@@ -458,14 +468,7 @@
       "imgPath": "img/events/",
       "details": "Details & Anmeldung",
       "edit": "Bearbeiten",
-      "eventUrl": "#/event?id={0}",
-      "editUrl": "#/event/editchoice?series={0}&id={1}"
-    },
-    "main": {
-      "title": "Alpbrothers - Dein Mountainbike Guide in Kärnten am Faaker See"
-    },
-    "upcoming": {
-      "dateFormat": "dd DD.MM.YYYY HH:mm [Uhr]"
+      "eventUrl": "#/event?id={0}"
     }
   },
   "pages": {

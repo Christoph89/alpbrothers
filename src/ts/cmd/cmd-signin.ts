@@ -28,7 +28,7 @@ module $alpbros.$cmd
         .done(session => 
         {
           // set document session classes
-          $app.setAuthenticated(true);
+          //$app.setAuthenticated(true);
 
           // goto return url
           return $app.hashChange($util.ensureStartsWith(returnUrl, "#"));

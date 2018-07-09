@@ -9,6 +9,21 @@
       "textCancel": "Do you really want to cancel the registration for {0}?",
       "titleReactivate": "Reactivate registration?",
       "textReactivate": "Do you really want to reactivate the registration for {0}?"
+    },
+    "cmdEditEvent":
+    {
+      "title": "Edit Event",
+      "text": "Do you want to edit the single event occurrence or the whole series?",
+      "items":
+      {
+        "occurrence": "Edit occurrence",
+        "series": "Edit series"
+      }
+    },
+    "cmdDeleteEvent":
+    {
+      "title": "Delete event?",
+      "text": "Do you really want to delete the event?"
     }
   }
 }

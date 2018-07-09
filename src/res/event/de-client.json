@@ -15,19 +15,6 @@
       {
         "title": "Alpbrothers - Event hinzufügen"
       },
-      "editChoice":
-      {
-        "title": "Event bearbeiten",
-        "text": "Wollen Sie den einzelnen Termin oder die gesamte Serie bearbeiten?",
-        "@Termin bearbeiten": "#/event/edit?id={id}",
-        "@Serie bearbeiten": "#/event/edit?id={series}"
-      },
-      "deleteConfirm":
-      {
-        "title": "Event löschen?",
-        "text": "Wollen sie das Event wirklich löschen?",
-        "ok": "#/cmd/delete-event?id={id}&goto={goto}"
-      },
       "details":
       {
         "date": "{0}",

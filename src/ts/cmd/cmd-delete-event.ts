@@ -28,17 +28,19 @@ module $alpbros.$cmd
       if (event.isSeries())
         events=event.occurrences().concat(event);
 
-      $ui.loader.show(); // show loader
-      return $ctx.db.event.delete($q(events).Select(x => x.state).ToArray())
-        .always(() => { $ui.loader.hide(); }) // hide loader
-        .done(deleted =>
-        {
-          // delete from data
-          $data.deleteEvent(deleted);
-
-          // go to events page
-          return $app.hashChange(args.goto);
-        });
+      // confirm
+      return $app.confirm($res.cmdDeleteEvent.title, $res.cmdDeleteEvent.text, args.ok, args.cancel).done(res =>
+      {
+        $ui.loader.show(); // show loader
+        return $ctx.db.event.delete($q(events).Select(x => x.state).ToArray())
+          .always(() => { $ui.loader.hide(); }) // hide loader
+          .done(deleted =>
+          {
+            // delete from data
+            $data.deleteEvent(deleted);
+            return deleted;
+          });
+      });
     }
   }
 }

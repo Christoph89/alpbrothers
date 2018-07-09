@@ -1,6 +1,10 @@
 {
   "client":
   {
+    "common":
+    {
+      "cancel": "Cancel"
+    },
     "level":
     {
       "Everyone": "Everyone",

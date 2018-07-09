@@ -5,10 +5,10 @@
     { "url": "#/about", "text": "About", "icon": "fa-id-card" },
     { "url": "#/offer", "text": "Angebot", "icon": "fa-bicycle" },
     { "url": "#/upcoming", "text": "Termine", "icon": "fa-calendar" },
-    { "url": "#/impressions", "text": "Impressionen", "icon": "fa-camera-retro" },
     { "url": "#/contact", "text": "Kontakt", "icon": "fa-phone" },
     { "url": "%lngurl", "text": "English", "icon": "special fa-language" },
-    { "url": "#/cmd/signout", "text": "Abmelden", "icon": "special fa-sign-out auth-only" }   
+    { "url": "#/signin", "text": "Anmelden", "icon": "special fa-sign-in noauth-only" },
+    { "url": "#/cmd/signout", "text": "Abmelden", "icon": "special fa-sign-out auth-only" } 
   ],
 
   "menuBtn":

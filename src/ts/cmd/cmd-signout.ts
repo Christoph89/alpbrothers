@@ -18,7 +18,7 @@ module $alpbros.$cmd
         .done(() => 
         {
           // set app unauthenticated
-          $app.setAuthenticated(false);
+          //$app.setAuthenticated(false);
         })
     }
   }

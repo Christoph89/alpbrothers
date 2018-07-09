@@ -68,11 +68,11 @@
       
         <li><a href="#/upcoming" class="button medium wide icon fa-calendar" title="Termine">Termine</a></li>
       
-        <li><a href="#/impressions" class="button medium wide icon fa-camera-retro" title="Impressionen">Impressionen</a></li>
-      
         <li><a href="#/contact" class="button medium wide icon fa-phone" title="Kontakt">Kontakt</a></li>
       
         <li><a href="en/index.html" class="button medium wide icon special fa-language" title="English">English</a></li>
+      
+        <li><a href="#/signin" class="button medium wide icon special fa-sign-in noauth-only" title="Anmelden">Anmelden</a></li>
       
         <li><a href="#/cmd/signout" class="button medium wide icon special fa-sign-out auth-only" title="Abmelden">Abmelden</a></li>
       
@@ -195,7 +195,7 @@
 </section>
   
     <!-- upcoming -->
-<section id="upcoming" href="#/upcoming" class="wrapper style1 color2 align-center no-events-off">
+<section id="upcoming" href="#/upcoming" class="wrapper style1 color2 align-center no-events-off border-top">
   <div class="inner">
     <h2>Anstehende Termine</h2>
     <p class="no-event-info">
@@ -354,6 +354,9 @@
     <!-- partner -->
 <section class="partner wrapper style1 color5 align-center">
   <div class="inner">
+    <!-- anna kirchtag -->
+    <img id="annakirchtag" src="img/AnnaKirchtag.jpg" alt="Anna Kirchtag is..." style="width: 50%;" />
+
     <div class="items partner style3 small onscroll-fade-in">
       <section class="anderwald">
         <a href="http://www.campinganderwald.at/" class="inner" target="_blank"></a>
@@ -479,13 +482,8 @@
   "root": "",
   "lang": "de",
   "res": {
-    "cmdDeleteReg": {
-      "titleDelete": "Anmeldung löschen?",
-      "textDelete": "Wollen sie die Anmeldung für {0} wirklich löschen?",
-      "titleCancel": "Anmeldung stornieren?",
-      "textCancel": "Wollen sie die Anmeldung für {0} wirklich stornieren?",
-      "titleReactivate": "Anmeldung reaktivieren?",
-      "textReactivate": "Wollen sie die Anmeldung für {0} wirklich reaktivieren?"
+    "common": {
+      "cancel": "Abbrechen"
     },
     "level": {
       "Everyone": "Jedermann",
@@ -551,6 +549,26 @@
         "text": ""
       }
     },
+    "cmdDeleteReg": {
+      "titleDelete": "Anmeldung löschen?",
+      "textDelete": "Wollen sie die Anmeldung für {0} wirklich löschen?",
+      "titleCancel": "Anmeldung stornieren?",
+      "textCancel": "Wollen sie die Anmeldung für {0} wirklich stornieren?",
+      "titleReactivate": "Anmeldung reaktivieren?",
+      "textReactivate": "Wollen sie die Anmeldung für {0} wirklich reaktivieren?"
+    },
+    "cmdEditEvent": {
+      "title": "Event bearbeiten",
+      "text": "Wollen Sie den einzelnen Termin oder die gesamte Serie bearbeiten?",
+      "items": {
+        "occurrence": "Termin bearbeiten",
+        "series": "Serie bearbeiten"
+      }
+    },
+    "cmdDeleteEvent": {
+      "title": "Event löschen?",
+      "text": "Wollen sie das Event wirklich löschen?"
+    },
     "event": {
       "title": "Alpbrothers - Event",
       "edit": {
@@ -561,17 +579,6 @@
       },
       "add": {
         "title": "Alpbrothers - Event hinzufügen"
-      },
-      "editChoice": {
-        "title": "Event bearbeiten",
-        "text": "Wollen Sie den einzelnen Termin oder die gesamte Serie bearbeiten?",
-        "@Termin bearbeiten": "#/event/edit?id={id}",
-        "@Serie bearbeiten": "#/event/edit?id={series}"
-      },
-      "deleteConfirm": {
-        "title": "Event löschen?",
-        "text": "Wollen sie das Event wirklich löschen?",
-        "ok": "#/cmd/delete-event?id={id}&goto={goto}"
       },
       "details": {
         "date": "{0}",
@@ -606,6 +613,12 @@
         "ok": "#/cmd/delete-registration?regId={regId}&eventId={eventId}&created={created}&createdBy={createdBy}&email={email}&phone={phone}&name={name}&goto={goto}&force={force}&status={status}"
       }
     },
+    "main": {
+      "title": "Alpbrothers - Dein Mountainbike Guide in Kärnten am Faaker See"
+    },
+    "upcoming": {
+      "dateFormat": "dd DD.MM.YYYY HH:mm [Uhr]"
+    },
     "events": {
       "title": "Alpbrothers - Events",
       "level": "Level",
@@ -616,14 +629,7 @@
       "imgPath": "img/events/",
       "details": "Details & Anmeldung",
       "edit": "Bearbeiten",
-      "eventUrl": "#/event?id={0}",
-      "editUrl": "#/event/editchoice?series={0}&id={1}"
-    },
-    "main": {
-      "title": "Alpbrothers - Dein Mountainbike Guide in Kärnten am Faaker See"
-    },
-    "upcoming": {
-      "dateFormat": "dd DD.MM.YYYY HH:mm [Uhr]"
+      "eventUrl": "#/event?id={0}"
     }
   },
   "pages": {

@@ -31,7 +31,6 @@ module $alpbros.$pages
 
       // reinit on data or session change
       $data.change(() => { this.initTimeline(false); });
-      $ctx.session.change(() => { this.initTimeline(false); });
     }
 
     private timelineCnt: JQuery;
@@ -131,7 +130,7 @@ module $alpbros.$pages
     {
       var price=event.priceText();
       var eventUrl=(<string>$res.events.eventUrl).format(event.eventId());
-      var editUrl=$app.choiceUrl($.extend($res.event.editChoice, { series: event.seriesId(), id: event.eventId() }));
+      var editUrl="#/cmd/edit-event?id="+event.eventId();
       return $('<div class="timeline-block" eventId="'+event.eventId()+'">'+
         '<div class="timeline-img bg-color-'+this.getLevelColor(event)+'" title="'+event.type().name+'">'+
           '<span class="icon style2 major '+event.type().icon+'"></span>'+

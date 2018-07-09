@@ -1,4 +1,4 @@
-/*! Alpbrothers - pages/page-choice.ts
+/*! Alpbrothers - pages/page-confirm.ts
 * Copyright Christoph Schaunig 2017
 */
 
