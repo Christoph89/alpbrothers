@@ -89,6 +89,7 @@ module $alpbros.$ui
     $pages.load(pageName).done(page => {
       // get destination element
       var dest=url.dest?$("#"+url.dest):null;
+      if (dest && !dest.length) dest=$("section[href='#/"+url.dest+"']");
       scrollToPage(page, dest, anchor, speed, popstate, wait);
     })
     .fail(err => 
