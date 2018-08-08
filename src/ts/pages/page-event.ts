@@ -156,7 +156,7 @@ module $alpbros.$pages
       var lines=$q((event.requirements()||"").split("\n")).Select(x => x.trim()).ToArray();
       var addDefault=lines[0]!="!";
       var text=$q(lines).FirstOrDefault(null, x => x[0]!="*") || $res.requirements[event.type().name].text;
-      var customReq=$q(lines).Where(x => x[0]=="*").ToArray();
+      var customReq=$q(lines).Where(x => x[0]=="*" && x!="!").ToArray();
       
       // add default requirements
       if (addDefault)
@@ -171,8 +171,6 @@ module $alpbros.$pages
           i++;
         }
       }
-      else if (customReq[0]=="!")
-        customReq=$q(customReq).Skip(1).ToArray();
 
       // add custom requirements
       requirements=requirements.concat(customReq);

@@ -23,7 +23,7 @@
         "meeting": "{0} {1}. For more time on trail, please be in time.",
         "meetingTimeFormat": "hh:mm a",
         "participants": "max. 6 persons",
-        "price": "The price for the workshop is {0} EUR per person.",
+        "price": "The price is {0} EUR per person.",
         "erlebniscardPrice": "The workshop is <b>free with <i>Erlebniscard</i></b>. The standard price without <i>Erlebniscard</i> is <b>15 EUR</b>.",
         "regDateFormat": "DD.MM.YYYY hh:mm a",
         "regBy": "Registration by {0}",

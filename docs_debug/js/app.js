@@ -2206,7 +2206,7 @@ var $alpbros;
                 var lines = $q((event.requirements() || "").split("\n")).Select(function (x) { return x.trim(); }).ToArray();
                 var addDefault = lines[0] != "!";
                 var text = $q(lines).FirstOrDefault(null, function (x) { return x[0] != "*"; }) || $alpbros.$res.requirements[event.type().name].text;
-                var customReq = $q(lines).Where(function (x) { return x[0] == "*"; }).ToArray();
+                var customReq = $q(lines).Where(function (x) { return x[0] == "*" && x != "!"; }).ToArray();
                 // add default requirements
                 if (addDefault) {
                     var i = 0;
@@ -2218,8 +2218,6 @@ var $alpbros;
                         i++;
                     }
                 }
-                else if (customReq[0] == "!")
-                    customReq = $q(customReq).Skip(1).ToArray();
                 // add custom requirements
                 requirements = requirements.concat(customReq);
                 // set text
