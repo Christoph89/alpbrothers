@@ -2205,7 +2205,7 @@ var $alpbros;
                 var requirements = [];
                 var lines = $q((event.requirements() || "").split("\n")).Select(function (x) { return x.trim(); }).ToArray();
                 var addDefault = lines[0] != "!";
-                var text = $q(lines).FirstOrDefault(null, function (x) { return x[0] != "*"; }) || $alpbros.$res.requirements[event.type().name].text;
+                var text = $q(lines).FirstOrDefault(null, function (x) { return x[0] != "*" && x != "!"; }) || $alpbros.$res.requirements[event.type().name].text;
                 var customReq = $q(lines).Where(function (x) { return x[0] == "*" && x != "!"; }).ToArray();
                 // add default requirements
                 if (addDefault) {

@@ -155,7 +155,7 @@ module $alpbros.$pages
       var requirements: string[]=[];
       var lines=$q((event.requirements()||"").split("\n")).Select(x => x.trim()).ToArray();
       var addDefault=lines[0]!="!";
-      var text=$q(lines).FirstOrDefault(null, x => x[0]!="*") || $res.requirements[event.type().name].text;
+      var text=$q(lines).FirstOrDefault(null, x => x[0]!="*" && x!="!") || $res.requirements[event.type().name].text;
       var customReq=$q(lines).Where(x => x[0]=="*" && x!="!").ToArray();
       
       // add default requirements
