@@ -64,10 +64,10 @@
     {
       "type": "node",
       "request": "launch",
-      "name": "Gulp build-dbg",
+      "name": "Gulp build",
       "program": "${workspaceRoot}/node_modules/gulp/bin/gulp.js",
       "args": [
-        "build-dbg"
+        "build"
       ],
       "cwd": "${workspaceRoot}",
       "sourceMaps": true,
@@ -128,26 +128,6 @@
       "program": "${workspaceRoot}/node_modules/gulp/bin/gulp.js",
       "args": [
         "build-release"
-      ],
-      "cwd": "${workspaceRoot}",
-      "sourceMaps": true,
-      "outFiles": [
-        "${workspaceRoot}/.node"
-      ],
-      "env": {
-        "TS_NODE_CACHE_DIRECTORY": "${workspaceRoot}/.node",
-        "LOG": "debug"
-      },
-      "protocol": "inspector",
-      "console": "integratedTerminal"
-    },
-    {
-      "type": "node",
-      "request": "launch",
-      "name": "Gulp build",
-      "program": "${workspaceRoot}/node_modules/gulp/bin/gulp.js",
-      "args": [
-        "build"
       ],
       "cwd": "${workspaceRoot}",
       "sourceMaps": true,

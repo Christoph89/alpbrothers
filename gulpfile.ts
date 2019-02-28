@@ -1,14 +1,19 @@
 import * as fs from "fs";
 import * as $p from "path";
 import * as $ from "gulp-web-build";
+import { logLevel } from "gulp-web-build/bin/dts/log";
 
 /** Set meta log. */
-$.logMeta((logLevel, lvl, meta) => lvl!="error"?JSON.stringify(meta, (key, val) =>
-{
-  if (logLevel!="silly" && (key=="res" || key=="data"))
-    return "...[use silly log]";
-  return val;
-}, "  "):(meta?meta.toString():""));
+$.log.writeMeta=(msg, meta) => {
+  if (msg.level=="error" || $.log.logLevel=="silly")
+    return JSON.stringify(meta);
+  return JSON.stringify(meta, (key, val) =>
+  {
+    if ((key=="res" || key=="data" || key=="clientCfg"))
+      return "...[use silly log]";
+    return val;
+  }, "  ")
+};
 
 /** Installs all dependencies and prepares the project. */
 $.task("prep", function (cb) {
@@ -17,9 +22,10 @@ $.task("prep", function (cb) {
       "docs",
       "docs_debug",
       "LICENSE.txt",
-      ".editorconfig")
+      ".editorconfig",
+      "package-lock.json")
     // exclude all paths from .gitignore
-    .excludeGitIgnores()
+    .excludeGitIgnores("*.log")
     // add all gulp task runners to vsc
     .addGulpTasks() 
     // add debuggers to vsc
@@ -47,23 +53,22 @@ function add(mode: string, lang: string="de") {
       .addFile(b => cfg.cname, "CNAME", "%dest")
       .add("%images", "%dest/img") // copy images
       .addTs("%typescript", "%dest/js/app.js") // build main ts  
-      .addTs("%coop", "%dest/js/coop.js") // build coop ts
       .addScss("%scss", "%dest/css") // build scss
       .add("%forms", "%dest/forms") // copy forms
       .addJson("%src/res/events.json", "%dest/data") // copy events
       .run(cb);
   });
   if (lang=="de") add(mode, "en");
-  else $.task("build-"+mode, ["build-"+mode+"-de", "build-"+mode+"-en"]);
+  else $.task("build"+(mode!="dbg"?"-"+mode:""), "build-"+mode+"-de", "build-"+mode+"-en");
 };
 
 /** Builds the project unminified with sourcemaps. */
 add("dbg"); add("release");
-$.task("build", ["build-dbg"]);
-$.task("release", ["build", "build-release"]);
+//$.task("build", "build-dbg");
+$.task("release", "build", "build-release");
 
 /** Cleans the project. */
-$.task("clean", function (cb) {
+$.task("clean", function clean_fn (cb) {
   new $.Clean()
     .delVSCodeExcludes("node_modules")
     .del("./docs", "./docs_debug", "../alpbrothers-com/docs")
@@ -71,7 +76,7 @@ $.task("clean", function (cb) {
 });
 
 /** Rebuilds the project. */
-$.task("rebuild", $.series("clean", "build"));
+$.task("rebuild", "clean", "build");
 
 
 /** Returns all pages. */

@@ -66,8 +66,6 @@
     "tpl":
     [
       "%src/img/favicon/*",
-      "%src/tpl/CNAME",
-      "%src/tpl/browserconfig.xml",
       "%src/tpl/sitemap.xml",
       "%src/tpl/humans.txt",
       "%src/tpl/robots.txt",

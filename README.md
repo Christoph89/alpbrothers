@@ -16,3 +16,14 @@ Visit us on:
 [https://www.alpbrothers.at](https://www.alpbrothers.at)
 or
 [https://www.alpbrothers.com](https://www.alpbrothers.com)
+
+
+## Debug
+**Set log level**
+log=error|warn|info|verbose|debug|silly gulp build
+
+**Write log to file**
+NODE_ENV=production gulp build > output.log
+
+**Write lot to file and console**
+NODE_ENV=production gulp build 2>&1 | tee output.log
