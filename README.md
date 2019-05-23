@@ -27,3 +27,10 @@ NODE_ENV=production gulp build > output.log
 
 **Write lot to file and console**
 NODE_ENV=production gulp build 2>&1 | tee output.log
+
+**mysql / IP change problem**
+* Connect via SSH
+* cd /opt/bitnami
+* sudo ./ctlscript.sh stop
+* sudo rm ./mysql/data/tc.log
+* sudo ./ctlscript.sh start
