@@ -34,3 +34,4 @@ NODE_ENV=production gulp build 2>&1 | tee output.log
 * sudo ./ctlscript.sh stop
 * sudo rm ./mysql/data/tc.log
 * sudo ./ctlscript.sh start
+* change IP on cloudflare
