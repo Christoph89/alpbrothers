@@ -7576,6 +7576,9 @@ section.partner > .inner {
   .items.partner section.regionvillach .inner a {
     background-image: url(../img/partner/regionvillach.png);
     background-image: url(../img/partner/regionvillach.svg); }
+  .items.partner section.fahrradcenter .inner a {
+    background-image: url(../img/partner/fahrradcenter.png);
+    background-image: url(../img/partner/fahrradcenter.svg); }
   .items.partner section.grossegger .inner a {
     background-image: url(../img/partner/grossegger.png);
     background-image: url(../img/partner/grossegger.svg); }
