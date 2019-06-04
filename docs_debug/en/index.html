@@ -264,7 +264,7 @@
   
   <!-- instagram widget -->
   <script src="https://cdn.lightwidget.com/widgets/lightwidget.js"></script>
-  <iframe src="https://cdn.lightwidget.com/widgets/a2d324a13abc5fe080f9f261c32c8598.html" scrolling="no" allowtransparency="true" class="lightwidget-widget" style="width:90%;border:0;overflow:hidden;"></iframe>
+  <iframe id="instawidget" src="https://cdn.lightwidget.com/widgets/a2d324a13abc5fe080f9f261c32c8598.html" scrolling="no" allowtransparency="true" class="lightwidget-widget"></iframe>
   
 </section>
   
@@ -514,6 +514,18 @@
         "text": ""
       }
     },
+    "events": {
+      "title": "Alpbrothers - Events",
+      "level": "Level",
+      "dateFormat": "dddd MMMM D YYYY<br />hh:mm a - hh:mm a",
+      "multiDayFormat": "dd MMMM D<br />- dd MMMM D YYYY",
+      "fromFormat": "dddd MMMM D",
+      "erlebniscardPrice": "free with Erlebniscard",
+      "imgPath": "img/events/",
+      "details": "Details & Registration",
+      "edit": "Edit",
+      "eventUrl": "#/event?id={0}"
+    },
     "event": {
       "title": "Alpbrothers - Event",
       "edit": {
@@ -557,18 +569,6 @@
         "text": "Do you really want to reactivate the registration for {name}?",
         "ok": "#/cmd/delete-registration?regId={regId}&eventId={eventId}&created={created}&createdBy={createdBy}&email={email}&phone={phone}&name={name}&goto={goto}&force={force}&status={status}"
       }
-    },
-    "events": {
-      "title": "Alpbrothers - Events",
-      "level": "Level",
-      "dateFormat": "dddd MMMM D YYYY<br />hh:mm a - hh:mm a",
-      "multiDayFormat": "dd MMMM D<br />- dd MMMM D YYYY",
-      "fromFormat": "dddd MMMM D",
-      "erlebniscardPrice": "free with Erlebniscard",
-      "imgPath": "img/events/",
-      "details": "Details & Registration",
-      "edit": "Edit",
-      "eventUrl": "#/event?id={0}"
     },
     "main": {
       "title": "Alpbrothers - Your mountainbike guide at Lake Faak in Carinthia"

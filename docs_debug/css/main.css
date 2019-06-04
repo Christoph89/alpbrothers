@@ -7654,6 +7654,20 @@ section.partner > .inner {
   html.missing-cookie-agreement #cookie-agreement {
     display: block; }
 
+#impressions #instawidget {
+  border: 0;
+  overflow: hidden;
+  width: 98%; }
+  @media screen and (min-width: 980px) {
+    #impressions #instawidget {
+      width: 90%; } }
+  @media screen and (min-width: 1280px) {
+    #impressions #instawidget {
+      width: 85%; } }
+  @media screen and (min-width: 1680px) {
+    #impressions #instawidget {
+      width: 80%; } }
+
 #event.page .erlebniscard-only {
   display: none; }
 
