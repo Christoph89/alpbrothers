@@ -1,4 +1,4 @@
-/* skel.d.ts - (c) Christoph Schaunig 2017 */
+/* skel.d.ts - (c) Christoph Schaunig 2019 */
 
 interface SkelBreakpoints
 {

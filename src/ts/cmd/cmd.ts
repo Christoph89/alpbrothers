@@ -1,5 +1,5 @@
 /*! Alpbrothers - cmd/cmd.ts
-* Copyright Christoph Schaunig 2017
+* Copyright Christoph Schaunig 2019
 */
 
 /// <reference path="../ref.d.ts" />

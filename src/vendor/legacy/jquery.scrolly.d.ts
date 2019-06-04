@@ -1,4 +1,4 @@
-/* jquery.scrolly.d.ts - (c) Christoph Schaunig 2017 */
+/* jquery.scrolly.d.ts - (c) Christoph Schaunig 2019 */
 
 interface JQueryScrollyOptions
 {

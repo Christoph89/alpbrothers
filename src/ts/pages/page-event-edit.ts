@@ -1,5 +1,5 @@
 /*! Alpbrothers - pages/page-event.ts
-* Copyright Christoph Schaunig 2017
+* Copyright Christoph Schaunig 2019
 */
 
 /// <reference path="pages.ts" />

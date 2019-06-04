@@ -1,5 +1,5 @@
 /*! Alpbrothers - def.ts
-* Copyright Christoph Schaunig 2017
+* Copyright Christoph Schaunig 2019
 */
 "use strict";
 var __extends = (this && this.__extends) || (function () {

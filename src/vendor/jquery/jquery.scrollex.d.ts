@@ -1,4 +1,4 @@
-/* jquery.scrollex.d.ts - (c) Christoph Schaunig 2017 */
+/* jquery.scrollex.d.ts - (c) Christoph Schaunig 2019 */
 
 interface JQueryScrollexOptions
 {
