@@ -151,6 +151,11 @@
     "images": "null",
     "typescript": "null",
     "scss": "null",
-    "forms": "null"
+    "forms": "null",
+    "tpl":
+    [
+      "%prj/.gitignore",
+      "%prj/.gitattributes"
+    ]
   }
 }
