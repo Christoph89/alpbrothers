@@ -115,7 +115,7 @@ module $alpbros.$pages
       get("name").text(event.name());
 
       // set description
-      get("description").text(event.description());
+      get("description").html($util.formatMd(event.description()));
 
       // set image
       get("img").attr("src", event.img());

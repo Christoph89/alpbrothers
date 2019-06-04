@@ -2179,7 +2179,7 @@ var $alpbros;
                 // set name
                 get("name").text(event.name());
                 // set description
-                get("description").text(event.description());
+                get("description").html($alpbros.$util.formatMd(event.description()));
                 // set image
                 get("img").attr("src", event.img());
                 // set date
