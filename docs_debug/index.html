@@ -260,69 +260,12 @@
     </div>
   </section>
 
-  <div class="gallery style1 medium lightbox onload-content-fade-in">
-    
-      <article>
-        <a href="img/gallery/fulls/1.jpg" class="image"><img src="img/gallery/thumbs/1.jpg" alt="Natur" /></a>
-        <div class="caption"><h3>Natur</h3></div>
-      </article>
-    
-      <article>
-        <a href="img/gallery/fulls/2.jpg" class="image"><img src="img/gallery/thumbs/2.jpg" alt="Leidenschaft" /></a>
-        <div class="caption"><h3>Leidenschaft</h3></div>
-      </article>
-    
-      <article>
-        <a href="img/gallery/fulls/3.jpg" class="image"><img src="img/gallery/thumbs/3.jpg" alt="Aussicht" /></a>
-        <div class="caption"><h3>Aussicht</h3></div>
-      </article>
-    
-      <article>
-        <a href="img/gallery/fulls/4.jpg" class="image"><img src="img/gallery/thumbs/4.jpg" alt="Teamgeist" /></a>
-        <div class="caption"><h3>Teamgeist</h3></div>
-      </article>
-    
-      <article>
-        <a href="img/gallery/fulls/5.jpg" class="image"><img src="img/gallery/thumbs/5.jpg" alt="Freiheit" /></a>
-        <div class="caption"><h3>Freiheit</h3></div>
-      </article>
-    
-      <article>
-        <a href="img/gallery/fulls/6.jpg" class="image"><img src="img/gallery/thumbs/6.jpg" alt="Freundschaft" /></a>
-        <div class="caption"><h3>Freundschaft</h3></div>
-      </article>
-    
-      <article>
-        <a href="img/gallery/fulls/7.jpg" class="image"><img src="img/gallery/thumbs/7.jpg" alt="Einklang" /></a>
-        <div class="caption"><h3>Einklang</h3></div>
-      </article>
-    
-      <article>
-        <a href="img/gallery/fulls/8.jpg" class="image"><img src="img/gallery/thumbs/8.jpg" alt="Fokus" /></a>
-        <div class="caption"><h3>Fokus</h3></div>
-      </article>
-    
-      <article>
-        <a href="img/gallery/fulls/9.jpg" class="image"><img src="img/gallery/thumbs/9.jpg" alt="Entdeckungsdrang" /></a>
-        <div class="caption"><h3>Entdeckungsdrang</h3></div>
-      </article>
-    
-      <article>
-        <a href="img/gallery/fulls/10.jpg" class="image"><img src="img/gallery/thumbs/10.jpg" alt="Ehrgeiz" /></a>
-        <div class="caption"><h3>Ehrgeiz</h3></div>
-      </article>
-    
-      <article>
-        <a href="img/gallery/fulls/11.jpg" class="image"><img src="img/gallery/thumbs/11.jpg" alt="Limit" /></a>
-        <div class="caption"><h3>Limit</h3></div>
-      </article>
-    
-      <article>
-        <a href="img/gallery/fulls/12.jpg" class="image"><img src="img/gallery/thumbs/12.jpg" alt="Herausforderung" /></a>
-        <div class="caption"><h3>Herausforderung</h3></div>
-      </article>
-    
-  </div>
+
+  
+  <!-- instagram widget -->
+  <script src="https://cdn.lightwidget.com/widgets/lightwidget.js"></script>
+  <iframe src="//lightwidget.com/widgets/a2d324a13abc5fe080f9f261c32c8598.html" scrolling="no" allowtransparency="true" class="lightwidget-widget" style="width:90%;border:0;overflow:hidden;"></iframe>
+  
 </section>
   
     <!-- alpbros-quote2 -->
@@ -444,6 +387,7 @@
       $alpbros.$app.init({
   "shownEvents": 5,
   "allow_reg": true,
+  "use_instagram": true,
   "ctx": {
     "apikey": "4b33abd43ef19f34327029142e4d8a0ca58a78477f82622f48775493dd4e1087",
     "baseurl": "https://api.alpbrothers.at/api/v2",
@@ -485,6 +429,26 @@
   "root": "",
   "lang": "de",
   "res": {
+    "cmdDeleteReg": {
+      "titleDelete": "Anmeldung löschen?",
+      "textDelete": "Wollen sie die Anmeldung für {0} wirklich löschen?",
+      "titleCancel": "Anmeldung stornieren?",
+      "textCancel": "Wollen sie die Anmeldung für {0} wirklich stornieren?",
+      "titleReactivate": "Anmeldung reaktivieren?",
+      "textReactivate": "Wollen sie die Anmeldung für {0} wirklich reaktivieren?"
+    },
+    "cmdEditEvent": {
+      "title": "Event bearbeiten",
+      "text": "Wollen Sie den einzelnen Termin oder die gesamte Serie bearbeiten?",
+      "items": {
+        "occurrence": "Termin bearbeiten",
+        "series": "Serie bearbeiten"
+      }
+    },
+    "cmdDeleteEvent": {
+      "title": "Event löschen?",
+      "text": "Wollen sie das Event wirklich löschen?"
+    },
     "common": {
       "cancel": "Abbrechen"
     },
@@ -551,26 +515,6 @@
         "9": "Mountainbike + Ausrüstung kann auf Anfrage ausgeliehen werden.",
         "text": ""
       }
-    },
-    "cmdDeleteReg": {
-      "titleDelete": "Anmeldung löschen?",
-      "textDelete": "Wollen sie die Anmeldung für {0} wirklich löschen?",
-      "titleCancel": "Anmeldung stornieren?",
-      "textCancel": "Wollen sie die Anmeldung für {0} wirklich stornieren?",
-      "titleReactivate": "Anmeldung reaktivieren?",
-      "textReactivate": "Wollen sie die Anmeldung für {0} wirklich reaktivieren?"
-    },
-    "cmdEditEvent": {
-      "title": "Event bearbeiten",
-      "text": "Wollen Sie den einzelnen Termin oder die gesamte Serie bearbeiten?",
-      "items": {
-        "occurrence": "Termin bearbeiten",
-        "series": "Serie bearbeiten"
-      }
-    },
-    "cmdDeleteEvent": {
-      "title": "Event löschen?",
-      "text": "Wollen sie das Event wirklich löschen?"
     },
     "event": {
       "title": "Alpbrothers - Event",
