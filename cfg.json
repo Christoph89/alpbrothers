@@ -89,7 +89,8 @@
     [
       "%src/forms/*.pdf",
       "%src/forms/2017/*.pdf"
-    ]
+    ],
+    "meta": "null"
   },
   
   "dbg-de":
@@ -152,7 +153,7 @@
     "typescript": "null",
     "scss": "null",
     "forms": "null",
-    "tpl":
+    "meta":
     [
       "%prj/.gitignore",
       "%prj/.gitattributes"

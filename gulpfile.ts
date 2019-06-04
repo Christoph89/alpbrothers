@@ -55,6 +55,7 @@ function add(mode: string, lang: string="de") {
       .addTs("%typescript", "%dest/js/app.js") // build main ts  
       .addScss("%scss", "%dest/css") // build scss
       .add("%forms", "%dest/forms") // copy forms
+      .add("%meta", "%dest/../") // add prj meta files
       .addJson("%src/res/events.json", "%dest/data") // copy events
       .run(cb);
   });
