@@ -1,0 +1,23 @@
+<!-- alpbros-quote2 -->
+<section id="lakebike-quote" class="spotlight quote style1 color5 invert content-align-center image-position-center onscroll-content-fade-right">
+  <div class="content">
+    <h3><i>{{ res.lakebikeQuote.text | safe }}</i></h3>
+    <h4>{{ res.lakebikeQuote.author }}</h4>
+  </div>
+</section>
+
+<!-- lake.bike -->
+<section id="lakebike" href="#/lakebike" class="spotlight style2 color2 orient-right content-align-left border-top image-position-center onscroll-content-fade-left onscroll-image-fade-in">
+  <div class="content">
+    <h2>{{ res.lakebike.title }}</h2>
+    <p>{{ res.lakebike.text | safe }}</p>
+    <ul class="actions horizontal">
+      <li><a href="{{ res.lakebike.goUrl }}" class="button icon fa-angle-down">{{ res.lakebike.go }}</a></li>
+      <li><a href="{{ res.lakebike.websiteUrl }}" class="button special icon fa-angle-right" target="_blank">{{ res.lakebike.website }}</a></li>
+    </ul>
+  </div>
+  <div class="image">
+    <img src="{{ root }}img/banner-lakebike.jpg" alt="{{ res.lakebike.img }}" />
+    <span class="label white bottom right">{{ res.lakebike.imgLabel | safe }}</span>
+  </div>
+</section>

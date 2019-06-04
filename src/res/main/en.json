@@ -43,7 +43,7 @@
     "title": "Experience Carinthia, enjoy Lake Faak",
     "text": "For us, mountain biking is more than just exercise, it is an <b>attitude to life</b>! This <b>unique lifestyle</b> combines endurance, focus, friendship, emotions, culture, and even regional cuisine with the urge to explore nature and to enjoy a breathtaking countryside. Sounds interesting? <b>Join us</b> and discover a <b>lifestyle of flow and heartbeat</b> in the astonishing region of <b>Lake Faak</b>!",
     "goUrl": "#/offer",
-    "go": "Our tours",
+    "go": "Our Tours",
     "img": "Mountainbiker sitting on a wonderful alp.",
     "imgLabel": "&copy; Lukas Pilz"
   },
@@ -73,10 +73,28 @@
     "furtherInfo": "For more information or <b>individual tours</b> please send us your <b>inquiry</b> or take a look at <i>\"Show all events\"</i>.",
     "inquireUrl": "mailto:office@alpbrothers.at",
     "inquire": "Inquire now",
-    "goUrl": "#/impressions",
-    "go": "Impressions",
+    "goUrl": "#/lakebike",
+    "go": "lake.bike",
     "showAll": "Show all events",
     "showAllUrl": "#/events"
+  },
+
+  "lakebikeQuote":
+  {
+    "text": "Ride the south of the alps!",
+    "author": "lake.bike"
+  },
+
+  "lakebike":
+  {
+    "title": "lake.bike",
+    "text": "",
+    "goUrl": "#/impressions",
+    "go": "Impressions",
+    "website": "Visit lake.bike",
+    "websiteUrl": "http://www.lake.bike/",
+    "img": "lake.bike Mountainbiker throwing a stone into Faaker See.",
+    "imgLabel": ""
   },
   
   "alpbrosQuote":

@@ -73,10 +73,28 @@
     "furtherInfo": "Für weitere Informationen oder <b>individuelle Touren und Kurse</b> senden Sie uns bitte eine <b>Anfrage</b> oder werfen Sie einen Blick unter \"Alle Termine anzeigen\".",
     "inquireUrl": "mailto:office@alpbrothers.at",
     "inquire": "Jetzt anfragen",
-    "goUrl": "#/impressions",
-    "go": "Impressionen",
+    "goUrl": "#/lakebike",
+    "go": "lake.bike",
     "showAll": "Alle Termine anzeigen",
     "showAllUrl": "#/events"
+  },
+
+  "lakebikeQuote":
+  {
+    "text": "Ride the south of the alps!",
+    "author": "lake.bike"
+  },
+
+  "lakebike":
+  {
+    "title": "lake.bike",
+    "text": "Mit dem Mountainbike vom Berg zum See, eine einzigartige Kombination in Kärnten, die wir in der <b>Region Villach / Faaker See / Ossiacher See</b> unter der Marke <b>lake.bike</b> vereinen. Getreu dem Motto <i>\"Ride the south of the alps\"</i> findest du auf der lake.bike Website <b>alle Infos zum Thema Mountainbiken</b> in unserer Region.",
+    "goUrl": "#/impressions",
+    "go": "Impressionen",
+    "website": "Visit lake.bike",
+    "websiteUrl": "http://www.lake.bike/",
+    "img": "lake.bike Mountainbiker wirft einen Stein in den Faaker See.",
+    "imgLabel": ""
   },
 
   "alpbrosQuote":
