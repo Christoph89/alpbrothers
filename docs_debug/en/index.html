@@ -343,8 +343,8 @@
       <section class="r2bike">
         <a href="https://r2-bike.com/" class="inner" target="_blank"></a>
       </section>
-      <section class="ridecompany">
-        <a href="https://www.ride.company/" class="inner" target="_blank"></a>
+      <section class="pogoeriacherhof">
+        <a href="http://www.paulishotel.at/" class="inner" target="_blank"></a>
       </section>
       <section class="samonigghof">
         <a href="http://www.samonigghof.at/" class="inner" target="_blank"></a>
@@ -453,6 +453,26 @@
   "root": "../",
   "lang": "en",
   "res": {
+    "cmdDeleteReg": {
+      "titleDelete": "Delete registration?",
+      "textDelete": "Do you really want to delete the registration for {0}?",
+      "titleCancel": "Cancel registration?",
+      "textCancel": "Do you really want to cancel the registration for {0}?",
+      "titleReactivate": "Reactivate registration?",
+      "textReactivate": "Do you really want to reactivate the registration for {0}?"
+    },
+    "cmdEditEvent": {
+      "title": "Edit Event",
+      "text": "Do you want to edit the single event occurrence or the whole series?",
+      "items": {
+        "occurrence": "Edit occurrence",
+        "series": "Edit series"
+      }
+    },
+    "cmdDeleteEvent": {
+      "title": "Delete event?",
+      "text": "Do you really want to delete the event?"
+    },
     "common": {
       "cancel": "Cancel"
     },
@@ -518,26 +538,6 @@
         "text": ""
       }
     },
-    "cmdDeleteReg": {
-      "titleDelete": "Delete registration?",
-      "textDelete": "Do you really want to delete the registration for {0}?",
-      "titleCancel": "Cancel registration?",
-      "textCancel": "Do you really want to cancel the registration for {0}?",
-      "titleReactivate": "Reactivate registration?",
-      "textReactivate": "Do you really want to reactivate the registration for {0}?"
-    },
-    "cmdEditEvent": {
-      "title": "Edit Event",
-      "text": "Do you want to edit the single event occurrence or the whole series?",
-      "items": {
-        "occurrence": "Edit occurrence",
-        "series": "Edit series"
-      }
-    },
-    "cmdDeleteEvent": {
-      "title": "Delete event?",
-      "text": "Do you really want to delete the event?"
-    },
     "event": {
       "title": "Alpbrothers - Event",
       "edit": {
@@ -582,12 +582,6 @@
         "ok": "#/cmd/delete-registration?regId={regId}&eventId={eventId}&created={created}&createdBy={createdBy}&email={email}&phone={phone}&name={name}&goto={goto}&force={force}&status={status}"
       }
     },
-    "main": {
-      "title": "Alpbrothers - Your mountainbike guide at Lake Faak in Carinthia"
-    },
-    "upcoming": {
-      "dateFormat": "dd DD.MM.YYYY HH:mm a"
-    },
     "events": {
       "title": "Alpbrothers - Events",
       "level": "Level",
@@ -599,6 +593,12 @@
       "details": "Details & Registration",
       "edit": "Edit",
       "eventUrl": "#/event?id={0}"
+    },
+    "main": {
+      "title": "Alpbrothers - Your mountainbike guide at Lake Faak in Carinthia"
+    },
+    "upcoming": {
+      "dateFormat": "dd DD.MM.YYYY HH:mm a"
     }
   },
   "pages": {

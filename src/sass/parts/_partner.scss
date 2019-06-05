@@ -1,7 +1,9 @@
-@mixin _partner($partner) {
+@mixin _partner($partner, $pngonly:false) {
   &.#{$partner} .inner a {
     background-image: url(../img/partner/#{$partner}.png);
-    background-image: url(../img/partner/#{$partner}.svg);
+    @if $pngonly != true {
+      background-image: url(../img/partner/#{$partner}.svg);
+    }
   }
 }
 
@@ -24,7 +26,8 @@ section.partner {
     @include _partner(raika);
     @include _partner(ktn);
     @include _partner(r2bike);
-    @include _partner(ridecompany);
+    @include _partner(pogoeriacherhof, true);
+    //@include _partner(ridecompany);
     @include _partner(samonigghof);
 
     .inner {
