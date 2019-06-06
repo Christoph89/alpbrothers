@@ -18,6 +18,23 @@ module $alpbros.$ui.gallery
     // basic init
     $ui.scrollex.init($(".gallery", context)
       .wrapInner('<div class="inner"></div>')
+      .each((i, x) => 
+      {
+        var g=$(x);
+        var large=parseInt(g.attr("large"));
+        var medium=parseInt(g.attr("medium"));
+        var small=parseInt(g.attr("small"));
+        var xsmall=parseInt(g.attr("xsmall"));
+        var xxsmall=parseInt(g.attr("xxsmall"));
+        $("article", x).each((ix, a) =>
+        {
+            if (ix>=large) $(a).addClass("hide-lt-xlarge");
+            if (ix>=medium) $(a).addClass("hide-lt-large");
+            if (ix>=small) $(a).addClass("hide-lt-medium");
+            if (ix>=xsmall) $(a).addClass("hide-lt-small");
+            if (ix>=xxsmall) $(a).addClass("hide-lt-xsmall");
+        });
+      })
       .prepend(skel.vars.mobile? "":'<div class="forward"></div><div class="backward"></div>'), { delay: 50 })
       .context.children(".inner")
       .css("overflow-y", skel.vars.mobile? "visible":"hidden")
@@ -39,8 +56,12 @@ module $alpbros.$ui.gallery
         $modalImg=$modal.find("img"),
         href=$a.attr("href");
 
+      if ($a.hasClass("next") || $a.hasClass("prev"))
+        return;
+
       // not an image?
-      if (!href || !href.match(/\.(jpg|gif|png|mp4)$/))
+      var url=href.split("?")[0];
+      if (!url || !url.match(/\.(jpg|gif|png|mp4)$/))
         return;
 
       // prevent default.
@@ -57,6 +78,7 @@ module $alpbros.$ui.gallery
 
       // set src, visible and focus
       $modalImg.attr("src", href);
+      $gallery.addClass("modal");
       $modal.addClass("visible");
       $modal.focus();
 
@@ -70,7 +92,8 @@ module $alpbros.$ui.gallery
     .on("click", ".modal", function (e)
     {
       var $modal=$(this),
-        $modalImg=$modal.find("img");
+        $modalImg=$modal.find("img"),
+        $gallery=$modal.parent();
 
       // locked?
       if ($modal[0]._locked)
@@ -89,6 +112,7 @@ module $alpbros.$ui.gallery
       // delay and hide.
       setTimeout(function ()
       {
+        $gallery.removeClass("modal");
         $modal.removeClass("visible"); // hide
         $main.removeClass("no-scroll"); // enable scrolling
         setTimeout(function ()

@@ -704,6 +704,26 @@ var $alpbros;
                 // basic init
                 $ui.scrollex.init($(".gallery", context)
                     .wrapInner('<div class="inner"></div>')
+                    .each(function (i, x) {
+                    var g = $(x);
+                    var large = parseInt(g.attr("large"));
+                    var medium = parseInt(g.attr("medium"));
+                    var small = parseInt(g.attr("small"));
+                    var xsmall = parseInt(g.attr("xsmall"));
+                    var xxsmall = parseInt(g.attr("xxsmall"));
+                    $("article", x).each(function (ix, a) {
+                        if (ix >= large)
+                            $(a).addClass("hide-lt-xlarge");
+                        if (ix >= medium)
+                            $(a).addClass("hide-lt-large");
+                        if (ix >= small)
+                            $(a).addClass("hide-lt-medium");
+                        if (ix >= xsmall)
+                            $(a).addClass("hide-lt-small");
+                        if (ix >= xxsmall)
+                            $(a).addClass("hide-lt-xsmall");
+                    });
+                })
                     .prepend(skel.vars.mobile ? "" : '<div class="forward"></div><div class="backward"></div>'), { delay: 50 })
                     .context.children(".inner")
                     .css("overflow-y", skel.vars.mobile ? "visible" : "hidden")
@@ -717,8 +737,11 @@ var $alpbros;
             function initLightbox(context) {
                 $(".gallery.lightbox", context).on("click", "a", function (e) {
                     var $a = $(this), $gallery = $a.parents(".gallery"), $modal = $gallery.children(".modal"), $modalImg = $modal.find("img"), href = $a.attr("href");
+                    if ($a.hasClass("next") || $a.hasClass("prev"))
+                        return;
                     // not an image?
-                    if (!href || !href.match(/\.(jpg|gif|png|mp4)$/))
+                    var url = href.split("?")[0];
+                    if (!url || !url.match(/\.(jpg|gif|png|mp4)$/))
                         return;
                     // prevent default.
                     e.preventDefault();
@@ -731,6 +754,7 @@ var $alpbros;
                     $modal.data("cur", $a);
                     // set src, visible and focus
                     $modalImg.attr("src", href);
+                    $gallery.addClass("modal");
                     $modal.addClass("visible");
                     $modal.focus();
                     // disable bg scrolling
@@ -739,7 +763,7 @@ var $alpbros;
                     setTimeout(function () { $modal[0]._locked = false; }, 300);
                 })
                     .on("click", ".modal", function (e) {
-                    var $modal = $(this), $modalImg = $modal.find("img");
+                    var $modal = $(this), $modalImg = $modal.find("img"), $gallery = $modal.parent();
                     // locked?
                     if ($modal[0]._locked)
                         return;
@@ -752,6 +776,7 @@ var $alpbros;
                     $modal.removeClass("loaded");
                     // delay and hide.
                     setTimeout(function () {
+                        $gallery.removeClass("modal");
                         $modal.removeClass("visible"); // hide
                         $alpbros.$main.removeClass("no-scroll"); // enable scrolling
                         setTimeout(function () {
@@ -835,6 +860,58 @@ var $alpbros;
                 });
             }
         })(gallery = $ui.gallery || ($ui.gallery = {}));
+    })($ui = $alpbros.$ui || ($alpbros.$ui = {}));
+})($alpbros || ($alpbros = {}));
+var $alpbros;
+(function ($alpbros) {
+    var $ui;
+    (function ($ui) {
+        var instagallery;
+        (function (instagallery) {
+            /** Initializes all insta galleries. */
+            function init(context) {
+                $(".instagallery", context).q().ForEach(function (x) { return initGallery(x); });
+            }
+            instagallery.init = init;
+            function initGallery(cnt) {
+                var gallery = $("<div>")
+                    .addClass("gallery " + cnt[0].className.replace("instagallery", ""))
+                    .attr("amount", cnt.attr("amount"))
+                    .attr("large", cnt.attr("large"))
+                    .attr("medium", cnt.attr("medium"))
+                    .attr("small", cnt.attr("small"))
+                    .attr("xsmall", cnt.attr("xsmall"))
+                    .appendTo(cnt);
+                var max = parseInt(cnt.attr("amount"));
+                var types = cnt.attr("type").split(" ");
+                // remove attr from instagallery cnt
+                cnt[0].className = "instagallery";
+                cnt.removeAttr("amount");
+                cnt.removeAttr("large");
+                cnt.removeAttr("medium");
+                cnt.removeAttr("small");
+                cnt.removeAttr("xsmall");
+                // load insta entries
+                $alpbros.$ctx.getInstaEntries().then(function (entries) {
+                    var qx = $q(entries)
+                        .OrderByDescending(function (x) { return x.created_time; })
+                        .Where(function (x) { return types.indexOf(x.type) > -1; })
+                        .Take(max);
+                    qx.ForEach(function (entry) {
+                        // append entry
+                        gallery.append(getEntryElement(entry));
+                    });
+                    // init gallery
+                    $ui.gallery.init(cnt);
+                });
+            }
+            function getEntryElement(entry) {
+                return '<article>' +
+                    '<a href="' + entry.images.standard_resolution.url + '" class="image"><img src="' + entry.images.standard_resolution.url + '" alt="" /></a>' +
+                    '<div class="caption"><h3></h3></div>' +
+                    '</article>';
+            }
+        })(instagallery = $ui.instagallery || ($ui.instagallery = {}));
     })($ui = $alpbros.$ui || ($alpbros.$ui = {}));
 })($alpbros || ($alpbros = {}));
 var $alpbros;
@@ -1276,6 +1353,7 @@ var $alpbros;
             $ui.items.init(context); // init item lists
             $ui.events.init(context); // init events
             $ui.gallery.init(context); // init gallery
+            $ui.instagallery.init(context); // init insta gallery
             $ui.timeline.init(context); // init timeline
             $ui.map.init(context); // google maps
             $ui.link.init(context); // init links and smooth scrolling, do this last because the other functions may create/change some link
@@ -1844,6 +1922,19 @@ var $alpbros;
             return $ctx.del("/registration?lang=" + $alpbros.$cfg.lang + "&db=" + $alpbros.$cfg.ctx.db, { reg: reg, force: force, status: status || $alpbros.MTBRegistrationStatus.Canceled, email: email });
         }
         $ctx.deleteRegistration = deleteRegistration;
+    })($ctx = $alpbros.$ctx || ($alpbros.$ctx = {}));
+})($alpbros || ($alpbros = {}));
+var $alpbros;
+(function ($alpbros) {
+    var $ctx;
+    (function ($ctx) {
+        /** Gets instagram entries. */
+        function getInstaEntries() {
+            return $ctx.get("/insta").then(function (res) {
+                return res.data;
+            });
+        }
+        $ctx.getInstaEntries = getInstaEntries;
     })($ctx = $alpbros.$ctx || ($alpbros.$ctx = {}));
 })($alpbros || ($alpbros = {}));
 var $alpbros;

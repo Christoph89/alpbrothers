@@ -5989,6 +5989,30 @@ body.is-loading .gallery.onload-fade-in article .image img {
 .gallery article .image {
   background-color: rgba(0, 0, 0, 0.125); }
 
+.gallery.squares .inner {
+  width: 100%;
+  margin: 0; }
+  .gallery.squares .inner article {
+    position: relative; }
+    .gallery.squares .inner article:after {
+      content: "";
+      display: block;
+      padding-bottom: 100%; }
+    .gallery.squares .inner article a.image {
+      position: absolute;
+      top: 0;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      padding: 1%; }
+      .gallery.squares .inner article a.image img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover; }
+
+.gallery.squares.modal .inner {
+  width: initial; }
+
 /* Wrapper */
 .wrapper.content-align-center {
   text-align: center; }
@@ -7531,6 +7555,30 @@ body.is-loading .items.onload-fade-in > * > .inner {
 .no-pointer-events {
   pointer-events: none; }
 
+@media screen and (max-width: 1680px) {
+  .hide-lt-xlarge {
+    display: none; } }
+
+@media screen and (max-width: 1280px) {
+  .hide-lt-large {
+    display: none; } }
+
+@media screen and (max-width: 980px) {
+  .hide-lt-medium {
+    display: none; } }
+
+@media screen and (max-width: 736px) {
+  .hide-lt-small {
+    display: none; } }
+
+@media screen and (max-width: 480px) {
+  .hide-lt-xsmall {
+    display: none; } }
+
+@media screen and (max-width: 360px) {
+  .hide-lt-xxsmall {
+    display: none; } }
+
 #home .logo {
   width: 40rem;
   max-width: 100%; }
@@ -7653,19 +7701,17 @@ section.partner > .inner {
   html.missing-cookie-agreement #cookie-agreement {
     display: block; }
 
-#impressions #instawidget {
-  border: 0;
-  overflow: hidden;
-  width: 98%; }
-  @media screen and (min-width: 980px) {
-    #impressions #instawidget {
-      width: 90%; } }
-  @media screen and (min-width: 1280px) {
-    #impressions #instawidget {
-      width: 85%; } }
-  @media screen and (min-width: 1680px) {
-    #impressions #instawidget {
-      width: 80%; } }
+#impressions .instagallery {
+  width: 80%;
+  margin: 0 10%; }
+  @media screen and (max-width: 736px) {
+    #impressions .instagallery {
+      width: 90%;
+      margin: 0 5%; } }
+  @media screen and (max-width: 480px) {
+    #impressions .instagallery {
+      width: 100%;
+      margin: 0; } }
 
 #event.page .erlebniscard-only {
   display: none; }

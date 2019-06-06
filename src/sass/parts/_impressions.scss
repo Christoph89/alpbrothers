@@ -1,12 +1,16 @@
 #impressions
 {
-  #instawidget
+  .instagallery
   {
-    border:0;
-    overflow:hidden;
-    width: 98%;
-    @include breakpoint(minmedium) { width: 90%; }
-    @include breakpoint(minlarge) { width: 85%; }
-    @include breakpoint(minxlarge) { width: 80%; }
+    width: 80%;
+    margin: 0 10%;
+    @include breakpoint(small) {
+      width: 90%;
+      margin: 0 5%;
+    }
+    @include breakpoint(xsmall) {
+      width: 100%;
+      margin: 0;
+    }
   }
 }

@@ -9,6 +9,7 @@
 /// <reference path="ui-items.ts" />
 /// <reference path="ui-events.ts" />
 /// <reference path="ui-gallery.ts" />
+/// <reference path="ui-instagallery.ts" />
 /// <reference path="ui-map.ts" />
 /// <reference path="ui-map-style.ts" />
 /// <reference path="ui-menu.ts" />
@@ -37,6 +38,7 @@ module $alpbros.$ui
     $ui.items.init(context); // init item lists
     $ui.events.init(context); // init events
     $ui.gallery.init(context); // init gallery
+    $ui.instagallery.init(context); // init insta gallery
     $ui.timeline.init(context); // init timeline
     $ui.map.init(context); // google maps
     $ui.link.init(context); // init links and smooth scrolling, do this last because the other functions may create/change some link

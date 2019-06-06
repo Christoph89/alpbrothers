@@ -7,6 +7,7 @@
 /// <reference path="data-event.ts" />
 /// <reference path="data-registration.ts" />
 /// <reference path="data-email.ts" />
+/// <reference path="data-insta.ts" />
 "use strict";
 
 module $alpbros.$data

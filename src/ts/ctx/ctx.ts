@@ -6,6 +6,7 @@
 /// <reference path="ctx-db.ts" />
 /// <reference path="ctx-session.ts" />
 /// <reference path="ctx-registration.ts" />
+/// <reference path="ctx-insta.ts" />
 "use strict";
 
 module $alpbros.$ctx

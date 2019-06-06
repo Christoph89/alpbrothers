@@ -24,3 +24,18 @@
 .no-pointer-events {
   pointer-events: none;
 }
+
+@mixin _hidelt($breakpoint) {
+  @include breakpoint($breakpoint) {
+    .hide-lt-#{$breakpoint}{
+      display: none;
+    }
+  }
+}
+
+@include _hidelt(xlarge);
+@include _hidelt(large);
+@include _hidelt(medium);
+@include _hidelt(small);
+@include _hidelt(xsmall);
+@include _hidelt(xxsmall);
