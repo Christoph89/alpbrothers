@@ -20,6 +20,12 @@ module $alpbros
     export var shownEvents: number;
     /** Specifies whether registration is allowed. */
     export var allow_reg: boolean;
+    /** Specifies whether to use instagram. */
+    export var use_instagram: boolean;
+    /** Specifies the instameta lookup id. */
+    export var instameta_id: boolean;
+    /** Specifies the instatoken lookup id. */
+    export var instatoken_id: boolean;
     /** Gets all page infos. */
     export var pages: { [name: string]: PageInfo };
     /** Gets the app resource. */

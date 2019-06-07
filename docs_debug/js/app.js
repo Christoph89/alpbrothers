@@ -3273,6 +3273,34 @@ var $alpbros;
 (function ($alpbros) {
     var $cmd;
     (function ($cmd) {
+        /** Sign out command. */
+        var CmdInstaAuth = /** @class */ (function () {
+            function CmdInstaAuth() {
+            }
+            /** Executes the command. */
+            CmdInstaAuth.prototype.exec = function (args) {
+                return $alpbros.$ctx.get("/system/lookup/" + $alpbros.$cfg.instameta_id)
+                    .always(function () { $alpbros.$ui.loader.hide(); }) // always hide loader
+                    .then(function (res) {
+                    // redirect to insta auth
+                    var meta = JSON.parse(res.value);
+                    var url = meta.redirectUrl + "?api_key=" + $alpbros.$cfg.ctx.apikey; //+"&session_token="+$ctx.session.token(); //@@toto insta looses second url param at the moment
+                    window.open("https://api.instagram.com/oauth/authorize/?client_id=" + meta.clientId + "&redirect_uri=" + url + "&response_type=code");
+                })
+                    .fail(function (jqXHR, status, err) {
+                    // log error
+                    console.error(err);
+                });
+            };
+            return CmdInstaAuth;
+        }());
+        $cmd.CmdInstaAuth = CmdInstaAuth;
+    })($cmd = $alpbros.$cmd || ($alpbros.$cmd = {}));
+})($alpbros || ($alpbros = {}));
+var $alpbros;
+(function ($alpbros) {
+    var $cmd;
+    (function ($cmd) {
         /** Executes the specified command. */
         function exec(name, args) {
             var ctor = $cmd[getName(name)];

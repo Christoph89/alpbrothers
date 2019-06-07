@@ -9,6 +9,7 @@
 /// <reference path="cmd-edit-event.ts" />
 /// <reference path="cmd-delete-event.ts" />
 /// <reference path="cmd-delete-registration.ts" />
+/// <reference path="cmd-insta-auth.ts" />
 "use strict";
 
 module $alpbros.$cmd

@@ -8,6 +8,7 @@
   [
     { "url": "https://www.facebook.com/alpbrothers", "text": "Facebook", "icon": "fa-facebook", "target": "_blank" },
     { "url": "https://www.instagram.com/alpbrothers", "text": "Instagram", "icon": "fa-instagram", "target": "_blank" },
+    { "url": "#/cmd/insta-auth", "text": "Refresh Instagram Token", "icon": "fa-refresh auth-only" },
     { "url": "mailto:office@alpbrothers.at", "text": "Email", "icon": "fa-envelope" },
     { "url": "tel:+4367761706070", "text": "Telefon", "icon": "fa-phone" },
     { "url": "https://api.whatsapp.com/send?phone=4367761716070", "text": "WhatsApp", "icon": "fa-whatsapp", "target": "_blank" }
