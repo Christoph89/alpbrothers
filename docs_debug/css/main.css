@@ -7644,6 +7644,9 @@ section.partner > .inner {
   .items.partner section.samonigghof .inner a {
     background-image: url(../img/partner/samonigghof.png);
     background-image: url(../img/partner/samonigghof.svg); }
+  .items.partner section.elffotografie .inner a {
+    background-image: url(../img/partner/elffotografie.png);
+    background-image: url(../img/partner/elffotografie.svg); }
   .items.partner section .inner {
     width: 100%;
     height: 100%; }
