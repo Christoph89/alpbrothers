@@ -140,6 +140,20 @@
         "panel": "new"
       },
       "problemMatcher": []
+    },
+    {
+      "label": "run",
+      "command": "gulp",
+      "type": "shell",
+      "args": [
+        "run"
+      ],
+      "group": "none",
+      "presentation": {
+        "reveal": "always",
+        "panel": "new"
+      },
+      "problemMatcher": []
     }
   ]
 }

@@ -1,10 +1,32 @@
 {
   "name": "alpbrothers",
-  "version": "3.1.0",
+  "version": "3.2.0",
   "description": "www.alpbrothers.at",
+  "directories": {
+    "doc": "docs"
+  },
   "dependencies": {
-    "connect": "^3.6.6",
-    "gulp-web-build": "^3.1.5",
-    "serve-static": "^1.13.2"
-  }
+    "gulp-web-build": "^3.2.2",
+    "gulp-web-start": "^2.1.0"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "start": "node server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Christoph89/alpbrothers.git"
+  },
+  "keywords": [
+    "Alpbrothers",
+    "Mountainbike",
+    "Guiding",
+    "Website"
+  ],
+  "author": "Christoph Schaunig",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Christoph89/alpbrothers/issues"
+  },
+  "homepage": "https://github.com/Christoph89/alpbrothers#readme"
 }

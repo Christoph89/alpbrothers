@@ -1,11 +1,11 @@
 import * as fs from "fs";
 import * as $p from "path";
 import * as $ from "gulp-web-build";
-import { logLevel } from "gulp-web-build/bin/dts/log";
+import { WebServerTask } from "gulp-web-start";
 
 /** Set meta log. */
 $.log.writeMeta=(msg, meta) => {
-  if (msg.level=="error" || $.log.logLevel=="silly")
+  if (msg.level=="error" || $.log.mask==$.log.LogMask.silly)
     return JSON.stringify(meta);
   return JSON.stringify(meta, (key, val) =>
   {
@@ -22,8 +22,7 @@ $.task("prep", function (cb) {
       "docs",
       "docs_debug",
       "LICENSE.txt",
-      ".editorconfig",
-      "package-lock.json")
+      ".editorconfig")
     // exclude all paths from .gitignore
     .excludeGitIgnores("*.log")
     // add all gulp task runners to vsc
@@ -130,3 +129,9 @@ function getEventImages(b: $.Build): string[]
     .where(x => { var ext=$p.extname(x).toLowerCase(); return  ext==".jpg" || ext==".png"; })
     .toArray();
 }
+
+/** Add test server.
+ * Use gulp run to start listening.
+ * Use --debug to use debug folder.
+ */
+WebServerTask.listen("run", 8080, "./docs", "./docs_debug");
