@@ -6,7 +6,7 @@
     "doc": "docs"
   },
   "dependencies": {
-    "gulp-web-build": "^3.2.2",
+    "gulp-web-build": "^3.2.3",
     "gulp-web-start": "^2.1.0"
   },
   "devDependencies": {},
