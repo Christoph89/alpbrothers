@@ -1,45 +1,47 @@
 {
-  "menu": 
-  [
+  "menu": [
     { "url": "#/home", "text": "Home", "icon": "fa-home" },
     { "url": "#/about", "text": "About", "icon": "fa-id-card" },
     { "url": "#/offer", "text": "Offer", "icon": "fa-bicycle" },
     { "url": "#/upcoming", "text": "Events", "icon": "fa-calendar" },
     { "url": "#/contact", "text": "Contact", "icon": "fa-phone" },
     { "url": "%lngurl", "text": "Deutsch", "icon": "special fa-language" },
-    { "url": "#/signin", "text": "Sign in", "icon": "special fa-sign-in noauth-only" },
-    { "url": "#/cmd/signout", "text": "Sign out", "icon": "special fa-sign-out auth-only" }  
+    {
+      "url": "#/signin",
+      "text": "Sign in",
+      "icon": "special fa-sign-in noauth-only"
+    },
+    {
+      "url": "#/cmd/signout",
+      "text": "Sign out",
+      "icon": "special fa-sign-out auth-only"
+    }
   ],
 
-  "menuBtn":
-  {
+  "menuBtn": {
     "title": "Menu",
     "back": "Back"
   },
-  
-  "home":
-  {
+
+  "home": {
     "go": "Let's rock",
     "goUrl": "#/about"
   },
-  
-  "about":
-  {
+
+  "about": {
     "text": "Interested in a <b>maximum dirt after-work-ride</b>, a <b>no-pain-no-gain enduro</b> tour or a <b>relaxed day trip</b> in the tri-state area of <b>Austria, Italy and Slovenia</b> with an officially-certified mountain bike guide? We offer individual tours for beginners and the more advanced near <b>Lake Faak / Villach</b>. Reach out to us and join us discovering <b>Carinthia (Kärnten)</b> and the broader area of Lake Faak (Faaker See).",
     "more": "Learn more",
     "moreUrl": "#/region",
     "img": "Mountainbiker on the top of Schwarzkogel nearby to Lake Faak.",
     "imgLabel": "&copy; Christoph Oberschneider"
   },
-  
-  "certification":
-  {
+
+  "certification": {
     "text": "Officially-certified and licensed mountain bike guides from Carinthia",
     "guides": "Christoph & Thomas"
   },
-  
-  "region":
-  {
+
+  "region": {
     "title": "Experience Carinthia, enjoy Lake Faak",
     "text": "For us, mountain biking is more than just exercise, it is an <b>attitude to life</b>! This <b>unique lifestyle</b> combines endurance, focus, friendship, emotions, culture, and even regional cuisine with the urge to explore nature and to enjoy a breathtaking countryside. Sounds interesting? <b>Join us</b> and discover a <b>lifestyle of flow and heartbeat</b> in the astonishing region of <b>Lake Faak</b>!",
     "goUrl": "#/offer",
@@ -47,30 +49,26 @@
     "img": "Mountainbiker sitting on a wonderful alp.",
     "imgLabel": "&copy; Lukas Pilz"
   },
-    
-  "einstein":
-  {
+
+  "einstein": {
     "text": "\"Life is like riding a bicycle. To keep your balance, you must keep moving.\"",
     "author": "Albert Einstein"
   },
-  
-  "offer":
-  {
+
+  "offer": {
     "title": "Tours",
-    "eventTypes":
-    {
+    "eventTypes": {
       "TechniqueTraining": "In our technique training sessions we mainly work on <b>your biking skills</b>. Basic hints on your <b>riding position, braking technique and cornering</b>  will help you to <b>keep the flow</b> on every trail, and achieve your ideal setup for off-road riding. Afterwards you can demonstrate your abilities on one of the various <b>exciting trails</b> the beautiful <b>Lake Faak</b> area offers.",
       "GuidedTour": "Whether you are interested in a <b>maximum dirt after-work-ride</b>, a <b>no-pain-no-gain enduro</b> tour or a <b>relaxed day trip</b>. We offer all kinds of individual tours in the tri-state area of <b>Austria, Italy and Slovenia</b>. Just <b>send us your inquiry</b> and enjoy your unique experience in the epic scenery of <b>Lake Faak</b>."
     },
     "goUrl": "#/upcoming",
     "go": "Events"
   },
-  
-  "upcoming":
-  {
-    "title": "Upcoming Events",
+
+  "upcoming": {
+    "title": "Events",
     "empty": "We're sorry, there are currently no upcoming events. They will go online in April. Please come back an take a look in a few days.",
-    "furtherInfo": "For more information or <b>individual tours</b> please send us your <b>inquiry</b> or take a look at <i>\"Show all events\"</i>.",
+    "furtherInfo": "For information or <b>individual tours</b> please send us your <b>inquiry</b>.",
     "inquireUrl": "mailto:office@alpbrothers.at",
     "inquire": "Inquire now",
     "goUrl": "#/lakebike",
@@ -79,34 +77,41 @@
     "showAllUrl": "#/events"
   },
 
-  "lakebikeQuote":
-  {
+  "lakebikeQuote": {
     "text": "\"Ride the south of the alps!\"",
     "author": "lake.bike"
   },
 
-  "lakebike":
-  {
+  "lakebike": {
     "title": "lake.bike",
     "text": "Biking from the mountain to the lake, a unique experience in Carinthia, which gets united in our <b>region Villach / Faaker See / Ossiacher See</b> by the brand <b>lake.bike</b>. Quite in line with the motto <i>\"Ride the south of the alps\"</i> you will find <b>all information about mountain biking in our region</b> on the lake.bike website.",
-    "goUrl": "#/impressions",
-    "go": "Impressions",
+    "goUrl": "#/annakirchtag",
+    "go": "Annakirchtag",
     "website": "Visit lake.bike",
     "websiteUrl": "http://www.lake.bike/",
     "img": "lake.bike Mountainbiker throwing a stone into Faaker See.",
     "imgLabel": ""
   },
-  
-  "alpbrosQuote":
-  {
+
+  "annaQuote": {
+    "text": "\"Ein Kirchtag von Biker f&uuml;r Biker!\"",
+    "author": "#Annakirchtag"
+  },
+
+  "annakirchtag": {
+    "title": "Annakirchtag",
+    "text": "abc...",
+    "goUrl": "#/impressions",
+    "go": "Impressionen"
+  },
+
+  "alpbrosQuote": {
     "text": "\"For us, mountain biking is more than just exercise, it is an attitude to life!\"",
     "author": "Alpbrothers"
   },
-  
-  "impressions":
-  {
-    "keywords":
-    [
+
+  "impressions": {
+    "keywords": [
       "Nature",
       "Passion",
       "View",
@@ -121,15 +126,13 @@
       "Challenge"
     ]
   },
-  
-  "alpbrosQuote2":
-  {
+
+  "alpbrosQuote2": {
     "text": "\"Mountain biking in Carinthia is unique.<br />Discover a lifestyle of flow and heartbeat in the astonishing region of Lake Faak!\"",
     "author": "Alpbrothers"
   },
-  
-  "contact":
-  {
+
+  "contact": {
     "title": "Contact",
     "titleTel": "Phone nr.",
     "titleEmail": "Send us an Email",

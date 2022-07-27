@@ -1,7 +1,7 @@
 {% extends "html/tpl.html" %}
 
 {% block content %}
-  {% set sections=["welcome", "about", "region", "offer", "upcoming", "lakebike", "impressions", "contact", "partner"] %}
+  {% set sections=["welcome", "about", "region", "offer", "upcoming", "lakebike", "annakirchtag", "impressions", "contact", "partner"] %}
   {% for section in sections %}
     {% include "html/parts/"+section+".html" %}
   {% endfor %}

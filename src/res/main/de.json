@@ -1,30 +1,34 @@
 {
-  "menu": 
-  [
+  "menu": [
     { "url": "#/home", "text": "Home", "icon": "fa-home" },
     { "url": "#/about", "text": "About", "icon": "fa-id-card" },
     { "url": "#/offer", "text": "Angebot", "icon": "fa-bicycle" },
     { "url": "#/upcoming", "text": "Termine", "icon": "fa-calendar" },
     { "url": "#/contact", "text": "Kontakt", "icon": "fa-phone" },
     { "url": "%lngurl", "text": "English", "icon": "special fa-language" },
-    { "url": "#/signin", "text": "Anmelden", "icon": "special fa-sign-in noauth-only" },
-    { "url": "#/cmd/signout", "text": "Abmelden", "icon": "special fa-sign-out auth-only" } 
+    {
+      "url": "#/signin",
+      "text": "Anmelden",
+      "icon": "special fa-sign-in noauth-only"
+    },
+    {
+      "url": "#/cmd/signout",
+      "text": "Abmelden",
+      "icon": "special fa-sign-out auth-only"
+    }
   ],
 
-  "menuBtn":
-  {
+  "menuBtn": {
     "title": "Menü",
     "back": "Zurück"
   },
 
-  "home":
-  {
+  "home": {
     "go": "Let's rock",
     "goUrl": "#/about"
   },
 
-  "about":
-  {
+  "about": {
     "text": "ist dein Anbieter für <b>individuelle Mountainbike Touren in K&auml;rnten</b>. Egal ob Techniktraining, kurz-knackiger Feierabend Trail, fetziger Enduro Ausflug oder ausgiebige Dreiländer-Tagestour, wir sind deine Begleiter auf dem Weg zum <b>Rundum-Sorglos-Bike-Paket</b> und führen dich durch deine individuelle Traumtour im Raum <b>Villach / Faaker See / Dreiländereck</b>.",
     "more": "Mehr erfahren",
     "moreUrl": "#/region",
@@ -32,14 +36,12 @@
     "imgLabel": "&copy; Christoph Oberschneider"
   },
 
-  "certification":
-  {
+  "certification": {
     "text": "Staatlich geprüfte Mountainbike Guides aus Kärnten",
     "guides": "Christoph & Thomas"
   },
 
-  "region":
-  {
+  "region": {
     "title": "Erlebe Kärnten, genieße den Faaker See",
     "text": "Mountainbiken ist f&uuml;r uns eine <b>Lebenseinstellung</b>. Sportliche Herausforderung, Freundschaft, Kultur, Kulinarik, Entdeckungsdrang, die Konzentration und der Fahrspaß am Trail, der <b>Einklang mit Bike und Natur</b>, und vor allem die atemberaubende Kulisse <b>K&auml;rntens</b> und der <b>Faaker See</b> bilden das Rezept für ein <b>unvergessliches Berg & Seen Erlebnis</b>. Wer mit uns den Tag verbringt soll vor allem eines, mit einem breiten Lächeln nach Hause gehen!",
     "goUrl": "#/offer",
@@ -48,17 +50,14 @@
     "imgLabel": "&copy; Lukas Pilz"
   },
 
-  "einstein":
-  {
+  "einstein": {
     "text": "\"Life is like riding a bicycle. To keep your balance, you must keep moving.\"",
     "author": "Albert Einstein"
   },
 
-  "offer":
-  {
+  "offer": {
     "title": "Unser Angebot",
-    "eventTypes":
-    {
+    "eventTypes": {
       "TechniqueTraining": "In unserem Training arbeiten wir zuerst gemeinsam an deiner <b>Fahrtechnik</b>. Grundlegende <b>Tipps und Tricks</b> zu Haltung, Brems- und Kurventechnik sollen dir helfen auf jedem Trail zu bestehen. Nachdem wir deine Technik verbessert haben rocken wir dann gemeinsam die Trails <b>rund um den Faaker See</b>.",
       "GuidedTour": "Egal ob kurz-knackiger <b>Feierabend Trail</b>, fetziger <b>Enduro Ausflug</b> oder ausgiebige <b>Dreiländer-Tagestour</b>, wir sind deine Begleiter auf dem Weg zum <b>Rundum-Sorglos-Bike-Paket</b> und führen dich durch deine individuelle Traumtour im Raum <b>Villach / Faaker See / Dreiländereck</b>."
     },
@@ -66,11 +65,10 @@
     "go": "Termine"
   },
 
-  "upcoming":
-  {
-    "title": "Anstehende Termine",
+  "upcoming": {
+    "title": "Termine",
     "empty": "Zur Zeit sind leider keine Termine vorhanden. Diese werden im April online gestellt. Bitte besuchen Sie uns in ein paar Tagen nochmal.",
-    "furtherInfo": "Für weitere Informationen oder <b>individuelle Touren und Kurse</b> senden Sie uns bitte eine <b>Anfrage</b> oder werfen Sie einen Blick unter \"Alle Termine anzeigen\".",
+    "furtherInfo": "Für Informationen oder <b>individuelle Touren und Kurse</b> senden Sie uns bitte eine <b>Anfrage</b>.",
     "inquireUrl": "mailto:office@alpbrothers.at",
     "inquire": "Jetzt anfragen",
     "goUrl": "#/lakebike",
@@ -79,34 +77,44 @@
     "showAllUrl": "#/events"
   },
 
-  "lakebikeQuote":
-  {
+  "lakebikeQuote": {
     "text": "\"Ride the south of the alps!\"",
     "author": "lake.bike"
   },
 
-  "lakebike":
-  {
+  "lakebike": {
     "title": "lake.bike",
     "text": "Mit dem Mountainbike vom Berg zum See, eine einzigartige Kombination in Kärnten, die wir in der <b>Region Villach / Faaker See / Ossiacher See</b> unter der Marke <b>lake.bike</b> vereinen. Getreu dem Motto <i>\"Ride the south of the alps\"</i> findest du auf der lake.bike Website <b>alle Infos zum Thema Mountainbiken</b> in unserer Region.",
-    "goUrl": "#/impressions",
-    "go": "Impressionen",
+    "goUrl": "#/annakirchtag",
+    "go": "Annakirchtag",
     "website": "Visit lake.bike",
     "websiteUrl": "http://www.lake.bike/",
     "img": "lake.bike Mountainbiker wirft einen Stein in den Faaker See.",
     "imgLabel": ""
   },
 
-  "alpbrosQuote":
-  {
+  "annaQuote": {
+    "text": "\"Ein Kirchtag von Biker f&uuml;r alle!\"",
+    "author": "#Annakirchtag"
+  },
+
+  "annakirchtag": {
+    "title": "Alpbrothers Annakirchtag",
+    "text": "Zus&auml;tzlich zum Mountainbiken haben wir uns zum Ziel gesetzt den traditionellen <b>Annakirchtag</b> am Fu&szlig;e des Mittagskogels am Leben zu erhalten. Ganz nach dem Motto <i><b>\"Ein Kirchtag von Biker f&uuml;r alle\"</b></i>, erwecken wir gemeinsam mit euch <b>jeden letzten Sonntag im Juli</b> die ehemalige Annah&uuml;tte wieder zum Leben!",
+    "text2": "Dieses Jahr findet der Kirchtag am <b>30.Juli 2022 ab 10 Uhr</b> statt. Mit Kirchtagssuppe, selbstgemachten Gulasch, bedruckten Alpbrothers T-Shirts und allerlei Getr&auml;nken freuen wir uns auf euch.",
+    "goUrl": "#/impressions",
+    "go": "Impressionen",
+    "img": "Foto vom Team des Annakirchtags",
+    "imgLabel": ""
+  },
+
+  "alpbrosQuote": {
     "text": "\"Mountainbiken ist für uns eine Lebenseinstellung.\"",
     "author": "Alpbrothers"
   },
 
-  "impressions":
-  {
-    "keywords":
-    [
+  "impressions": {
+    "keywords": [
       "Natur",
       "Leidenschaft",
       "Aussicht",
@@ -121,15 +129,13 @@
       "Herausforderung"
     ]
   },
-  
-  "alpbrosQuote2":
-  {
+
+  "alpbrosQuote2": {
     "text": "\"Mountainbiken in Kärnten ist einzigartig.<br />Wer mit uns den Tag verbringt soll daher vor allem eines, mit einem breiten Lächeln nach Hause gehen.\"",
     "author": "Alpbrothers"
   },
 
-  "contact":
-  {
+  "contact": {
     "title": "Kontakt",
     "titleTel": "Telefonnr.",
     "titleEmail": "Email senden",

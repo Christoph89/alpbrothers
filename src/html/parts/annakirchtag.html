@@ -1,0 +1,24 @@
+<!-- alpbros-quote -->
+<section class="spotlight quote style1 color5 invert content-align-center image-position-center onscroll-content-fade-right">
+  <div class="content">
+    <h3><i>{{ res.annaQuote.text | safe }}</i></h3>
+    <h4>{{ res.annaQuote.author }}</h4>
+  </div>
+</section>
+
+<!-- annakirchtag -->
+<section id="annakirchtag" href="#/annakirchtag" class="spotlight style2 color2 orient-left content-align-left border-top image-position-center onscroll-content-fade-left onscroll-image-fade-in">
+  <div class="inner">
+    <h2>{{ res.annakirchtag.title }}</h2>
+
+    <p>{{ res.annakirchtag.text | safe }}</p>
+    <p>{{ res.annakirchtag.text2 | safe }}</p>
+    <ul class="actions">
+      <li><a href="{{ res.annakirchtag.goUrl }}" class="button icon fa-angle-down">{{ res.annakirchtag.go }}</a></li>
+    </ul>
+  </div>
+  <div class="image">
+    <img src="{{ root }}img/annakirchtag.jpg" alt="{{ res.annakirchtag.img }}" />
+    <span class="label white bottom right">{{ res.annakirchtag.imgLabel | safe }}</span>
+  </div>
+</section>
