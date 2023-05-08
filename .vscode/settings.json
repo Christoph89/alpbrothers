@@ -1,7 +1,7 @@
 {
   "files.exclude": {
-    "docs": true,
-    "docs_debug": true,
+    "docs": false,
+    "docs_debug": false,
     "LICENSE.txt": true,
     ".editorconfig": true,
     "*.sublime-workspace": true,
