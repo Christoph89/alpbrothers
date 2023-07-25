@@ -290,14 +290,30 @@
     <h2>Alpbrothers Annakirchtag</h2>
 
     <p>Zus&auml;tzlich zum Mountainbiken haben wir uns zum Ziel gesetzt den traditionellen <b>Annakirchtag</b> am Fu&szlig;e des Mittagskogels am Leben zu erhalten. Ganz nach dem Motto <i><b>"Ein Kirchtag von Biker f&uuml;r alle"</b></i>, erwecken wir gemeinsam mit euch <b>jeden letzten Samstag im Juli</b> die ehemalige Annah&uuml;tte wieder zum Leben!</p>
-    <p>Dieses Jahr findet der Kirchtag am <b>29. Juli 2023  ab 10 Uhr</b> statt. Mit Kirchtagssuppe, selbstgemachten Gulasch, bedruckten Alpbrothers T-Shirts und allerlei Getr&auml;nken freuen wir uns auf euch.</p>
-    <ul class="actions">
-      <li><a href="#/impressions" class="button icon fa-angle-down">Impressionen</a></li>
-    </ul>
+    <p>Dieses Jahr findet der Kirchtag am <b>29. Juli 2023 ab 10 Uhr</b> statt. Mit Kirchtagssuppe, selbstgemachten Gulasch, bedruckten Alpbrothers T-Shirts und allerlei Getr&auml;nken freuen wir uns auf euch.</p>
   </div>
   <div class="image">
     <img src="../img/AnnaKirchtag.jpg" alt="Foto vom Team des Annakirchtags" />
     <span class="label white bottom right"></span>
+  </div>
+</section>
+<section id="annakirchtag-infos" href="#/annakirchtag-infos" class="spotlight style1 color2 orient-right content-align-left border-top image-position-center onscroll-content-fade-left onscroll-image-fade-in">
+  <div class="content">
+    <h2>Infos zum Kirchtag</h2>
+
+    <ul>
+      <li><b>Wann: </b> 29. Juli 2023 ab 10 Uhr bis ca. 18 Uhr</li>
+      <li><b>Wo: </b> bei der ehemaligen Annahütte am Fuße des Mittagskogels</li>
+      <li><b>Wie komme ich dortin: </b>Ausgehend von der Schranke in Outschena, immer den Wanderweg (682) Richtung Mittagskogel folgen.</li>
+      <li><b>Wer: </b> Egal ob alt, jung, Mountainbiker oder Wanderer, jeder ist herzlich willkommen!</li>
+      <li><b>Shuttle:</b> Dieses Jahr gibt es leider kein Shuttle</li>
+      <li><b>Parkplätze:</b> Wer rechtzeitig kommt kann bei der Schranke in Outschena parken. Ansonsten der StVO entsprechend neben der Straße einen Parkplatz suchen.</li>
+      <li><b>Auffahrt mit dem PKW: </b> ist leider nicht erlaubt</li>
+      <li><b>E-Bike Verleih:</b> Wer mit dem E-Bike zu uns kommen möchte hat dieses Jahr die Möglichkeit ein E-Bike vergünstigt bei der Bärenbikes Leihstation beim Baumgartnerhof auszuleihen. Tagespauschale <b>39 EUR</b> / 4h Pauschale <b>29 EUR</b>. Achtung nur mit Voranmeldung unter <a href="mailto:office@baerenbikes.at">office@baerenbikes.at</a></li>
+    </ul>
+  </div>
+  <div class="image map" lat="46.51502685093479" lng="13.940077939035646" zoom="12">
+    <div class="marker" lat="46.51502685093479" lng="13.940077939035646"></div>
   </div>
 </section>
   
@@ -481,6 +497,26 @@
   "root": "../",
   "lang": "en",
   "res": {
+    "cmdDeleteReg": {
+      "titleDelete": "Delete registration?",
+      "textDelete": "Do you really want to delete the registration for {0}?",
+      "titleCancel": "Cancel registration?",
+      "textCancel": "Do you really want to cancel the registration for {0}?",
+      "titleReactivate": "Reactivate registration?",
+      "textReactivate": "Do you really want to reactivate the registration for {0}?"
+    },
+    "cmdEditEvent": {
+      "title": "Edit Event",
+      "text": "Do you want to edit the single event occurrence or the whole series?",
+      "items": {
+        "occurrence": "Edit occurrence",
+        "series": "Edit series"
+      }
+    },
+    "cmdDeleteEvent": {
+      "title": "Delete event?",
+      "text": "Do you really want to delete the event?"
+    },
     "common": {
       "cancel": "Cancel"
     },
@@ -546,25 +582,17 @@
         "text": ""
       }
     },
-    "cmdDeleteReg": {
-      "titleDelete": "Delete registration?",
-      "textDelete": "Do you really want to delete the registration for {0}?",
-      "titleCancel": "Cancel registration?",
-      "textCancel": "Do you really want to cancel the registration for {0}?",
-      "titleReactivate": "Reactivate registration?",
-      "textReactivate": "Do you really want to reactivate the registration for {0}?"
-    },
-    "cmdEditEvent": {
-      "title": "Edit Event",
-      "text": "Do you want to edit the single event occurrence or the whole series?",
-      "items": {
-        "occurrence": "Edit occurrence",
-        "series": "Edit series"
-      }
-    },
-    "cmdDeleteEvent": {
-      "title": "Delete event?",
-      "text": "Do you really want to delete the event?"
+    "events": {
+      "title": "Alpbrothers - Events",
+      "level": "Level",
+      "dateFormat": "dddd MMMM D YYYY<br />hh:mm a - hh:mm a",
+      "multiDayFormat": "dd MMMM D<br />- dd MMMM D YYYY",
+      "fromFormat": "dddd MMMM D",
+      "erlebniscardPrice": "free with Erlebniscard",
+      "imgPath": "img/events/",
+      "details": "Details & Registration",
+      "edit": "Edit",
+      "eventUrl": "#/event?id={0}"
     },
     "event": {
       "title": "Alpbrothers - Event",
@@ -609,18 +637,6 @@
         "text": "Do you really want to reactivate the registration for {name}?",
         "ok": "#/cmd/delete-registration?regId={regId}&eventId={eventId}&created={created}&createdBy={createdBy}&email={email}&phone={phone}&name={name}&goto={goto}&force={force}&status={status}"
       }
-    },
-    "events": {
-      "title": "Alpbrothers - Events",
-      "level": "Level",
-      "dateFormat": "dddd MMMM D YYYY<br />hh:mm a - hh:mm a",
-      "multiDayFormat": "dd MMMM D<br />- dd MMMM D YYYY",
-      "fromFormat": "dddd MMMM D",
-      "erlebniscardPrice": "free with Erlebniscard",
-      "imgPath": "img/events/",
-      "details": "Details & Registration",
-      "edit": "Edit",
-      "eventUrl": "#/event?id={0}"
     },
     "main": {
       "title": "Alpbrothers - Your mountainbike guide at Lake Faak in Carinthia"

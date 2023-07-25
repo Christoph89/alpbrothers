@@ -324,6 +324,26 @@
   "root": "../",
   "lang": "en",
   "res": {
+    "cmdDeleteReg": {
+      "titleDelete": "Delete registration?",
+      "textDelete": "Do you really want to delete the registration for {0}?",
+      "titleCancel": "Cancel registration?",
+      "textCancel": "Do you really want to cancel the registration for {0}?",
+      "titleReactivate": "Reactivate registration?",
+      "textReactivate": "Do you really want to reactivate the registration for {0}?"
+    },
+    "cmdEditEvent": {
+      "title": "Edit Event",
+      "text": "Do you want to edit the single event occurrence or the whole series?",
+      "items": {
+        "occurrence": "Edit occurrence",
+        "series": "Edit series"
+      }
+    },
+    "cmdDeleteEvent": {
+      "title": "Delete event?",
+      "text": "Do you really want to delete the event?"
+    },
     "common": {
       "cancel": "Cancel"
     },
@@ -389,25 +409,17 @@
         "text": ""
       }
     },
-    "cmdDeleteReg": {
-      "titleDelete": "Delete registration?",
-      "textDelete": "Do you really want to delete the registration for {0}?",
-      "titleCancel": "Cancel registration?",
-      "textCancel": "Do you really want to cancel the registration for {0}?",
-      "titleReactivate": "Reactivate registration?",
-      "textReactivate": "Do you really want to reactivate the registration for {0}?"
-    },
-    "cmdEditEvent": {
-      "title": "Edit Event",
-      "text": "Do you want to edit the single event occurrence or the whole series?",
-      "items": {
-        "occurrence": "Edit occurrence",
-        "series": "Edit series"
-      }
-    },
-    "cmdDeleteEvent": {
-      "title": "Delete event?",
-      "text": "Do you really want to delete the event?"
+    "events": {
+      "title": "Alpbrothers - Events",
+      "level": "Level",
+      "dateFormat": "dddd MMMM D YYYY<br />hh:mm a - hh:mm a",
+      "multiDayFormat": "dd MMMM D<br />- dd MMMM D YYYY",
+      "fromFormat": "dddd MMMM D",
+      "erlebniscardPrice": "free with Erlebniscard",
+      "imgPath": "img/events/",
+      "details": "Details & Registration",
+      "edit": "Edit",
+      "eventUrl": "#/event?id={0}"
     },
     "event": {
       "title": "Alpbrothers - Event",
@@ -452,18 +464,6 @@
         "text": "Do you really want to reactivate the registration for {name}?",
         "ok": "#/cmd/delete-registration?regId={regId}&eventId={eventId}&created={created}&createdBy={createdBy}&email={email}&phone={phone}&name={name}&goto={goto}&force={force}&status={status}"
       }
-    },
-    "events": {
-      "title": "Alpbrothers - Events",
-      "level": "Level",
-      "dateFormat": "dddd MMMM D YYYY<br />hh:mm a - hh:mm a",
-      "multiDayFormat": "dd MMMM D<br />- dd MMMM D YYYY",
-      "fromFormat": "dddd MMMM D",
-      "erlebniscardPrice": "free with Erlebniscard",
-      "imgPath": "img/events/",
-      "details": "Details & Registration",
-      "edit": "Edit",
-      "eventUrl": "#/event?id={0}"
     },
     "main": {
       "title": "Alpbrothers - Your mountainbike guide at Lake Faak in Carinthia"
