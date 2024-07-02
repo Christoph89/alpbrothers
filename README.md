@@ -3,6 +3,10 @@
 This project contains the source code for www.alpbrothers.at.
 Your **mountainbike guiding provider** at the **Faaker See, Austria**.
 
+Requirements:
+* Node 14
+* ```npm i -g gulp node-sass```
+
 Execute the following steps to run the project:
 1.) open shell in the project dir
 2.) npm install -> loads all dependencies from npm

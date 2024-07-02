@@ -2,7 +2,7 @@
   "menu": [
     { "url": "#/home", "text": "Home", "icon": "fa-home" },
     { "url": "#/about", "text": "About", "icon": "fa-id-card" },
-    { "url": "#/offer", "text": "Offer", "icon": "fa-bicycle" },
+    { "url": "#/upcoming", "text": "Offer", "icon": "fa-bicycle" },
     { "url": "#/upcoming", "text": "Events", "icon": "fa-calendar" },
     { "url": "#/contact", "text": "Contact", "icon": "fa-phone" },
     { "url": "%lngurl", "text": "Deutsch", "icon": "special fa-language" },
@@ -44,7 +44,7 @@
   "region": {
     "title": "Experience Carinthia, enjoy Lake Faak",
     "text": "For us, mountain biking is more than just exercise, it is an <b>attitude to life</b>! This <b>unique lifestyle</b> combines endurance, focus, friendship, emotions, culture, and even regional cuisine with the urge to explore nature and to enjoy a breathtaking countryside. Sounds interesting? <b>Join us</b> and discover a <b>lifestyle of flow and heartbeat</b> in the astonishing region of <b>Lake Faak</b>!",
-    "goUrl": "#/offer",
+    "goUrl": "#/upcoming",
     "go": "Our tours",
     "img": "Mountainbiker sitting on a wonderful alp.",
     "imgLabel": "&copy; Lukas Pilz"
@@ -67,8 +67,8 @@
 
   "upcoming": {
     "title": "Events",
-    "empty": "We're sorry, there are currently no upcoming events. They will go online in April. Please come back an take a look in a few days.",
-    "furtherInfo": "For information or <b>individual tours</b> please send us your <b>inquiry</b>.",
+    "empty": "We're sorry, we do not offer tours or courses anymore. Please visit <b>lake.bike</b> for other providers and information.",
+    "furtherInfo": "We're sorry, we do not offer tours or courses anymore. Please visit <b>lake.bike</b> for other providers and information.",
     "inquireUrl": "mailto:office@alpbrothers.at",
     "inquire": "Inquire now",
     "goUrl": "#/lakebike",
@@ -101,7 +101,7 @@
   "annakirchtag": {
     "title": "Alpbrothers Annakirchtag",
     "text": "Zus&auml;tzlich zum Mountainbiken haben wir uns zum Ziel gesetzt den traditionellen <b>Annakirchtag</b> am Fu&szlig;e des Mittagskogels am Leben zu erhalten. Ganz nach dem Motto <i><b>\"Ein Kirchtag von Biker f&uuml;r alle\"</b></i>, erwecken wir gemeinsam mit euch <b>jeden letzten Samstag im Juli</b> die ehemalige Annah&uuml;tte wieder zum Leben!",
-    "text2": "Dieses Jahr findet der Kirchtag am <b>29. Juli 2023 ab 10 Uhr</b> statt. Mit Kirchtagssuppe, selbstgemachten Gulasch, bedruckten Alpbrothers T-Shirts und allerlei Getr&auml;nken freuen wir uns auf euch.",
+    "text2": "Dieses Jahr findet der Kirchtag am <b>27. Juli 2024 ab 10 Uhr</b> statt. Mit Kirchtagssuppe, selbstgemachter neapolitanischer Pizza aus dem Holzofen und k&uuml;hlen Getr&auml;nken freuen wir uns auf euch.",
     "title2": "Infos zum Kirchtag",
     "goUrl": "#/impressions",
     "go": "Impressionen",

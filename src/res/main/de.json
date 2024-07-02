@@ -2,7 +2,7 @@
   "menu": [
     { "url": "#/home", "text": "Home", "icon": "fa-home" },
     { "url": "#/about", "text": "About", "icon": "fa-id-card" },
-    { "url": "#/offer", "text": "Angebot", "icon": "fa-bicycle" },
+    { "url": "#/upcoming", "text": "Angebot", "icon": "fa-bicycle" },
     { "url": "#/upcoming", "text": "Termine", "icon": "fa-calendar" },
     { "url": "#/contact", "text": "Kontakt", "icon": "fa-phone" },
     { "url": "%lngurl", "text": "English", "icon": "special fa-language" },
@@ -44,7 +44,7 @@
   "region": {
     "title": "Erlebe Kärnten, genieße den Faaker See",
     "text": "Mountainbiken ist f&uuml;r uns eine <b>Lebenseinstellung</b>. Sportliche Herausforderung, Freundschaft, Kultur, Kulinarik, Entdeckungsdrang, die Konzentration und der Fahrspaß am Trail, der <b>Einklang mit Bike und Natur</b>, und vor allem die atemberaubende Kulisse <b>K&auml;rntens</b> und der <b>Faaker See</b> bilden das Rezept für ein <b>unvergessliches Berg & Seen Erlebnis</b>. Wer mit uns den Tag verbringt soll vor allem eines, mit einem breiten Lächeln nach Hause gehen!",
-    "goUrl": "#/offer",
+    "goUrl": "#/upcoming",
     "go": "Unser Angebot",
     "img": "Mountainbiker auf der Alm.",
     "imgLabel": "&copy; Lukas Pilz"
@@ -66,9 +66,9 @@
   },
 
   "upcoming": {
-    "title": "Termine",
-    "empty": "Zur Zeit sind leider keine Termine vorhanden. Diese werden im April online gestellt. Bitte besuchen Sie uns in ein paar Tagen nochmal.",
-    "furtherInfo": "Für Informationen oder <b>individuelle Touren und Kurse</b> senden Sie uns bitte eine <b>Anfrage</b>.",
+    "title": "Unser Angebot",
+    "empty": "Leider bieten wir keine Touren und Kurse mehr an.<br />Weitere Guiding Anbieter sowie alle Informationen zum Thema Mountainbiken finden Sie auf <b>lake.bike</b>.",
+    "furtherInfo": "Leider bieten wir keine Touren und Kurse mehr an.<br />Weitere Guiding Anbieter sowie alle Informationen zum Thema Mountainbiken finden Sie auf <b>lake.bike</b>.",
     "inquireUrl": "mailto:office@alpbrothers.at",
     "inquire": "Jetzt anfragen",
     "goUrl": "#/lakebike",
@@ -101,7 +101,7 @@
   "annakirchtag": {
     "title": "Alpbrothers Annakirchtag",
     "text": "Zus&auml;tzlich zum Mountainbiken haben wir uns zum Ziel gesetzt den traditionellen <b>Annakirchtag</b> am Fu&szlig;e des Mittagskogels am Leben zu erhalten. Ganz nach dem Motto <i><b>\"Ein Kirchtag von Biker f&uuml;r alle\"</b></i>, erwecken wir gemeinsam mit euch <b>jeden letzten Samstag im Juli</b> die ehemalige Annah&uuml;tte wieder zum Leben!",
-    "text2": "Dieses Jahr findet der Kirchtag am <b>29. Juli 2023 ab 10 Uhr</b> statt. Mit Kirchtagssuppe, selbstgemachten Gulasch, bedruckten Alpbrothers T-Shirts und allerlei Getr&auml;nken freuen wir uns auf euch.",
+    "text2": "Dieses Jahr findet der Kirchtag am <b>27. Juli 2024 ab 10 Uhr</b> statt. Mit Kirchtagssuppe, selbstgemachter neapolitanischer Pizza aus dem Holzofen und k&uuml;hlen Getr&auml;nken freuen wir uns auf euch.",
     "title2": "Infos zum Kirchtag",
     "goUrl": "#/impressions",
     "go": "Impressionen",
