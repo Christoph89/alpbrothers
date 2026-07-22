@@ -1,6 +1,6 @@
 {
   "files.exclude": {
-    "docs": true,
+    "docs": false,
     "docs_debug": true,
     "LICENSE.txt": true,
     ".editorconfig": true,
